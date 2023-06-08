@@ -59,9 +59,7 @@ class _ReservationEntryPageState extends State<ReservationEntryPage> {
             ),
             Hero(
                 tag: 'search_bar',
-                child: SearchBar(
-                  isOnRestaurantSearchPage: false,
-                )),
+                child: SearchBar()),
             Text(
               'Wybierz godzinę',
               textAlign: TextAlign.left,
@@ -70,8 +68,7 @@ class _ReservationEntryPageState extends State<ReservationEntryPage> {
             Hero(
                 tag: 'search_bar',
                 child: SearchBar(
-                  isOnRestaurantSearchPage: false,
-                ))
+                                ))
           ],
         ),
       ),

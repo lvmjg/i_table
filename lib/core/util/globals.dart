@@ -7,9 +7,10 @@ double elevation = 20;
 double toolbarHeight = 70;
 
 String appName = 'iTable';
-String searchBarHint = 'Znajdź restaurację lub bar';
+String searchBarHint = 'Szukaj punktu...';
 String noResults = 'Brak wyników';
 String openingHours = 'Godziny otwarcia';
+String chooseRestaurant = 'Wybierz punkt, aby dokonać rezerwacji';
 
 const RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
 

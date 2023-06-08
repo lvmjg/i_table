@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 
 import '../../../../core/util/globals.dart';
 
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const HomeAppBar({
+class SearchAppBar extends StatelessWidget implements PreferredSizeWidget{
+  const SearchAppBar({
     super.key,
   });
 

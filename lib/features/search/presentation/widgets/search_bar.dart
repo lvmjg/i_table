@@ -5,9 +5,7 @@ import '../search_page.dart';
 import '../../../../core/util/globals.dart';
 
 class SearchBar extends StatefulWidget {
-  final bool isOnRestaurantSearchPage;
-
-  const SearchBar({super.key, required this.isOnRestaurantSearchPage});
+  const SearchBar({super.key});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -21,22 +19,21 @@ class _SearchBarState extends State<SearchBar> {
     return Material(
       color: Color(primary),
       child: Padding(
-        padding: EdgeInsets.all(padding * 2),
+        padding: EdgeInsets.all(padding),
         child: InkWell(
           onTap: () {
-            print(widget.isOnRestaurantSearchPage);
-            if (widget.isOnRestaurantSearchPage == false) {
-              moveToPlan();
-            }
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchPage()));
           },
           child: BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
+              bool searchEnabled = state is SearchFetchSuccess;
+              IconData searchIcon = (state is SearchFetchSuccess && controller.text.isNotEmpty) ?  Icons.clear_rounded : Icons.search;
+
               return TextField(
-                enabled: widget.isOnRestaurantSearchPage,
+                enabled: false,
                 textAlign: TextAlign.center,
                 onChanged: (text) {
                   context.read<SearchBloc>().add(SearchInputProvided(input: text));
-
                 },
                 decoration: InputDecoration(
                     filled: true,
@@ -51,7 +48,7 @@ class _SearchBarState extends State<SearchBar> {
                     suffixIcon: InkWell(
                         //onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => RestaurantSearchPage())),
                         child: Icon(
-                      Icons.search,
+                        searchIcon,
                       color: Color(primary),
                     )),
                     hintStyle: TextStyle(
@@ -66,10 +63,13 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 
-  void moveToPlan() {
-    if (widget.isOnRestaurantSearchPage == false) {
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => SearchPage()));
-    }
+}
+
+setVisibilityBasedOnState(SearchState state) {
+  return true;
+  if(state is SearchFetchInProgress){
+    return true;
+  } else {
+    return false;
   }
 }
