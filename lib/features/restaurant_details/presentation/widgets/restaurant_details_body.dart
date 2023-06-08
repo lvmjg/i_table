@@ -57,7 +57,8 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                         shrinkWrap: true,
                         children: [
                           Text(
-                            restaurantDetails.restaurantAddress,
+                            'gege',
+                           // restaurantDetails.restaurantAddress,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontSize: 14,

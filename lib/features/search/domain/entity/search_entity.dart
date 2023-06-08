@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:i_table/core/util/string_util.dart';
-import 'package:i_table/features/search/domain/entity/restaurant_address_entity.dart';
+import 'package:i_table/core/domain/entity/restaurant_address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'search_entity.g.dart';

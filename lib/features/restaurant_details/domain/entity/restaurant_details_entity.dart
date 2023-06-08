@@ -1,16 +1,47 @@
+import 'package:i_table/core/domain/entity/restaurant_address_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import '../../../../core/domain/entity/restaurant_location_entity.dart';
+import '../../../../core/domain/entity/restaurant_opening_hours_entity.dart';
+
+part 'restaurant_details_entity.g.dart';
+
+@JsonSerializable()
 class RestaurantDetailsEntity {
+  @JsonKey(required: true)
+  final String restaurantId;
 
+  @JsonKey(required: true)
+  final String restaurantLogo;
+
+  @JsonKey(required: true)
   final String restaurantName;
-  final String restaurantAddress;
+  @JsonKey(required: true)
+  final RestaurantAddressEntity restaurantAddress;
+  @JsonKey(required: true)
+  final String restaurantDescription;
 
-  String? id;
-  String? name;
-  String? description;
-  String? hours;
-   String? address;
-  String? location;
-  String? url;
-  String? logo;
+  @JsonKey(required: true)
+  final RestaurantOpeningHoursEntity restaurantOpeningHours;
 
-  RestaurantDetailsEntity({required this.restaurantName, required this.restaurantAddress});
+  @JsonKey(required: true)
+  final String restaurantUrl;
+  @JsonKey(required: true)
+  final RestaurantLocationEntity restaurantLocation;
+
+  RestaurantDetailsEntity({
+    required this.restaurantId,
+    required this.restaurantLogo,
+    required this.restaurantName,
+    required this.restaurantAddress,
+    required this.restaurantDescription,
+    required this.restaurantOpeningHours,
+    required this.restaurantUrl,
+    required this.restaurantLocation,
+  });
+
+  factory RestaurantDetailsEntity.fromJson(Map<String, dynamic> json) =>
+      _$RestaurantDetailsEntityFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RestaurantDetailsEntityToJson(this);
 }
