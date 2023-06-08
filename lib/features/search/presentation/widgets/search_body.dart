@@ -62,7 +62,7 @@ class _SearchBodyState extends State<SearchBody> {
                                       title: Text(
                                           fetchedRestaurants[index].restaurantName),
                                       subtitle: Text(
-                                          fetchedRestaurants[index].restaurantAddress),
+                                          fetchedRestaurants[index].restaurantAddress.toString()),
                                       trailing: InkWell(
                                           onTap: () =>print('test')
                                           // showRestaurantDetails(fetchedRestaurants[index])

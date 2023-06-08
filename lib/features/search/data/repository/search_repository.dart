@@ -14,7 +14,7 @@ class SearchRepository{
       QuerySnapshot<Map<String, dynamic>> restaurantsSnapshot = await ff
           .collection('restaurants').get();
 
-      List<SearchEntity> restaurants = restaurantsSnapshot.docs.map((value) => SearchEntity.fromJson(value.data())).toList();
+      List<SearchEntity> restaurants = restaurantsSnapshot.docs.map((value) => SearchEntity.fromJson(value.id, value.data())).toList();
 
       return restaurants;
   }

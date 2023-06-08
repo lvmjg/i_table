@@ -1,24 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:i_table/core/util/string_util.dart';
+import 'package:i_table/features/search/domain/entity/restaurant_address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'search_entity.g.dart';
 
 @JsonSerializable()
-class SearchEntity {
+class SearchEntity{
 
-  @JsonKey(required: true)
-  final String restaurantId;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  late String restaurantId;
 
   @JsonKey(defaultValue: StringUtil.EMPTY)
   final String restaurantName;
 
-  @JsonKey(defaultValue: StringUtil.EMPTY)
-  final String restaurantAddress;
+  final RestaurantAddressEntity restaurantAddress;
 
-  SearchEntity({required this.restaurantId, required this.restaurantName, required this.restaurantAddress});
+  SearchEntity({required this.restaurantName, required this.restaurantAddress});
 
-  factory SearchEntity.fromJson(Map<String, dynamic> json) => _$SearchEntityFromJson(json);
+  factory SearchEntity.fromJson(String restaurantId, Map<String, dynamic> json){
+    SearchEntity searchEntity = _$SearchEntityFromJson(json);
+    searchEntity.restaurantId = restaurantId;
+    return searchEntity;
+  }
 
-  Map<String, dynamic> toJson() => _$SearchEntityToJson(this);
+  Map<String, dynamic> toJson(){
+    Map<String, dynamic> jsonMap = _$SearchEntityToJson(this);
+    jsonMap['restaurantId'] = restaurantId;
+    return jsonMap;
+  }
+
+  @override
+  String toString(){
+    return restaurantAddress.restaurantCity;
+  }
 }

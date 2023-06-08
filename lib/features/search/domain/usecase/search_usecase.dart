@@ -18,7 +18,7 @@ class SearchUseCase{
 
     return fetchedRestaurants.where((element) {
           bool nameContainsInput = element.restaurantName.toLowerCase().contains(input.toLowerCase());
-          bool addressContainsInput = element.restaurantAddress.toLowerCase().contains(input.toLowerCase());
+          bool addressContainsInput = element.restaurantAddress.toString().toLowerCase().contains(input.toLowerCase());
 
           return nameContainsInput || addressContainsInput;
       }).toList();
