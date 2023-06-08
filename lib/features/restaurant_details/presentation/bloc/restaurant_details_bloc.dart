@@ -14,6 +14,7 @@ class RestaurantDetailsBloc extends Bloc<RestaurantDetailsEvent, RestaurantDetai
     RestaurantDetailsUseCase restaurantDetailsUseCase = new RestaurantDetailsUseCase();
 
     on<RestaurantDetailsInit>((event, emit) async {
+      emit(RestaurantDetailsFetchInProgress());
 
       RestaurantDetailsEntity? fetchedRestaurantDetails = await restaurantDetailsUseCase.fetchRestaurantDetails(event.restaurantId);
 
