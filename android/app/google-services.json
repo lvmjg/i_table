@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "487788205071",
+    "project_id": "itable-93411",
+    "storage_bucket": "itable-93411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487788205071:android:8fc353ef3498e698d0ff7a",
+        "android_client_info": {
+          "package_name": "com.itable.app.i_table"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGNjsmLpoLKO0J_ZdtBPgZXh5DgEeZBic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
