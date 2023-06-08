@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+int TEST_TIMEOUT = 0;
+
 int primary = 0xFF2028FF;
 double padding =16.0;
 

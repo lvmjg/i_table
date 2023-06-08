@@ -16,7 +16,7 @@ class RestaurantDetailsRepository{
 
     FirebaseFirestore ff = FirebaseFirestore.instance;
 
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
 
     QuerySnapshot<Map<String, dynamic>> restaurantDetailsSnapshot = await ff
         .collection('restaurantsDetails').where('restaurantId', isEqualTo: restaurantId).get();
