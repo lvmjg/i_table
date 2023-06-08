@@ -16,35 +16,6 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   final TextEditingController controller = new TextEditingController();
 
-  FocusNode focusNode2 = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    focusNode2 = FocusNode();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
-
-    waitfocus();
-    print('Search INIT');
-  }
-
-  Future<void> waitfocus() async {
-    await Future.delayed(Duration(milliseconds: 500));
-
-    if (widget.isOnRestaurantSearchPage) {
-      focusNode2.requestFocus();
-    }
-  }
-
-  @override
-  void dispose() {
-    focusNode2.unfocus();
-    focusNode2.dispose();
-    super.dispose();
-
-    print('Search DISPOSE');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -62,9 +33,6 @@ class _SearchBarState extends State<SearchBar> {
             builder: (context, state) {
               return TextField(
                 enabled: widget.isOnRestaurantSearchPage,
-                focusNode: widget.isOnRestaurantSearchPage == false
-                    ? NoFocus()
-                    : focusNode2,
                 textAlign: TextAlign.center,
                 onChanged: (text) {
                   context.read<SearchBloc>().add(SearchInputProvided(input: text));
@@ -103,12 +71,5 @@ class _SearchBarState extends State<SearchBar> {
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SearchPage()));
     }
-  }
-}
-
-class NoFocus extends FocusNode {
-  @override
-  bool get hasFocus {
-    return false;
   }
 }
