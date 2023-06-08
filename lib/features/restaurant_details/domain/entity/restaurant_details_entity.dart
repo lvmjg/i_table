@@ -29,6 +29,8 @@ class RestaurantDetailsEntity {
   @JsonKey(required: true)
   final RestaurantLocationEntity restaurantLocation;
 
+  String get restaurantLocationUrl => 'https://maps.google.com/maps?q=${restaurantLocation.latitude},${restaurantLocation.longitude}';
+
   RestaurantDetailsEntity({
     required this.restaurantId,
     required this.restaurantLogo,

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/core/domain/entity/restaurant_opening_hours_entity.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_details_entity.dart';
+import 'package:i_table/features/restaurant_plan/presentation/restaurant_plan_page.dart';
 import 'package:unicons/unicons.dart';
 import '../../../../core/util/globals.dart';
+import '../../../../core/util/hex_color.dart';
+import '../../../../core/util/url_manager.dart';
 import '../bloc/restaurant_details_bloc.dart';
 
 class RestaurantDetailsBody extends StatefulWidget {
@@ -49,6 +53,14 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                           fontSize: 18, fontWeight: FontWeight.w900),
                     ),
                     SizedBox(
+                      height: padding/2,
+                    ),
+                    Text(
+                      restaurantDetails.restaurantAddress.toString(),
+                      style: TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w200, decoration: TextDecoration.underline),
+                    ),
+                    SizedBox(
                       height: padding,
                     ),
                     Padding(
@@ -57,8 +69,7 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                         shrinkWrap: true,
                         children: [
                           Text(
-                            'gege',
-                           // restaurantDetails.restaurantAddress,
+                            restaurantDetails.restaurantDescription,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontSize: 14,
@@ -79,9 +90,10 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                     SizedBox(
                       height: padding,
                     ),
-                    /* Row(
-                children: getOpeningHours(),
-              ),*/
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(padding, 0, padding, padding),
+                      child: Wrap(alignment: WrapAlignment.center, children: getOpeningHours(restaurantDetails.restaurantOpeningHours)),
+                    ),
                     SizedBox(
                       height: padding,
                     ),
@@ -94,15 +106,23 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                   children: [
                     Expanded(
                         flex: 2,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Ink(
-                            //color: Color(primary),
-                            child: CircleAvatar(
-                                child: Icon(
-                                  UniconsLine.globe,
-                                  color: Colors.white,
-                                )),
+                        child: Material(
+                          clipBehavior: Clip.hardEdge,
+                          shape: CircleBorder(),
+                          elevation: 15,
+                          child: InkWell(
+                            onTap: () {
+                              launch(restaurantDetails.restaurantUrl);
+                            },
+                            child: Ink(
+                              color: Color(primary),
+                              child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  child: Icon(
+                                    UniconsLine.globe,
+                                    color: Colors.white,
+                                  )),
+                            ),
                           ),
                         )),
                     Expanded(
@@ -125,22 +145,20 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(200)))),
                             onPressed: () {
-                           /*   Navigator.of(context).push(
+                             Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ReservationEntryPage(
-                                              restaurant: restaurant)));*/
+                                          RestaurantPlanPage()));
                             })),
                     Expanded(
                         flex: 2,
                         child: Material(
-                          //  color: Colors.transparent,
                           clipBehavior: Clip.hardEdge,
                           shape: CircleBorder(),
                           elevation: 15,
                           child: InkWell(
                             onTap: () {
-                             // launch(restaurant.url);
+                              launch(restaurantDetails.restaurantLocationUrl);
                             },
                             child: Ink(
                               color: Color(primary),
@@ -166,7 +184,29 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
     );
   }
 
-  @override
+ List<Widget> getOpeningHours(RestaurantOpeningHoursEntity restaurantOpeningHours) {
+    List<String> workDays = [];
+    workDays.add('Pn ${restaurantOpeningHours.monday.open}-${restaurantOpeningHours.monday.close}');
+    workDays.add('Wt ${restaurantOpeningHours.tuesday.open}-${restaurantOpeningHours.tuesday.close}');
+    workDays.add('Śr ${restaurantOpeningHours.wednesday.open}-${restaurantOpeningHours.wednesday.close}');
+    workDays.add('Czw ${restaurantOpeningHours.thursday.open}-${restaurantOpeningHours.thursday.close}');
+    workDays.add('Pt ${restaurantOpeningHours.friday.open}-${restaurantOpeningHours.friday.close}');
+    workDays.add('Sb ${restaurantOpeningHours.saturday.open}-${restaurantOpeningHours.saturday.close}');
+    workDays.add('Nd ${restaurantOpeningHours.sunday.open}-${restaurantOpeningHours.sunday.close}');
+
+    return workDays
+        .map((e) => Padding(
+              padding: EdgeInsets.all(2),
+              child: Chip(
+                label: Text(e),
+                backgroundColor: HexColor("#f2f2f2"),
+              ),
+            ))
+        .toList();
+  }
+
+
+@override
   void initState() {
     super.initState();
     context.read<RestaurantDetailsBloc>().add(

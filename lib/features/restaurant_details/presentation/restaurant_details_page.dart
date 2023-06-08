@@ -21,29 +21,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
       body: RestaurantDetailsBody(restaurantId: widget.restaurantId),
     );
   }
-
-/* List<Widget> getOpeningHours() {
-    List<String> hours = [];
-    hours.add('Pn 16-02');
-    hours.add('Wt 16-02');
-    hours.add('Śr 16-02');
-    hours.add('Czw 16-02');
-    hours.add('Pt 16-02');
-    hours.add('Sb 16-02');
-    hours.add('Nd 16-02');
-
-    return hours
-        .map((e) => Padding(
-              padding: EdgeInsets.all(2),
-              child: Chip(
-                label: Text(e),
-                backgroundColor: HexColor("#f2f2f2"),
-              ),
-            ))
-        .toList();
-  }*/
 }
-
 
 
 

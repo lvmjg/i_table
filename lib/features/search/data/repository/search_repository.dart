@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../core/util/globals.dart';
 import '../../domain/entity/search_entity.dart';
 
 class SearchRepository{
@@ -9,7 +10,7 @@ class SearchRepository{
   Future<List<SearchEntity>> fetchRestaurants() async{
       FirebaseFirestore ff = FirebaseFirestore.instance;
 
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: TEST_TIMEOUT));
 
       QuerySnapshot<Map<String, dynamic>> restaurantsSnapshot = await ff
           .collection('restaurants').get();
