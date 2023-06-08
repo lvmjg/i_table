@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:i_table/features/search/data/repository/search_repository.dart';
 import '../entity/search_entity.dart';
 
 class SearchUseCase{
@@ -6,20 +7,9 @@ class SearchUseCase{
   List<SearchEntity> fetchedRestaurants = [];
 
   Future<List<SearchEntity>> fetchRestaurants() async{
+    SearchRepository searchRepository = SearchRepository();
 
-    if(fetchedRestaurants.isEmpty) {
-      FirebaseFirestore ff = FirebaseFirestore.instance;
-
-      await Future.delayed(Duration(seconds: 3));
-      QuerySnapshot<Map<String, dynamic>> restaurantsSnapshot = await ff
-          .collection('restaurants').get();
-
-      fetchedRestaurants = restaurantsSnapshot.docs.map((value) =>
-          SearchEntity(
-              restaurantId: value.id,
-              restaurantName: value['restaurantName'],
-              restaurantAddress: value['restaurantName'])).toList();
-    }
+    fetchedRestaurants = await searchRepository.fetchRestaurants();
 
     return fetchedRestaurants;
   }
