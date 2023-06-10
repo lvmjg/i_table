@@ -1,134 +1,167 @@
+import 'dart:math';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:i_table/core/util/plan_generator.dart';
+import 'package:i_table/features/restaurant_plan/domain/entity/plan_element_entity.dart';
 import 'hex_color.dart';
 
 class PlanManager {
 
-  late double height;
-  late double width;
+  late int desiredHeight;
+  late int desiredWidth;
 
   late double maxHeight;
   late double maxWidth;
 
-  late List<PlanElement> elements;
+  late int cellWidth;
+  late int cellHeight;
+
+  late List<PlanElementEntity> elements =[];
   late List<TrackSize> rowSizes;
   late List<TrackSize> columnSizes;
 
-  PlanManager(BuildContext context) {
-    height = MediaQuery
-        .of(context)
-        .size
-        .height * 0.9;
-    width = height * 9 / 16;
+  PlanManager(double width, double height) {
+    initializeSizes(width, height);
 
-    print('a: ${width} ${height}');
-
-    //example elements
-    PlanElement a = PlanElement(0, 10, 0, 10);
-    PlanElement b = PlanElement(200, 1, 200, 1);
-    PlanElement c = PlanElement(40, 45, 20, 25);
-    PlanElement d = PlanElement(100, 10, 100, 10);
-
-    elements =[];
-    elements..add(a)..add(b);
- /*   int ss =40;
-    for(int i = 0; i<ss; i++){
-      for(int j = 0; j<ss;j++){
-        elements.add(PlanElement(i, 1, j, 1));
-      }
-    }*/
-
-
-    //calculate size of plan base on data from server
-    PlanElement hLast = elements.reduce((a, b) =>
-    (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
-    maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
-
-    PlanElement wLast = elements.reduce((a, b) =>
-    (a.columnStart + a.columnSpan) > (b.columnStart + b.columnSpan) ? a : b);
-    maxWidth = (wLast.columnStart + wLast.columnSpan).toDouble();
-
-    print('b: ${maxWidth} ${maxHeight}');
-
-    //scale to actual screen size
-    int cellWidth = (width / maxWidth).toInt();
-    columnSizes =
-        List.generate(maxWidth.toInt(), (index) => FixedTrackSize(cellWidth.toDouble()));
-
-    int cellHeight = (cellWidth * maxHeight / maxWidth).toInt();
-    rowSizes =
-        List.generate(maxHeight.toInt(), (index) => FixedTrackSize(cellHeight.toDouble()));
-
-    print('b: ${cellWidth} ${cellHeight}');
   }
 
-  Widget createPlan() {
+  Widget createPlan(BuildContext? context) {
+
+
     List<Widget> planElements = elements.map((e) => GridPlacement(
       columnStart: e.columnStart,
       columnSpan: e.columnSpan,
       rowStart: e.rowStart,
       rowSpan: e.rowSpan,
-      child: element('T', 'T1'),
+      child: element(e.type, e.name, e.color),
     )).toList();
     return LayoutGrid(columnSizes: columnSizes, rowSizes: rowSizes, children: planElements,);
   }
 
+  void initializeSizes(double width, double height){
+    //get size of the canvas (widget) and make sizes even
+    print('Widget max size: $width $height');
 
-  Widget element(String type, String number, [String color = "#00FF00"]) {
+    double initialScaleFactor = 1;
+    desiredHeight = (height * initialScaleFactor).toInt();
+    desiredWidth = (width * initialScaleFactor).toInt();
+
+    if(desiredHeight.isOdd) {
+      desiredHeight--;
+    }
+    if(desiredWidth.isOdd){
+      desiredWidth--;
+    }
+
+    print('Size to draw: ${desiredWidth} ${desiredHeight}');
+
+    //plan
+
+    PlanGenerator planGenerator = PlanGenerator();
+    elements = planGenerator.get();
+
+    //calculate size of plan base on data from server
+    PlanElementEntity hLast = elements.reduce((a, b) =>
+    (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
+    maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
+
+    PlanElementEntity wLast = elements.reduce((a, b) =>
+    (a.columnStart + a.columnSpan) > (b.columnStart + b.columnSpan) ? a : b);
+    maxWidth = (wLast.columnStart + wLast.columnSpan).toDouble();
+
+    print('Max sizes of plan: ${maxWidth} ${maxHeight}');
+
+    //scale
+    double scale = desiredHeight / maxHeight.toDouble();
+    desiredWidth = (maxWidth * scale).toInt();
+
+    //scale to actual screen size
+    cellHeight = (desiredHeight/ maxHeight).toInt();
+
+    if(cellHeight.isOdd) {
+      cellHeight--;
+    }
+
+    rowSizes =
+        List.generate(maxHeight.toInt(), (index) =>FlexibleTrackSize(1));
+
+    cellWidth = (desiredWidth/ maxWidth).toInt();
+
+    if(cellWidth.isOdd) {
+      cellWidth--;
+    }
+
+    columnSizes =
+        List.generate(maxWidth.toInt(), (index) => FlexibleTrackSize(1));
+
+    print('b: ${cellWidth} ${cellHeight}');
+  }
+
+ AutoSizeGroup autoSizeGroup = AutoSizeGroup();
+  Widget element(String type, String name, [String color = "#FFFFFF"]) {
+    double elevation = cellHeight.toDouble();
+
+
+    TextStyle elementTextStyle = TextStyle(fontSize: 30, color: Colors.black);
+    AutoSizeText elementText = AutoSizeText(name, minFontSize: 1, style: elementTextStyle, group: autoSizeGroup,);
+    //Text elementText = Text(name, style: elementTextStyle);
+
+    double cwidth = double.infinity;
+    double cheight = double.infinity;
     if (type == 'S') {
       return Center(
           child: Material(
-            color: Colors.transparent,
-            clipBehavior: Clip.antiAlias,
-            shape: const CircleBorder(side: BorderSide.none),
-            elevation: 15,
+            clipBehavior: Clip.hardEdge,
+            shape: const CircleBorder(),
+            elevation: elevation,
             child: InkWell(
               onTap: (){ print("tapped");},
               child: Ink(
-                child: CircleAvatar(
-                  // backgroundColor: Colors.orange,
-                  child: Text(number),
+                color: HexColor(color),
+                child: Container(
+                  width: cwidth,
+                  height: cheight,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    child: Center(child: elementText),
+                  ),
                 ),
               ),
             ),
           ));
     } else if (type == 'T') {
-      return /*Container(
-          decoration:BoxDecoration(
-            color: Colors.red,
-
-            border: Border.all(
-              width: 1,
-            )
-          ),
-
-        child: */
-        Material(
-
-          shape: const RoundedRectangleBorder(side: BorderSide.none),
-          elevation: 15,
+      return Material(
+          shape: const RoundedRectangleBorder(),
+        elevation: elevation,
           child: InkWell(
             onTap: (){ print("tapped");},
-            child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: Center(child: Text(number,style: TextStyle(fontSize: 1),textAlign: TextAlign.center,))),
+            child: Ink(
+              color: HexColor(color),
+              child: Container(
+                  width: cwidth,
+                  height: cheight,
+                  child: Center(child: elementText)),
+            ),
           ),
-     //   ),
       );
     } else if (type == 'O') {
-      return Center(
-          child: Material(
-            clipBehavior: Clip.hardEdge,
-            shape: const RoundedRectangleBorder(side: BorderSide.none),
-            elevation: 15,
+      return Material(
+        shape: const RoundedRectangleBorder(),
+        elevation: elevation,
+        child: InkWell(
+          onTap: (){ print("tapped");},
+          child: Ink(
+            color: HexColor(color),
             child: Container(
-                color: HexColor(color),
-                width: double.infinity,
-                height: double.infinity,
-                child: Center(child: Text(number))),
-          ));
+                width: cwidth,
+                height: cheight,
+                child: Center(child: elementText)),
+          ),
+        ),
+      );
     }
 
     return Container();
@@ -136,11 +169,3 @@ class PlanManager {
 
 }
 
-class PlanElement {
-  final int columnStart;
-  final int columnSpan;
-  final int rowStart;
-  final int rowSpan;
-
-  PlanElement(this.columnStart, this.columnSpan, this.rowStart, this.rowSpan);
-}
