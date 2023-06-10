@@ -16,7 +16,7 @@ class RestaurantPlanAppBar extends StatelessWidget implements PreferredSizeWidge
       flexibleSpace:
       Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(padding),
           child: Text(
             appName,
             style: TextStyle(

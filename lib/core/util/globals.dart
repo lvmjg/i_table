@@ -16,5 +16,5 @@ String chooseRestaurant = 'Wybierz punkt, aby dokonać rezerwacji';
 
 const RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
 
-    borderRadius: BorderRadius.all(Radius.circular(15.0))
+    borderRadius: BorderRadius.all(Radius.circular(16))
 );

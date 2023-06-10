@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/features/restaurant_plan/presentation/restaurant_plan_page.dart';
 import 'package:i_table/features/search/presentation/widgets/search_bar.dart';
 
 import '../../../../core/util/globals.dart';
@@ -80,15 +81,13 @@ class _SearchBodyState extends State<SearchBody> {
 
                                             ),
                                           )),
-                                      onTap: () => print('ttt')
-                                    /*   Navigator.of(context).push(
+                                      onTap: () =>
+                                      Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ReservationEntryPage(restaurant: null))
+                                                    RestaurantPlanPage())
                                                     ),
 
-                                  );
-                                  */
                                   );
                                 },
                                 itemCount: fetchedRestaurants.length,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:i_table/features/restaurant_plan/presentation/restaurant_plan_page.dart';
 import 'package:i_table/features/search/presentation/bloc/search_bloc.dart';
 import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/search/presentation/search_page.dart';
@@ -17,8 +18,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  //emu "10.0.2.2" 8080
+  //pd
   FirebaseFirestore ff = FirebaseFirestore.instance;
-  ff.useFirestoreEmulator("10.0.2.2", 8080);
+  ff.useFirestoreEmulator('127.0.0.1', 8080);
 
   runApp(const MyApp());
 }
