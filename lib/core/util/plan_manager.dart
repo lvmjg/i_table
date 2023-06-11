@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:i_table/core/util/plan_generator.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/plan_element_entity.dart';
+import '../../features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_element_entity.dart';
 import 'hex_color.dart';
 
 class PlanManager {
@@ -19,7 +17,7 @@ class PlanManager {
   late int cellWidth;
   late int cellHeight;
 
-  late List<PlanElementEntity> elements =[];
+  late List<RestaurantPlanElementEntity> elements =[];
   late List<TrackSize> rowSizes;
   late List<TrackSize> columnSizes;
 
@@ -64,11 +62,11 @@ class PlanManager {
     elements = planGenerator.get();
 
     //calculate size of plan base on data from server
-    PlanElementEntity hLast = elements.reduce((a, b) =>
+    RestaurantPlanElementEntity hLast = elements.reduce((a, b) =>
     (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
     maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
 
-    PlanElementEntity wLast = elements.reduce((a, b) =>
+    RestaurantPlanElementEntity wLast = elements.reduce((a, b) =>
     (a.columnStart + a.columnSpan) > (b.columnStart + b.columnSpan) ? a : b);
     maxWidth = (wLast.columnStart + wLast.columnSpan).toDouble();
 

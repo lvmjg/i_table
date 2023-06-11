@@ -19,7 +19,7 @@ class RestaurantDetailsRepository{
     await Future.delayed(Duration(seconds: TEST_TIMEOUT));
 
     QuerySnapshot<Map<String, dynamic>> restaurantDetailsSnapshot = await ff
-        .collection('restaurantsDetails').where('restaurantId', isEqualTo: restaurantId).get();
+        .collection(RESTAURANTS_DETAILS).where(RESTAURANT_ID, isEqualTo: restaurantId).get();
 
     RestaurantDetailsEntity fetchedRestaurantDetails = restaurantDetailsSnapshot.docs.map((value) =>
         RestaurantDetailsEntity.fromJson(value.data())).toList().first;

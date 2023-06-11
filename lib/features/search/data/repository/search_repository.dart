@@ -13,7 +13,7 @@ class SearchRepository{
       await Future.delayed(Duration(seconds: TEST_TIMEOUT));
 
       QuerySnapshot<Map<String, dynamic>> restaurantsSnapshot = await ff
-          .collection('restaurants').get();
+          .collection(RESTAURANTS).get();
 
       List<SearchEntity> restaurants = restaurantsSnapshot.docs.map((value) => SearchEntity.fromJson(value.id, value.data())).toList();
 

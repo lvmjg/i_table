@@ -14,6 +14,13 @@ String noResults = 'Brak wyników';
 String openingHours = 'Godziny otwarcia';
 String chooseRestaurant = 'Wybierz punkt, aby dokonać rezerwacji';
 
+String RESTAURANT_ID = 'restaurantId';
+String RESTAURANTS = 'restaurants';
+String RESTAURANTS_DETAILS = 'restaurantsDetails';
+String RESTAURANTS_CONFIGURATIONS = 'restaurantsConfigurations';
+String RESTAURANTS_PLANS = 'restaurantsPlans';
+String RESTAURANT_PLAN_LEVELS = 'restaurantPlanLevels';
+
 const RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
 
     borderRadius: BorderRadius.all(Radius.circular(16))
