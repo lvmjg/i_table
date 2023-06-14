@@ -1,6 +1,24 @@
 part of 'restaurant_plan_bloc.dart';
 
-@immutable
-abstract class RestaurantPlanState {}
+abstract class RestaurantPlanState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
-class RestaurantPlanInitial extends RestaurantPlanState {}
+class RestaurantPlanFetchFailure extends RestaurantPlanState {
+
+}
+
+class RestaurantPlanFetchInProgress extends RestaurantPlanState {
+  RestaurantPlanFetchInProgress();
+}
+
+class RestaurantPlanFetchSuccess extends RestaurantPlanState {
+  final RestaurantSetting restaurantSetting;
+  final String input;
+
+  RestaurantPlanFetchSuccess({required this.restaurantSetting, required this.input});
+
+  @override
+  List<Object> get props => [restaurantSetting, input];
+}

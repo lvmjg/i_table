@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_app_bar.dart';
 import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_body.dart';
 import '../../../core/util/globals.dart';
@@ -24,9 +26,11 @@ class _RestaurantPlanPageState extends State<RestaurantPlanPage> {
     );
   }
 
-
-
-
+  @override
+  void initState() {
+    super.initState();
+    context.read<RestaurantPlanBloc>().add(RestaurantPlanInitiated(restaurantId: 'abtkqzD6ogVAx594wf6B', reservationTime: DateTime.now()));
+  }
 }
 
 

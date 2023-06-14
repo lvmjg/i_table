@@ -1,8 +1,13 @@
+
+import 'dart:js';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:i_table/core/util/plan_generator.dart';
+import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_setting.dart';
+import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import '../../features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_element_entity.dart';
 import 'hex_color.dart';
 
@@ -11,9 +16,6 @@ class PlanManager {
   late int desiredHeight;
   late int desiredWidth;
 
-  late double maxHeight;
-  late double maxWidth;
-
   late int cellWidth;
   late int cellHeight;
 
@@ -21,22 +23,10 @@ class PlanManager {
   late List<TrackSize> rowSizes;
   late List<TrackSize> columnSizes;
 
-  PlanManager(double width, double height) {
+  late RestaurantSetting restaurantSetting;
+
+  PlanManager(double width, double height, this.restaurantSetting) {
     initializeSizes(width, height);
-
-  }
-
-  Widget createPlan(BuildContext? context) {
-
-
-    List<Widget> planElements = elements.map((e) => GridPlacement(
-      columnStart: e.columnStart,
-      columnSpan: e.columnSpan,
-      rowStart: e.rowStart,
-      rowSpan: e.rowSpan,
-      child: element(e.type, e.name, e.color),
-    )).toList();
-    return LayoutGrid(columnSizes: columnSizes, rowSizes: rowSizes, children: planElements,);
   }
 
   void initializeSizes(double width, double height){
@@ -58,17 +48,18 @@ class PlanManager {
 
     //plan
 
-    PlanGenerator planGenerator = PlanGenerator();
-    elements = planGenerator.get();
+    //PlanGenerator planGenerator = PlanGenerator();
+    //elements = planGenerator.get();
+    elements = restaurantSetting.restaurantPlanLevels.first.restaurantPlan.values.toList();
 
     //calculate size of plan base on data from server
     RestaurantPlanElementEntity hLast = elements.reduce((a, b) =>
     (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
-    maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
+    double maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
 
     RestaurantPlanElementEntity wLast = elements.reduce((a, b) =>
     (a.columnStart + a.columnSpan) > (b.columnStart + b.columnSpan) ? a : b);
-    maxWidth = (wLast.columnStart + wLast.columnSpan).toDouble();
+    double maxWidth = (wLast.columnStart + wLast.columnSpan).toDouble();
 
     print('Max sizes of plan: ${maxWidth} ${maxHeight}');
 
@@ -98,8 +89,19 @@ class PlanManager {
     print('b: ${cellWidth} ${cellHeight}');
   }
 
+  Widget createPlan(BuildContext buildContext) {
+    List<Widget> planElements = elements.map((e) => GridPlacement(
+      columnStart: e.columnStart,
+      columnSpan: e.columnSpan,
+      rowStart: e.rowStart,
+      rowSpan: e.rowSpan,
+      child: element(buildContext, e.type, e.name, e.color),
+    )).toList();
+    return LayoutGrid(columnSizes: columnSizes, rowSizes: rowSizes, children: planElements,);
+  }
+
  AutoSizeGroup autoSizeGroup = AutoSizeGroup();
-  Widget element(String type, String name, [String color = "#FFFFFF"]) {
+  Widget element(BuildContext context, String type, String name, [String color = "#FFFFFF"]) {
     double elevation = cellHeight.toDouble();
 
 
@@ -116,7 +118,9 @@ class PlanManager {
             shape: const CircleBorder(),
             elevation: elevation,
             child: InkWell(
-              onTap: (){ print("tapped");},
+              onTap: (){
+                context.read<RestaurantPlanBloc>().add(RestaurantPlanElementTapped(planElementId: name));
+              },
               child: Ink(
                 color: HexColor(color),
                 child: Container(
@@ -135,7 +139,9 @@ class PlanManager {
           shape: const RoundedRectangleBorder(),
         elevation: elevation,
           child: InkWell(
-            onTap: (){ print("tapped");},
+            onTap: (){
+              context.read<RestaurantPlanBloc>().add(RestaurantPlanElementTapped(planElementId: name));
+            },
             child: Ink(
               color: HexColor(color),
               child: Container(
@@ -150,7 +156,7 @@ class PlanManager {
         shape: const RoundedRectangleBorder(),
         elevation: elevation,
         child: InkWell(
-          onTap: (){ print("tapped");},
+          onTap: (){},
           child: Ink(
             color: HexColor(color),
             child: Container(
