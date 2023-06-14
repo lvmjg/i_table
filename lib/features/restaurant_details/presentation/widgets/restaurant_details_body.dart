@@ -206,10 +206,5 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
   }
 
 
-@override
-  void initState() {
-    super.initState();
-    context.read<RestaurantDetailsBloc>().add(
-        RestaurantDetailsInit(restaurantId: widget.restaurantId));
-  }
+
 }

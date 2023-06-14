@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:i_table/features/restaurant_plan/presentation/restaurant_plan_page.dart';
 import 'package:i_table/features/search/presentation/bloc/search_bloc.dart';
 import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/search/presentation/search_page.dart';
 import 'features/restaurant_details/presentation/bloc/restaurant_details_bloc.dart';
+import 'features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -38,6 +38,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RestaurantDetailsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RestaurantPlanBloc(),
         ),
       ],
       child: MaterialApp(
