@@ -1,8 +1,8 @@
-import 'package:i_table/core/domain/entity/restaurant_address_entity.dart';
+import 'package:i_table/features/restaurant_details/domain/entity/restaurant_address_entity.dart';
+import 'package:i_table/features/restaurant_details/domain/entity/restaurant_location_entity.dart';
+import 'package:i_table/features/restaurant_details/domain/entity/restaurant_opening_hours_entity.dart';
+import 'package:i_table/features/search/domain/entity/search_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../../../core/domain/entity/restaurant_location_entity.dart';
-import '../../../../core/domain/entity/restaurant_opening_hours_entity.dart';
 
 part 'restaurant_details_entity.g.dart';
 
@@ -46,4 +46,11 @@ class RestaurantDetailsEntity {
       _$RestaurantDetailsEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantDetailsEntityToJson(this);
+
+  SearchEntity toSearchEntity(){
+    SearchEntity searchEntity = SearchEntity(restaurantName: restaurantName, restaurantAddress: restaurantAddress);
+    searchEntity.restaurantId = restaurantId;
+    return searchEntity;
+  }
+
 }

@@ -1,4 +1,4 @@
-import 'package:i_table/core/domain/entity/restaurant_work_day_entity.dart';
+import 'package:i_table/features/restaurant_details/domain/entity/restaurant_work_day_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_opening_hours_entity.g.dart';
