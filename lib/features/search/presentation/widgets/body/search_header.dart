@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/util/globals.dart';
 
-class ChooseRestaurant extends StatelessWidget {
-  const ChooseRestaurant({
+class SearchHeader extends StatelessWidget {
+  const SearchHeader({
     super.key,
   });
 

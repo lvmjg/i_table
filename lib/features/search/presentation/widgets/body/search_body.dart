@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_table/features/restaurant_plan/presentation/restaurant_plan_page.dart';
+import 'package:i_table/features/search/presentation/widgets/body/search_header.dart';
 import 'package:i_table/features/search/presentation/widgets/body/search_restaurant.dart';
 
 import 'package:i_table/features/search/presentation/widgets/body/search_results_list.dart';
@@ -11,7 +12,6 @@ import '../../../../../core/util/globals.dart';
 import '../../../../restaurant_details/presentation/restaurant_details_page.dart';
 import '../../../domain/entity/search_entity.dart';
 import '../../bloc/search_bloc.dart';
-import 'choose_restaurant.dart';
 
 class SearchBody extends StatefulWidget {
   SearchBody({
@@ -32,7 +32,7 @@ class _SearchBodyState extends State<SearchBody> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ChooseRestaurant(),
+          SearchHeader(),
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: padding / 2),
