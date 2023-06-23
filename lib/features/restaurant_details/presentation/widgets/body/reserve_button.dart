@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/util/globals.dart';
 import '../../../../reservation_entry/presentation/widgets/reservation_entry_page.dart';
 import '../../../../restaurant_plan/presentation/restaurant_plan_page.dart';
-import '../../../../search/domain/entity/search_entity.dart';
+import '../../../../search/domain/entities/search_entity.dart';
 
 class ReserveButton extends StatelessWidget {
   final SearchEntity restaurant;

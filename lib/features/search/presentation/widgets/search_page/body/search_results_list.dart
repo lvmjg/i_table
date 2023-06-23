@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../../../reservation_entry/presentation/widgets/reservation_entry_page.dart';
-import '../../../../restaurant_details/presentation/restaurant_details_page.dart';
-import '../../../../restaurant_plan/presentation/restaurant_plan_page.dart';
-import '../../../domain/entity/search_entity.dart';
+import '../../../../../../core/util/globals.dart';
+import '../../../../../reservation_entry/presentation/widgets/reservation_entry_page.dart';
+import '../../../../../restaurant_details/presentation/restaurant_details_page.dart';
+import '../../../../../restaurant_plan/presentation/restaurant_plan_page.dart';
+import '../../../../domain/entities/search_entity.dart';
 
 class SearchResultsList extends StatelessWidget {
   const SearchResultsList({
@@ -40,13 +40,13 @@ class SearchResultsList extends StatelessWidget {
                 ),
               )),
           onTap: () {
-            if(debug){
+            if (debug) {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => RestaurantPlanPage()));
-            }
-            else {
+            } else {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ReservationEntryPage(restaurant:  fetchedRestaurants[index])));
+                  builder: (context) => ReservationEntryPage(
+                      restaurant: fetchedRestaurants[index])));
             }
           },
         );

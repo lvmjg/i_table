@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';

@@ -8,7 +8,7 @@ import 'package:i_table/features/search/presentation/bloc/search_bloc.dart';
 import 'package:i_table/core/util/globals.dart';
 import 'features/restaurant_details/presentation/bloc/restaurant_details_bloc.dart';
 import 'features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
-import 'features/search/presentation/search_page.dart';
+import 'features/search/presentation/widgets/search_page/search_page.dart';
 import 'firebase_options.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;

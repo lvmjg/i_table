@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:i_table/core/util/string_util.dart';
-import 'package:i_table/features/search/domain/entity/search_entity.dart';
-import 'package:i_table/features/search/domain/usecase/search_usecase.dart';
 import 'package:meta/meta.dart';
+
+import '../../domain/entities/search_entity.dart';
+import '../../domain/usecases/search_usecase.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';

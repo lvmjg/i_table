@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:i_table/features/reservation_entry/presentation/widgets/reservation_entry_appbar.dart';
 import 'package:i_table/features/reservation_entry/presentation/widgets/reservation_entry_body.dart';
-import 'package:i_table/features/search/domain/entity/search_entity.dart';
 import '../../../../core/util/globals.dart';
+import '../../../search/domain/entities/search_entity.dart';
 
 class ReservationEntryPage extends StatefulWidget {
   final SearchEntity restaurant;

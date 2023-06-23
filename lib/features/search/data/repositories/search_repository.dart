@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/util/globals.dart';
-import '../../domain/entity/search_entity.dart';
+import '../../domain/entities/search_entity.dart';
 
 class SearchRepository{
 

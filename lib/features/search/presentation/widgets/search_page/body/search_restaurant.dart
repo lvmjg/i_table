@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/search_bloc.dart';
-import '../../search_page.dart';
-import '../../../../../core/util/globals.dart';
+
+import '../../../../../../core/util/globals.dart';
+import '../../../bloc/search_bloc.dart';
 
 class SearchRestaurant extends StatefulWidget {
   const SearchRestaurant({super.key});

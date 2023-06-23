@@ -1,7 +1,7 @@
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_address_entity.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_location_entity.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_opening_hours_entity.dart';
-import 'package:i_table/features/search/domain/entity/search_entity.dart';
+import 'package:i_table/features/search/domain/entities/search_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_details_entity.g.dart';

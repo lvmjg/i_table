@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
+import '../../../../../../core/util/globals.dart';
 
 class SearchHeader extends StatelessWidget {
   const SearchHeader({
@@ -12,8 +12,7 @@ class SearchHeader extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(padding),
       child: Text(chooseRestaurant,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w300)),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300)),
     );
   }
 }

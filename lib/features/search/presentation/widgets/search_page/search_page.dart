@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/features/search/presentation/widgets/appbar/search_appbar.dart';
-import 'package:i_table/features/search/presentation/widgets/appbar/user_reservations.dart';
-import 'package:i_table/features/search/presentation/widgets/body/search_body.dart';
-import '../../../core/util/globals.dart';
-import 'bloc/search_bloc.dart';
+
+import '../../../../../core/util/globals.dart';
+import '../../bloc/search_bloc.dart';
+import 'appbar/search_appbar.dart';
+import 'appbar/user_reservations.dart';
+import 'body/search_body.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);

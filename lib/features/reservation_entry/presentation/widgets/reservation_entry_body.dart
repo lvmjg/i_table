@@ -4,7 +4,7 @@ import 'package:i_table/features/reservation_picker/presentation/widgets/reserva
 import '../../../../core/util/globals.dart';
 import '../../../reservation_picker/presentation/widgets/reservation_time_picker.dart';
 import '../../../restaurant_details/presentation/widgets/body/reserve_button.dart';
-import '../../../search/domain/entity/search_entity.dart';
+import '../../../search/domain/entities/search_entity.dart';
 
 class ReservationEntryBody extends StatelessWidget {
 

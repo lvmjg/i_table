@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:i_table/features/search/data/repository/search_repository.dart';
-import '../entity/search_entity.dart';
+import '../../data/repositories/search_repository.dart';
+import '../entities/search_entity.dart';
 
 class SearchUseCase{
 
