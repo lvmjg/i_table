@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/search_bloc.dart';
-import '../search_page.dart';
-import '../../../../core/util/globals.dart';
+import '../../bloc/search_bloc.dart';
+import '../../search_page.dart';
+import '../../../../../core/util/globals.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({super.key});
+class SearchRestaurant extends StatefulWidget {
+  const SearchRestaurant({super.key});
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<SearchRestaurant> createState() => _SearchRestaurantState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchRestaurantState extends State<SearchRestaurant> {
   final TextEditingController controller = new TextEditingController();
 
   @override
@@ -23,17 +23,20 @@ class _SearchBarState extends State<SearchBar> {
         child: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
             bool searchTextFieldEnabled = state is SearchFetchSuccess;
-
             bool inputProvided = controller.text.isNotEmpty;
-            IconData textFieldIcon = (state is SearchFetchSuccess && inputProvided) ?  Icons.clear_rounded : Icons.search;
-
+            IconData textFieldIcon =
+                (state is SearchFetchSuccess && inputProvided)
+                    ? Icons.clear_rounded
+                    : Icons.search;
 
             return TextField(
               controller: controller,
               enabled: searchTextFieldEnabled,
               textAlign: TextAlign.center,
               onChanged: (text) {
-                context.read<SearchBloc>().add(SearchInputProvided(input: text));
+                context
+                    .read<SearchBloc>()
+                    .add(SearchInputProvided(input: text));
               },
               decoration: InputDecoration(
                   filled: true,
@@ -47,15 +50,16 @@ class _SearchBarState extends State<SearchBar> {
                   hintText: searchBarHint,
                   suffixIcon: IconButton(
                     onPressed: () {
-                      if(inputProvided) {
+                      if (inputProvided) {
                         controller.clear();
-                        context.read<SearchBloc>().add(
-                            SearchInputProvided(input: ''));
+                        context
+                            .read<SearchBloc>()
+                            .add(SearchInputProvided(input: ''));
                       }
                     },
                     icon: Icon(
-                        textFieldIcon,
-                        color: Color(primary),
+                      textFieldIcon,
+                      color: Color(primary),
                     ),
                   ),
                   hintStyle: TextStyle(
@@ -67,15 +71,5 @@ class _SearchBarState extends State<SearchBar> {
         ),
       ),
     );
-  }
-
-}
-
-setVisibilityBasedOnState(SearchState state) {
-  return true;
-  if(state is SearchFetchInProgress){
-    return true;
-  } else {
-    return false;
   }
 }
