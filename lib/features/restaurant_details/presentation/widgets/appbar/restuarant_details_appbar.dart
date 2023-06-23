@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../core/util/globals.dart';
+import '../../../../../core/util/globals.dart';
 
 class RestaurantDetailsAppBar extends StatelessWidget implements PreferredSizeWidget{
   const RestaurantDetailsAppBar({
@@ -12,8 +12,7 @@ class RestaurantDetailsAppBar extends StatelessWidget implements PreferredSizeWi
   Widget build(BuildContext context) {
     return AppBar(
       shape: roundedRectangleBorder,
-      systemOverlayStyle:
-      SystemUiOverlayStyle(statusBarColor: Color(primary)),
+      systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
       backgroundColor: Color(primary),
       elevation: elevation,
       toolbarHeight: toolbarHeight,

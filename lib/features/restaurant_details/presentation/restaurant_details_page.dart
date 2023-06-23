@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_body.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_details_body.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/appbar/restuarant_details_appbar.dart';
 import 'bloc/restaurant_details_bloc.dart';
-import 'widgets/restuarant_details_app_bar.dart';
 
 class RestaurantDetailsPage extends StatefulWidget {
   final String restaurantId;
@@ -15,7 +15,6 @@ class RestaurantDetailsPage extends StatefulWidget {
 }
 
 class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +26,8 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<RestaurantDetailsBloc>().add(
-        RestaurantDetailsInit(restaurantId: widget.restaurantId));
+    context
+        .read<RestaurantDetailsBloc>()
+        .add(RestaurantDetailsInit(restaurantId: widget.restaurantId));
   }
 }
-
-
-
