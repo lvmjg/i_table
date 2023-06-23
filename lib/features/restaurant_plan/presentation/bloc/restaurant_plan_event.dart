@@ -27,3 +27,23 @@ class RestaurantPlanElementTapped extends RestaurantPlanEvent{
   @override
   List<Object> get props => [planElementId];
 }
+
+class RestaurantPlanReservationDateChanged extends RestaurantPlanEvent{
+
+  final DateTime reservationDate;
+
+  RestaurantPlanReservationDateChanged({required this.reservationDate});
+
+  @override
+  List<Object> get props => [reservationDate];
+}
+
+class RestaurantPlanReservationTimeChanged extends RestaurantPlanEvent{
+
+  final TimeOfDay reservationTime;
+
+  RestaurantPlanReservationTimeChanged({required this.reservationTime});
+
+  @override
+  List<Object> get props => [reservationTime];
+}

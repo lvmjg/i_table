@@ -16,6 +16,11 @@ RestaurantPlanElementEntity _$RestaurantPlanElementEntityFromJson(
       rowStart: json['rowStart'] as int,
       rowSpan: json['rowSpan'] as int,
       color: json['color'] as String,
+      connectedTable: json['connectedTable'] as String? ?? '',
+      connectedSittings: (json['connectedSittings'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$RestaurantPlanElementEntityToJson(
@@ -28,4 +33,6 @@ Map<String, dynamic> _$RestaurantPlanElementEntityToJson(
       'rowStart': instance.rowStart,
       'rowSpan': instance.rowSpan,
       'color': instance.color,
+      'connectedTable': instance.connectedTable,
+      'connectedSittings': instance.connectedSittings,
     };

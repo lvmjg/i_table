@@ -3,6 +3,8 @@ part of 'restaurant_plan_bloc.dart';
 abstract class RestaurantPlanState extends Equatable {
   @override
   List<Object> get props => [];
+
+
 }
 
 class RestaurantPlanFetchFailure extends RestaurantPlanState {
@@ -17,8 +19,10 @@ class RestaurantPlanFetchSuccess extends RestaurantPlanState {
   final RestaurantSetting restaurantSetting;
   final String input;
 
-  RestaurantPlanFetchSuccess({required this.restaurantSetting, required this.input});
+  final bool editMode;
+
+  RestaurantPlanFetchSuccess({required this.restaurantSetting, required this.input, required this.editMode});
 
   @override
-  List<Object> get props => [restaurantSetting, input];
+  List<Object> get props => [restaurantSetting, input, editMode];
 }

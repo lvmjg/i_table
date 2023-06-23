@@ -4,8 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'restaurant_plan_level_entity.g.dart';
 
 @JsonSerializable()
-class RestaurantPlanLevelEntity{
-
+class RestaurantPlanLevelEntity {
   @JsonKey(includeFromJson: false, includeToJson: false)
   late String restaurantPlanLevelId;
 
@@ -19,10 +18,15 @@ class RestaurantPlanLevelEntity{
   )
   Map<String, RestaurantPlanElementEntity> restaurantPlan;
 
-  RestaurantPlanLevelEntity({required this.restaurantPlanLevelName, required this.restaurantPlanLevelOrder, required this.restaurantPlan});
+  RestaurantPlanLevelEntity(
+      {required this.restaurantPlanLevelName,
+      required this.restaurantPlanLevelOrder,
+      required this.restaurantPlan});
 
-  factory RestaurantPlanLevelEntity.fromJson(String restaurantPlanLevelId, Map<String, dynamic> json){
-    RestaurantPlanLevelEntity restaurantPlanLevelEntity = _$RestaurantPlanLevelEntityFromJson(json);
+  factory RestaurantPlanLevelEntity.fromJson(
+      String restaurantPlanLevelId, Map<String, dynamic> json) {
+    RestaurantPlanLevelEntity restaurantPlanLevelEntity =
+        _$RestaurantPlanLevelEntityFromJson(json);
     restaurantPlanLevelEntity.restaurantPlanLevelId = restaurantPlanLevelId;
     return restaurantPlanLevelEntity;
   }
@@ -32,7 +36,6 @@ class RestaurantPlanLevelEntity{
     jsonMap['restaurantPlanLevelId'] = restaurantPlanLevelId;
     return jsonMap;
   }
-
 
 /*  factory RestaurantPlanLevelEntity.fromJson(String restaurantPlanLevelId, Map<String, dynamic> json){
     RestaurantPlanLevelEntity restaurantPlanLevelEntity = _$RestaurantPlanLevelEntityFromJson(json);

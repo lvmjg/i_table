@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:i_table/core/util/string_util.dart';
+import 'package:i_table/features/restaurant_plan/domain/entity/reservation/reservation_entity.dart';
 import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_configuration/restaurant_configuration_entity.dart';
 import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_level_entity.dart';
 
@@ -50,6 +51,27 @@ class RestaurantPlanRepository{
     }
 
     return restaurantLevels;
+  }
+
+  Future<List<ReservationEntity>> fetchRestaurantReservations(String restaurantId, DateTime start, DateTime end) async{
+    FirebaseFirestore ff = FirebaseFirestore.instance;
+
+    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+
+    QuerySnapshot<Map<String, dynamic>> restaurantsReservationsSnapshot = await ff
+        .collection(RESTAURANTS_RESERVATIONS)
+        .where(RESTAURANT_ID, isEqualTo: restaurantId)
+        .where(RESERVATION_START, isGreaterThanOrEqualTo: start)
+        .where(RESERVATION_END, isLessThanOrEqualTo: end)
+        .get();
+    
+    List<ReservationEntity> restaurantReservations = [];
+
+    if(restaurantsReservationsSnapshot.docs.isNotEmpty) {
+      restaurantReservations = restaurantsReservationsSnapshot.docs.map((value) => ReservationEntity.fromJson(value.data())).toList();
+    }
+
+    return restaurantReservations;
   }
 
 

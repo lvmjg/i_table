@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:i_table/features/restaurant_plan/domain/usecase/restaurant_plan_usecase.dart';
 import 'package:meta/meta.dart';
 
@@ -24,9 +27,31 @@ class RestaurantPlanBloc extends Bloc<RestaurantPlanEvent, RestaurantPlanState> 
         restaurantSetting = await restaurantPlanUseCase.fetchRestaurantSetting(event.restaurantId);
 
         if (state is RestaurantPlanFetchInProgress) {
-          emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input: ''));
+          emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input: '', editMode: restaurantPlanUseCase.editMode));
         }
     });
+
+    on<RestaurantPlanElementTapped>((event, emit) async {
+      restaurantPlanUseCase.elementTapped(event.planElementId);
+
+      Random r  = Random();
+      emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input:r.nextDouble().toString(), editMode: restaurantPlanUseCase.editMode));
+    });
+
+    on<RestaurantPlanReservationDateChanged>((event, emit) async {
+      restaurantPlanUseCase.reservationDateChanged(event.reservationDate);
+
+      Random r  = Random();
+      emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input:r.nextDouble().toString(), editMode: restaurantPlanUseCase.editMode));
+    });
+
+    on<RestaurantPlanReservationTimeChanged>((event, emit) async {
+      restaurantPlanUseCase.reservationTimeChanged(event.reservationTime);
+
+      Random r  = Random();
+      emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input:r.nextDouble().toString(), editMode: restaurantPlanUseCase.editMode));
     });
   }
+
+
 }
