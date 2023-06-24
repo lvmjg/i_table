@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../restaurant_details/domain/entity/restaurant_work_day_entity.dart';
+part of 'restaurant_work_day_entity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

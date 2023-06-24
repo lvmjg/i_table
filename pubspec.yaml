@@ -52,6 +52,7 @@ dependencies:
   firebase_ui_oauth_apple: ^1.2.3
   flutter_facebook_auth: ^5.0.11
   firebase_ui_oauth_twitter: ^1.2.3
+  dartz: ^0.10.1
 
 
 #  open_location_code:

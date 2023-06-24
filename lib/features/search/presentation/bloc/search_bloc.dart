@@ -1,33 +1,38 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:i_table/core/util/string_util.dart';
+import 'package:i_table/features/search/data/datasources/search_remote_data_source.dart';
+import 'package:i_table/features/search/data/repositories/search_repository_impl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../core/usecase/usecase.dart';
+import '../../../../core/util/globals.dart';
 import '../../domain/entities/search_entity.dart';
-import '../../domain/usecases/search_usecase.dart';
+import '../../domain/usecases/fetch_restaurants.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc() : super(SearchFetchSuccess(restaurants: const [], input: StringUtil.EMPTY)) {
-    SearchUseCase searchUseCase = SearchUseCase();
+  SearchBloc() : super(SearchFetchSuccess(restaurants: const [])) {
+    FetchRestaurants fetchRestaurants = FetchRestaurants(SearchRepositoryImpl(SearchRemoteDataSourceImpl()));
 
     on<SearchInit>((event, emit) async {
       emit(SearchFetchInProgress());
 
-      List<SearchEntity> fetchedRestaurants = await searchUseCase.fetchRestaurants();
-
       if(state is SearchFetchInProgress) {
-        emit(SearchFetchSuccess(restaurants: fetchedRestaurants, input: StringUtil.EMPTY));
+
+        (await fetchRestaurants(NoParams())).fold(
+                (failure) => emit(SearchFetchFailure(errorFetchRestaurants)),
+                (restaurants) => emit(SearchFetchSuccess(restaurants: restaurants))
+        );
       }
 
     });
 
     on<SearchInputProvided>((event, emit) async {
       if(state is SearchFetchSuccess) {
-        emit(SearchFetchSuccess(restaurants: searchUseCase.filterRestaurants(event.input), input: event.input));
+        emit(SearchFetchSuccess(restaurants: List.of(fetchRestaurants.filterRestaurants(event.input))));
       }
     });
 

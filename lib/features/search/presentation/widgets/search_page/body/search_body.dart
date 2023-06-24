@@ -5,6 +5,7 @@ import 'package:i_table/features/search/presentation/widgets/search_page/body/se
 import 'package:i_table/features/search/presentation/widgets/search_page/body/search_restaurant.dart';
 import 'package:i_table/features/search/presentation/widgets/search_page/body/search_results_list.dart';
 
+import '../../../../../../core/presentation/widgets/failure.dart';
 import '../../../../../../core/presentation/widgets/loading.dart';
 import '../../../../../../core/util/globals.dart';
 import '../../../../domain/entities/search_entity.dart';
@@ -39,13 +40,10 @@ class _SearchBodyState extends State<SearchBody> {
               child: BlocBuilder<SearchBloc, SearchState>(
                   builder: (context, state) {
                 if (state is SearchFetchFailure) {
-                  return Padding(
-                    padding: EdgeInsets.all(padding),
-                    child: Text(
-                      noResults,
-                      textAlign: TextAlign.center,
-                    ),
-                  );
+                  return Failure(
+                      errorMessage: state.errorMessage,
+                      onPressed: () =>
+                          context.read<SearchBloc>().add(SearchInit()));
                 } else if (state is SearchFetchInProgress) {
                   return const Loading();
                 } else if (state is SearchFetchSuccess) {
@@ -69,5 +67,3 @@ class _SearchBodyState extends State<SearchBody> {
     input = '';
   }
 }
-
-

@@ -19,6 +19,9 @@ String reserve = 'Rezerwuj';
 String chooseDate = 'Wybierz termin';
 String chooseTime = 'Wybierz godzinę';
 
+String errorFetchRestaurants = 'Nie można pobrać listy punktów';
+String tryAgain = 'Spróbuj ponownie';
+
 String RESTAURANT_ID = 'restaurantId';
 String RESTAURANTS = 'restaurants';
 String RESTAURANTS_DETAILS = 'restaurantsDetails';

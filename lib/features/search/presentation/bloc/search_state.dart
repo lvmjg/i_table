@@ -6,8 +6,12 @@ abstract class SearchState extends Equatable {
 }
 
 class SearchFetchFailure extends SearchState {
+  final String errorMessage;
+
+  SearchFetchFailure(this.errorMessage);
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [errorMessage];
 }
 
 class SearchFetchInProgress extends SearchState {
@@ -19,10 +23,9 @@ class SearchFetchInProgress extends SearchState {
 
 class SearchFetchSuccess extends SearchState {
   final List<SearchEntity> restaurants;
-  final String input;
 
-  SearchFetchSuccess({required this.restaurants, required this.input});
+  SearchFetchSuccess({required this.restaurants});
 
   @override
-  List<Object> get props => [restaurants, input];
+  List<Object> get props => [restaurants];
 }
