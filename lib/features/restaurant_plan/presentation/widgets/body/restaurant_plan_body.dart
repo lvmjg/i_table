@@ -6,6 +6,7 @@ import 'package:i_table/features/restaurant_plan/presentation/widgets/body/resta
 import '../../bloc/restaurant_plan_bloc.dart';
 
 class RestaurantPlanBody extends StatefulWidget {
+
   RestaurantPlanBody({
     super.key,
   });

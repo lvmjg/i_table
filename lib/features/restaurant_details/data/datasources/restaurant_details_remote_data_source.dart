@@ -13,9 +13,9 @@ class RestaurantDetailsRemoteDataSourceImpl implements RestaurantDetailsRemoteDa
 
   @override
   Future<RestaurantDetailsEntity> fetchRestaurantDetails(String restaurantId) async{
-    FirebaseFirestore ff = FirebaseFirestore.instance;
-
     await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+
+    FirebaseFirestore ff = FirebaseFirestore.instance;
 
     RestaurantDetailsEntity restaurantDetails;
     try {

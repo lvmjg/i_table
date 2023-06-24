@@ -9,24 +9,27 @@ import 'package:meta/meta.dart';
 import '../../../../core/util/globals.dart';
 
 part 'restaurant_details_event.dart';
+
 part 'restaurant_details_state.dart';
 
-class RestaurantDetailsBloc extends Bloc<RestaurantDetailsEvent, RestaurantDetailsState> {
-
-
-
+class RestaurantDetailsBloc
+    extends Bloc<RestaurantDetailsEvent, RestaurantDetailsState> {
   RestaurantDetailsBloc() : super(RestaurantDetailsFetchInProgress()) {
-
-    FetchRestaurantDetails fetchRestaurantDetails = FetchRestaurantDetails(RestaurantDetailsRepositoryImpl(RestaurantDetailsRemoteDataSourceImpl()));
+    FetchRestaurantDetails fetchRestaurantDetails = FetchRestaurantDetails(
+        RestaurantDetailsRepositoryImpl(
+            RestaurantDetailsRemoteDataSourceImpl()));
 
     on<RestaurantDetailsInit>((event, emit) async {
       emit(RestaurantDetailsFetchInProgress());
 
       if (state is RestaurantDetailsFetchInProgress) {
-        (await fetchRestaurantDetails(RestaurantIdParams(restaurantId: event.restaurantId))).fold(
-                (failure) => emit(RestaurantDetailsFetchFailure(errorMessage: errorFetchRestaurantDetails)),
-                (restaurantDetails) => emit(RestaurantDetailsFetchSuccess(restaurantDetails: restaurantDetails))
-        );
+        (await fetchRestaurantDetails(
+                RestaurantIdParams(restaurantId: event.restaurantId)))
+            .fold(
+                (failure) => emit(RestaurantDetailsFetchFailure(
+                    errorMessage: errorFetchRestaurantDetails)),
+                (restaurantDetails) => emit(RestaurantDetailsFetchSuccess(
+                    restaurantDetails: restaurantDetails)));
       }
     });
   }

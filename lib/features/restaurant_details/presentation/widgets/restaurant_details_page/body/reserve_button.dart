@@ -34,7 +34,7 @@ class ReserveButton extends StatelessWidget {
         onPressed: () {
           if(debug){
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => RestaurantPlanPage()));
+                builder: (context) => RestaurantPlanPage(restaurantId: restaurant.restaurantId)));
           }
           else {
             Navigator.of(context).push(MaterialPageRoute(

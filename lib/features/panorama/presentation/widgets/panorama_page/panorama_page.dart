@@ -5,8 +5,16 @@ import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant
 import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_body.dart';
 import 'package:panorama/panorama.dart';
 
+import '../../../../../core/util/globals.dart';
+import '../../bloc/panorama_bloc.dart';
+import 'body/panorama_body.dart';
+import 'floatingactionbutton/panorama_floatingactionbutton.dart';
+
 class PanoramaPage extends StatefulWidget {
-  const PanoramaPage({Key? key}) : super(key: key);
+  final String restaurantId;
+  final String elementId;
+
+  const PanoramaPage({Key? key, required this.restaurantId, required this.elementId}) : super(key: key);
 
   @override
   State<PanoramaPage> createState() => _PanoramaPageState();
@@ -19,24 +27,19 @@ class _PanoramaPageState extends State<PanoramaPage> {
         backgroundColor: Colors.white,
         appBar: RestaurantPlanAppBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Text('Zamknij podgląd'),
-            label: Icon(Icons.close_rounded, color: Colors.white,)
-        ),
-        body: Panorama(
-          animSpeed: 1.0,
-          hotspots: [
-            Hotspot(
-                latitude: 0.0,
-                longitude: 160.0,
-                width: 90.0,
-                height: 75.0,
-                widget: Container(color: Colors.white, child: Text("Bar", style: TextStyle(color: Colors.deepPurple),))),
-          ],
-          child: Image.asset('assets/pan.jpg'),
-        ));
+        floatingActionButton: PanoramaFloatingActionButton(),
+        body: PanoramaBody(restaurantId: widget.restaurantId, elementId: widget.elementId));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<PanoramaBloc>().add(
+        PanoramaInit(restaurantId: widget.restaurantId, elementId: widget.elementId));
+
   }
 }
+
+
+
+

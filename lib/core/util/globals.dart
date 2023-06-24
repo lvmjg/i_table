@@ -18,9 +18,13 @@ String chooseRestaurant = 'Wybierz punkt, aby dokonać rezerwacji';
 String reserve = 'Rezerwuj';
 String chooseDate = 'Wybierz termin';
 String chooseTime = 'Wybierz godzinę';
+String closePreview = 'Zamknij podgląd';
+
+String imageExtension = '.jpg';
 
 String errorFetchRestaurants = 'Nie można pobrać listy punktów';
 String errorFetchRestaurantDetails = 'Nie można pobrać informacji o punkcie';
+String errorShowPreview = 'Nie można wyświetlić podglądu';
 String tryAgain = 'Spróbuj ponownie';
 
 String RESTAURANT_ID = 'restaurantId';
@@ -32,6 +36,8 @@ String RESTAURANT_PLAN_LEVELS = 'restaurantPlanLevels';
 String RESTAURANTS_RESERVATIONS = 'restaurantPlanLevels';
 String RESERVATION_START = 'restaurantPlanLevels';
 String RESERVATION_END = 'restaurantPlanLevels';
+String PANORAMAS = 'panoramas';
+
 
 const RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
 

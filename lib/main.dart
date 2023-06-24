@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:i_table/features/search/presentation/bloc/search_bloc.dart';
 import 'package:i_table/core/util/globals.dart';
+import 'features/panorama/presentation/bloc/panorama_bloc.dart';
 import 'features/restaurant_details/presentation/bloc/restaurant_details_bloc.dart';
 import 'features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import 'features/search/presentation/widgets/search_page/search_page.dart';
@@ -29,6 +31,9 @@ Future<void> main() async {
   FirebaseAuth fa = FirebaseAuth.instance;
   fa.useAuthEmulator('127.0.0.1', 8080);
 
+  FirebaseStorage fs = FirebaseStorage.instance;
+  fs.useStorageEmulator('127.0.0.1', 9199);
+
   runApp(const MyApp());
 }
 
@@ -47,6 +52,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RestaurantPlanBloc(),
+        ),
+        BlocProvider(
+          create: (context) => PanoramaBloc(),
         ),
       ],
       child: MaterialApp(

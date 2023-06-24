@@ -6,7 +6,9 @@ import 'package:i_table/features/restaurant_plan/presentation/widgets/body/resta
 import 'package:panorama/panorama.dart';
 
 class RestaurantPlanPage extends StatefulWidget {
-  const RestaurantPlanPage({Key? key}) : super(key: key);
+  final String restaurantId;
+
+  const RestaurantPlanPage({Key? key, required this.restaurantId}) : super(key: key);
 
   @override
   State<RestaurantPlanPage> createState() => _RestaurantPlanPageState();
@@ -26,7 +28,7 @@ class _RestaurantPlanPageState extends State<RestaurantPlanPage> {
   void initState() {
     super.initState();
     context.read<RestaurantPlanBloc>().add(RestaurantPlanInitiated(
-        restaurantId: 'abtkqzD6ogVAx594wf6B', reservationTime: DateTime.now()));
+        restaurantId: widget.restaurantId, reservationTime: DateTime.now()));
   }
 }
 

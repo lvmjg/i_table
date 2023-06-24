@@ -42,7 +42,8 @@ class SearchResultsList extends StatelessWidget {
           onTap: () {
             if (debug) {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => RestaurantPlanPage()));
+                  builder: (context) => RestaurantPlanPage(
+                      restaurantId: fetchedRestaurants[index].restaurantId)));
             } else {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ReservationEntryPage(

@@ -6,7 +6,7 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_setting.dart';
 
 import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
-import '../../features/panorama/presentation/panorama_page.dart';
+import '../../features/panorama/presentation/widgets/panorama_page/panorama_page.dart';
 import '../../features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_element_entity.dart';
 
 import 'hex_color.dart';
@@ -165,7 +165,7 @@ class PlanBuilder {
           elevation: elevation,
           child: InkWell(
             onLongPress: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PanoramaPage()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PanoramaPage(elementId: name, restaurantId: restaurantSetting.restaurantConfiguration!.restaurantId,)));
             },
             onTap: () {
               context
