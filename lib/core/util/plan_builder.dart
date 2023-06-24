@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_setting.dart';
 
 import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import '../../features/panorama/presentation/widgets/panorama_page/panorama_page.dart';
-import '../../features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_element_entity.dart';
 
+import '../../features/restaurant_plan/domain/entities/restaurant_plan/restaurant_plan_element_entity.dart';
+import '../../features/restaurant_plan/domain/entities/restaurant_plan/restaurant_setting.dart';
 import 'hex_color.dart';
 
 class PlanBuilder {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_app_bar.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_body.dart';
+
 import 'package:panorama/panorama.dart';
+
+import 'appbar/restaurant_plan_app_bar.dart';
+import 'body/restaurant_plan_body.dart';
 
 class RestaurantPlanPage extends StatefulWidget {
   final String restaurantId;

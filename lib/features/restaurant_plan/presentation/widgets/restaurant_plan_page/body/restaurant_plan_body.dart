@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_table/core/util/globals.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_bottom_reservation_panel.dart';
-import '../../bloc/restaurant_plan_bloc.dart';
+import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan.dart';
+import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan_bottom_reservation_panel.dart';
+
+import '../../../bloc/restaurant_plan_bloc.dart';
 
 class RestaurantPlanBody extends StatefulWidget {
 

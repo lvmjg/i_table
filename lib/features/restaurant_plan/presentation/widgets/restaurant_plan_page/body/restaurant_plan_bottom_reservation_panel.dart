@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_date_time_picker_bar.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_edit_mode_bar.dart';
+import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan_date_time_picker_bar.dart';
+import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan_edit_mode_bar.dart';
 
-import '../../../../../core/util/globals.dart';
+import '../../../../../../core/util/globals.dart';
 
 class RestaurantPlanBottomReservationPanel extends StatefulWidget {
   RestaurantPlanBottomReservationPanel({Key? key}) : super(key: key);

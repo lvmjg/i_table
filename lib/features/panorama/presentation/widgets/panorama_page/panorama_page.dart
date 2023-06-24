@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_app_bar.dart';
-import 'package:i_table/features/restaurant_plan/presentation/widgets/body/restaurant_plan_body.dart';
-import 'package:panorama/panorama.dart';
 
 import '../../../../../core/util/globals.dart';
+import '../../../../restaurant_plan/presentation/widgets/restaurant_plan_page/appbar/restaurant_plan_app_bar.dart';
 import '../../bloc/panorama_bloc.dart';
 import 'body/panorama_body.dart';
 import 'floatingactionbutton/panorama_floatingactionbutton.dart';

@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:i_table/core/util/string_util.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/reservation/reservation_entity.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_configuration/restaurant_configuration_entity.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_level_entity.dart';
 
 import '../../../../core/util/globals.dart';
+import '../../domain/entities/reservation/reservation_entity.dart';
+import '../../domain/entities/restaurant_configuration/restaurant_configuration_entity.dart';
+import '../../domain/entities/restaurant_plan/restaurant_plan_level_entity.dart';
 
 class RestaurantPlanRepository{
 

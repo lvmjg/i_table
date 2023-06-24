@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/util/globals.dart';
 import '../../../../../reservation_entry/presentation/widgets/reservation_entry_page.dart';
 import '../../../../../restaurant_details/presentation/widgets/restaurant_details_page/restaurant_details_page.dart';
-import '../../../../../restaurant_plan/presentation/restaurant_plan_page.dart';
+import '../../../../../restaurant_plan/presentation/widgets/restaurant_plan_page/restaurant_plan_page.dart';
 import '../../../../domain/entities/search_entity.dart';
 
 class SearchResultsList extends StatelessWidget {

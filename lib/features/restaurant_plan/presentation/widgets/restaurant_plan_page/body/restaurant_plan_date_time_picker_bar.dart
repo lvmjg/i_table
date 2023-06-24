@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../../../reservation_picker/presentation/widgets/reservation_date_picker.dart';
-import '../../../../reservation_picker/presentation/widgets/reservation_time_picker.dart';
+import '../../../../../../core/util/globals.dart';
+import '../../../../../reservation_picker/presentation/widgets/reservation_date_picker.dart';
+import '../../../../../reservation_picker/presentation/widgets/reservation_time_picker.dart';
 
 class RestaurantPlanDateTimePickerBar extends StatelessWidget {
   const RestaurantPlanDateTimePickerBar({

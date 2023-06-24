@@ -1,4 +1,4 @@
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_element_entity.dart';
+import 'package:i_table/features/restaurant_plan/domain/entities/restaurant_plan/restaurant_plan_element_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_plan_level_entity.g.dart';

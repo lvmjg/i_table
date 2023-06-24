@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/util/plan_builder.dart';
-import '../../../domain/entity/restaurant_plan/restaurant_setting.dart';
-import '../../bloc/restaurant_plan_bloc.dart';
+import '../../../../../../core/util/plan_builder.dart';
+import '../../../../domain/entities/restaurant_plan/restaurant_setting.dart';
+import '../../../bloc/restaurant_plan_bloc.dart';
+
+
 
 class RestaurantPlan extends StatefulWidget {
   final RestaurantSetting restaurantSetting;

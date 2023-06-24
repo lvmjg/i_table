@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../../core/util/globals.dart';
+
+import '../../../../../../core/util/globals.dart';
 
 class RestaurantPlanAppBar extends StatelessWidget implements PreferredSizeWidget {
   const RestaurantPlanAppBar({

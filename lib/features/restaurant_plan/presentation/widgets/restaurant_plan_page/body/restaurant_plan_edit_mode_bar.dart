@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../../domain/usecase/restaurant_plan_usecase.dart';
+import '../../../../../../core/util/globals.dart';
 
 class RestaurantPlanEditModeBar extends StatelessWidget {
-
   final AnimationController controller;
 
-  const RestaurantPlanEditModeBar({Key? key, required this.controller}) : super(key: key);
+  const RestaurantPlanEditModeBar({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,9 @@ class RestaurantPlanEditModeBar extends StatelessWidget {
                 side: BorderSide(width: 0, color: Colors.white),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(200)))),
-            onPressed: () {controller.reverse();}),
+            onPressed: () {
+              controller.reverse();
+            }),
         Expanded(
             child: Text(
           'Wybrano 1 miejsce',

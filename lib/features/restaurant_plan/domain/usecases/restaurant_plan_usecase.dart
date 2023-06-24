@@ -1,11 +1,11 @@
 import 'package:flutter/src/material/time.dart';
-import 'package:i_table/features/restaurant_plan/data/repository/restaurant_plan_repository.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/reservation/reservation_entity.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_configuration/restaurant_configuration_entity.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_level_entity.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_plan/restaurant_setting.dart';
 
-import '../entity/restaurant_plan/restaurant_plan_element_entity.dart';
+import '../../data/repositories/restaurant_plan_repository.dart';
+import '../entities/reservation/reservation_entity.dart';
+import '../entities/restaurant_configuration/restaurant_configuration_entity.dart';
+import '../entities/restaurant_plan/restaurant_plan_element_entity.dart';
+import '../entities/restaurant_plan/restaurant_plan_level_entity.dart';
+import '../entities/restaurant_plan/restaurant_setting.dart';
 
 class RestaurantPlanUseCase{
 
@@ -17,7 +17,7 @@ class RestaurantPlanUseCase{
   TimeOfDay? reservationTime;
 
   bool editMode = false;
-
+  List<RestaurantPlanElementEntity> selectedElements = [];
 
   Future<RestaurantSetting> fetchRestaurantSetting(String restaurantId) async {
     RestaurantPlanRepository restaurantPlanRepository = RestaurantPlanRepository();
@@ -37,6 +37,9 @@ class RestaurantPlanUseCase{
     RestaurantPlanElementEntity? tappedElement = findElement(planElementId);
     if(tappedElement!=null){
       tappedElement.select();
+
+      editMode = selectedElements.any((element) => element.selected);
+
 
       if(tappedElement.type=='T'){
         selectTableSittings(tappedElement);

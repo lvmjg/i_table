@@ -1,6 +1,6 @@
 
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_configuration/time_restricted_reservation.dart';
-import 'package:i_table/features/restaurant_plan/domain/entity/restaurant_configuration/time_unlimited_reservation.dart';
+import 'package:i_table/features/restaurant_plan/domain/entities/restaurant_configuration/time_restricted_reservation.dart';
+import 'package:i_table/features/restaurant_plan/domain/entities/restaurant_configuration/time_unlimited_reservation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_configuration_entity.g.dart';

@@ -1,11 +1,9 @@
+import '../../features/restaurant_plan/domain/entities/restaurant_plan/restaurant_plan_element_entity.dart';
 
-import '../../features/restaurant_plan/domain/entity/restaurant_plan/restaurant_plan_element_entity.dart';
+class PlanGenerator {
+  List<RestaurantPlanElementEntity> elements = [];
 
-class PlanGenerator{
-
-  List<RestaurantPlanElementEntity> elements =[];
-
-  PlanGenerator(){
+  PlanGenerator() {
     // elements
     // //left four
     //   ..add(RestaurantPlanElementEntity(
@@ -640,21 +638,20 @@ class PlanGenerator{
     //   ));
   }
 
-  List<RestaurantPlanElementEntity>  get (){
+  List<RestaurantPlanElementEntity> get() {
     return elements;
   }
 
-  Map<String, dynamic> getJson (){
-
-    elements.forEach((element) {element.id = element.name;});
+  Map<String, dynamic> getJson() {
+    elements.forEach((element) {
+      element.id = element.name;
+    });
 
     Map<String, dynamic> allElements = {};
-    for(RestaurantPlanElementEntity pee in elements){
+    for (RestaurantPlanElementEntity pee in elements) {
       allElements.addAll(pee.toJson());
     }
 
-    return <String, dynamic>{
-     'restaurantPlan': allElements
-    };
+    return <String, dynamic>{'restaurantPlan': allElements};
   }
 }
