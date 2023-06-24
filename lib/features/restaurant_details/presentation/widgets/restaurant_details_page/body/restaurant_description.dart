@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../../domain/entity/restaurant_details_entity.dart';
+import '../../../../../../core/util/globals.dart';
+import '../../../../domain/entity/restaurant_details_entity.dart';
+
+
 
 class RestaurantDescription extends StatelessWidget {
   const RestaurantDescription({

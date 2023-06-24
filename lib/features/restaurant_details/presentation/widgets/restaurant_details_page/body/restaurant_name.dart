@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/entity/restaurant_details_entity.dart';
+import '../../../../domain/entity/restaurant_details_entity.dart';
 
 class RestaurantName extends StatelessWidget {
   const RestaurantName({

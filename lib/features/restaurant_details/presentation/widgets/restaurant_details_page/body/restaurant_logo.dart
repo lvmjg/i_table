@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
+import '../../../../../../core/util/globals.dart';
 
 class RestaurantLogo extends StatelessWidget {
   const RestaurantLogo({

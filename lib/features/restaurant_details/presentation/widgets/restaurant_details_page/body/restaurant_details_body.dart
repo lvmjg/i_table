@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/core/presentation/widgets/failure.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_details_entity.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/reserve_button.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_address.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_description.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_location_url.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_logo.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_name.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_opening_hours.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_url.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/reserve_button.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_address.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_description.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_location_url.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_logo.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_name.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_opening_hours.dart';
+import 'package:i_table/features/restaurant_details/presentation/widgets/restaurant_details_page/body/restaurant_url.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../bloc/restaurant_details_bloc.dart';
+import '../../../../../../core/util/globals.dart';
+import '../../../bloc/restaurant_details_bloc.dart';
 
 class RestaurantDetailsBody extends StatefulWidget {
   const RestaurantDetailsBody({
@@ -30,7 +31,12 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantDetailsBloc, RestaurantDetailsState>(
       builder: (context, state) {
-        if (state is RestaurantDetailsFetchInProgress) {
+        if (state is RestaurantDetailsFetchFailure) {
+          return Failure(
+              errorMessage: errorFetchRestaurantDetails,
+              onPressed: () => context.read<RestaurantDetailsBloc>().add(
+                  RestaurantDetailsInit(restaurantId: widget.restaurantId)));
+        } else if (state is RestaurantDetailsFetchInProgress) {
           return SizedBox(
               child: Center(
                   child: CircularProgressIndicator(color: Color(primary))));
@@ -74,7 +80,11 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
                         flex: 2,
                         child: RestaurantUrl(
                             restaurantDetails: restaurantDetails)),
-                    Expanded(flex: 4, child: ReserveButton(restaurant: restaurantDetails.toSearchEntity(),)),
+                    Expanded(
+                        flex: 4,
+                        child: ReserveButton(
+                          restaurant: restaurantDetails.toSearchEntity(),
+                        )),
                     Expanded(
                         flex: 2,
                         child: RestaurantLocationUrl(

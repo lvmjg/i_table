@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:i_table/core/error/exceptions.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/search_entity.dart';
@@ -16,7 +17,7 @@ class SearchRepositoryImpl implements SearchRepository {
     try {
       restaurants = await remote.fetchRestaurants();
       return Right(restaurants);
-    } on FetchFailure {
+    } on FetchException {
       return Left(FetchFailure());
     }
   }

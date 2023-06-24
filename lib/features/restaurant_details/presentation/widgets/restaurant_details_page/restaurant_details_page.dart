@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/body/restaurant_details_body.dart';
-import 'package:i_table/features/restaurant_details/presentation/widgets/appbar/restuarant_details_appbar.dart';
-import 'bloc/restaurant_details_bloc.dart';
+import '../../bloc/restaurant_details_bloc.dart';
+import 'appbar/restuarant_details_appbar.dart';
+import 'body/restaurant_details_body.dart';
 
 class RestaurantDetailsPage extends StatefulWidget {
   final String restaurantId;

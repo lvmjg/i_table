@@ -21,9 +21,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchFetchInProgress());
 
       if(state is SearchFetchInProgress) {
-
         (await fetchRestaurants(NoParams())).fold(
-                (failure) => emit(SearchFetchFailure(errorFetchRestaurants)),
+                (failure) => emit(SearchFetchFailure(errorMessage: errorFetchRestaurants)),
                 (restaurants) => emit(SearchFetchSuccess(restaurants: restaurants))
         );
       }

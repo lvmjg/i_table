@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../../core/util/globals.dart';
+import '../../../../../../core/util/globals.dart';
 
-class RestaurantDetailsAppBar extends StatelessWidget implements PreferredSizeWidget{
+class RestaurantDetailsAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const RestaurantDetailsAppBar({
     super.key,
   });
@@ -17,15 +18,13 @@ class RestaurantDetailsAppBar extends StatelessWidget implements PreferredSizeWi
       elevation: elevation,
       toolbarHeight: toolbarHeight,
       flexibleSpace:
-      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
           padding: EdgeInsets.all(padding / 2),
           child: Text(
             'iTable',
             style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.w900),
+                fontSize: 14, color: Colors.white, fontWeight: FontWeight.w900),
           ),
         ),
       ]),

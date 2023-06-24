@@ -20,6 +20,7 @@ String chooseDate = 'Wybierz termin';
 String chooseTime = 'Wybierz godzinę';
 
 String errorFetchRestaurants = 'Nie można pobrać listy punktów';
+String errorFetchRestaurantDetails = 'Nie można pobrać informacji o punkcie';
 String tryAgain = 'Spróbuj ponownie';
 
 String RESTAURANT_ID = 'restaurantId';

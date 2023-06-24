@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../../../../core/util/url_manager.dart';
-import '../../../domain/entity/restaurant_details_entity.dart';
+import '../../../../../../core/util/globals.dart';
+import '../../../../../../core/util/url_manager.dart';
+import '../../../../domain/entity/restaurant_details_entity.dart';
 
 class RestaurantLocationUrl extends StatelessWidget {
   const RestaurantLocationUrl({

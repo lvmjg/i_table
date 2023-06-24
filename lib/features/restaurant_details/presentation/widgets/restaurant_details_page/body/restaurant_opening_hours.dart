@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/globals.dart';
-import '../../../../../core/util/hex_color.dart';
-import '../../../domain/entity/restaurant_details_entity.dart';
-import '../../../domain/entity/restaurant_opening_hours_entity.dart';
+import '../../../../../../core/util/globals.dart';
+import '../../../../../../core/util/hex_color.dart';
+import '../../../../domain/entity/restaurant_details_entity.dart';
+import '../../../../domain/entity/restaurant_opening_hours_entity.dart';
 
 class RestaurantOpeningHours extends StatelessWidget {
   const RestaurantOpeningHours({

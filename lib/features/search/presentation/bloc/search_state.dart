@@ -8,7 +8,7 @@ abstract class SearchState extends Equatable {
 class SearchFetchFailure extends SearchState {
   final String errorMessage;
 
-  SearchFetchFailure(this.errorMessage);
+  SearchFetchFailure({required this.errorMessage});
 
   @override
   List<Object> get props => [errorMessage];
