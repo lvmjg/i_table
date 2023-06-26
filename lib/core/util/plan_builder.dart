@@ -227,7 +227,7 @@ class PlanBuilder {
 
   double setOpacityBasedOnState(bool editMode, PlanElementState elementState) {
     if (editMode && (elementState != PlanElementState.selected) && (elementState != PlanElementState.highlighted)) {
-      return 0.4;
+      return 0.2;
     }
 
     return 1;

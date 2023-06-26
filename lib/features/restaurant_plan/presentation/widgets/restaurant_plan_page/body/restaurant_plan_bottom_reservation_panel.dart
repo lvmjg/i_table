@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan_date_time_picker_bar.dart';
 import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan_edit_mode_bar.dart';
 
 import '../../../../../../core/util/globals.dart';
+import '../../../bloc/restaurant_plan_bloc.dart';
 
 class RestaurantPlanBottomReservationPanel extends StatefulWidget {
   RestaurantPlanBottomReservationPanel({Key? key}) : super(key: key);
@@ -25,23 +27,33 @@ class _RestaurantPlanBottomReservationPanelState
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(padding),
                 topRight: Radius.circular(padding))),
-        child: Center(
+        child: BlocListener<RestaurantPlanBloc, RestaurantPlanState>(
+          listener: (context, state) {
+            if(state is RestaurantPlanFetchSuccess) {
+              RestaurantPlanFetchSuccess restaurantPlanFetchSuccess = state as RestaurantPlanFetchSuccess;
+
+              if (restaurantPlanFetchSuccess.editMode) {
+                _controller.forward();
+              } else {
+                _controller.reverse();
+              }
+            }
+          },
           child: Stack(clipBehavior: Clip.hardEdge, children: [
             ClipRRect(
               child: SlideTransition(
                   position: _offsetAnimation1,
-                  child: InkWell(
-                    onTap: (){_controller.forward();},
-                    child: Container(
-                        height: 85, child: RestaurantPlanDateTimePickerBar()),
-                  )),
+                  child: Container(
+                      height: 85,
+                      child: RestaurantPlanDateTimePickerBar())),
             ),
             ClipRRect(
               child: SlideTransition(
                 position: _offsetAnimation2,
                 child: Container(
-                  height:85,
-                  child: RestaurantPlanEditModeBar(controller: _controller),
+                  height: 85,
+                  child: RestaurantPlanEditModeBar(
+                      controller: _controller),
                 ),
               ),
             )
@@ -50,7 +62,7 @@ class _RestaurantPlanBottomReservationPanelState
   }
 
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 100),
+    duration: const Duration(milliseconds: 500),
     vsync: this,
   );
 
@@ -85,6 +97,5 @@ class _RestaurantPlanBottomReservationPanelState
   @override
   void initState() {
     super.initState();
-    _controller.forward();
   }
 }

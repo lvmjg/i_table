@@ -19,11 +19,14 @@ class RestaurantPlanElementEntity {
   final String color;
 
   @JsonKey(defaultValue: StringUtil.EMPTY)
-  final String connectedTable;
-
+  String connectedTable = StringUtil.EMPTY;
   @JsonKey(defaultValue: <String>[])
-  final List<String> connectedSittings;
+  List<String> connectedSittings = [];
 
+  @JsonKey(defaultValue: true)
+  bool canReserveTable = false;
+  @JsonKey(defaultValue: <String, List<String>>{})
+  Map<String, List<String>> groupedSittings = {};
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool reserved = false;
@@ -32,9 +35,7 @@ class RestaurantPlanElementEntity {
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool highlighted = false;
 
-
-
-  RestaurantPlanElementEntity({required this.type, required this.name, required this.columnStart, required this.columnSpan, required this.rowStart, required this.rowSpan, required this.color, required this.connectedTable, required this.connectedSittings});
+  RestaurantPlanElementEntity({required this.type, required this.name, required this.columnStart, required this.columnSpan, required this.rowStart, required this.rowSpan, required this.color});
 
   factory RestaurantPlanElementEntity.fromJson(Map<String, dynamic> json){
     RestaurantPlanElementEntity planElementEntity = _$RestaurantPlanElementEntityFromJson(json);
@@ -51,22 +52,23 @@ class RestaurantPlanElementEntity {
   }
 
   void select(){
-    selected = !selected;
-  }
+    if(reserved == false) {
+      selected = !selected;
 
-
-  void forceSelect(){
-    selected = true;
+      if (selected) {
+        highlighted = true;
+      }
+    }
   }
 
   void highlight(){
-    if(highlighted){
-      selected = false;
+    if(reserved == false) {
+      highlighted = !highlighted;
     }
+  }
 
-    highlighted = !highlighted;
-
-
+  void setSelected(bool select) {
+    this.selected = select;
   }
 
   PlanElementState getElementState(){
@@ -89,6 +91,12 @@ class RestaurantPlanElementEntity {
   bool isExcluded(){
     return (selected || reserved) == false;
   }
+
+  void setHighlighted(bool highlighted) {
+    this.highlighted = highlighted;
+  }
+
+
 
 
 }

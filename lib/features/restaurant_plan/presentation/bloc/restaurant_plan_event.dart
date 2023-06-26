@@ -47,3 +47,5 @@ class RestaurantPlanReservationTimeChanged extends RestaurantPlanEvent{
   @override
   List<Object> get props => [reservationTime];
 }
+
+class RestaurantPlanEditModeCancelled extends RestaurantPlanEvent{}

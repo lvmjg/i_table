@@ -21,7 +21,7 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Color(primary),
+      color: Colors.transparent,
       child: Padding(
           padding: EdgeInsets.all(padding / 4),
           child: InkWell(
@@ -77,7 +77,7 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
                       flex: 1,
                       child: Text(
                         _formatTime(reservationTime),
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 13),
                         textAlign: TextAlign.center,
                       ),
                     ),

@@ -3,12 +3,15 @@ part of 'restaurant_plan_bloc.dart';
 abstract class RestaurantPlanState extends Equatable {
   @override
   List<Object> get props => [];
-
-
 }
 
-class RestaurantPlanFetchFailure extends RestaurantPlanState {
+class RestaurantPlanFetchFailure extends RestaurantDetailsState {
+  final String errorMessage;
 
+  RestaurantPlanFetchFailure({required this.errorMessage});
+
+  @override
+  List<Object> get props => [errorMessage];
 }
 
 class RestaurantPlanFetchInProgress extends RestaurantPlanState {
@@ -26,3 +29,4 @@ class RestaurantPlanFetchSuccess extends RestaurantPlanState {
   @override
   List<Object> get props => [restaurantSetting, input, editMode];
 }
+

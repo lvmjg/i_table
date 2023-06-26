@@ -11,8 +11,7 @@ class RestaurantPlanAppBar extends StatelessWidget implements PreferredSizeWidge
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle:
-      SystemUiOverlayStyle(statusBarColor: Color(primary)),
+      systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
       shape: roundedRectangleBorder,
       flexibleSpace:
       Column(mainAxisAlignment: MainAxisAlignment.end, children: [

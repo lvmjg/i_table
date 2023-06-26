@@ -4,12 +4,14 @@ import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan.dart';
 import 'package:i_table/features/restaurant_plan/presentation/widgets/restaurant_plan_page/body/restaurant_plan_bottom_reservation_panel.dart';
 
+import '../../../../../../core/presentation/widgets/failure.dart';
 import '../../../bloc/restaurant_plan_bloc.dart';
 
 class RestaurantPlanBody extends StatefulWidget {
+  final String restaurantId;
 
   RestaurantPlanBody({
-    super.key,
+    super.key, required this.restaurantId,
   });
 
   @override
@@ -34,17 +36,25 @@ class _RestaurantPlanBodyState extends State<RestaurantPlanBody>{
                   child: LayoutBuilder(builder: (context, constraints) {
                     return BlocBuilder<RestaurantPlanBloc, RestaurantPlanState>(
                         builder: (context, state) {
-                      if (state is RestaurantPlanFetchSuccess) {
+
+                          if (state is RestaurantPlanFetchFailure) {
+                            return Failure(
+                                errorMessage: errorFetchRestaurant,
+                                onPressed: () => context.read<RestaurantPlanBloc>().add(
+                                    RestaurantPlanInitiated(restaurantId: widget.restaurantId, reservationTime: DateTime.now())));
+                          }
+                          else if (state is RestaurantPlanFetchInProgress) {
+                            return SizedBox(
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                        color: Color(primary))));
+                          }
+                         else if (state is RestaurantPlanFetchSuccess) {
                         return Center(
                             child: RestaurantPlan(
                                 width: constraints.maxWidth,
                                 height: constraints.maxHeight,
                                 restaurantSetting: state.restaurantSetting));
-                      } else if (state is RestaurantPlanFetchInProgress) {
-                        return SizedBox(
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Color(primary))));
                       }
 
                       return Container();
@@ -58,9 +68,9 @@ class _RestaurantPlanBodyState extends State<RestaurantPlanBody>{
                   child:  Container(
                     width: MediaQuery.of(context).size.width*0.2,
                     decoration: BoxDecoration(
-
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(200)),
+                        borderRadius: BorderRadius.circular(200)
+                    ),
                     height: 40,
                     child: Center(
                       child: DropdownButton(

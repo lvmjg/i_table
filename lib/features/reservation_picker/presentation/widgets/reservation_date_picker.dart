@@ -22,7 +22,7 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Color(primary),
+      color: Colors.transparent,
       child: Padding(
           padding: EdgeInsets.all(padding / 4),
           child: InkWell(
@@ -79,7 +79,7 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
                       flex: 1,
                       child: Text(
                         _formatDate(reservationDate),
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 13),
                         textAlign: TextAlign.center,
                       ),
                     ),

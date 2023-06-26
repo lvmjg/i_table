@@ -22,7 +22,7 @@ class _RestaurantPlanPageState extends State<RestaurantPlanPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: RestaurantPlanAppBar(),
-      body: RestaurantPlanBody()
+      body: RestaurantPlanBody(restaurantId: widget.restaurantId)
     );
   }
 

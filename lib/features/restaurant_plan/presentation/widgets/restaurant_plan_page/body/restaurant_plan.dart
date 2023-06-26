@@ -30,7 +30,6 @@ class _RestaurantPlanState extends State<RestaurantPlan> {
         height: widget.planBuilder.desiredHeight.toDouble(),
         child: BlocBuilder<RestaurantPlanBloc, RestaurantPlanState>(
           builder: (context, state) {
-            print('initState Plan fetch');
             RestaurantPlanFetchSuccess restaurantPlanFetchSuccess = state as RestaurantPlanFetchSuccess;
             return Center(child: widget.planBuilder.createPlan(this.context, restaurantPlanFetchSuccess.editMode));
           },
@@ -41,9 +40,8 @@ class _RestaurantPlanState extends State<RestaurantPlan> {
   @override
   void initState() {
     super.initState();
-    print('initState Plan');
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+   /* WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       widget.planBuilder.retainTextSize();
-    });
+    });*/
   }
 }

@@ -24,7 +24,8 @@ String imageExtension = '.jpg';
 
 String errorFetchRestaurants = 'Nie można pobrać listy punktów';
 String errorFetchRestaurantDetails = 'Nie można pobrać informacji o punkcie';
-String errorShowPreview = 'Nie można wyświetlić podglądu';
+String errorShowPreview = 'Nie można wyświetlić podglądu miejsca';
+String errorFetchRestaurant = 'Nie załadować poglądu punktu';
 String tryAgain = 'Spróbuj ponownie';
 
 String RESTAURANT_ID = 'restaurantId';

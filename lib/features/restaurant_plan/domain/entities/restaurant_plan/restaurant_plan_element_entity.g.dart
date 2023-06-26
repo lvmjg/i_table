@@ -16,12 +16,19 @@ RestaurantPlanElementEntity _$RestaurantPlanElementEntityFromJson(
       rowStart: json['rowStart'] as int,
       rowSpan: json['rowSpan'] as int,
       color: json['color'] as String,
-      connectedTable: json['connectedTable'] as String? ?? '',
-      connectedSittings: (json['connectedSittings'] as List<dynamic>?)
+    )
+      ..connectedTable = json['connectedTable'] as String? ?? ''
+      ..connectedSittings = (json['connectedSittings'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
-          [],
-    );
+          []
+      ..canReserveTable = json['canReserveTable'] as bool? ?? true
+      ..groupedSittings =
+          (json['groupedSittings'] as Map<String, dynamic>?)?.map(
+                (k, e) => MapEntry(
+                    k, (e as List<dynamic>).map((e) => e as String).toList()),
+              ) ??
+              {};
 
 Map<String, dynamic> _$RestaurantPlanElementEntityToJson(
         RestaurantPlanElementEntity instance) =>
@@ -35,4 +42,6 @@ Map<String, dynamic> _$RestaurantPlanElementEntityToJson(
       'color': instance.color,
       'connectedTable': instance.connectedTable,
       'connectedSittings': instance.connectedSittings,
+      'canReserveTable': instance.canReserveTable,
+      'groupedSittings': instance.groupedSittings,
     };

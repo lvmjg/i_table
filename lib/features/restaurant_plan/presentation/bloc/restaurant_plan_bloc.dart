@@ -5,51 +5,83 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:i_table/features/restaurant_plan/domain/usecases/manage_restaurant.dart';
 import 'package:meta/meta.dart';
 
+import '../../../restaurant_details/domain/usecase/fetch_restaurant_details.dart';
+import '../../../restaurant_details/presentation/bloc/restaurant_details_bloc.dart';
 import '../../domain/entities/restaurant_plan/restaurant_setting.dart';
-import '../../domain/usecases/restaurant_plan_usecase.dart';
 
 part 'restaurant_plan_event.dart';
+
 part 'restaurant_plan_state.dart';
 
-class RestaurantPlanBloc extends Bloc<RestaurantPlanEvent, RestaurantPlanState> {
+class RestaurantPlanBloc
+    extends Bloc<RestaurantPlanEvent, RestaurantPlanState> {
   RestaurantPlanBloc() : super(RestaurantPlanFetchInProgress()) {
-    RestaurantPlanUseCase restaurantPlanUseCase = RestaurantPlanUseCase();
+    ManageRestaurant manageRestaurant = ManageRestaurant();
 
     RestaurantSetting? restaurantSetting;
 
     on<RestaurantPlanInitiated>((event, emit) async {
-        emit(RestaurantPlanFetchInProgress());
+      emit(RestaurantPlanFetchInProgress());
 
-        restaurantSetting = await restaurantPlanUseCase.fetchRestaurantSetting(event.restaurantId);
+      if (state is RestaurantPlanFetchInProgress) {
+        RestaurantSetting? restaurantSetting = null;
+        (await manageRestaurant(RestaurantIdParams(restaurantId: event.restaurantId)))
+            .fold((failure) {
 
-        if (state is RestaurantPlanFetchInProgress) {
-          emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input: '', editMode: restaurantPlanUseCase.editMode));
-        }
+        },
+                (restaurantSetting) {
+                emit(RestaurantPlanFetchSuccess(
+                restaurantSetting: restaurantSetting!,
+                input: '',
+                editMode: manageRestaurant.editMode));
+            });
+
+
+      }
     });
 
     on<RestaurantPlanElementTapped>((event, emit) async {
-      restaurantPlanUseCase.elementTapped(event.planElementId);
+      manageRestaurant.elementTapped(event.planElementId);
 
-      Random r  = Random();
-      emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input:r.nextDouble().toString(), editMode: restaurantPlanUseCase.editMode));
+      bool eddit = manageRestaurant.editMode;
+      Random r = Random();
+      emit(RestaurantPlanFetchSuccess(
+          restaurantSetting: restaurantSetting!,
+          input: r.nextDouble().toString(),
+          editMode: manageRestaurant.editMode));
     });
 
     on<RestaurantPlanReservationDateChanged>((event, emit) async {
-      restaurantPlanUseCase.reservationDateChanged(event.reservationDate);
+      manageRestaurant.reservationDateChanged(event.reservationDate);
 
-      Random r  = Random();
-      emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input:r.nextDouble().toString(), editMode: restaurantPlanUseCase.editMode));
+      Random r = Random();
+      emit(RestaurantPlanFetchSuccess(
+          restaurantSetting: restaurantSetting!,
+          input: r.nextDouble().toString(),
+          editMode: manageRestaurant.editMode));
     });
 
     on<RestaurantPlanReservationTimeChanged>((event, emit) async {
-      restaurantPlanUseCase.reservationTimeChanged(event.reservationTime);
+      manageRestaurant.reservationTimeChanged(event.reservationTime);
 
-      Random r  = Random();
-      emit(RestaurantPlanFetchSuccess(restaurantSetting: restaurantSetting!, input:r.nextDouble().toString(), editMode: restaurantPlanUseCase.editMode));
+      Random r = Random();
+      emit(RestaurantPlanFetchSuccess(
+          restaurantSetting: restaurantSetting!,
+          input: r.nextDouble().toString(),
+          editMode: manageRestaurant.editMode));
+    });
+
+    on<RestaurantPlanEditModeCancelled>((event, emit) async {
+      manageRestaurant.editModeCancelled();
+
+      Random r = Random();
+      emit(RestaurantPlanFetchSuccess(
+          restaurantSetting: restaurantSetting!,
+          input: r.nextDouble().toString(),
+          editMode: manageRestaurant.editMode));
     });
   }
-
-
 }
