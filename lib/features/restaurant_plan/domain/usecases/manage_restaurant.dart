@@ -4,23 +4,28 @@ import 'package:i_table/core/error/failures.dart';
 import 'package:i_table/core/usecase/usecase.dart';
 import 'package:i_table/features/restaurant_details/domain/usecase/fetch_restaurant_details.dart';
 import 'package:i_table/features/restaurant_plan/data/datasources/restaurant_configuration_remote_data_source.dart';
-import 'package:i_table/features/restaurant_plan/data/repositories/restaurant_configuration_repository_impl.dart';
-import 'package:i_table/features/restaurant_plan/data/repositories/restaurant_plan_repository_impl.dart';
 
 import '../../data/datasources/restaurant_plan_remote_data_source.dart';
 import '../../data/datasources/restaurant_reservations_remote_data_source.dart';
-import '../../data/repositories/restaurant_reservations_repository_impl.dart';
+import '../../data/repositories/restaurant_configuration_repository.dart';
+import '../../data/repositories/restaurant_plan_repository.dart';
+import '../../data/repositories/restaurant_reservations_repository.dart';
 import '../entities/reservation/reservation_entity.dart';
 import '../entities/restaurant_configuration/restaurant_configuration_entity.dart';
 import '../entities/restaurant_plan/restaurant_plan_element_entity.dart';
 import '../entities/restaurant_plan/restaurant_plan_level_entity.dart';
 import '../entities/restaurant_plan/restaurant_setting.dart';
 
-class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams> {
-
-  final RestaurantConfigurationRepositoryImpl restaurantConfigurationRepository = RestaurantConfigurationRepositoryImpl(RestaurantConfigurationRemoteDataSourceImpl());
-  final RestaurantPlanRepositoryImpl restaurantPlanRepository = RestaurantPlanRepositoryImpl(RestaurantPlanRemoteDataSourceImpl());
-  final RestaurantReservationsRepositoryImpl restaurantReservationsRepository = RestaurantReservationsRepositoryImpl(RestaurantReservationsRemoteDataSourceImpl());
+class ManageRestaurant
+    implements UseCase<RestaurantSetting, RestaurantIdParams> {
+  final RestaurantConfigurationRepositoryImpl
+      restaurantConfigurationRepository = RestaurantConfigurationRepositoryImpl(
+          RestaurantConfigurationRemoteDataSourceImpl());
+  final RestaurantPlanRepositoryImpl restaurantPlanRepository =
+      RestaurantPlanRepositoryImpl(RestaurantPlanRemoteDataSourceImpl());
+  final RestaurantReservationsRepositoryImpl restaurantReservationsRepository =
+      RestaurantReservationsRepositoryImpl(
+          RestaurantReservationsRemoteDataSourceImpl());
 
   RestaurantConfigurationEntity? restaurantConfiguration;
   List<RestaurantPlanLevelEntity> restaurantPlanLevels = [];
@@ -34,33 +39,38 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
   List<RestaurantPlanElementEntity> highlightedElements = [];
 
   @override
-  Future<Either<Failure, RestaurantSetting>> call(RestaurantIdParams params) async {
-    Either<Failure, RestaurantConfigurationEntity?> configurationEither = await restaurantConfigurationRepository.fetchRestaurantConfiguration(params.restaurantId);
-    configurationEither.fold((failure){
+  Future<Either<Failure, RestaurantSetting>> call(
+      RestaurantIdParams params) async {
+    Either<Failure, RestaurantConfigurationEntity?> configurationEither =
+        await restaurantConfigurationRepository
+            .fetchRestaurantConfiguration(params.restaurantId);
+    configurationEither.fold((failure) {
       return Left(failure);
-    }, (restaurantConfiguration){
+    }, (restaurantConfiguration) {
       restaurantConfiguration = restaurantConfiguration;
     });
 
-    Either<Failure, List<RestaurantPlanLevelEntity>> planEither = await  restaurantPlanRepository.fetchRestaurantPlan(params.restaurantId);
-    if(planEither.isRight()){
+    Either<Failure, List<RestaurantPlanLevelEntity>> planEither =
+        await restaurantPlanRepository.fetchRestaurantPlan(params.restaurantId);
+    if (planEither.isRight()) {
       restaurantPlanLevels = planEither.getOrElse(() => []);
-    }
-    else {
+    } else {
       return Left(FetchFailure());
     }
 
-    Either<Failure, List<ReservationEntity>> reservationsEither = await  restaurantReservationsRepository.fetchRestaurantReservations(params.restaurantId, DateTime(2023, 6, 14), DateTime(2023, 6, 15));
-    if(reservationsEither.isRight()){
+    Either<Failure, List<ReservationEntity>> reservationsEither =
+        await restaurantReservationsRepository.fetchRestaurantReservations(
+            params.restaurantId, DateTime(2023, 6, 14), DateTime(2023, 6, 15));
+    if (reservationsEither.isRight()) {
       restaurantReservations = reservationsEither.getOrElse(() => []);
-    }
-    else {
+    } else {
       return Left(FetchFailure());
     }
 
     reserveSittings(restaurantReservations, restaurantPlanLevels);
 
-    return Right(RestaurantSetting(restaurantConfiguration, restaurantPlanLevels));
+    return Right(
+        RestaurantSetting(restaurantConfiguration, restaurantPlanLevels));
   }
 
   void elementTapped(String planElementId) {
@@ -131,7 +141,7 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
   }
 
   void sittingSelected(RestaurantPlanElementEntity tappedElement) {
-    if(tappedElement.connectedTable.isNotEmpty) {
+    if (tappedElement.connectedTable.isNotEmpty) {
       tappedElement.setSelected(true);
       tappedElement.setHighlighted(true);
 
@@ -139,12 +149,11 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
       highlightedElements.add(tappedElement);
 
       List<RestaurantPlanElementEntity> otherSittingsInGroup =
-      findOtherSittingsInTableGroup(tappedElement);
+          findOtherSittingsInTableGroup(tappedElement);
       highlightElements(otherSittingsInGroup, true);
 
       highlightedElements.addAll(otherSittingsInGroup);
-    }
-    else if(tappedElement.connectedSittings.isNotEmpty) {
+    } else if (tappedElement.connectedSittings.isNotEmpty) {
       tappedElement.setSelected(true);
       tappedElement.setHighlighted(true);
 
@@ -152,12 +161,11 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
       highlightedElements.add(tappedElement);
 
       List<RestaurantPlanElementEntity> connectedSittings =
-      findConnectedSittings(tappedElement);
+          findConnectedSittings(tappedElement);
       highlightElements(connectedSittings, true);
 
       highlightedElements.addAll(connectedSittings);
-    }
-    else{
+    } else {
       tappedElement.setSelected(true);
       tappedElement.setHighlighted(true);
 
@@ -167,17 +175,15 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
   }
 
   void sittingUnselected(RestaurantPlanElementEntity tappedElement) {
-    if(tappedElement.connectedTable.isNotEmpty) {
+    if (tappedElement.connectedTable.isNotEmpty) {
       tappedElement.setSelected(false);
 
       selectedElements.remove(tappedElement);
-    }
-    else if(tappedElement.connectedSittings.isNotEmpty) {
+    } else if (tappedElement.connectedSittings.isNotEmpty) {
       tappedElement.setSelected(false);
 
       selectedElements.remove(tappedElement);
-    }
-    else {
+    } else {
       tappedElement.setSelected(false);
       tappedElement.setHighlighted(false);
 
@@ -218,8 +224,9 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
       RestaurantPlanElementEntity sitting) {
     List<RestaurantPlanElementEntity> otherSittingsInGroup = [];
 
-    RestaurantPlanElementEntity? connectedTable = findElement(sitting.connectedTable);
-    if(connectedTable!=null){
+    RestaurantPlanElementEntity? connectedTable =
+        findElement(sitting.connectedTable);
+    if (connectedTable != null) {
       otherSittingsInGroup.add(connectedTable);
 
       bool hasGroupedSittings = connectedTable.groupedSittings.isNotEmpty;
@@ -361,6 +368,4 @@ class ManageRestaurant implements UseCase<RestaurantSetting, RestaurantIdParams>
     selectedElements = [];
     highlightedElements = [];
   }
-
-
 }

@@ -28,6 +28,6 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
     super.initState();
     context
         .read<RestaurantDetailsBloc>()
-        .add(RestaurantDetailsInit(restaurantId: widget.restaurantId));
+        .add(RestaurantDetailsInitiated(restaurantId: widget.restaurantId));
   }
 }

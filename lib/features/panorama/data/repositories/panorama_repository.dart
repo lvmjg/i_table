@@ -2,12 +2,15 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:i_table/core/error/failures.dart';
-import 'package:i_table/features/panorama/domain/repositories/panorama_repository.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/util/globals.dart';
 import '../datasources/panorama_remote_data_source.dart';
+
+abstract class PanoramaRepository{
+  Future<Either<Failure, File>> fetchPanorama(String restaurantId, String elementId);
+}
 
 class PanoramaRepositoryImpl implements PanoramaRepository {
   final PanoramaRemoteDataSource remote;

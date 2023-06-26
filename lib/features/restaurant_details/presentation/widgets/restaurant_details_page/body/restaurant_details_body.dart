@@ -35,7 +35,7 @@ class _RestaurantDetailsBodyState extends State<RestaurantDetailsBody> {
           return Failure(
               errorMessage: errorFetchRestaurantDetails,
               onPressed: () => context.read<RestaurantDetailsBloc>().add(
-                  RestaurantDetailsInit(restaurantId: widget.restaurantId)));
+                  RestaurantDetailsInitiated(restaurantId: widget.restaurantId)));
         } else if (state is RestaurantDetailsFetchInProgress) {
           return SizedBox(
               child: Center(

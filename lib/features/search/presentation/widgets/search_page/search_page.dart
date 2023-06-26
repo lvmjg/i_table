@@ -28,6 +28,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchBloc>().add(SearchInit());
+    context.read<SearchBloc>().add(SearchInitiated());
   }
 }

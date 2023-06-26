@@ -7,10 +7,10 @@ abstract class PanoramaEvent{
   List<Object> get props => [];
 }
 
-class PanoramaInit extends PanoramaEvent{
+class PanoramaInitiated extends PanoramaEvent{
 
   final String restaurantId;
   final String elementId;
 
-  PanoramaInit({required this.restaurantId, required this.elementId});
+  PanoramaInitiated({required this.restaurantId, required this.elementId});
 }

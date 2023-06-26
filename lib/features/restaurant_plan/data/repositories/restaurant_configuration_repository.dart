@@ -4,7 +4,11 @@ import 'package:i_table/features/restaurant_plan/data/datasources/restaurant_con
 
 import '../../../../core/error/exceptions.dart';
 import '../../domain/entities/restaurant_configuration/restaurant_configuration_entity.dart';
-import '../../domain/repositories/restaurant_configuration_repository.dart';
+
+abstract class RestaurantConfigurationRepository {
+  Future<Either<Failure, RestaurantConfigurationEntity>>
+      fetchRestaurantConfiguration(String restaurantId);
+}
 
 class RestaurantConfigurationRepositoryImpl
     implements RestaurantConfigurationRepository {

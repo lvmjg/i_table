@@ -23,7 +23,7 @@ class PanoramaBody extends StatelessWidget {
         if (state is PanoramaFetchFailure) {
           return Failure(
               errorMessage: errorShowPreview,
-              onPressed: () => context.read<PanoramaBloc>().add(PanoramaInit(
+              onPressed: () => context.read<PanoramaBloc>().add(PanoramaInitiated(
                   restaurantId: restaurantId, elementId: elementId)));
         } else if (state is PanoramaFetchInProgress) {
           return SizedBox(

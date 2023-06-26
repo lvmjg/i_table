@@ -3,10 +3,13 @@ import 'package:dartz/dartz.dart';
 import 'package:i_table/core/error/exceptions.dart';
 import 'package:i_table/features/restaurant_details/data/datasources/restaurant_details_remote_data_source.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_details_entity.dart';
-import 'package:i_table/features/restaurant_details/domain/repositories/restaurant_details_repository.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/util/globals.dart';
+
+abstract class RestaurantDetailsRepository{
+  Future<Either<Failure, RestaurantDetailsEntity>> fetchRestaurantDetails(String restaurantId);
+}
 
 class RestaurantDetailsRepositoryImpl implements RestaurantDetailsRepository{
 

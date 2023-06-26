@@ -3,8 +3,11 @@ import 'package:i_table/core/error/exceptions.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/search_entity.dart';
-import '../../domain/repositories/search_repository.dart';
 import '../datasources/search_remote_data_source.dart';
+
+abstract class SearchRepository {
+  Future<Either<Failure, List<SearchEntity>>> fetchRestaurants();
+}
 
 class SearchRepositoryImpl implements SearchRepository {
   final SearchRemoteDataSource remote;

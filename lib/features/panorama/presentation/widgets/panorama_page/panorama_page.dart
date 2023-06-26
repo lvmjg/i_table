@@ -52,7 +52,7 @@ class _PanoramaPageState extends State<PanoramaPage> {
   @override
   void initState() {
     super.initState();
-    context.read<PanoramaBloc>().add(PanoramaInit(
+    context.read<PanoramaBloc>().add(PanoramaInitiated(
         restaurantId: widget.restaurantId, elementId: widget.elementId));
   }
 }

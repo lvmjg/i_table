@@ -8,11 +8,11 @@ abstract class RestaurantDetailsEvent extends Equatable{
 }
 
 
-class RestaurantDetailsInit extends RestaurantDetailsEvent{
+class RestaurantDetailsInitiated extends RestaurantDetailsEvent{
 
   final String restaurantId;
 
-  RestaurantDetailsInit({required this.restaurantId});
+  RestaurantDetailsInitiated({required this.restaurantId});
 
   @override
   List<Object> get props => [];

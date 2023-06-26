@@ -3,7 +3,7 @@ import 'package:i_table/core/error/failures.dart';
 import 'package:i_table/core/usecase/usecase.dart';
 import 'package:i_table/features/restaurant_details/domain/entity/restaurant_details_entity.dart';
 
-import '../repositories/restaurant_details_repository.dart';
+import '../../data/repositories/restaurant_details_repository.dart';
 
 class FetchRestaurantDetails
     implements UseCase<RestaurantDetailsEntity, RestaurantIdParams> {

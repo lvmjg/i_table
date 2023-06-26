@@ -43,7 +43,7 @@ class _SearchBodyState extends State<SearchBody> {
                   return Failure(
                       errorMessage: state.errorMessage,
                       onPressed: () =>
-                          context.read<SearchBloc>().add(SearchInit()));
+                          context.read<SearchBloc>().add(SearchInitiated()));
                 } else if (state is SearchFetchInProgress) {
                   return const Loading();
                 } else if (state is SearchFetchSuccess) {
