@@ -21,7 +21,7 @@ class PanoramaBloc extends Bloc<PanoramaEvent, PanoramaState> {
 
       if (state is PanoramaFetchInProgress) {
         (await fetchPanorama(
-            PanoramaParams(restaurantId: event.restaurantId, elementId: event.elementId)))
+            PanoramaParams(placeId: event.placeId, elementId: event.elementId)))
             .fold(
                 (failure) => emit(PanoramaFetchFailure(
                 errorMessage: errorShowPreview)),

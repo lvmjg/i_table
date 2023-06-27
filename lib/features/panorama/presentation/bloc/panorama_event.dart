@@ -9,8 +9,8 @@ abstract class PanoramaEvent{
 
 class PanoramaInitiated extends PanoramaEvent{
 
-  final String restaurantId;
+  final String placeId;
   final String elementId;
 
-  PanoramaInitiated({required this.restaurantId, required this.elementId});
+  PanoramaInitiated({required this.placeId, required this.elementId});
 }

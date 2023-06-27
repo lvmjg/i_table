@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
-import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import '../../features/panorama/presentation/widgets/panorama_page/panorama_page.dart';
 
-import '../../features/restaurant_plan/domain/entities/restaurant_plan/restaurant_plan_element_entity.dart';
-import '../../features/restaurant_plan/domain/entities/restaurant_plan/restaurant_setting.dart';
+import '../../features/place/domain/entities/place_configuration_entity.dart';
+import '../../features/place/domain/entities/place_plan/place_plan_element_entity.dart';
+import '../../features/place/presentation/bloc/place_bloc.dart';
 import 'hex_color.dart';
 
 class PlanBuilder {
@@ -18,13 +18,13 @@ class PlanBuilder {
   late int cellWidth;
   late int cellHeight;
 
-  late List<RestaurantPlanElementEntity> elements = [];
+  late List<PlacePlanElementEntity> elements = [];
   late List<TrackSize> rowSizes;
   late List<TrackSize> columnSizes;
 
-  late RestaurantSetting restaurantSetting;
+  late PlaceConfigurationEntity placeConfiguration;
 
-  PlanBuilder(double width, double height, this.restaurantSetting) {
+  PlanBuilder(double width, double height, this.placeConfiguration) {
     initializeSizes(width, height);
   }
 
@@ -49,16 +49,16 @@ class PlanBuilder {
 
     //PlanGenerator planGenerator = PlanGenerator();
     //elements = planGenerator.get();
-    elements = restaurantSetting
-        .restaurantPlanLevels.first.restaurantPlan.values
+    elements = placeConfiguration
+        .placePlanLevels.first.placePlan.values
         .toList();
 
     //calculate size of plan base on data from server
-    RestaurantPlanElementEntity hLast = elements.reduce(
+    PlacePlanElementEntity hLast = elements.reduce(
         (a, b) => (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
     double maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
 
-    RestaurantPlanElementEntity wLast = elements.reduce((a, b) =>
+    PlacePlanElementEntity wLast = elements.reduce((a, b) =>
         (a.columnStart + a.columnSpan) > (b.columnStart + b.columnSpan)
             ? a
             : b);
@@ -113,7 +113,7 @@ class PlanBuilder {
   GlobalKey globalKey = GlobalKey();
 
   Widget element(BuildContext context, editMode,
-      RestaurantPlanElementEntity elementEntity, String type, String name,
+      PlacePlanElementEntity elementEntity, String type, String name,
       [String color = "#FFFFFF"]) {
     double elevation = cellHeight.toDouble();
 
@@ -142,8 +142,8 @@ class PlanBuilder {
             onTap: () {
               print("Tapped: " + name);
               context
-                  .read<RestaurantPlanBloc>()
-                  .add(RestaurantPlanElementTapped(planElementId: name));
+                  .read<PlaceBloc>()
+                  .add(PlacePlanElementTapped(planElementId: name));
             },
             child: Ink(
               color: selectColorBasedOnState(elementEntity.getElementState()),
@@ -165,12 +165,12 @@ class PlanBuilder {
           elevation: elevation,
           child: InkWell(
             onLongPress: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PanoramaPage(elementId: name, restaurantId: restaurantSetting.restaurantConfiguration!.restaurantId,)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PanoramaPage(elementId: name, placeId: placeConfiguration.placeSettings!.placeId,)));
             },
             onTap: () {
               context
-                  .read<RestaurantPlanBloc>()
-                  .add(RestaurantPlanElementTapped(planElementId: name));
+                  .read<PlaceBloc>()
+                  .add(PlacePlanElementTapped(planElementId: name));
             },
             child: Ink(
               color: selectColorBasedOnState(elementEntity.getElementState()),

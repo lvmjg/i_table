@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/util/globals.dart';
-import '../../../../restaurant_plan/presentation/widgets/restaurant_plan_page/appbar/restaurant_plan_app_bar.dart';
 import '../../bloc/panorama_bloc.dart';
+import 'app_bar/panorama_app_bar.dart';
 import 'body/panorama_body.dart';
-import 'floatingactionbutton/panorama_floatingactionbutton.dart';
+import 'floating_action_button/panorama_floating_action_button.dart';
 
 class PanoramaPage extends StatefulWidget {
-  final String restaurantId;
+  final String placeId;
   final String elementId;
 
   const PanoramaPage(
-      {Key? key, required this.restaurantId, required this.elementId})
+      {Key? key, required this.placeId, required this.elementId})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class _PanoramaPageState extends State<PanoramaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: RestaurantPlanAppBar(),
+        appBar: PanoramaAppBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: PanoramaFloatingActionButton(),
         bottomNavigationBar: Container(
@@ -46,13 +46,13 @@ class _PanoramaPageState extends State<PanoramaPage> {
           ),
         ),
         body: PanoramaBody(
-            restaurantId: widget.restaurantId, elementId: widget.elementId));
+            placeId: widget.placeId, elementId: widget.elementId));
   }
 
   @override
   void initState() {
     super.initState();
     context.read<PanoramaBloc>().add(PanoramaInitiated(
-        restaurantId: widget.restaurantId, elementId: widget.elementId));
+        placeId: widget.placeId, elementId: widget.elementId));
   }
 }

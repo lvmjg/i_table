@@ -9,7 +9,7 @@ import '../../../../core/util/globals.dart';
 import '../datasources/panorama_remote_data_source.dart';
 
 abstract class PanoramaRepository{
-  Future<Either<Failure, File>> fetchPanorama(String restaurantId, String elementId);
+  Future<Either<Failure, File>> fetchPanorama(String placeId, String elementId);
 }
 
 class PanoramaRepositoryImpl implements PanoramaRepository {
@@ -20,9 +20,9 @@ class PanoramaRepositoryImpl implements PanoramaRepository {
   List<String> cachedImages = [];
   @override
   Future<Either<Failure, File>> fetchPanorama(
-      String restaurantId, String elementId) async {
+      String placeId, String elementId) async {
 
-    String imageIdentifier = '$restaurantId$elementId$imageExtension';
+    String imageIdentifier = '$placeId$elementId$imageExtension';
     bool isAlreadyDownloaded = cachedImages.contains(imageIdentifier);
     if(isAlreadyDownloaded){
       final documentsDirectory = await getApplicationDocumentsDirectory();
@@ -36,7 +36,7 @@ class PanoramaRepositoryImpl implements PanoramaRepository {
 
     File panoramaImage;
     try {
-      panoramaImage = await remote.fetchPanorama(restaurantId, elementId);
+      panoramaImage = await remote.fetchPanorama(placeId, elementId);
 
       cachedImages.add(imageIdentifier);
       return Right(panoramaImage);

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:i_table/features/search/presentation/bloc/search_bloc.dart';
 import 'package:i_table/core/util/globals.dart';
 import 'features/panorama/presentation/bloc/panorama_bloc.dart';
-import 'features/restaurant_details/presentation/bloc/restaurant_details_bloc.dart';
-import 'features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
-import 'features/search/presentation/widgets/search_page/search_page.dart';
+import 'features/place/presentation/bloc/place_bloc.dart';
+import 'features/place_details/presentation/bloc/place_details_bloc.dart';
+import 'features/place_search/presentation/bloc/place_search_bloc.dart';
+import 'features/place_search/presentation/widgets/search_page/place_search_page.dart';
 import 'firebase_options.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
@@ -45,13 +45,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SearchBloc(),
+          create: (context) => PlaceSearchBloc(),
         ),
         BlocProvider(
-          create: (context) => RestaurantDetailsBloc(),
+          create: (context) => PlaceDetailsBloc(),
         ),
         BlocProvider(
-          create: (context) => RestaurantPlanBloc(),
+          create: (context) => PlaceBloc(),
         ),
         BlocProvider(
           create: (context) => PanoramaBloc(),
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           textTheme:
               GoogleFonts.signikaNegativeTextTheme(Theme.of(context).textTheme),
         ),
-        home: SearchPage(),
+        home: PlaceSearchPage(),
       ),
     );
   }

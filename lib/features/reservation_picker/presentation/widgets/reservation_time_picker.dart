@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/features/restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/util/globals.dart';
-import '../../../search/presentation/bloc/search_bloc.dart';
+import '../../../place/presentation/bloc/place_bloc.dart';
 
 class ReservationTimePicker extends StatefulWidget {
   const ReservationTimePicker({super.key});
@@ -69,7 +68,7 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
                             onPressed: () {
                               setState(() {
                                 reservationTime = reservationTime.replacing(hour: reservationTime.hour - 1);
-                                context.read<RestaurantPlanBloc>().add(RestaurantPlanReservationTimeChanged(reservationTime: reservationTime));
+                                context.read<PlaceBloc>().add(PlaceReservationTimeChanged(reservationTime: reservationTime));
                               });
                             },
                             icon: Icon(Icons.arrow_left_rounded, size: 30))),
@@ -87,7 +86,7 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
                             onPressed: () {
                               setState(() {
                                 reservationTime = reservationTime.replacing(hour: reservationTime.hour + 1);
-                                context.read<RestaurantPlanBloc>().add(RestaurantPlanReservationTimeChanged(reservationTime: reservationTime));
+                                context.read<PlaceBloc>().add(PlaceReservationTimeChanged(reservationTime: reservationTime));
                               });
                             },
                             icon: Icon(

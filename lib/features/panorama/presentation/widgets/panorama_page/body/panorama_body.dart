@@ -7,12 +7,12 @@ import '../../../../../../core/presentation/widgets/failure.dart';
 import '../../../bloc/panorama_bloc.dart';
 
 class PanoramaBody extends StatelessWidget {
-  final String restaurantId;
+  final String placeId;
   final String elementId;
 
   const PanoramaBody({
     super.key,
-    required this.restaurantId,
+    required this.placeId,
     required this.elementId,
   });
 
@@ -24,7 +24,7 @@ class PanoramaBody extends StatelessWidget {
           return Failure(
               errorMessage: errorShowPreview,
               onPressed: () => context.read<PanoramaBloc>().add(PanoramaInitiated(
-                  restaurantId: restaurantId, elementId: elementId)));
+                  placeId: placeId, elementId: elementId)));
         } else if (state is PanoramaFetchInProgress) {
           return SizedBox(
               child: Center(

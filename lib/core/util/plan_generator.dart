@@ -1,7 +1,8 @@
-import '../../features/restaurant_plan/domain/entities/restaurant_plan/restaurant_plan_element_entity.dart';
+
+import '../../features/place/domain/entities/place_plan/place_plan_element_entity.dart';
 
 class PlanGenerator {
-  List<RestaurantPlanElementEntity> elements = [];
+  List<PlacePlanElementEntity> elements = [];
 
   PlanGenerator() {
 
@@ -9,7 +10,7 @@ class PlanGenerator {
 
     elements
     //left four
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S1',
           columnStart: 0,
@@ -18,7 +19,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S2',
           columnStart: 0,
@@ -27,7 +28,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T1',
           columnStart: 1,
@@ -36,7 +37,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S3',
           columnStart: 2,
@@ -45,7 +46,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S4',
           columnStart: 2,
@@ -55,7 +56,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S5',
           columnStart: 0,
@@ -64,7 +65,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S6',
           columnStart: 0,
@@ -73,7 +74,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T2',
           columnStart: 1,
@@ -82,7 +83,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S7',
           columnStart: 2,
@@ -91,7 +92,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S8',
           columnStart: 2,
@@ -101,7 +102,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S9',
           columnStart: 0,
@@ -110,7 +111,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S10',
           columnStart: 0,
@@ -119,7 +120,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T3',
           columnStart: 1,
@@ -128,7 +129,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S11',
           columnStart: 2,
@@ -137,7 +138,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S12',
           columnStart: 2,
@@ -147,7 +148,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S13',
           columnStart: 0,
@@ -156,7 +157,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S14',
           columnStart: 0,
@@ -165,7 +166,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T4',
           columnStart: 1,
@@ -174,7 +175,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S15',
           columnStart: 2,
@@ -183,7 +184,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S16',
           columnStart: 2,
@@ -194,7 +195,7 @@ class PlanGenerator {
       ))
 
     //right four
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S17',
           columnStart: 4,
@@ -203,7 +204,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S18',
           columnStart: 4,
@@ -212,7 +213,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T5',
           columnStart: 5,
@@ -221,7 +222,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S19',
           columnStart: 6,
@@ -230,7 +231,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S20',
           columnStart: 6,
@@ -240,7 +241,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S21',
           columnStart: 4,
@@ -249,7 +250,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S22',
           columnStart: 4,
@@ -258,7 +259,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T6',
           columnStart: 5,
@@ -267,7 +268,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S23',
           columnStart: 6,
@@ -276,7 +277,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S24',
           columnStart: 6,
@@ -286,7 +287,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S25',
           columnStart: 4,
@@ -295,7 +296,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S26',
           columnStart: 4,
@@ -304,7 +305,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T7',
           columnStart: 5,
@@ -313,7 +314,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S27',
           columnStart: 6,
@@ -322,7 +323,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S28',
           columnStart: 6,
@@ -332,7 +333,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S29',
           columnStart: 4,
@@ -341,7 +342,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S30',
           columnStart: 4,
@@ -350,7 +351,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T8',
           columnStart: 5,
@@ -359,7 +360,7 @@ class PlanGenerator {
           rowSpan: 2,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S31',
           columnStart: 6,
@@ -368,7 +369,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S32',
           columnStart: 6,
@@ -379,7 +380,7 @@ class PlanGenerator {
       ))
 
     //left two
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S33',
           columnStart: 0,
@@ -388,7 +389,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T9',
           columnStart: 1,
@@ -397,7 +398,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S34',
           columnStart: 2,
@@ -407,7 +408,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S35',
           columnStart: 0,
@@ -416,7 +417,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T10',
           columnStart: 1,
@@ -425,7 +426,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S36',
           columnStart: 2,
@@ -436,7 +437,7 @@ class PlanGenerator {
       ))
 
     //right two
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S37',
           columnStart: 4,
@@ -445,7 +446,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T11',
           columnStart: 5,
@@ -454,7 +455,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S38',
           columnStart: 6,
@@ -464,7 +465,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S39',
           columnStart: 4,
@@ -473,7 +474,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T12',
           columnStart: 5,
@@ -482,7 +483,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S40',
           columnStart: 6,
@@ -493,7 +494,7 @@ class PlanGenerator {
       ))
 
     //aqua
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'O',
           name: 'Akwarium',
           columnStart: 1,
@@ -504,7 +505,7 @@ class PlanGenerator {
       ))
 
     //free sittings
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S41',
           columnStart: 1,
@@ -513,7 +514,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S42',
           columnStart: 2,
@@ -522,7 +523,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S43',
           columnStart: 3,
@@ -531,7 +532,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S44',
           columnStart: 4,
@@ -540,7 +541,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'S',
           name: 'S45',
           columnStart: 5,
@@ -551,7 +552,7 @@ class PlanGenerator {
       ))
 
     //free tables
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T13',
           columnStart: 1,
@@ -560,7 +561,7 @@ class PlanGenerator {
           rowSpan: 1,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T14',
           columnStart: 4,
@@ -570,7 +571,7 @@ class PlanGenerator {
           color: '#FFFFFF'
       ))
 
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T15',
           columnStart: 1,
@@ -579,7 +580,7 @@ class PlanGenerator {
           rowSpan: 3,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T16',
           columnStart: 3,
@@ -588,7 +589,7 @@ class PlanGenerator {
           rowSpan: 3,
           color: '#FFFFFF'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'T',
           name: 'T17',
           columnStart: 5,
@@ -599,7 +600,7 @@ class PlanGenerator {
       ))
 
     //bar
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'O',
           name: 'Bar',
           columnStart: 4,
@@ -610,7 +611,7 @@ class PlanGenerator {
       ))
 
     //entrance
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'O',
           name: 'Wejście',
           columnStart: 0,
@@ -621,7 +622,7 @@ class PlanGenerator {
       ))
 
     //Plants
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'O',
           name: 'X',
           columnStart: 8,
@@ -630,7 +631,7 @@ class PlanGenerator {
           rowSpan: 3,
           color: '#00b01e'
       ))
-      ..add(RestaurantPlanElementEntity(
+      ..add(PlacePlanElementEntity(
           type: 'O',
           name: 'X',
           columnStart: 8,
@@ -708,7 +709,7 @@ class PlanGenerator {
     elements[29].connectedTable = 'T6';
   }
 
-  List<RestaurantPlanElementEntity> get() {
+  List<PlacePlanElementEntity> get() {
     return elements;
   }
 
@@ -718,15 +719,36 @@ class PlanGenerator {
     });
 
     Map<String, dynamic> allElements = {};
-    for (RestaurantPlanElementEntity pee in elements) {
+    for (PlacePlanElementEntity pee in elements) {
       allElements.addAll(pee.toJson());
     }
 
     return <String, dynamic>{
-      'restaurantPlan': allElements,
-      'restaurantPlanLevelId': '1',
-      'restaurantPlanLevelName': 'Piętro 1',
-      'restaurantPlanLevelOrder': 0
+      'placePlan': allElements,
+      'placePlanLevelId': '1',
+      'placePlanLevelName': 'Piętro 1',
+      'placePlanLevelOrder': 0
+    };
+  }
+
+  Map<String, dynamic> getJson2() {
+    List<PlacePlanElementEntity>? elements2 = List.of(elements);
+    elements2 = elements2.take(elements2.length-9).toList();
+
+    elements2.forEach((element) {
+      element.id = element.name;
+    });
+
+    Map<String, dynamic> allElements = {};
+    for (PlacePlanElementEntity pee in elements2) {
+      allElements.addAll(pee.toJson());
+    }
+
+    return <String, dynamic>{
+      'placePlan': allElements,
+      'placePlanLevelId': '1',
+      'placePlanLevelName': 'Piętro 1',
+      'placePlanLevelOrder': 0
     };
   }
 }

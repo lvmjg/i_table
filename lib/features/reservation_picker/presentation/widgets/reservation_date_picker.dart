@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/util/globals.dart';
-import '../../../restaurant_plan/presentation/bloc/restaurant_plan_bloc.dart';
-import '../../../search/presentation/bloc/search_bloc.dart';
+import '../../../place/presentation/bloc/place_bloc.dart';
 
 class ReservationDatePicker extends StatefulWidget {
   const ReservationDatePicker({super.key});
@@ -71,7 +69,7 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
                             onPressed: () {
                               setState(() {
                                 reservationDate = reservationDate.subtract(Duration(days: 1));
-                                context.read<RestaurantPlanBloc>().add(RestaurantPlanReservationDateChanged(reservationDate: reservationDate));
+                                context.read<PlaceBloc>().add(PlaceReservationDateChanged(reservationDate: reservationDate));
                               });
                             },
                             icon: Icon(Icons.arrow_left_rounded, size: 30))),
@@ -89,7 +87,7 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
                             onPressed: () {
                               setState(() {
                                 reservationDate = reservationDate.add(Duration(days: 1));
-                                context.read<RestaurantPlanBloc>().add(RestaurantPlanReservationDateChanged(reservationDate: reservationDate));
+                                context.read<PlaceBloc>().add(PlaceReservationDateChanged(reservationDate: reservationDate));
                               });
                             },
                             icon: Icon(

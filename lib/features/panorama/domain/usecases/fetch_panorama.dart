@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:i_table/core/error/failures.dart';
 import 'package:i_table/core/usecase/usecase.dart';
-import 'package:i_table/features/restaurant_details/domain/usecase/fetch_restaurant_details.dart';
 
+import '../../../place_details/domain/usecase/fetch_place_details.dart';
 import '../../data/repositories/panorama_repository.dart';
 
 class FetchPanorama implements UseCase<File, PanoramaParams> {
@@ -15,12 +15,12 @@ class FetchPanorama implements UseCase<File, PanoramaParams> {
   @override
   Future<Either<Failure, File>> call(PanoramaParams params) async {
     return await panoramaRepository.fetchPanorama(
-        params.restaurantId, params.elementId);
+        params.placeId, params.elementId);
   }
 }
 
-class PanoramaParams extends RestaurantIdParams {
+class PanoramaParams extends PlaceIdParams {
   final String elementId;
 
-  PanoramaParams({required super.restaurantId, required this.elementId});
+  PanoramaParams({required super.placeId, required this.elementId});
 }

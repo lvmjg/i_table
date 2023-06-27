@@ -6,23 +6,23 @@ import 'package:i_table/core/util/globals.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class PanoramaRemoteDataSource{
-  Future<File> fetchPanorama(String restaurantId, String elementId);
+  Future<File> fetchPanorama(String placeId, String elementId);
 }
 
 class PanoramaRemoteDataSourceImpl implements PanoramaRemoteDataSource{
 
   @override
-  Future<File> fetchPanorama(String restaurantId, String elementId) async {
+  Future<File> fetchPanorama(String placeId, String elementId) async {
     await Future.delayed(Duration(seconds: TEST_TIMEOUT));
 
     FirebaseStorage fa = FirebaseStorage.instance;
 
     final elementRef = fa.ref()
-    .child(restaurantId)
-    .child(PANORAMAS)
+    .child(placeId)
+    .child(pathPanoramas)
     .child('$elementId.jpg');
 
-    final String imageIdentifier = '$restaurantId$elementId$imageExtension';
+    final String imageIdentifier = '$placeId$elementId$imageExtension';
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final filePath = "${documentsDirectory.path}/$imageIdentifier";
     print(filePath);
