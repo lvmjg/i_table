@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/util/globals.dart';
-import '../../../place/presentation/bloc/place_bloc.dart';
+import '../../../place_plan/presentation/bloc/place_bloc.dart';
+import '../bloc/reservation_picker_bloc.dart';
 
 class ReservationDatePicker extends StatefulWidget {
+  final int reservationDaysAhead = 0;
+
   const ReservationDatePicker({super.key});
 
   @override
@@ -13,106 +16,139 @@ class ReservationDatePicker extends StatefulWidget {
 }
 
 class _ReservationDatePickerState extends State<ReservationDatePicker> {
-  final TextEditingController controller = new TextEditingController();
-
-  late DateTime reservationDate;
-
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Padding(
-          padding: EdgeInsets.all(padding / 4),
-          child: InkWell(
-            onTap: () {
-              Future<DateTime?> future = showDatePicker(
-                  builder: (context, child) {
-                    return Theme(
-                      data: Theme.of(context).copyWith(
-                        colorScheme: ColorScheme.light(
-                          primary: Color(primary), // header background color
-                          onPrimary: Colors.white, // header text color
-                          onSurface: Colors.black, // body text color
-                        ),
-                        textButtonTheme: TextButtonThemeData(
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.red, // button text color
-                          ),
-                        ),
-                      ),
-                      child: child!,
-                    );
+    return BlocBuilder<ReservationPickerBloc, ReservationPickerState>(
+      builder: (context, state) {
+        if (state is ReservationPickerChange) {
+          return Material(
+            color: Colors.transparent,
+            child: Padding(
+                padding: EdgeInsets.all(padding / 4),
+                child: InkWell(
+                  onTap: () {
+                    Future<DateTime?> future = showDatePicker(
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: Color(primary),
+                                // header background color
+                                onPrimary: Colors.white,
+                                // header text color
+                                onSurface: Colors.black, // body text color
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  foregroundColor:
+                                      Colors.red, // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
+                        context: context,
+                        firstDate: state.data.firstDate,
+                        initialDate: state.data.reservationDateTime,
+                        lastDate: state.data.lastDate);
+                    future.then((value) {
+                      if (value != null) {
+                        context.read<ReservationPickerBloc>().add(
+                            ReservationPickerDateSet(reservationDate: value));
+                      }
+                    });
                   },
-                  context: context,
-                  initialDate: reservationDate,
-                  firstDate: reservationDate,
-                  lastDate: reservationDate.add(const Duration(days: 30)));
-              future.then((value) {
-                if (value != null) {
-                  setState(() {
-                    reservationDate = value;
-                  });
-                }
-              });
-            },
-            child: Ink(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(200)),
-                height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                reservationDate = reservationDate.subtract(Duration(days: 1));
-                                context.read<PlaceBloc>().add(PlaceReservationDateChanged(reservationDate: reservationDate));
-                              });
-                            },
-                            icon: Icon(Icons.arrow_left_rounded, size: 30))),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        _formatDate(reservationDate),
-                        style: TextStyle(fontSize: 13),
-                        textAlign: TextAlign.center,
+                  child: Ink(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(200),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black38,
+                              spreadRadius: 1,
+                              blurRadius: 3)
+                        ],
+                      ),
+                      height: 50,
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<ReservationPickerBloc>()
+                                        .add(ReservationPickerDateDecreased());
+                                  },
+                                  icon: Icon(Icons.arrow_left_rounded,
+                                      size: 30, color: Colors.black38))),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              _formatDate(state.data.reservationDateTime),
+                              style: TextStyle(fontSize: 13),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<ReservationPickerBloc>()
+                                        .add(ReservationPickerDateIncreased());
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_right_rounded,
+                                    size: 30, color: Colors.black38))),
+                        ],
                       ),
                     ),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                reservationDate = reservationDate.add(Duration(days: 1));
-                                context.read<PlaceBloc>().add(PlaceReservationDateChanged(reservationDate: reservationDate));
-                              });
-                            },
-                            icon: Icon(
-                              Icons.arrow_right_rounded,
-                              size: 30,
-                            )))
-                  ],
-                ),
-              ),
-            ),
-          )),
+                  ),
+                )),
+          );
+        }
+        return SizedBox(
+            child: Center(
+                child: CircularProgressIndicator(color: Color(primary))));
+      },
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    reservationDate = DateTime.now();
-  }
-
-  String _formatDate(DateTime reservationDate){
+  String _formatDate(DateTime reservationDate) {
     StringBuffer stringBuffer = StringBuffer();
     stringBuffer.write(DateFormat.Md().format(reservationDate));
     stringBuffer.write('\n');
-    stringBuffer.write('Pn ' + DateFormat.y().format(reservationDate));
+    stringBuffer.write("${_getWeekdayShortName(reservationDate.weekday)} ${DateFormat.y().format(reservationDate)}");
     return stringBuffer.toString();
+  }
+
+  String _getWeekdayShortName(int weekday){
+    if(weekday==1){
+      return "Pn";
+    }
+    else if(weekday==2){
+      return "Wt";
+    }
+    else if(weekday==3){
+      return "Śr";
+    }
+    else if(weekday==4){
+      return "Czw";
+    }
+    else if(weekday==5){
+      return "Pt";
+    }
+    else if(weekday==6){
+      return "Sb";
+    }
+    else if(weekday==7){
+      return "Nd";
+    }
+    else{
+      return "Pn";
+    }
   }
 }
