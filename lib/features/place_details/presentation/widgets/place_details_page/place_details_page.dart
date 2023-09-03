@@ -19,7 +19,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PlaceDetailsAppBar(),
-      body: PlaceDetailsBody(placeId: widget.placeId),
+      body: PlaceDetailsBody(),
     );
   }
 

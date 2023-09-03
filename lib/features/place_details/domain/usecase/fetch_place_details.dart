@@ -4,27 +4,20 @@ import 'package:i_table/core/usecase/usecase.dart';
 
 
 import '../../data/repositories/place_details_repository.dart';
-import '../entity/place_details_entity.dart';
+import '../entities/place_details.dart';
 
 class FetchPlaceDetails
-    implements UseCase<PlaceDetailsEntity, PlaceIdParams> {
+    implements UseCase<PlaceDetails, PlaceIdParams> {
   final PlaceDetailsRepository placeDetailsRepository;
 
   FetchPlaceDetails(this.placeDetailsRepository);
 
   @override
-  Future<Either<Failure, PlaceDetailsEntity>> call(
+  Future<Either<Failure, PlaceDetails>> call(
       PlaceIdParams params) {
     return placeDetailsRepository
         .fetchPlaceDetails(params.placeId);
   }
 }
 
-class PlaceIdParams extends Params {
-  final String placeId;
 
-  PlaceIdParams({required this.placeId});
-
-  @override
-  List<Object> get props => [placeId];
-}

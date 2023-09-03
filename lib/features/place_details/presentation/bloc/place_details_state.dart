@@ -8,12 +8,13 @@ abstract class PlaceDetailsState extends Equatable {
 
 
 class PlaceDetailsFetchFailure extends PlaceDetailsState {
+  final String placeId;
   final String errorMessage;
 
-  PlaceDetailsFetchFailure({required this.errorMessage});
+  PlaceDetailsFetchFailure({required this.placeId, required this.errorMessage});
 
   @override
-  List<Object> get props => [errorMessage];
+  List<Object> get props => [placeId, errorMessage];
 }
 
 class PlaceDetailsFetchInProgress extends PlaceDetailsState {
@@ -22,7 +23,7 @@ class PlaceDetailsFetchInProgress extends PlaceDetailsState {
 }
 
 class PlaceDetailsFetchSuccess extends PlaceDetailsState {
-  final PlaceDetailsEntity placeDetails;
+  final PlaceDetails placeDetails;
 
   PlaceDetailsFetchSuccess({required this.placeDetails});
 

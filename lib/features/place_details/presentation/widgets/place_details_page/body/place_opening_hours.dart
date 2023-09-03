@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/util/globals.dart';
 import '../../../../../../core/util/hex_color.dart';
-import '../../../../domain/entity/place_details_entity.dart';
-import '../../../../domain/entity/place_details_opening_hours_entity.dart';
+import '../../../../domain/entities/place_details.dart';
+import '../../../../domain/entities/place_details_opening_hours.dart';
+
 
 class PlaceOpeningHours extends StatelessWidget {
   const PlaceOpeningHours({
@@ -11,7 +12,7 @@ class PlaceOpeningHours extends StatelessWidget {
     required this.placeDetails,
   });
 
-  final PlaceDetailsEntity placeDetails;
+  final PlaceDetails placeDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +38,22 @@ class PlaceOpeningHours extends StatelessWidget {
   }
 
   List<Widget> getOpeningHours(
-      PlaceDetailsOpeningHoursEntity placeOpeningHours) {
+      PlaceDetailsOpeningHours placeOpeningHours) {
     List<String> workDays = [];
     workDays.add(
-        'Pn ${placeOpeningHours.monday.open}-${placeOpeningHours.monday.close}');
+        'Pn ${placeOpeningHours.monday}');
     workDays.add(
-        'Wt ${placeOpeningHours.tuesday.open}-${placeOpeningHours.tuesday.close}');
+        'Wt ${placeOpeningHours.tuesday}');
     workDays.add(
-        'Śr ${placeOpeningHours.wednesday.open}-${placeOpeningHours.wednesday.close}');
+        'Śr ${placeOpeningHours.wednesday}');
     workDays.add(
-        'Czw ${placeOpeningHours.thursday.open}-${placeOpeningHours.thursday.close}');
+        'Czw ${placeOpeningHours.thursday}');
     workDays.add(
-        'Pt ${placeOpeningHours.friday.open}-${placeOpeningHours.friday.close}');
+        'Pt ${placeOpeningHours.friday}');
     workDays.add(
-        'Sb ${placeOpeningHours.saturday.open}-${placeOpeningHours.saturday.close}');
+        'Sb ${placeOpeningHours.saturday}');
     workDays.add(
-        'Nd ${placeOpeningHours.sunday.open}-${placeOpeningHours.sunday.close}');
+        'Nd ${placeOpeningHours.sunday}');
 
     return workDays
         .map((e) => Padding(

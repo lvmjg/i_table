@@ -22,7 +22,7 @@ class PlaceDetailsAppBar extends StatelessWidget
         Padding(
           padding: EdgeInsets.all(padding / 2),
           child: Text(
-            'iTable',
+            appName,
             style: TextStyle(
                 fontSize: 14, color: Colors.white, fontWeight: FontWeight.w900),
           ),

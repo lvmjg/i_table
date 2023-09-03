@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entity/place_details_entity.dart';
+import '../../../../domain/entities/place_details.dart';
 
 class PlaceAddress extends StatelessWidget {
   const PlaceAddress({
@@ -8,7 +8,7 @@ class PlaceAddress extends StatelessWidget {
     required this.placeDetails,
   });
 
-  final PlaceDetailsEntity placeDetails;
+  final PlaceDetails placeDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -19,5 +19,8 @@ class PlaceAddress extends StatelessWidget {
           fontWeight: FontWeight.w200,
           decoration: TextDecoration.underline),
     );
+
   }
 }
+
+

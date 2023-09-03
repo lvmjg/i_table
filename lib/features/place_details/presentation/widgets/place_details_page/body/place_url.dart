@@ -3,7 +3,7 @@ import 'package:unicons/unicons.dart';
 
 import '../../../../../../core/util/globals.dart';
 import '../../../../../../core/util/url_manager.dart';
-import '../../../../domain/entity/place_details_entity.dart';
+import '../../../../domain/entities/place_details.dart';
 
 class PlaceUrl extends StatelessWidget {
   const PlaceUrl({
@@ -11,7 +11,7 @@ class PlaceUrl extends StatelessWidget {
     required this.placeDetails,
   });
 
-  final PlaceDetailsEntity placeDetails;
+  final PlaceDetails placeDetails;
 
   @override
   Widget build(BuildContext context) {

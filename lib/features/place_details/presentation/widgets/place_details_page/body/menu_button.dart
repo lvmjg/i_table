@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/util/globals.dart';
 import '../../../../../place_entry/presentation/widgets/place_entry_page/place_entry_page.dart';
+import '../../../../../place_menu/presentation/widget/place_menu_page/place_menu_page.dart';
 import '../../../../../place_plan/presentation/widgets/place_page/place_page.dart';
 
-class ReserveButton extends StatelessWidget {
+class MenuButton extends StatelessWidget {
   final String placeId;
 
-  ReserveButton({super.key, required this.placeId});
+  MenuButton({super.key, required this.placeId});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
         icon: Padding(
           padding: EdgeInsets.all(padding/1.2),
-          child: Text(reserve),
+          child: Text(menu),
         ),
         label: Icon(
-          Icons.book_rounded,
+          Icons.menu_book_rounded,
           color: Colors.white,
           //  size: 10,
         ),
@@ -25,10 +26,10 @@ class ReserveButton extends StatelessWidget {
             side: BorderSide(width: 0, color: Colors.white),
             backgroundColor: Color(primary),
             shape: RoundedRectangleBorder(
-                // side: BorderSide.,
+              // side: BorderSide.,
                 borderRadius: BorderRadius.all(Radius.circular(200)))),
         onPressed: () async {
-        /*  FirebaseFirestore ff = FirebaseFirestore.instance;
+          /*  FirebaseFirestore ff = FirebaseFirestore.instance;
 
           PlanGenerator planGenerator = PlanGenerator();
 
@@ -38,7 +39,7 @@ class ReserveButton extends StatelessWidget {
 
           if (debug) {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PlacePage(placeId: placeId)));
+                builder: (context) => PlaceMenuPage(placeId: placeId)));
           } else {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => PlaceEntryPage(placeId: placeId,)));

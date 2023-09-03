@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'place_details_location_entity.dart';
+part of 'place_details_location_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PlaceDetailsLocationEntity _$PlaceDetailsLocationEntityFromJson(
+PlaceDetailsLocationModel _$PlaceDetailsLocationModelFromJson(
     Map<String, dynamic> json) {
   $checkKeys(
     json,
     requiredKeys: const ['latitude', 'longitude'],
   );
-  return PlaceDetailsLocationEntity(
+  return PlaceDetailsLocationModel(
     latitude: json['latitude'] as String,
     longitude: json['longitude'] as String,
   );
 }
 
-Map<String, dynamic> _$PlaceDetailsLocationEntityToJson(
-        PlaceDetailsLocationEntity instance) =>
+Map<String, dynamic> _$PlaceDetailsLocationModelToJson(
+        PlaceDetailsLocationModel instance) =>
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,

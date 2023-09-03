@@ -11,16 +11,14 @@ import 'package:i_table/features/place_details/presentation/widgets/place_detail
 import 'package:i_table/features/place_details/presentation/widgets/place_details_page/body/reserve_button.dart';
 
 import '../../../../../../core/util/globals.dart';
-import '../../../../domain/entity/place_details_entity.dart';
+import '../../../../domain/entities/place_details.dart';
 import '../../../bloc/place_details_bloc.dart';
+import 'menu_button.dart';
 
 class PlaceDetailsBody extends StatefulWidget {
   const PlaceDetailsBody({
     super.key,
-    required this.placeId,
   });
-
-  final String placeId;
 
   @override
   State<PlaceDetailsBody> createState() => _PlaceDetailsBodyState();
@@ -35,14 +33,9 @@ class _PlaceDetailsBodyState extends State<PlaceDetailsBody> {
           return Failure(
               errorMessage: errorFetchPlaceDetails,
               onPressed: () => context.read<PlaceDetailsBloc>().add(
-                  PlaceDetailsInitiated(
-                      placeId: widget.placeId)));
-        } else if (state is PlaceDetailsFetchInProgress) {
-          return SizedBox(
-              child: Center(
-                  child: CircularProgressIndicator(color: Color(primary))));
+                  PlaceDetailsInitiated(placeId: state.placeId)));
         } else if (state is PlaceDetailsFetchSuccess) {
-          PlaceDetailsEntity placeDetails = state.placeDetails;
+          PlaceDetails placeDetails = state.placeDetails;
 
           return Column(
             children: [
@@ -75,16 +68,22 @@ class _PlaceDetailsBodyState extends State<PlaceDetailsBody> {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, padding),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Expanded(
+                    Flexible(
                         flex: 2,
                         child: PlaceUrl(placeDetails: placeDetails)),
-                    Expanded(
-                        flex: 4,
-                        child: ReserveButton(
-                          place: placeDetails.toSearchEntity(),
-                        )),
-                    Expanded(
+                    Flexible(
+                      fit: FlexFit.loose,
+                        flex: 5,
+                        child: MenuButton(placeId: placeDetails.placeId)
+                    ),
+                    Flexible(
+                        fit: FlexFit.loose,
+                        flex: 5,
+                        child: ReserveButton(placeId: placeDetails.placeId)
+                    ),
+                    Flexible(
                         flex: 2,
                         child: PlaceLocationUrl(
                             placeDetails: placeDetails)),
@@ -94,7 +93,9 @@ class _PlaceDetailsBodyState extends State<PlaceDetailsBody> {
             ],
           );
         }
-        return Container();
+        return SizedBox(
+            child: Center(
+                child: CircularProgressIndicator(color: Color(primary))));
       },
     );
   }

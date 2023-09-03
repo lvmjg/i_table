@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/util/globals.dart';
 import '../../../../../../core/util/url_manager.dart';
-import '../../../../domain/entity/place_details_entity.dart';
+import '../../../../domain/entities/place_details.dart';
 
 class PlaceLocationUrl extends StatelessWidget {
   const PlaceLocationUrl({
@@ -10,7 +10,7 @@ class PlaceLocationUrl extends StatelessWidget {
     required this.placeDetails,
   });
 
-  final PlaceDetailsEntity placeDetails;
+  final PlaceDetails placeDetails;
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'place_details_entity.dart';
+part of 'place_details_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PlaceDetailsEntity _$PlaceDetailsEntityFromJson(Map<String, dynamic> json) {
+PlaceDetailsModel _$PlaceDetailsModelFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
     requiredKeys: const [
@@ -20,22 +20,22 @@ PlaceDetailsEntity _$PlaceDetailsEntityFromJson(Map<String, dynamic> json) {
       'placeLocation'
     ],
   );
-  return PlaceDetailsEntity(
+  return PlaceDetailsModel(
     placeId: json['placeId'] as String,
     placeLogo: json['placeLogo'] as String,
     placeName: json['placeName'] as String,
-    placeAddress: PlaceDetailsAddressEntity.fromJson(
+    placeAddress: PlaceDetailsAddressModel.fromJson(
         json['placeAddress'] as Map<String, dynamic>),
     placeDescription: json['placeDescription'] as String,
-    placeOpeningHours: PlaceDetailsOpeningHoursEntity.fromJson(
+    placeOpeningHours: PlaceDetailsOpeningHoursModel.fromJson(
         json['placeOpeningHours'] as Map<String, dynamic>),
     placeUrl: json['placeUrl'] as String,
-    placeLocation: PlaceDetailsLocationEntity.fromJson(
+    placeLocation: PlaceDetailsLocationModel.fromJson(
         json['placeLocation'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$PlaceDetailsEntityToJson(PlaceDetailsEntity instance) =>
+Map<String, dynamic> _$PlaceDetailsModelToJson(PlaceDetailsModel instance) =>
     <String, dynamic>{
       'placeId': instance.placeId,
       'placeLogo': instance.placeLogo,
