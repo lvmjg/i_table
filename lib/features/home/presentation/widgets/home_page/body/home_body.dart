@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/util/globals.dart';
+import '../../../../../../core/widget/simple_filled_tonal_button.dart';
 import '../../../../../place_search/presentation/widgets/search_page/body/search_filter.dart';
 import '../../../../../place_search/presentation/widgets/search_page/place_search_page.dart';
-import 'my_reservations_button.dart';
+import '../../../../../user_reservations/presentation/widget/user_reservations_page.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({
@@ -35,8 +36,22 @@ class HomeBody extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: padding/2,),
-        MyReservationsButton()
+        SizedBox(height: padding),
+        SimpleFilledTonalButton(
+          title: myReservations,
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => UserReservationsPage()))
+        ),
+        SizedBox(height: padding),
+        SimpleFilledTonalButton(
+            title: myProfile,
+            onPressed: (){},
+        ),
+        SizedBox(height: padding),
+        SimpleFilledTonalButton(
+          title: settings,
+          onPressed: (){},
+        ),
       ],
     );
   }

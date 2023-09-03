@@ -39,10 +39,8 @@ class ChoosePlacesButton extends StatelessWidget {
 
           await ff.collection(pathPlacesPlans).doc('KsbEGvhvEGl27bcG3q7J').collection(pathPlacePlanLevels).doc('zUst63YXBwBhi9lFPSn0').update(planGenerator.getJson());*/
 
-          if (debug==false) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PlacePage(placeId: placeId,)));
-          }
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => PlacePage(placeId: placeId,)));
         });
   }
 }

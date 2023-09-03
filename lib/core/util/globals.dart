@@ -4,15 +4,16 @@ bool debug = true;
 
 int TEST_TIMEOUT = 0;
 
-int primary = 0xFF2028FF;
+int primary = 0xFF0020F7;
+int secondary = 0xFFFFCB00;
 double padding =16.0;
 
-double elevation = 20;
+double elevation = 1;
 double toolbarHeight = 70;
 
 String loggedUserId = 'TestUser';
 
-String appName = 'iTable';
+String appName = 'TuSiedzę';
 String searchBarHint = 'Szukaj punktu...';
 String noResults = 'Brak wyników';
 String openingHours = 'Godziny otwarcia';
@@ -23,7 +24,9 @@ String chooseTime = 'Wybierz godzinę';
 String chooseDuration = 'Wybierz czas trwania';
 String closePreview = 'Zamknij podgląd';
 String choosePlaces = 'Wybierz miejsca';
-String myRservations = 'Moje rezerwacje';
+String myReservations = 'Moje rezerwacje';
+String myProfile = 'Mój profil';
+String settings = 'Ustawienia';
 String remove = 'Usuń';
 String add = 'Dodaj';
 
