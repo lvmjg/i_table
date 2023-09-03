@@ -13,3 +13,21 @@ abstract class Params extends Equatable {
 }
 
 class NoParams extends Params {}
+
+class PlaceIdParams extends Params {
+  final String placeId;
+
+  PlaceIdParams({required this.placeId});
+
+  @override
+  List<Object> get props => [placeId];
+}
+
+class UserIdParams extends Params {
+  final String userId;
+
+  UserIdParams({required this.userId});
+
+  @override
+  List<Object> get props => [userId];
+}
