@@ -55,6 +55,8 @@ dependencies:
   dartz: ^0.10.1
   firebase_storage: ^11.2.3
   path_provider: ^2.0.15
+  cloud_functions: ^4.3.4
+  sprintf: ^7.0.0
 
 
 #  open_location_code:
