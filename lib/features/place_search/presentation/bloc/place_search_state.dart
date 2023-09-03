@@ -22,7 +22,7 @@ class PlaceSearchFetchInProgress extends PlaceSearchState {
 }
 
 class PlaceSearchFetchSuccess extends PlaceSearchState {
-  final List<PlaceSearchEntity> places;
+  final List<PlaceSearch> places;
 
   PlaceSearchFetchSuccess({required this.places});
 

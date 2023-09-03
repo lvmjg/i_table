@@ -1,25 +1,28 @@
 import 'package:dartz/dartz.dart';
 import 'package:i_table/core/error/exceptions.dart';
+import 'package:i_table/core/error/failures.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../domain/entities/place_search_entity.dart';
+import '../../domain/entities/place_search.dart';
+import '../../domain/entities/place_search_factory.dart';
 import '../datasources/place_search_remote_data_source.dart';
+import '../models/place_search_model.dart';
 
 abstract class PlaceSearchRepository {
-  Future<Either<Failure, List<PlaceSearchEntity>>> fetchPlaces();
+  Future<Either<Failure, List<PlaceSearch>>> fetchPlaces();
 }
 
 class PlaceSearchRepositoryImpl implements PlaceSearchRepository {
   final PlaceSearchRemoteDataSource remote;
 
-  PlaceSearchRepositoryImpl(this.remote);
+  final PlaceSearchFactory placeSearchFactory;
+
+  PlaceSearchRepositoryImpl(this.remote, this.placeSearchFactory);
 
   @override
-  Future<Either<Failure, List<PlaceSearchEntity>>> fetchPlaces() async {
-    List<PlaceSearchEntity> places = [];
+  Future<Either<Failure, List<PlaceSearch>>> fetchPlaces() async {
     try {
-      places = await remote.fetchPlaces();
-      return Right(places);
+      List<PlaceSearchModel> places = await remote.fetchPlaces();
+      return Right(placeSearchFactory.getPlaceSearchesFromModel(places));
     } on FetchException {
       return Left(FetchFailure());
     }

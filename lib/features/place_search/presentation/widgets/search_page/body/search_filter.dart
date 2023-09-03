@@ -5,7 +5,9 @@ import '../../../../../../core/util/globals.dart';
 import '../../../bloc/place_search_bloc.dart';
 
 class SearchFilter extends StatefulWidget {
-  const SearchFilter({super.key});
+  const SearchFilter({super.key, required this.color});
+
+  final Color color;
 
   @override
   State<SearchFilter> createState() => _SearchFilterState();
@@ -17,7 +19,7 @@ class _SearchFilterState extends State<SearchFilter> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Color(primary),
+      color: Colors.white,
       child: Padding(
         padding: EdgeInsets.all(padding),
         child: BlocBuilder<PlaceSearchBloc, PlaceSearchState>(
@@ -29,43 +31,54 @@ class _SearchFilterState extends State<SearchFilter> {
                     ? Icons.clear_rounded
                     : Icons.search;
 
-            return TextField(
-              controller: controller,
-              enabled: searchTextFieldEnabled,
-              textAlign: TextAlign.center,
-              onChanged: (text) {
-                context
-                    .read<PlaceSearchBloc>()
-                    .add(PlaceSearchInputProvided(input: text));
-              },
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    gapPadding: 10,
-                    borderSide: BorderSide(width: 0, style: BorderStyle.none),
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(200.0)),
-                  ),
-                  hintText: searchBarHint,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      if (inputProvided) {
-                        controller.clear();
-                        context
-                            .read<PlaceSearchBloc>()
-                            .add(PlaceSearchInputProvided(input: ''));
-                      }
-                    },
-                    icon: Icon(
-                      textFieldIcon,
-                      color: Color(primary),
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.red,
+                  boxShadow: const [BoxShadow(color: Colors.black38, spreadRadius: 1, blurRadius: 5)],
+                  borderRadius: const BorderRadius.all(Radius.circular(100))),
+
+              child: TextField(
+                controller: controller,
+                enabled: searchTextFieldEnabled,
+                textAlign: TextAlign.center,
+                onChanged: (text) {
+                  context
+                      .read<PlaceSearchBloc>()
+                      .add(PlaceSearchInputProvided(input: text));
+                },
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                      gapPadding: 10,
+                      borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(200))
                     ),
-                  ),
-                  hintStyle: TextStyle(
-                      color: Colors.grey, fontWeight: FontWeight.w300)),
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+                    focusedBorder: OutlineInputBorder(
+                      gapPadding: 10,
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(padding))
+                    ),
+                    hintText: searchBarHint,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        if (inputProvided) {
+                          controller.clear();
+                          context
+                              .read<PlaceSearchBloc>()
+                              .add(PlaceSearchInputProvided(input: ''));
+                        }
+                      },
+                      icon: Icon(
+                        textFieldIcon,
+                        color: Color(primary),
+                      ),
+                    ),
+                    hintStyle: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.w300)),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+              ),
             );
           },
         ),

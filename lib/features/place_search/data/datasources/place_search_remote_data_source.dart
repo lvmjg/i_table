@@ -2,25 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/util/globals.dart';
-import '../../domain/entities/place_search_entity.dart';
+import '../models/place_search_model.dart';
 
 abstract class PlaceSearchRemoteDataSource{
-  Future<List<PlaceSearchEntity>> fetchPlaces();
+  Future<List<PlaceSearchModel>> fetchPlaces();
 }
 
 class PlaceSearchRemoteDataSourceImpl implements PlaceSearchRemoteDataSource{
   @override
-  Future<List<PlaceSearchEntity>> fetchPlaces() async {
+  Future<List<PlaceSearchModel>> fetchPlaces() async {
     FirebaseFirestore ff = FirebaseFirestore.instance;
 
     await Future.delayed(Duration(seconds: TEST_TIMEOUT));
 
-    List<PlaceSearchEntity> places = [];
+    List<PlaceSearchModel> places = [];
     try {
       QuerySnapshot<Map<String, dynamic>> placesSnapshot = await ff
            .collection(pathPlaces).get();
 
-      places = placesSnapshot.docs.map((value) => PlaceSearchEntity.fromJson(value.id, value.data())).toList();
+      places = placesSnapshot.docs.map((value) => PlaceSearchModel.fromJson(value.id, value.data())).toList();
     } catch(e, s){
       throw FetchException();
     }

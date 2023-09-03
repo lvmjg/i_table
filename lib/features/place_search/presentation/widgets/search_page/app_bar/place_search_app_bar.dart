@@ -11,26 +11,16 @@ class PlaceSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-      shape: roundedRectangleBorder,
-      foregroundColor: Color(primary),
-      backgroundColor: Colors.white,
-      elevation: elevation,
       toolbarHeight: toolbarHeight,
       flexibleSpace:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
           padding: EdgeInsets.all(padding / 2),
           child: Text(
-            'iTable',
+            appName,
             style: TextStyle(
                 fontSize: 14,
-                color: Color(primary),
+                color: Colors.white,
                 fontWeight: FontWeight.w900),
           ),
         ),
