@@ -45,7 +45,7 @@ class PanoramaBody extends StatelessWidget {
                         style: TextStyle(color: Colors.deepPurple),
                       ))),
             ],
-            child: Image.asset('assets/pan.jpg'),
+            child: Image.file(state.panoramaImage),
           );
         }
 
