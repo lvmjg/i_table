@@ -6,9 +6,10 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 import '../../features/panorama/presentation/widgets/panorama_page/panorama_page.dart';
 
-import '../../features/place/domain/entities/place_configuration_entity.dart';
-import '../../features/place/domain/entities/place_plan/place_plan_element_entity.dart';
-import '../../features/place/presentation/bloc/place_bloc.dart';
+import '../../features/place_plan/domain/entities/place_configuration_entity.dart';
+import '../../features/place_plan/domain/entities/place_plan/plan_element.dart';
+import '../../features/place_plan/domain/entities/place_plan/plan_state.dart';
+import '../../features/place_plan/presentation/bloc/place_bloc.dart';
 import 'hex_color.dart';
 
 class PlanBuilder {
@@ -18,7 +19,7 @@ class PlanBuilder {
   late int cellWidth;
   late int cellHeight;
 
-  late List<PlacePlanElementEntity> elements = [];
+  late List<PlanElement> elements = [];
   late List<TrackSize> rowSizes;
   late List<TrackSize> columnSizes;
 
@@ -49,16 +50,18 @@ class PlanBuilder {
 
     //PlanGenerator planGenerator = PlanGenerator();
     //elements = planGenerator.get();
-    elements = placeConfiguration
-        .placePlanLevels.first.placePlan.values
-        .toList();
+
+    elements.clear();
+
+    elements.addAll(placeConfiguration.getItems());
+
 
     //calculate size of plan base on data from server
-    PlacePlanElementEntity hLast = elements.reduce(
+    PlanElement hLast = elements.reduce(
         (a, b) => (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
     double maxHeight = (hLast.rowStart + hLast.rowSpan).toDouble();
 
-    PlacePlanElementEntity wLast = elements.reduce((a, b) =>
+    PlanElement wLast = elements.reduce((a, b) =>
         (a.columnStart + a.columnSpan) > (b.columnStart + b.columnSpan)
             ? a
             : b);
@@ -92,14 +95,19 @@ class PlanBuilder {
     print('b: ${cellWidth} ${cellHeight}');
   }
 
-  Widget createPlan(BuildContext buildContext, bool editMode) {
+  Widget createPlan(
+      BuildContext buildContext, bool editMode, AutoSizeGroup autoSizeGroup) {
+    print(columnSizes);
+    print(rowSizes);
+
     List<Widget> planElements = elements
         .map((e) => GridPlacement(
               columnStart: e.columnStart,
               columnSpan: e.columnSpan,
               rowStart: e.rowStart,
               rowSpan: e.rowSpan,
-              child: element(buildContext, editMode, e, e.type, e.name, e.color),
+              child: element(buildContext, editMode, e, e.type, e.name,
+                  autoSizeGroup, e.color),
             ))
         .toList();
     return LayoutGrid(
@@ -109,124 +117,161 @@ class PlanBuilder {
     );
   }
 
-  final AutoSizeGroup autoSizeGroup = AutoSizeGroup();
   GlobalKey globalKey = GlobalKey();
 
-  Widget element(BuildContext context, editMode,
-      PlacePlanElementEntity elementEntity, String type, String name,
+  Widget element(
+      BuildContext context,
+      editMode,
+      PlanElement elementEntity,
+      String type,
+      String name,
+      AutoSizeGroup autoSizeGroup,
       [String color = "#FFFFFF"]) {
     double elevation = cellHeight.toDouble();
 
-    TextStyle elementTextStyle = TextStyle(fontSize: 30, color: Colors.black);
+    TextStyle elementTextStyle = TextStyle(color: Colors.black);
     AutoSizeText elementText = AutoSizeText(
-   //   key: globalKey,
       name,
+      textAlign: TextAlign.center,
       minFontSize: 1,
+      maxFontSize: 29,
+      // presetFontSizes: const [20,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
       style: elementTextStyle,
       group: autoSizeGroup,
-
+      softWrap: true,
     );
     //Text elementText = Text(name, style: elementTextStyle);
 
+    // double cwidth = cellWidth.toDouble();
+    // double cheight = cellHeight.toDouble();
+
     double cwidth = double.infinity;
     double cheight = double.infinity;
-    if (type == 'S') {
-      return Opacity(
-        opacity: setOpacityBasedOnState(editMode, elementEntity.getElementState()),
-        child: Center(
-            child: Material(
-          clipBehavior: Clip.hardEdge,
-          shape: const CircleBorder(),
-          elevation: elevation,
-          child: InkWell(
-            onTap: () {
-              print("Tapped: " + name);
-              context
-                  .read<PlaceBloc>()
-                  .add(PlacePlanElementTapped(planElementId: name));
-            },
-            child: Ink(
-              color: selectColorBasedOnState(elementEntity.getElementState()),
-              child: SizedBox(
-                width: cwidth,
-                height: cheight,
-                child: Center(child: elementText),
+
+    if (type == 'T') {
+      return AbsorbPointer(
+        absorbing: blockTouchBasedOnState(editMode, elementEntity.localState),
+        child: Opacity(
+          opacity:
+              setOpacityBasedOnState(editMode, elementEntity.localState),
+          child: Material(
+            clipBehavior: Clip.hardEdge,
+            shape: const RoundedRectangleBorder(),
+            elevation: elevation,
+            child: InkWell(
+              onLongPress: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PanoramaPage(
+                          elementId: name,
+                          placeId: '9wtiLFlRdZ1b8abbPoet' ,
+                        )));
+              },
+              onTap: () {
+                context
+                    .read<PlaceBloc>()
+                    .add(PlacePlanElementTapped(planElementId: name));
+              },
+              child: Ink(
+                color: selectColorBasedOnState(elementEntity.localState),
+                child: SizedBox(
+                  width: cwidth,
+                  height: cheight,
+                  child: Center(child: elementText),
+                ),
               ),
             ),
           ),
-        )),
+        ),
       );
-    } else if (type == 'T') {
-      return Opacity(
-        opacity: setOpacityBasedOnState(editMode, elementEntity.getElementState()),
-        child: Material(
 
-          shape: const RoundedRectangleBorder(),
-          elevation: elevation,
-          child: InkWell(
-            onLongPress: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PanoramaPage(elementId: name, placeId: placeConfiguration.placeSettings!.placeId,)));
-            },
-            onTap: () {
-              context
-                  .read<PlaceBloc>()
-                  .add(PlacePlanElementTapped(planElementId: name));
-            },
-            child: Ink(
-              color: selectColorBasedOnState(elementEntity.getElementState()),
-              child: SizedBox(
-                  width: cwidth,
-                  height: cheight,
-                  child: Center(child: elementText)),
+      //  return SizedBox(width: cwidth, height: cheight, child: elementText);
+    } else if (type == 'S') {
+      return AbsorbPointer(
+        absorbing: blockTouchBasedOnState(editMode, elementEntity.localState),
+        child: Opacity(
+          opacity:
+              setOpacityBasedOnState(editMode, elementEntity.localState),
+          child: Material(
+            clipBehavior: Clip.hardEdge,
+            shape: const CircleBorder(),
+            elevation: elevation,
+            child: InkWell(
+              onTap: () {
+                print("Tapped: " + name);
+                context
+                    .read<PlaceBloc>()
+                    .add(PlacePlanElementTapped(planElementId: name));
+              },
+              child: Ink(
+                color: selectColorBasedOnState(elementEntity.localState),
+                child: SizedBox(
+                    width: cwidth,
+                    height: cheight,
+                    child: Center(child: elementText)),
+              ),
             ),
           ),
         ),
       );
+      // return SizedBox(width: cwidth, height: cheight, child: elementText);
     } else if (type == 'O') {
-      return Opacity(
-        opacity: setOpacityBasedOnState(editMode, elementEntity.getElementState()),
-        child: Material(
-          shape: const RoundedRectangleBorder(),
-          elevation: elevation,
-          child: InkWell(
-            onTap: () {},
-            child: Ink(
-              color: HexColor(color),
-              child: SizedBox(
-                  width: cwidth,
-                  height: cheight,
-                  child: Center(child: elementText)),
+      return AbsorbPointer(
+        absorbing: blockTouchBasedOnState(editMode, elementEntity.localState),
+        child: Opacity(
+          opacity:
+              setOpacityBasedOnState(editMode, elementEntity.localState),
+          child: Material(
+            clipBehavior: Clip.hardEdge,
+            shape: const RoundedRectangleBorder(),
+            elevation: elevation,
+            child: InkWell(
+              onTap: () {},
+              child: Ink(
+                color: HexColor(color),
+                child: SizedBox(
+                    width: cwidth,
+                    height: cheight,
+                    child: Center(child: elementText)),
+              ),
             ),
           ),
         ),
       );
+
+      //return SizedBox(width: cwidth, height: cheight, child: elementText);
     }
 
     return Container();
   }
 
-  Color selectColorBasedOnState(PlanElementState elementState) {
-    if (elementState == PlanElementState.reserved) {
+  Color selectColorBasedOnState(PlanState elementState) {
+    if (elementState == PlanState.reserved) {
       return Colors.red;
     }
 
-    if (elementState == PlanElementState.selected) {
+    if (elementState == PlanState.potentiallyReserved) {
+      return Colors.orangeAccent;
+    }
+
+    if (elementState == PlanState.selected) {
       return Colors.green;
     }
 
-    if (elementState == PlanElementState.highlighted) {
+    if (elementState == PlanState.highlighted) {
       return Colors.greenAccent;
     }
 
-    if (elementState == PlanElementState.notReserved) {
+    if (elementState == PlanState.notReserved) {
       return Colors.white;
     }
 
     return Colors.white;
   }
 
-  double setOpacityBasedOnState(bool editMode, PlanElementState elementState) {
-    if (editMode && (elementState != PlanElementState.selected) && (elementState != PlanElementState.highlighted)) {
+  double setOpacityBasedOnState(bool editMode, PlanState elementState) {
+    if (editMode &&
+        (elementState != PlanState.selected) &&
+        (elementState != PlanState.highlighted)) {
       return 0.2;
     }
 
@@ -234,9 +279,16 @@ class PlanBuilder {
   }
 
   void retainTextSize() {
- //   AutoSizeText autoSizeText = globalKey.currentWidget as AutoSizeText;
-  //  autoSizeText.
-  //  groupTextSize = autoSizeText.
+    //   AutoSizeText autoSizeText = globalKey.currentWidget as AutoSizeText;
+    //  autoSizeText.
+    //  groupTextSize = autoSizeText.
   }
 
+  bool blockTouchBasedOnState(editMode, PlanState elementState) {
+    if (editMode && (elementState == PlanState.reserved || elementState == PlanState.notReserved)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
