@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/features/place_search/presentation/widgets/search_page/body/search_filter.dart';
-import 'package:i_table/features/place_search/presentation/widgets/search_page/body/search_result_list.dart';
+import 'package:i_table/core/widget/menu_card.dart';
 
-import '../../../../../../core/presentation/widgets/failure.dart';
-import '../../../../../../core/presentation/widgets/loading.dart';
-import '../../../../../../core/util/globals.dart';
 import '../../../bloc/place_menu_bloc.dart';
 
 class PlaceMenuBody extends StatefulWidget {
+  final bool menuInReservationMode;
+
   PlaceMenuBody({
-    super.key,
+    super.key, required this.menuInReservationMode,
   });
 
   @override
@@ -27,11 +24,17 @@ class _PlaceMenuBodyState extends State<PlaceMenuBody> {
           return TabBarView(
                 children: [
                   for (final c in state.placeMenu.placeMenuCategories)
-                    ListView.builder(
-                      itemCount: c.items.length,
-                        itemBuilder: (context, index) {
-                          return Text(c.items[index].name);
-                        }
+                    Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: c.items.length,
+                              itemBuilder: (context, index) {
+                                return MenuCard(placeMenuItem: c.items[index], buttonsEnabled: widget.menuInReservationMode, onPressed: (){});
+                              }
+                          ),
+                        ),
+                      ],
                     )
                 ],
               );

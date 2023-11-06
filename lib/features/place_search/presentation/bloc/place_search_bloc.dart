@@ -1,15 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:i_table/features/place_search/domain/entities/place_search_factory.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/util/globals.dart';
-import '../../data/datasources/place_search_remote_data_source.dart';
-import '../../data/models/place_search_model.dart';
-import '../../data/repositories/place_search_repository.dart';
-import '../../domain/entities/place_search.dart';
-import '../../domain/usecases/fetch_places.dart';
+import '../../data/data_source/place_search_remote_data_source.dart';
+import '../../data/repository/place_search_repository.dart';
+import '../../domain/entity/place_search.dart';
+import '../../domain/entity/place_search_factory.dart';
+import '../../domain/usecase/fetch_places.dart';
 
 part 'place_search_event.dart';
 

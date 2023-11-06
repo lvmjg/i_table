@@ -2,10 +2,9 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:i_table/features/place_search/presentation/widgets/search_page/place_search_page.dart';
 
 import '../../../../../core/util/globals.dart';
-import '../../home/presentation/widgets/home_page/home_page.dart';
+import '../../home/presentation/widget/home_page/home_page.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({
@@ -16,7 +15,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
-        statusBarColor: Color(primary),
+        statusBarColor: primaryColor,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: Colors.black,
         systemNavigationBarIconBrightness: Brightness.light,
@@ -29,18 +28,6 @@ class SignInPage extends StatelessWidget {
                   Theme.of(context).textTheme)
 
               .apply(),
-          inputDecorationTheme: InputDecorationTheme(
-
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            fillColor: Colors.white,
-            filled: true,
-            enabledBorder:OutlineInputBorder(
-                borderRadius: BorderRadius.circular(200),
-                borderSide: BorderSide(color: Colors.grey, width: 1)),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(200),
-            borderSide: BorderSide(color: Color(primary), width: 1)),
-          ),
           outlinedButtonTheme: OutlinedButtonThemeData(
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
@@ -48,7 +35,7 @@ class SignInPage extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
               foregroundColor:
-                  MaterialStateProperty.all<Color>(Color(primary)),
+                  MaterialStateProperty.all<Color>(primaryColor),
             ),
           ),
         ),
@@ -57,7 +44,7 @@ class SignInPage extends StatelessWidget {
             headerBuilder: (context, contraints, test) {
               return Container(
                 decoration: BoxDecoration(
-                    color: Color(primary),
+                    color: primaryColor,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(padding),
                         bottomRight: Radius.circular(padding))),

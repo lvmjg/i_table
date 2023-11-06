@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
-import '../../features/panorama/presentation/widgets/panorama_page/panorama_page.dart';
-
-import '../../features/place_plan/domain/entities/place_configuration_entity.dart';
-import '../../features/place_plan/domain/entities/place_plan/plan_element.dart';
-import '../../features/place_plan/domain/entities/place_plan/plan_state.dart';
+import '../../features/panorama/presentation/widget/panorama_page/panorama_page.dart';
+import '../../features/place_plan/domain/entity/place_configuration_entity.dart';
+import '../../features/place_plan/domain/entity/place_plan/plan_element.dart';
+import '../../features/place_plan/domain/entity/place_plan/plan_state.dart';
 import '../../features/place_plan/presentation/bloc/place_bloc.dart';
 import 'hex_color.dart';
 
@@ -127,7 +126,7 @@ class PlanBuilder {
       String name,
       AutoSizeGroup autoSizeGroup,
       [String color = "#FFFFFF"]) {
-    double elevation = cellHeight.toDouble();
+    double elevation = (cellWidth < cellHeight ? cellWidth : cellHeight) * 0.02;
 
     TextStyle elementTextStyle = TextStyle(color: Colors.black);
     AutoSizeText elementText = AutoSizeText(
@@ -156,8 +155,8 @@ class PlanBuilder {
               setOpacityBasedOnState(editMode, elementEntity.localState),
           child: Material(
             clipBehavior: Clip.hardEdge,
-            shape: const RoundedRectangleBorder(),
-            elevation: elevation,
+            shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey, width: elevation)),
+           // elevation: elevation,
             child: InkWell(
               onLongPress: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -193,8 +192,8 @@ class PlanBuilder {
               setOpacityBasedOnState(editMode, elementEntity.localState),
           child: Material(
             clipBehavior: Clip.hardEdge,
-            shape: const CircleBorder(),
-            elevation: elevation,
+            shape: CircleBorder(side: BorderSide(color: Colors.grey, width: elevation)),
+            //elevation: elevation,
             child: InkWell(
               onTap: () {
                 print("Tapped: " + name);
@@ -222,8 +221,8 @@ class PlanBuilder {
               setOpacityBasedOnState(editMode, elementEntity.localState),
           child: Material(
             clipBehavior: Clip.hardEdge,
-            shape: const RoundedRectangleBorder(),
-            elevation: elevation,
+            shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey, width: elevation)),
+            //elevation: elevation,
             child: InkWell(
               onTap: () {},
               child: Ink(

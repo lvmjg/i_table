@@ -2,9 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:i_table/core/error/failures.dart';
 import 'package:i_table/core/usecase/usecase.dart';
 
-
-import '../../data/repositories/place_details_repository.dart';
-import '../entities/place_details.dart';
+import '../../data/repository/place_details_repository.dart';
+import '../entity/place_details.dart';
 
 class FetchPlaceDetails
     implements UseCase<PlaceDetails, PlaceIdParams> {

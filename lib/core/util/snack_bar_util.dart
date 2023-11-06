@@ -13,7 +13,7 @@ class SnackBarUtil {
           content: Text(content),
 
         action: SnackBarAction(
-          textColor: Color(primary),
+          textColor: primaryColor,
           label: ok, onPressed: () {},
         ),
       ));

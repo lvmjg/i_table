@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:i_table/core/util/globals.dart';
+import 'package:i_table/core/widget/simple_button.dart';
 
-class SimpleFilledTonalButton extends StatelessWidget {
-  final String title;
-  final VoidCallback onPressed;
+class SimpleFilledTonalButton extends SimpleButton {
 
   const SimpleFilledTonalButton(
-      {Key? key, required this.title, required this.onPressed})
-      : super(key: key);
+      {Key? key, required String title, IconData? iconData, Color? iconColor, double? padding, VoidCallback? onPressed})
+      : super(key: key, title: title, iconData: iconData, iconColor: iconColor, padding: padding, onPressed: onPressed);
 
   @override
   Widget build(BuildContext context) {
     return FilledButton.tonal(
       onPressed: onPressed,
-      child: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Text(title),
-      ),
+      child: super.build(context)
     );
   }
 }

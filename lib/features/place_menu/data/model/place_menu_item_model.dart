@@ -8,8 +8,10 @@ class PlaceMenuItemModel{
   final String description;
   final String category;
   final double price;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? url;
 
-  PlaceMenuItemModel(this.name, this.description, this.category, this.price);
+  PlaceMenuItemModel({required this.name, required this.description, required this.category, required this.price});
 
   factory PlaceMenuItemModel.fromJson(Map<String, dynamic> json) =>
       _$PlaceMenuItemModelFromJson(json);

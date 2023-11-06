@@ -8,10 +8,10 @@ part of 'place_menu_item_model.dart';
 
 PlaceMenuItemModel _$PlaceMenuItemModelFromJson(Map<String, dynamic> json) =>
     PlaceMenuItemModel(
-      json['name'] as String,
-      json['description'] as String,
-      json['category'] as String,
-      (json['price'] as num).toDouble(),
+      name: json['name'] as String,
+      description: json['description'] as String,
+      category: json['category'] as String,
+      price: (json['price'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$PlaceMenuItemModelToJson(PlaceMenuItemModel instance) =>

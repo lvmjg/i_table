@@ -21,9 +21,12 @@ class PlaceMenuFactory {
 
       existingCategory.items.add(PlaceMenuItem(
           id: entry.key,
+          category: entryCategory,
           name: entry.value.name,
           description: entry.value.description,
-          price: entry.value.price));
+          price: entry.value.price,
+          url: entry.value.url
+      ));
     });
 
     return PlaceMenu(placeMenuCategories: placeMenuCategories);

@@ -1,9 +1,7 @@
 part of 'reservation_picker_bloc.dart';
 
 @immutable
-abstract class ReservationPickerState {
-
-}
+abstract class ReservationPickerState {}
 
 class ReservationPickerInitial extends ReservationPickerState{}
 

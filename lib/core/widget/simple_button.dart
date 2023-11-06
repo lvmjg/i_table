@@ -4,19 +4,27 @@ import 'package:i_table/core/util/globals.dart';
 class SimpleButton extends StatelessWidget {
 
   final String title;
-  final VoidCallback onPressed;
+  final IconData? iconData;
+  final Color? iconColor;
+  final VoidCallback? onPressed;
+  final double? padding;
 
-  const SimpleButton({Key? key, required this.title, required this.onPressed}) : super(key: key);
+  const SimpleButton({Key? key, required this.title, this.iconData, this.iconColor = Colors.black38, this.padding = 4, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-        style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Color(primary),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(100)))),
-        onPressed: onPressed,
-        child: Text(title));
+    return Padding(
+      padding: EdgeInsets.all(padding ?? 0),
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Text(title),
+          const SizedBox(
+            width: 4,
+          ),
+          if(iconData!=null) Icon(iconData, color: iconColor)
+        ],
+      ),
+    );
   }
 }

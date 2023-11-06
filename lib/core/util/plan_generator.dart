@@ -1,7 +1,5 @@
-
-
-import '../../features/place_plan/data/models/place_plan/place_plan_element_model.dart';
-import '../../features/place_plan/data/models/place_plan/place_plan_sitting_model.dart';
+import '../../features/place_plan/data/model/place_plan/place_plan_element_model.dart';
+import '../../features/place_plan/data/model/place_plan/place_plan_sitting_model.dart';
 
 class PlanGenerator {
   List<PlacePlanElementModel> tables = [];

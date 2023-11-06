@@ -4,9 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:i_table/features/place_entry/presentation/bloc/place_entry_bloc.dart';
-import 'package:i_table/features/reservation_picker/data/entities/reservation_picker_data.dart';
-import 'package:i_table/features/reservation_picker/data/usecases/reservation_picker_data_manager.dart';
 import 'package:meta/meta.dart';
+
+import '../../domain/entity/reservation_picker_data.dart';
+import '../../domain/usecase/reservation_picker_data_manager.dart';
 
 part 'reservation_picker_event.dart';
 part 'reservation_picker_state.dart';
@@ -64,6 +65,4 @@ class ReservationPickerBloc extends Bloc<ReservationPickerEvent, ReservationPick
     subscription.cancel();
     return super.close();
   }
-
-
 }

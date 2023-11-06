@@ -91,4 +91,17 @@ extension DateTimeRangeExtension on DateTimeRange {
   bool containsExclusive(DateTime other){
     return other.isBetweenExclusive(from: start, to: end);
   }
+
+  bool overlapWith(DateTimeRange other){
+    if(other.end.isBeforeOrEqual(start) || other.start.isAfterOrEqual(end)){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  bool containsExclusiveEnd(DateTime other){
+    return other.isAfterOrEqual(start) && other.isBefore(end);
+  }
 }

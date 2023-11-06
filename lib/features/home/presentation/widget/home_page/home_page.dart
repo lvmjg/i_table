@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+
+import '../../../../../core/util/globals.dart';
+import 'app_bar/home_app_bar.dart';
+import 'body/home_body.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: HomeAppBar(title: appName),
+      body: HomeBody(),
+    );
+  }
+}
+

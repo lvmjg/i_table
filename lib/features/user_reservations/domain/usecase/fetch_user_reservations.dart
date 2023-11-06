@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:i_table/core/error/failures.dart';
 import 'package:i_table/core/usecase/usecase.dart';
-import 'package:i_table/features/place_plan/domain/entities/place_reservation/place_reservation.dart';
 
-import '../../data/repositories/user_reservations_repository.dart';
+import '../../../place_plan/domain/entity/place_reservation/place_reservation.dart';
+import '../../data/repository/user_reservations_repository.dart';
 
 class FetchUserReservations
     implements UseCase<List<PlaceReservation>, UserIdParams> {

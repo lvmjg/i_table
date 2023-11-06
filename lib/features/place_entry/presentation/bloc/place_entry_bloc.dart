@@ -1,17 +1,14 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:i_table/features/place_entry/domain/usecases/fetch_place_settings.dart';
-import 'package:i_table/features/place_search/presentation/bloc/place_search_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/util/globals.dart';
-import '../../data/datasources/place_settings_remote_data_source.dart';
-import '../../data/repositories/place_settings_repository.dart';
-import '../../domain/entities/place_settings.dart';
-import '../../domain/entities/place_settings_factory.dart';
+import '../../data/data_source/place_settings_remote_data_source.dart';
+import '../../data/repository/place_settings_repository.dart';
+import '../../domain/entity/place_settings.dart';
+import '../../domain/entity/place_settings_factory.dart';
+import '../../domain/usecase/fetch_place_settings.dart';
 
 part 'place_entry_event.dart';
 

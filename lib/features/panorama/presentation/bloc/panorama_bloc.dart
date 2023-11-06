@@ -1,13 +1,12 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:i_table/features/panorama/domain/usecases/fetch_panorama.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/util/globals.dart';
-import '../../data/datasources/panorama_remote_data_source.dart';
-import '../../data/repositories/panorama_repository.dart';
+import '../../data/data_source/panorama_remote_data_source.dart';
+import '../../data/repository/panorama_repository.dart';
+import '../../domain/usecase/fetch_panorama.dart';
 
 part 'panorama_event.dart';
 part 'panorama_state.dart';

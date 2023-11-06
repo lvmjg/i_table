@@ -15,13 +15,13 @@ class PlaceMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: toolbarHeight,
+      toolbarHeight: toolbarHeight*2,
       flexibleSpace:
       Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
           padding: EdgeInsets.all(padding / 2),
           child: Text(
-            appName,
+            menu,
             style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -29,6 +29,8 @@ class PlaceMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         TabBar(
+          labelColor: Colors.white,
+         unselectedLabelColor: Colors.white70,
           indicatorColor: Colors.white,
           isScrollable: true,
           tabs: [
@@ -41,5 +43,5 @@ class PlaceMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight*2);
 }

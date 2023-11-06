@@ -9,12 +9,13 @@ abstract class PlaceEvent extends Equatable {
 
 class PlaceInitiated extends PlaceEvent{
   final String placeId;
-  final DateTime reservationTime;
+  final DateTime reservationDateTime;
+  final Duration reservationDuration;
 
-  PlaceInitiated({required this.placeId, required this.reservationTime});
+  PlaceInitiated({required this.placeId, required this.reservationDateTime, required this.reservationDuration});
 
   @override
-  List<Object> get props => [reservationTime];
+  List<Object> get props => [placeId, reservationDateTime, reservationDuration];
 }
 
 class PlaceDisposed extends PlaceEvent{}
@@ -29,28 +30,18 @@ class PlacePlanElementTapped extends PlaceEvent{
   List<Object> get props => [planElementId];
 }
 
-class PlaceReservationDateChanged extends PlaceEvent{
+class PlaceReservationPickerChanged extends PlaceEvent{
+  final DateTime reservationDateTime;
+  final Duration reservationDuration;
 
-  final DateTime reservationDate;
-
-  PlaceReservationDateChanged({required this.reservationDate});
-
-  @override
-  List<Object> get props => [reservationDate];
-}
-
-class PlaceReservationTimeChanged extends PlaceEvent{
-
-  final TimeOfDay reservationTime;
-
-  PlaceReservationTimeChanged({required this.reservationTime});
+  PlaceReservationPickerChanged({required this.reservationDateTime, required this.reservationDuration});
 
   @override
-  List<Object> get props => [reservationTime];
+  List<Object> get props => [reservationDateTime];
 }
+
+
 
 class PlaceReservationElementsRemoved extends PlaceEvent{}
 
 class PlaceReservationElementsAdded extends PlaceEvent{}
-
-class PlaceReservationRequest extends PlaceEvent{}

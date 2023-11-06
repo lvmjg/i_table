@@ -1,5 +1,6 @@
 part of 'place_bloc.dart';
 
+@immutable
 abstract class PlaceState extends Equatable {
   @override
   List<Object> get props => [];
@@ -7,9 +8,11 @@ abstract class PlaceState extends Equatable {
 
 class PlaceFetchFailure extends PlaceState {
   final String placeId;
+  final DateTime reservationDateTime;
+  final Duration reservationDuration;
   final String errorMessage;
 
-  PlaceFetchFailure({required this.placeId, required this.errorMessage});
+  PlaceFetchFailure({required this.placeId, required this.reservationDateTime, required this.reservationDuration, required this.errorMessage});
 
   @override
   List<Object> get props => [errorMessage];
@@ -21,17 +24,14 @@ class PlaceFetchInProgress extends PlaceState {
 
 class PlaceFetchSuccess extends PlaceState {
   final PlaceConfigurationEntity? placeConfiguration;
-  final String input;
-
   final bool editMode;
-
   final bool readyToReserve;
+  late final DateTime trigger;
 
-  final String formatTracked;
-
-  PlaceFetchSuccess({required this.placeConfiguration, required this.input, required this.editMode, required this.formatTracked, required this.readyToReserve});
+  PlaceFetchSuccess({required this.placeConfiguration, required this.editMode, required this.readyToReserve}){
+    trigger = DateTime.now();
+  }
 
   @override
-  List<Object> get props => [input, editMode];
+  List<Object> get props => [trigger];
 }
-
