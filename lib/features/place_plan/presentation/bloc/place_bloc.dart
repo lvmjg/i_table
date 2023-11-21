@@ -9,6 +9,7 @@ import 'package:i_table/features/reservation_picker/presentation/bloc/reservatio
 
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entity/place_configuration_entity.dart';
+import '../../domain/entity/place_reservation/place_reservation.dart';
 import '../../domain/usecase/manage_place.dart';
 
 part 'place_event.dart';
@@ -26,20 +27,30 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     on<PlaceInitiated>((event, emit) async {
       emit(PlaceFetchInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       managePlace.reservationDateTime = event.reservationDateTime;
       managePlace.reservationDuration = event.reservationDuration;
 
-      if (state is PlaceFetchInProgress) {
-        (await managePlace(PlaceIdParams(placeId: event.placeId)))
-            .fold((failure) {
-              emit(PlaceFetchFailure(placeId: event.placeId, reservationDateTime: event.reservationDateTime, reservationDuration: event.reservationDuration, errorMessage: errorFetchPlace));
-        },
-                (placeConfiguration) {
-          placeConf = placeConfiguration;
-          emit(PlaceFetchSuccess(
-              placeConfiguration: placeConfiguration,
+      (await managePlace(PlaceIdParams(placeId: event.placeId)))
+          .fold((failure) {
+        emit(PlaceFetchFailure(placeId: event.placeId, reservationDateTime: event.reservationDateTime, reservationDuration: event.reservationDuration, errorMessage: errorFetchPlace));
+      },
+              (placeConfiguration) {
+            placeConf = placeConfiguration;
+
+          });
+
+      if(placeConf!=null){
+        emit.forEach(placeConf!.placeReservationsStream!, onData: (List<PlaceReservation> placeReservations){
+          managePlace.analyzeReservations(placeReservations);
+
+          return PlaceFetchSuccess(
+              placeConfiguration: placeConf,
               editMode: managePlace.editMode,
-              readyToReserve: managePlace.readyToReserve));
+              readyToReserve: managePlace.readyToReserve);
         });
       }
     });

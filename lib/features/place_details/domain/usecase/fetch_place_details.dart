@@ -13,8 +13,8 @@ class FetchPlaceDetails
 
   @override
   Future<Either<Failure, PlaceDetails>> call(
-      PlaceIdParams params) {
-    return placeDetailsRepository
+      PlaceIdParams params) async {
+    return await placeDetailsRepository
         .fetchPlaceDetails(params.placeId);
   }
 }

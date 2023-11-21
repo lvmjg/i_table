@@ -11,7 +11,7 @@ class FetchPlaceMenu implements UseCase<PlaceMenu, PlaceIdParams> {
   FetchPlaceMenu(this.placeMenuRepository);
 
   @override
-  Future<Either<Failure, PlaceMenu>> call(PlaceIdParams params) {
-    return placeMenuRepository.fetchPlaceMenu(params.placeId);
+  Future<Either<Failure, PlaceMenu>> call(PlaceIdParams params) async {
+    return await placeMenuRepository.fetchPlaceMenu(params.placeId);
   }
 }

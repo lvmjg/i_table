@@ -8,7 +8,7 @@ import '../../domain/entity/place_orders_factory.dart';
 import '../data_source/user_orders_remote_data_source.dart';
 
 abstract class UserOrdersRepository {
-  Future<Either<Failure, List<PlaceOrder>>> fetchUserOrders(String userId, String reservationId);
+  Either<Failure, Stream<List<PlaceOrder>>> fetchUserOrders(String userId, String reservationId);
 }
 
 class UserOrdersRepositoryImpl implements UserOrdersRepository {
@@ -18,17 +18,14 @@ class UserOrdersRepositoryImpl implements UserOrdersRepository {
   UserOrdersRepositoryImpl(this.remote, this.placeOrdersFactory);
 
   @override
-  Future<Either<Failure, List<PlaceOrder>>> fetchUserOrders(
-      String userId, String reservationId) async {
+  Either<Failure, Stream<List<PlaceOrder>>> fetchUserOrders(
+      String userId, String reservationId) {
     try {
-      List<PlaceOrderModel> placeOrderModels =
-          await remote.fetchUserOrders(userId, reservationId);
+      Stream<List<PlaceOrderModel>> userOrderModelsStream = remote.fetchUserOrders(userId, reservationId);
 
-      if (placeOrderModels.isNotEmpty) {
-        return Right(placeOrdersFactory.getPlaceOrders(placeOrderModels));
-      } else {
-        return Left(FetchFailure());
-      }
+      Stream<List<PlaceOrder>> userOrdersStream = userOrderModelsStream.map((event) => placeOrdersFactory.getPlaceOrders(event));
+
+      return Right(userOrdersStream);
     } on FetchException {
       return Left(FetchFailure());
     }

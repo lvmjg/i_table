@@ -18,6 +18,10 @@ class PanoramaBloc extends Bloc<PanoramaEvent, PanoramaState> {
     on<PanoramaInitiated>((event, emit) async {
       emit(PanoramaFetchInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       if (state is PanoramaFetchInProgress) {
         (await fetchPanorama(
             PanoramaParams(placeId: event.placeId, elementId: event.elementId)))

@@ -8,7 +8,7 @@ import '../../../place_plan/domain/entity/place_reservation/place_reservations_f
 import '../data_source/user_reservations_remote_data_source.dart';
 
 abstract class UserReservationsRepository {
-  Future<Either<Failure, List<PlaceReservation>>> fetchUserReservations(
+  Either<Failure, Stream<List<PlaceReservation>>> fetchUserReservations(
       String userId);
 }
 
@@ -19,13 +19,17 @@ class UserReservationsRepositoryImpl implements UserReservationsRepository {
   UserReservationsRepositoryImpl(this.remote, this.placeReservationsFactory);
 
   @override
-  Future<Either<Failure, List<PlaceReservation>>> fetchUserReservations(
-      String userId) async {
+  Either<Failure, Stream<List<PlaceReservation>>> fetchUserReservations(
+      String userId) {
     try {
-      List<PlaceReservationModel> userReservations =
-          await remote.fetchUserReservations(userId);
+      Stream<List<PlaceReservationModel>> userReservationsModelsStream =
+          remote.fetchUserReservations(userId);
 
-      return Right(placeReservationsFactory.getReservations(userReservations));
+      Stream<List<PlaceReservation>> userReservationsStream =
+          userReservationsModelsStream
+              .map((event) => placeReservationsFactory.getReservations(event));
+
+      return Right(userReservationsStream);
     } on FetchException {
       return Left(FetchFailure());
     }

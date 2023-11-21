@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/core/widget/common_loading.dart';
 import 'package:i_table/core/widget/menu_card.dart';
 
 import '../../../bloc/place_menu_bloc.dart';
@@ -40,7 +41,7 @@ class _PlaceMenuBodyState extends State<PlaceMenuBody> {
               );
 
         }
-        return Container();
+        return CommonLoading();
       },
     );
 

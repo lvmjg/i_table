@@ -22,6 +22,10 @@ class PlaceSearchBloc extends Bloc<PlaceSearchEvent, PlaceSearchState> {
     on<PlaceSearchInitiated>((event, emit) async {
       emit(PlaceSearchFetchInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       if (state is PlaceSearchFetchInProgress) {
         (await fetchPlaces(NoParams())).fold(
             (failure) =>

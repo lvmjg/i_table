@@ -1,53 +1,35 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:i_table/features/reservation_chat/data/repository/reservation_chat_repository.dart';
-import 'package:i_table/features/reservation_chat/domain/entitiy/chat_message.dart';
+import 'package:i_table/core/data_source/firebase_data_source.dart';
 
 import '../../../../core/error/exceptions.dart';
-import '../../../../core/util/globals.dart';
 import '../model/chat_message_model.dart';
 
 abstract class ReservationChatRemoteDataSource {
-  Stream<List<ChatMessageModel>> fetchChatMessages(String placeId, String reservationId);
-  Future<void> addChatMessage(String reservationId, ChatMessageModel chatMessageModel);
+  Stream<List<ChatMessageModel>> fetchChatMessages(
+      String placeId, String reservationId);
+  Future<void> addChatMessage(
+      String reservationId, ChatMessageModel chatMessageModel);
 }
 
 class ReservationChatRemoteDataSourceImpl
     implements ReservationChatRemoteDataSource {
+  FirebaseDataSource fds = FirebaseDataSourceImpl();
+
   @override
-  Stream<List<ChatMessageModel>> fetchChatMessages(String placeId, String reservationId) {
-    FirebaseFirestore ff = FirebaseFirestore.instance;
-
-    Stream<List<ChatMessageModel>> chatMessageModelsStream = Stream.empty();
+  Stream<List<ChatMessageModel>> fetchChatMessages(
+      String placeId, String reservationId) {
     try {
-      Stream<QuerySnapshot<Map<String, dynamic>>> chatMessagesSnapshotsStream = ff
-          .collection(pathPlacesReservations)
-          .doc(reservationId)
-          .collection(pathReservationChat)
-          .snapshots();
-
-      chatMessageModelsStream = chatMessagesSnapshotsStream.map((event)
-        => event.docs
-            .map((value) => ChatMessageModel.fromJson(value.data()))
-            .toList()
-      );
+      return fds.fetchChatMessages(placeId, reservationId);
     } catch (e, s) {
       throw FetchException();
     }
-
-    return chatMessageModelsStream;
   }
 
   @override
-  Future<void> addChatMessage(String reservationId, ChatMessageModel chatMessageModel) async{
-    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
-
-    FirebaseFirestore ff = FirebaseFirestore.instance;
+  Future<void> addChatMessage(
+      String reservationId, ChatMessageModel chatMessageModel) async {
     try {
-      await ff.collection(pathPlacesReservations)
-          .doc(reservationId)
-          .collection(pathReservationChat)
-          .add(chatMessageModel.toJson());
-    } catch(e, s){
+      await fds.addChatMessage(reservationId, chatMessageModel);
+    } catch (e, s) {
       throw FetchException();
     }
   }

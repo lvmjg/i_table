@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/place_menu/domain/usecase/submit_order.dart';
+import 'package:i_table/features/reservation_chat/domain/entitiy/chat_messages_factory.dart';
 import 'package:i_table/features/user_orders/domain/entity/place_orders_factory.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -24,10 +25,10 @@ part 'place_menu_state.dart';
 class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
   PlaceMenuBloc() : super(PlaceMenuFetchInProgress()) {
     FetchPlaceMenu fetchPlaceMenu = FetchPlaceMenu(PlaceMenuRepositoryImpl(
-        PlaceMenuRemoteDataSourceImpl(), PlaceMenuFactory(), PlaceOrdersFactory()));
+        PlaceMenuRemoteDataSourceImpl(), PlaceMenuFactory(), PlaceOrdersFactory(), ChatMessagesFactory()));
 
     SubmitOrder submitOrder = SubmitOrder(PlaceMenuRepositoryImpl(
-        PlaceMenuRemoteDataSourceImpl(), PlaceMenuFactory(), PlaceOrdersFactory()));
+        PlaceMenuRemoteDataSourceImpl(), PlaceMenuFactory(), PlaceOrdersFactory(), ChatMessagesFactory()));
 
     late String placeId;
     late String placeName;
@@ -39,21 +40,23 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
     on<PlaceMenuInitiated>((event, emit) async {
       emit(PlaceMenuFetchInProgress());
 
-      if (state is PlaceMenuFetchInProgress) {
-        (await fetchPlaceMenu(PlaceIdParams(placeId: event.placeId))).fold(
-            (failure) =>
-                emit(PlaceMenuFetchFailure(errorMessage: errorFetchPlaceMenu)),
-            (newPlaceMenu) {
-              placeId = event.placeId;
-              placeName = event.placeName;
-              placeMenu = newPlaceMenu;
-
-              userId = event.userId;
-              reservationId = event.reservationId;
-
-              emit(PlaceMenuFetchSuccess(placeId: event.placeId, placeMenu: newPlaceMenu, basket: [], basketTotal: StringUtil.EMPTY));
-            });
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
+
+      (await fetchPlaceMenu(PlaceIdParams(placeId: event.placeId))).fold(
+              (failure) =>
+              emit(PlaceMenuFetchFailure(errorMessage: errorFetchPlaceMenu)),
+              (newPlaceMenu) {
+            placeId = event.placeId;
+            placeName = event.placeName;
+            placeMenu = newPlaceMenu;
+
+            userId = event.userId;
+            reservationId = event.reservationId;
+
+            emit(PlaceMenuFetchSuccess(placeId: event.placeId, placeMenu: newPlaceMenu, basket: [], basketTotal: StringUtil.EMPTY));
+          });
     });
 
     on<PlaceMenuItemAdded>((event, emit) async {
@@ -103,6 +106,10 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
 
     on<PlaceMenuPayLaterChosen>((event, emit) async {
       emit(PlaceMenuSubmitOrderInProgress());
+
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
 
       (await submitOrder(PlaceMenuOrderParams(userId: userId!, placeId: placeId, placeName: placeName, reservationId: reservationId!, placeMenuItems: _createBasket(placeMenu))))
           .fold(

@@ -12,8 +12,8 @@ class SubmitReservation
 
   @override
   Future<Either<Failure, void>> call(
-      ReservationSummaryParams params) {
-    return reservationSummaryRepository
+      ReservationSummaryParams params) async {
+    return await reservationSummaryRepository
         .submitReservation(params.placeReservation);
   }
 }

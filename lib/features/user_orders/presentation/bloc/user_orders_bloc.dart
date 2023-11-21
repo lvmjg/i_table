@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
 import 'package:i_table/features/user_orders/domain/usecase/fetch_user_orders.dart';
@@ -20,10 +21,23 @@ class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> {
     on<UserOrdersInitiated>((event, emit) async {
       emit(UserOrdersFetchInProgress());
 
-      (await fetchUserOrders(UserOrdersParams(userId: event.params.userId, reservationId: event.params.reservationId))).fold(
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
+      Stream<List<PlaceOrder>>? userOrdersStream;
+
+      fetchUserOrders(UserOrdersParams(userId: event.params.userId, reservationId: event.params.reservationId)).fold(
           (failure) =>
               emit(UserOrdersFetchFailure(errorMessage: errorFetchData)),
-          (orders) => emit(UserOrdersFetchSuccess(orders: orders)));
-    });
+          (newUserOrdersStream) => userOrdersStream = newUserOrdersStream);
+
+      if(userOrdersStream!=null){
+        await emit.forEach(userOrdersStream!, onData: (List<PlaceOrder> userOrders){
+          userOrders.sort((a,b) => a.orderDateTime.compareTo(b.orderDateTime));
+          return UserOrdersFetchSuccess(orders: userOrders);
+        });
+      }
+    }, transformer: restartable());
   }
 }

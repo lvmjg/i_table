@@ -27,8 +27,8 @@ class ReservationSummaryBody extends StatelessWidget {
               Expanded(child: Container()),
               Padding(
                 padding: EdgeInsets.all(padding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SimpleFilledTonalButton(title: cancel, iconData: Icons.close_rounded, iconColor: Colors.red, onPressed: (){
                       Navigator.of(context).pop();

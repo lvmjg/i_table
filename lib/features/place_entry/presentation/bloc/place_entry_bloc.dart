@@ -26,15 +26,17 @@ class PlaceEntryBloc extends Bloc<PlaceEntryEvent, PlaceEntryState> {
     on<PlaceEntryInitiated>((event, emit) async {
       emit(PlaceEntryFetchInProgress());
 
-      if (state is PlaceEntryFetchInProgress) {
-        (await fetchPlaceSettings(PlaceIdParams(placeId: event.placeId))).fold(
-            (failure) => emit(
-                PlaceEntryFetchFailure(
-                    placeId: event.placeId,
-                    errorMessage: errorFetchPlaceSettings)),
-            (placeSettings) =>
-                emit(PlaceEntryFetchSuccess(placeId: event.placeId, placeName: '147 Break', placeSettings: placeSettings)));
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
+
+      (await fetchPlaceSettings(PlaceIdParams(placeId: event.placeId))).fold(
+              (failure) => emit(
+              PlaceEntryFetchFailure(
+                  placeId: event.placeId,
+                  errorMessage: errorFetchPlaceSettings)),
+              (placeSettings) =>
+              emit(PlaceEntryFetchSuccess(placeId: event.placeId, placeName: '147 Break', placeSettings: placeSettings)));
     });
   }
 }

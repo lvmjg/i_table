@@ -1,28 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:i_table/core/data_source/firebase_data_source.dart';
 
 import '../../../../core/error/exceptions.dart';
-import '../../../../core/util/globals.dart';
 import '../../../place_plan/data/model/place_reservation/place_reservation_model.dart';
 
-abstract class ReservationSummaryRemoteDataSource{
+abstract class ReservationSummaryRemoteDataSource {
   Future<void> submitReservation(PlaceReservationModel placeReservationModel);
 }
 
-class ReservationSummaryRemoteDataSourceImpl implements ReservationSummaryRemoteDataSource{
+class ReservationSummaryRemoteDataSourceImpl
+    implements ReservationSummaryRemoteDataSource {
+  FirebaseDataSource fds = FirebaseDataSourceImpl();
 
   @override
-  Future<void> submitReservation(PlaceReservationModel placeReservationModel) async{
-    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
-
-    FirebaseFirestore ff = FirebaseFirestore.instance;
+  Future<void> submitReservation(
+      PlaceReservationModel placeReservationModel) async {
     try {
-      DocumentReference doc = ff.collection(pathPlacesReservations).doc();
-
-      String reservationId = doc.id.substring(0, 6);
-      placeReservationModel.no = reservationId;
-
-      await ff.collection(pathPlacesReservations).doc(doc.id).set(placeReservationModel.toJson());
-    } catch(e, s){
+      await fds.submitReservation(placeReservationModel);
+    } catch (e, s) {
       throw FetchException();
     }
   }

@@ -43,13 +43,9 @@ class SubmitOrder implements UseCase<void, PlaceMenuOrderParams> {
         orderDateTime: DateTime.now(),
         userOrders: placeOrderItems);
 
+    ChatMessage orderMessage = ChatMessage(sender: loggedUserId, sendTime: DateTime.now(), message: placeOrder.summary);
 
-    ReservationChatRepository reservationChatRepository = ReservationChatRepositoryImpl(
-      ReservationChatRemoteDataSourceImpl(), ChatMessagesFactory()
-    );
-    await reservationChatRepository.addChatMessage(params.reservationId, ChatMessage(sender: loggedUserId, sendTime: DateTime.now(), message: placeOrder.summary));
-
-    return await placeMenuRepository.submitOrder(placeOrder);
+    return await placeMenuRepository.submitOrder(placeOrder, params.reservationId, orderMessage);
 
   }
 }

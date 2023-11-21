@@ -22,8 +22,6 @@ class ReservationSummaryRepositoryImpl implements ReservationSummaryRepository{
 
   @override
   Future<Either<Failure, void>> submitReservation(PlaceReservation placeReservation) async{
-    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
-
     try {
       PlaceReservationModel placeReservationModel = placeReservationsFactory.getModelFromPlaceReservation(placeReservation);
       await remote.submitReservation(placeReservationModel);

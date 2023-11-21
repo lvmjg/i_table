@@ -16,25 +16,32 @@ part 'service_orders_state.dart';
 
 class ServiceOrdersBloc extends Bloc<ServiceOrdersEvent, ServiceOrdersState> {
   ServiceOrdersBloc() : super(ServiceOrdersFetchInProgress()) {
-    FetchServiceOrders fetchServiceOrders = FetchServiceOrders(ServiceOrdersRepositoryImpl(
-        ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()));
+    FetchServiceOrders fetchServiceOrders = FetchServiceOrders(
+        ServiceOrdersRepositoryImpl(
+            ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()));
 
     on<ServiceOrdersInitiated>((event, emit) async {
       emit(ServiceOrdersFetchInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       Stream<List<PlaceOrder>>? serviceOrdersStream;
 
-      (await fetchServiceOrders(event.params.placeId)).fold(
+      fetchServiceOrders(event.params.placeId).fold(
           (failure) =>
               emit(ServiceOrdersFetchFailure(errorMessage: errorFetchData)),
-          (newServiceOrdersStream) => serviceOrdersStream = newServiceOrdersStream);
+          (newServiceOrdersStream) =>
+              serviceOrdersStream = newServiceOrdersStream);
 
       if (serviceOrdersStream != null) {
         await emit.forEach(serviceOrdersStream!,
             onData: (List<PlaceOrder> serviceOrders) {
-              serviceOrders.sort((a,b) => a.orderDateTime.compareTo(b.orderDateTime));
-              return ServiceOrdersFetchSuccess(orders: serviceOrders);
-            });
+          serviceOrders
+              .sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime));
+          return ServiceOrdersFetchSuccess(orders: serviceOrders);
+        });
       }
     }, transformer: restartable());
   }

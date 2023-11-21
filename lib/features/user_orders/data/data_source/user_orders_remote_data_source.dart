@@ -1,41 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:i_table/core/data_source/firebase_data_source.dart';
 import 'package:i_table/core/error/exceptions.dart';
 import 'package:i_table/features/user_orders/data/model/place_order_model.dart';
 
-import '../../../../core/util/globals.dart';
-
 abstract class UserOrdersRemoteDataSource {
-  Future<List<PlaceOrderModel>> fetchUserOrders(String userId, String reservationId);
+  Stream<List<PlaceOrderModel>> fetchUserOrders(
+      String userId, String reservationId);
 }
 
 class UserOrdersRemoteDataSourceImpl implements UserOrdersRemoteDataSource {
+  FirebaseDataSource fds = FirebaseDataSourceImpl();
+
   @override
-  Future<List<PlaceOrderModel>> fetchUserOrders(String userId, String reservationId) async {
-    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
-
-    FirebaseFirestore ff = FirebaseFirestore.instance;
-
-    List<PlaceOrderModel> userOrders;
+  Stream<List<PlaceOrderModel>> fetchUserOrders(
+      String userId, String reservationId) {
     try {
-      QuerySnapshot<Map<String, dynamic>> userOrdersSnapshot = await ff
-          .collection(pathPlacesOrders)
-          .where(pathUserId, isEqualTo: userId)
-          .where(pathReservationId, isEqualTo: reservationId)
-          .get(const GetOptions(source: Source.server));
-
-      userOrders = userOrdersSnapshot.docs
-          .map((value) {
-
-            String key = value.id;
-
-       return PlaceOrderModel.fromJson(value.id, value.data());
-      }
-        )
-          .toList();
+      return fds.fetchOrders(userId: userId, reservationId: reservationId);
     } catch (e, s) {
       throw FetchException();
     }
-
-    return userOrders;
   }
 }

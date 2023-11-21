@@ -35,10 +35,14 @@ class ReservationChatBloc
     on<ReservationChatInitiated>((event, emit) async {
       emit(ReservationChatFetchInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       Stream<List<ChatMessage>>? chatMessagesStream;
 
-      (await fetchChatMessages(ReservationParams(
-              placeId: event.placeId, reservationId: event.reservationId)))
+      fetchChatMessages(ReservationParams(
+              placeId: event.placeId, reservationId: event.reservationId))
           .fold(
               (failure) {
                 currentPlaceId = null;
@@ -64,6 +68,10 @@ class ReservationChatBloc
     on<ReservationChatAddMessageRequested>((event, emit) async {
       if(currentPlaceId!=null && currentReservationId!=null) {
         emit(ReservationChatAddMessageInProgress());
+
+        if(debug){
+          await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+        }
 
         (await addChatMessage(ReservationChatAddMessageRequestedParams(
             reservationId: currentReservationId!,

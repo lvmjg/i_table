@@ -26,14 +26,18 @@ import '../entity/place_reservation/place_reservations_factory.dart';
 
 class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
   final PlaceSettingsRepositoryImpl placeSettingsRepository =
-      PlaceSettingsRepositoryImpl(PlaceSettingsRemoteDataSourceImpl(), PlaceSettingsFactory());
-  final PlacePlanRepositoryImpl placePlanRepository =
-      PlacePlanRepositoryImpl(PlacePlanRemoteDataSourceImpl(), PlanElementsFactory());
+      PlaceSettingsRepositoryImpl(
+          PlaceSettingsRemoteDataSourceImpl(), PlaceSettingsFactory());
+  final PlacePlanRepositoryImpl placePlanRepository = PlacePlanRepositoryImpl(
+      PlacePlanRemoteDataSourceImpl(), PlanElementsFactory());
   final PlaceReservationsRepositoryImpl placeReservationsRepository =
-      PlaceReservationsRepositoryImpl(PlaceReservationsRemoteDataSourceImpl(), PlaceReservationsFactory());
+      PlaceReservationsRepositoryImpl(
+          PlaceReservationsRemoteDataSourceImpl(), PlaceReservationsFactory());
 
-  PlaceSettingsModel? placeSettings;
+  PlaceSettings? placeSettings;
   List<PlanLevel> placePlanLevels = [];
+  Stream<List<PlaceReservation>>? placeReservationsStream;
+
   List<PlaceReservation> placeReservations = [];
 
   Map<String, PlanElementsGroup> planElements = {};
@@ -45,7 +49,8 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
   String editingGroup = StringUtil.EMPTY;
   bool editMode = false;
 
-  bool get readyToReserve => planElements.values.any((elementGroup) => elementGroup.state == PlanState.potentiallyReserved);
+  bool get readyToReserve => planElements.values.any(
+      (elementGroup) => elementGroup.state == PlanState.potentiallyReserved);
 
   @override
   Future<Either<Failure, PlaceConfigurationEntity>> call(
@@ -53,36 +58,32 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
     Either<Failure, PlaceSettings> settingsEither =
         await placeSettingsRepository.fetchPlaceSettings(params.placeId);
 
-    settingsEither.fold((failure) {
-      return Left(failure);
-    }, (settingsEither) {
-      settingsEither = settingsEither;
-    });
+    settingsEither.fold((failure) => Left(FetchFailure()),
+        (newPlaceSettings) => placeSettings = newPlaceSettings);
 
     Either<Failure, List<PlanLevel>> planEither =
         await placePlanRepository.fetchPlacePlan(params.placeId);
+
     if (planEither.isRight()) {
       placePlanLevels = planEither.getOrElse(() => []);
     } else {
       return Left(FetchFailure());
     }
 
-    Either<Failure, List<PlaceReservation>> reservationsEither =
-    await placeReservationsRepository.fetchPlaceReservations(
-        params.placeId, reservationDateTime);
-    if(reservationsEither.isRight()){
-      placeReservations = reservationsEither.getOrElse(() => []);
-    } else {
-      return Left(FetchFailure());
-    }
+    Either<Failure, Stream<List<PlaceReservation>>> reservationsEither =
+        placeReservationsRepository.fetchPlaceReservations(
+            params.placeId, reservationDateTime);
 
-    if(placePlanLevels.isNotEmpty){
+    reservationsEither.fold(
+        (failure) => Left(FetchFailure()),
+        (newPlaceReservationsStream) =>
+            placeReservationsStream = newPlaceReservationsStream);
+
+    if (placePlanLevels.isNotEmpty) {
       planElements = placePlanLevels.first.placePlanElements;
     }
 
-    analyzeReservations();
-
-    return Right(PlaceConfigurationEntity(placeSettings, placePlanLevels));
+    return Right(PlaceConfigurationEntity(placeSettings, placePlanLevels, placeReservationsStream!));
   }
 
   void elementTapped(String planElementId) {
@@ -116,7 +117,6 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
   }
 
   void addElements() {
-
     List<PlanElementsGroup> tappedGroups = planElements.values
         .where((group) => group.containsElement(editingGroup))
         .toList();
@@ -128,16 +128,21 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
     editMode = false;
   }
 
-  void reservationPickerChanged(DateTime reservationDateTime, Duration reservationDuration) {
+  void reservationPickerChanged(
+      DateTime reservationDateTime, Duration reservationDuration) {
     this.reservationDateTime = reservationDateTime;
     this.reservationDuration = reservationDuration;
-    if(placePlanLevels.isNotEmpty) {
-      analyzeReservations();
+    if (placePlanLevels.isNotEmpty) {
+      analyzeReservations(placeReservations);
     }
   }
 
-  void analyzeReservations(){
-    planElements.values.where((elementGroup) => elementGroup.state == PlanState.reserved).forEach((elementGroup) {
+  void analyzeReservations(List<PlaceReservation> newPlaceReservations) {
+    placeReservations = newPlaceReservations;
+
+    planElements.values
+        .where((elementGroup) => elementGroup.state == PlanState.reserved)
+        .forEach((elementGroup) {
       elementGroup.unreserve(elementGroup.id);
     });
 
@@ -145,21 +150,25 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
     //overlapping
     filteredReservations = placeReservations.where((placeReservation) {
       DateTime reservationStart = placeReservation.startDate;
-      DateTime reservationEnd = placeReservation.startDate.add(Duration(minutes: placeReservation.duration));
-      DateTimeRange reservationRange = DateTimeRange(start: reservationStart, end: reservationEnd);
+      DateTime reservationEnd = placeReservation.startDate
+          .add(Duration(minutes: placeReservation.duration));
+      DateTimeRange reservationRange =
+          DateTimeRange(start: reservationStart, end: reservationEnd);
 
       DateTime userReservationStart = reservationDateTime;
-      DateTime userReservationEnd = reservationDateTime.add(reservationDuration);
-      DateTimeRange userReservationRange = DateTimeRange(start: userReservationStart, end: userReservationEnd);
+      DateTime userReservationEnd =
+          reservationDateTime.add(reservationDuration);
+      DateTimeRange userReservationRange =
+          DateTimeRange(start: userReservationStart, end: userReservationEnd);
 
       //Time restricted reserv can be in unrestrictedMode, but not vice versa
       bool alreadyReserved;
       //timeUnrestrictedReservation
-      if(reservationEnd.isAtSameMomentAs(reservationStart)){
+      if (reservationEnd.isAtSameMomentAs(reservationStart)) {
         alreadyReserved = reservationStart.isBefore(userReservationEnd);
-        if(alreadyReserved == false){
+        if (alreadyReserved == false) {
           bool reservationAhead = reservationStart.isAfter(userReservationEnd);
-          if(reservationAhead){
+          if (reservationAhead) {
             //Duration timeGap = DateTimeRange(start: userReservationEnd, end: reservationStart).duration;
             //if(timeGap < lon)
           }
@@ -168,61 +177,54 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
       //timeRestrictedReservation
       else {
         bool modeUnrestricted = false;
-        if(modeUnrestricted){
+        if (modeUnrestricted) {
           alreadyReserved = reservationEnd.isAfter(userReservationStart);
-        }
-        else{
+        } else {
           alreadyReserved = userReservationRange.overlapWith(reservationRange);
         }
-
       }
 
       return alreadyReserved;
     }).toList();
 
-
     filteredReservations.forEach((reservation) {
-
-      if(reservation.tables.isNotEmpty){
+      if (reservation.tables.isNotEmpty) {
         reservation.tables.forEach((id, table) {
-          PlanElementsGroup? elementsGroup = placePlanLevels.first.placePlanElements[id];
-          if(elementsGroup != null){
+          PlanElementsGroup? elementsGroup =
+              placePlanLevels.first.placePlanElements[id];
+          if (elementsGroup != null) {
             elementsGroup.validateAgainstReservation(reservation);
-          }
-          else{
+          } else {
             //error
           }
         });
       }
 
-      if(reservation.groups.isNotEmpty){
+      if (reservation.groups.isNotEmpty) {
         reservation.groups.forEach((id, value) {
-          PlanElementsGroup? elementsGroup = placePlanLevels.first.placePlanElements[id];
-          if(elementsGroup != null){
+          PlanElementsGroup? elementsGroup =
+              placePlanLevels.first.placePlanElements[id];
+          if (elementsGroup != null) {
             elementsGroup.validateAgainstReservation(reservation);
-          }
-          else{
+          } else {
             //error
           }
         });
       }
 
-      if(reservation.sittings.isNotEmpty){
+      if (reservation.sittings.isNotEmpty) {
         reservation.sittings.forEach((sitting) {
-          PlanElementsGroup? elementsGroup = placePlanLevels.first.placePlanElements[sitting];
-          if(elementsGroup != null){
+          PlanElementsGroup? elementsGroup =
+              placePlanLevels.first.placePlanElements[sitting];
+          if (elementsGroup != null) {
             elementsGroup.validateAgainstReservation(reservation);
-          }
-          else{
+          } else {
             //error
           }
         });
       }
-
     });
   }
-
-
 
   PlaceReservation get requestedReservation {
     Map<String, Map<String, List<String>>> tables = {};
@@ -234,7 +236,8 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
       if (map.isNotEmpty) {
         if (element.getGroupType() == PlanElementsGroupType.table) {
           tables.addAll(map.cast());
-        } else if (element.getGroupType() == PlanElementsGroupType.sittingGroup) {
+        } else if (element.getGroupType() ==
+            PlanElementsGroupType.sittingGroup) {
           sittingGroups.addAll(map.cast());
         } else if (element.getGroupType() == PlanElementsGroupType.sitting) {
           sittings.add(map['id']);
@@ -249,20 +252,15 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
         placeAddress: 'Nowogrodzka 84/86, Warszawa',
         userId: loggedUserId,
         startDate: reservationDateTime,
-        endDate: reservationDateTime.add(Duration(minutes: reservationDuration.inMinutes)),
+        endDate: reservationDateTime
+            .add(Duration(minutes: reservationDuration.inMinutes)),
         duration: reservationDuration.inMinutes,
         people: 4,
         status: 'new',
         tables: tables,
         groups: sittingGroups,
         sittings: sittings);
-
-
-
-
   }
 
-  void dispose(){
-
-  }
+  void dispose() {}
 }

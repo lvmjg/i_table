@@ -1,12 +1,14 @@
 import 'package:i_table/features/place_plan/domain/entity/place_plan/plan_element.dart';
 import 'package:i_table/features/place_plan/domain/entity/place_plan/plan_level.dart';
+import 'package:i_table/features/place_plan/domain/entity/place_reservation/place_reservation.dart';
 
 import '../../../place_entry/data/model/place_settings/place_settings_model.dart';
+import '../../../place_entry/domain/entity/place_settings.dart';
 
 class PlaceConfigurationEntity {
-  final PlaceSettingsModel? placeSettings;
-
+  final PlaceSettings? placeSettings;
   final List<PlanLevel> placePlanLevels;
+  final Stream<List<PlaceReservation>>? placeReservationsStream;
 
   List<PlanElement> getItems(){
     List<PlanElement> items = [];
@@ -17,5 +19,5 @@ class PlaceConfigurationEntity {
     return items;
   }
 
-  PlaceConfigurationEntity(this.placeSettings, this.placePlanLevels);
+  PlaceConfigurationEntity(this.placeSettings, this.placePlanLevels, this.placeReservationsStream);
 }

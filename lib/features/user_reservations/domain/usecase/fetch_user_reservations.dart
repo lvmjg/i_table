@@ -6,13 +6,13 @@ import '../../../place_plan/domain/entity/place_reservation/place_reservation.da
 import '../../data/repository/user_reservations_repository.dart';
 
 class FetchUserReservations
-    implements UseCase<List<PlaceReservation>, UserIdParams> {
+    implements UseCaseSync<Stream<List<PlaceReservation>>, UserIdParams> {
   final UserReservationsRepository userReservationsRepository;
 
   FetchUserReservations(this.userReservationsRepository);
 
   @override
-  Future<Either<Failure, List<PlaceReservation>>> call(UserIdParams params) {
+  Either<Failure, Stream<List<PlaceReservation>>> call(UserIdParams params) {
     return userReservationsRepository.fetchUserReservations(params.userId);
   }
 }

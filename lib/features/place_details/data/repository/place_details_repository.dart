@@ -25,9 +25,7 @@ class PlaceDetailsRepositoryImpl implements PlaceDetailsRepository{
 
   @override
   Future<Either<Failure, PlaceDetails>> fetchPlaceDetails(String placeId) async{
-    await Future.delayed(Duration(seconds: TEST_TIMEOUT));
-
-    PlaceDetailsModel? cachedPlaceDetails = cachedPlacesDetails[placeId];
+   PlaceDetailsModel? cachedPlaceDetails = cachedPlacesDetails[placeId];
     if(cachedPlaceDetails != null){
       return Right(placeDetailsFactory.getPlaceDetailsFromModel(cachedPlaceDetails));
     }

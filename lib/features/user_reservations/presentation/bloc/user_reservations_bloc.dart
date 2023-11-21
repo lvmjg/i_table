@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/user_reservations/domain/usecase/fetch_user_reservations.dart';
 import 'package:meta/meta.dart';
@@ -23,13 +24,26 @@ class UserReservationsBloc
     on<UserReservationsInitiated>((event, emit) async {
       emit(UserReservationsFetchInProgress());
 
-      if (state is UserReservationsFetchInProgress) {
-        (await fetchUserReservations(UserIdParams(userId: event.userId))).fold(
-            (failure) => emit(UserReservationsFetchFailure(
-                errorMessage: errorFetchUserReservations)),
-            (userReservations) => emit(UserReservationsFetchSuccess(
-                userReservations: userReservations)));
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
-    });
+
+      Stream<List<PlaceReservation>>? userReservationsStream;
+
+      fetchUserReservations(UserIdParams(userId: event.userId)).fold(
+          (failure) => emit(UserReservationsFetchFailure(
+              errorMessage: errorFetchUserReservations)),
+          (newUserReservationsStream) =>
+              userReservationsStream = newUserReservationsStream);
+
+      if (userReservationsStream != null) {
+        await emit.forEach(userReservationsStream!,
+            onData: (List<PlaceReservation> userReservations) {
+          userReservations.sort((a, b) => a.startDate.compareTo(b.startDate));
+          return UserReservationsFetchSuccess(
+              userReservations: userReservations);
+        });
+      }
+    }, transformer: restartable());
   }
 }

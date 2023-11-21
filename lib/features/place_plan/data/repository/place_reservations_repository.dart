@@ -9,14 +9,12 @@ import '../data_source/place_reservations_remote_data_source.dart';
 import '../model/place_reservation/place_reservation_model.dart';
 
 abstract class PlaceReservationsRepository {
-  Future<Either<Failure, List<PlaceReservation>>> fetchPlaceReservations(
-      String placeId, DateTime start);
+  Either<Failure, Stream<List<PlaceReservation>>>
+      fetchPlaceReservations(String placeId, DateTime start);
 }
 
-class PlaceReservationsRepositoryImpl
-    implements PlaceReservationsRepository {
-  final PlaceReservationsRemoteDataSource
-      placeReservationsRemoteDataSource;
+class PlaceReservationsRepositoryImpl implements PlaceReservationsRepository {
+  final PlaceReservationsRemoteDataSource placeReservationsRemoteDataSource;
 
   final PlaceReservationsFactory reservationFactory;
 
@@ -24,16 +22,18 @@ class PlaceReservationsRepositoryImpl
       this.placeReservationsRemoteDataSource, this.reservationFactory);
 
   @override
-  Future<Either<Failure, List<PlaceReservation>>> fetchPlaceReservations(
-      String placeId, DateTime start) async {
+  Either<Failure, Stream<List<PlaceReservation>>>
+      fetchPlaceReservations(String placeId, DateTime start) {
     try {
-      List<PlaceReservationModel> placeReservationsModel =
-         await placeReservationsRemoteDataSource
-              .fetchPlaceReservations(placeId, start.onlyDate());
-      
-      List<PlaceReservation> placeReservations = reservationFactory.getReservations(placeReservationsModel);
+      Stream<List<PlaceReservationModel>> placeReservationsModelsStream =
+          placeReservationsRemoteDataSource.fetchPlaceReservations(
+              placeId, start.onlyDate());
 
-      return Right(placeReservations);
+      Stream<List<PlaceReservation>> placeReservationsStream =
+          placeReservationsModelsStream
+              .map((event) => reservationFactory.getReservations(event));
+
+      return Right(placeReservationsStream);
     } on FetchException {
       return Left(FetchFailure());
     }

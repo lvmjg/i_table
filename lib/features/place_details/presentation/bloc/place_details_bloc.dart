@@ -23,6 +23,10 @@ class PlaceDetailsBloc extends Bloc<PlaceDetailsEvent, PlaceDetailsState> {
     on<PlaceDetailsInitiated>((event, emit) async {
       emit(PlaceDetailsFetchInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       if (state is PlaceDetailsFetchInProgress) {
         (await fetchPlaceDetails(PlaceIdParams(placeId: event.placeId))).fold(
             (failure) => emit(PlaceDetailsFetchFailure(

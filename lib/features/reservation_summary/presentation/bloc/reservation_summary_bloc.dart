@@ -35,6 +35,10 @@ class ReservationSummaryBloc
     on<ReservationSummarySubmitted>((event, emit) async {
       emit(ReservationSummarySubmitInProgress());
 
+      if(debug){
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
       if (state is ReservationSummarySubmitInProgress) {
         (await submitReservation(ReservationSummaryParams(
                 placeReservation: requestedReservation)))
