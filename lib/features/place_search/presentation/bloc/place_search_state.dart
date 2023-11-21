@@ -1,9 +1,6 @@
 part of 'place_search_bloc.dart';
 
-abstract class PlaceSearchState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+abstract class PlaceSearchState {}
 
 class PlaceSearchFetchFailure extends PlaceSearchState {
   final String errorMessage;

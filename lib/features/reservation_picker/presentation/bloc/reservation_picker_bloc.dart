@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:i_table/features/place_entry/presentation/bloc/place_entry_bloc.dart';
 import 'package:meta/meta.dart';

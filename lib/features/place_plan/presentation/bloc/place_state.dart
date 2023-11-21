@@ -1,7 +1,7 @@
 part of 'place_bloc.dart';
 
 @immutable
-abstract class PlaceState extends Equatable {
+abstract class PlaceState {
   @override
   List<Object> get props => [];
 }

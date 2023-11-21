@@ -1,20 +1,12 @@
 part of 'place_details_bloc.dart';
 
-abstract class PlaceDetailsState extends Equatable {
-
-  @override
-  List<Object?> get props => [];
-}
-
+abstract class PlaceDetailsState {}
 
 class PlaceDetailsFetchFailure extends PlaceDetailsState {
   final String placeId;
   final String errorMessage;
 
   PlaceDetailsFetchFailure({required this.placeId, required this.errorMessage});
-
-  @override
-  List<Object> get props => [placeId, errorMessage];
 }
 
 class PlaceDetailsFetchInProgress extends PlaceDetailsState {
@@ -26,7 +18,4 @@ class PlaceDetailsFetchSuccess extends PlaceDetailsState {
   final PlaceDetails placeDetails;
 
   PlaceDetailsFetchSuccess({required this.placeDetails});
-
-  @override
-  List<Object> get props => [placeDetails];
 }

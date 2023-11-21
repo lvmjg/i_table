@@ -1,24 +1,15 @@
 part of 'place_menu_bloc.dart';
 
 @immutable
-abstract class PlaceMenuState extends Equatable{}
+abstract class PlaceMenuState {}
 
 class PlaceMenuFetchFailure extends PlaceMenuState {
   final String errorMessage;
 
   PlaceMenuFetchFailure({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
 }
 
-class PlaceMenuFetchInProgress extends PlaceMenuState {
-  PlaceMenuFetchInProgress();
-
-
-  @override
-  List<Object> get props => [];
-}
+class PlaceMenuFetchInProgress extends PlaceMenuState {}
 
 class PlaceMenuFetchSuccess extends PlaceMenuState {
   final String placeId;
@@ -30,31 +21,17 @@ class PlaceMenuFetchSuccess extends PlaceMenuState {
   PlaceMenuFetchSuccess({required this.placeId, required this.placeMenu, required this.basket, required this.basketTotal}){
     trigger = DateTime.now();
   }
-
-  @override
-  List<Object> get props => [trigger, basket];
 }
 
 class PlaceMenuSubmitOrderFailure extends PlaceMenuState {
   final String errorMessage;
 
   PlaceMenuSubmitOrderFailure({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
 }
 
 class PlaceMenuSubmitOrderInProgress extends PlaceMenuState {
   PlaceMenuSubmitOrderInProgress();
-
-  @override
-  List<Object> get props => [];
 }
 
-class PlaceMenuSubmitOrderSuccess extends PlaceMenuState {
-  PlaceMenuSubmitOrderSuccess();
-
-  @override
-  List<Object> get props => [];
-}
+class PlaceMenuSubmitOrderSuccess extends PlaceMenuState {}
 

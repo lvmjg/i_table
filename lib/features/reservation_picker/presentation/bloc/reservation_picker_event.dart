@@ -1,10 +1,7 @@
 part of 'reservation_picker_bloc.dart';
 
 @immutable
-abstract class ReservationPickerEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+abstract class ReservationPickerEvent {}
 
 class ReservationPickerInitiated extends ReservationPickerEvent {
   final ReservationPickerData data;

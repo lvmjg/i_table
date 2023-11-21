@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/place_menu/domain/usecase/submit_order.dart';
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_messages_factory.dart';
