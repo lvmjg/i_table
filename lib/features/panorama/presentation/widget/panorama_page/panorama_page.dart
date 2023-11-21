@@ -41,7 +41,7 @@ class _PanoramaPageState extends State<PanoramaPage> {
                 style: TextStyle(fontSize: 14, color: Colors.white),
               ),
               SizedBox(width: padding,),
-              Icon(Icons.location_searching_rounded, color: Colors.white,)
+              Icon(Icons.location_searching_rounded, color: Colors.redAccent)
             ],
           ),
         ),

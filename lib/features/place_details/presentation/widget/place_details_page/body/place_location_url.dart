@@ -27,7 +27,7 @@ class PlaceLocationUrl extends StatelessWidget {
             backgroundColor: Colors.transparent,
             child: Icon(
               Icons.location_on_rounded,
-              color: Colors.red,
+              color: Colors.redAccent,
             ),
           ),
         ),

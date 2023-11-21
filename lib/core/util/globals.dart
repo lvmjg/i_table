@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 bool debug = true;
 
-int TEST_TIMEOUT = 1;
+int TEST_TIMEOUT = 0;
 
 //Color primaryColor = Color(0xFF0020F7);
 //Color primaryColor = Color(0xFF1976D2);
-Color primaryColor = Color(0xFF304FFE);
+const Color primaryColor = Color(0xFF304FFE);
 
 int secondary = 0xFFFFCB00;
 double padding =16.0;
