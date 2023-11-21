@@ -45,19 +45,21 @@ dependencies:
   firebase_core: ^2.13.1
   json_annotation: ^4.8.1
   auto_size_text: ^3.0.0
-  firebase_ui_auth: ^1.4.3
   intl: ^0.18.1
   panorama: ^0.4.1
+  firebase_auth: ^4.14.0
+  firebase_ui_auth: ^1.10.0
   google_sign_in: ^6.1.4
-  firebase_ui_oauth_apple: ^1.2.3
-  flutter_facebook_auth: ^5.0.11
-  firebase_ui_oauth_twitter: ^1.2.3
+  firebase_ui_oauth_google: ^1.2.14
   dartz: ^0.10.1
   firebase_storage: ^11.2.3
   path_provider: ^2.0.15
   cloud_functions: ^4.3.4
   sprintf: ^7.0.0
   bloc_concurrency: ^0.2.2
+  qr_code_scanner: ^1.0.1
+
+
 
 
 #  open_location_code:
