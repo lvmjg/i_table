@@ -39,7 +39,7 @@ class UserReservationsBloc
       if (userReservationsStream != null) {
         await emit.forEach(userReservationsStream!,
             onData: (List<PlaceReservation> userReservations) {
-          userReservations.sort((a, b) => a.startDate.compareTo(b.startDate));
+          userReservations.sort((a, b) => a.startDate.compareTo(b.startDate) * -1);
           return UserReservationsFetchSuccess(
               userReservations: userReservations);
         });

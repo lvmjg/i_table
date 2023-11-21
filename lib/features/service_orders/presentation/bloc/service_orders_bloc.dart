@@ -39,7 +39,7 @@ class ServiceOrdersBloc extends Bloc<ServiceOrdersEvent, ServiceOrdersState> {
         await emit.forEach(serviceOrdersStream!,
             onData: (List<PlaceOrder> serviceOrders) {
           serviceOrders
-              .sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime));
+              .sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime) * -1);
           return ServiceOrdersFetchSuccess(orders: serviceOrders);
         });
       }

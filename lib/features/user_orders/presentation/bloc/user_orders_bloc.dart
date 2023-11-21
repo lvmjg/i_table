@@ -34,7 +34,7 @@ class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> {
 
       if(userOrdersStream!=null){
         await emit.forEach(userOrdersStream!, onData: (List<PlaceOrder> userOrders){
-          userOrders.sort((a,b) => a.orderDateTime.compareTo(b.orderDateTime));
+          userOrders.sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime) * -1);
           return UserOrdersFetchSuccess(orders: userOrders);
         });
       }
