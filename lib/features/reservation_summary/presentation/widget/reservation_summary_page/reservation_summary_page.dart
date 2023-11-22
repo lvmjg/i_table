@@ -11,9 +11,7 @@ import '../../bloc/reservation_summary_bloc.dart';
 import 'app_bar/reservation_summary_app_bar.dart';
 
 class ReservationSummaryPage extends StatefulWidget {
-
-  const ReservationSummaryPage({Key? key})
-      : super(key: key);
+  const ReservationSummaryPage({Key? key}) : super(key: key);
 
   @override
   State<ReservationSummaryPage> createState() => _ReservationSummaryPageState();
@@ -25,25 +23,30 @@ class _ReservationSummaryPageState extends State<ReservationSummaryPage> {
     return Theme(
       data: Theme.of(context),
       child: BlocListener<ReservationSummaryBloc, ReservationSummaryState>(
-  listener: (context, state) {
-    if(state is ReservationSummarySubmitSuccess){
-      Navigator.of(this.context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomePage()));
-      SnackBarUtil.showSnackBar(this.context, submitReservationSuccess);
-    }
-  },
-  child: Scaffold(
-        appBar: ReservationSummaryAppBar(title: reservationSummary,),
-        body: const ReservationSummaryBody(),
+        listener: (context, state) {
+          if (state is ReservationSummarySubmitSuccess) {
+            Navigator.of(this.context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const HomePage()));
+            SnackBarUtil.showSnackBar(this.context, submitReservationSuccess);
+          }
+        },
+        child: Scaffold(
+          appBar: ReservationSummaryAppBar(
+            title: reservationSummary,
+          ),
+          body: const ReservationSummaryBody(),
+        ),
       ),
-),
     );
   }
 
   @override
   void initState() {
     super.initState();
-    PlaceReservation placeReservation = context.read<PlaceBloc>().managePlace.requestedReservation;
-    context.read<ReservationSummaryBloc>().add(ReservationSummaryInitiated(reservation: placeReservation));
+    PlaceReservation placeReservation =
+        context.read<PlaceBloc>().managePlace.requestedReservation;
+    context
+        .read<ReservationSummaryBloc>()
+        .add(ReservationSummaryInitiated(reservation: placeReservation));
   }
 }

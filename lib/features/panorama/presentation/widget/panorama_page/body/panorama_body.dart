@@ -23,8 +23,8 @@ class PanoramaBody extends StatelessWidget {
       builder: (context, state) {
         if (state is PanoramaFetchFailure) {
           return CommonFailure(
-              onPressed: () => context.read<PanoramaBloc>().add(PanoramaInitiated(
-                  placeId: placeId, elementId: elementId)));
+              onPressed: () => context.read<PanoramaBloc>().add(
+                  PanoramaInitiated(placeId: placeId, elementId: elementId)));
         } else if (state is PanoramaFetchSuccess) {
           return Panorama(
             animSpeed: 1.0,

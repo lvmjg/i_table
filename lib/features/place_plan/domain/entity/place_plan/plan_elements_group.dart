@@ -3,12 +3,9 @@ import 'package:i_table/features/place_plan/domain/entity/place_plan/plan_state.
 
 import '../place_reservation/place_reservation.dart';
 
-enum PlanElementsGroupType{
-  table, sittingGroup, sitting, other
-}
+enum PlanElementsGroupType { table, sittingGroup, sitting, other }
 
 abstract class PlanElementsGroup {
-
   String get id;
   PlanState groupState = PlanState.notReserved;
 
@@ -36,9 +33,3 @@ abstract class PlanElementsGroup {
 
   void validateAgainstReservation(PlaceReservation reservation);
 }
-
-
-
-
-
-

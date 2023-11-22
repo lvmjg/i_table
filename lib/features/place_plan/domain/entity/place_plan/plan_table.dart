@@ -32,12 +32,13 @@ class PlanTable extends PlanElement with PlanElementsGroup {
   PlanState get state => localState;
 
   @override
-  bool isEdited(elementId){
-    if(elementId == id) {
+  bool isEdited(elementId) {
+    if (elementId == id) {
       return localState == PlanState.selected;
     }
 
-    return groups.any((group) => group.containsElement(elementId) && group.isEdited(elementId));
+    return groups.any((group) =>
+        group.containsElement(elementId) && group.isEdited(elementId));
   }
 
   @override
@@ -56,14 +57,16 @@ class PlanTable extends PlanElement with PlanElementsGroup {
     groups.forEach((sittingGroup) {
       try {
         groupsToReserve.addAll(sittingGroup.getInReservationFormat());
-      } catch(e,s){
+      } catch (e, s) {
         print('test');
       }
     });
 
     if (localState == PlanState.potentiallyReserved) {
       //tableId : { groupId: [S1, S2]}
-      Map<String, Map<String, List<String>>> formattedTable = {id: groupsToReserve};
+      Map<String, Map<String, List<String>>> formattedTable = {
+        id: groupsToReserve
+      };
       return formattedTable;
     }
 
@@ -105,7 +108,9 @@ class PlanTable extends PlanElement with PlanElementsGroup {
         if (anyGroupSelected) {
           localState = PlanState.potentiallyReserved;
 
-          groups.where((group) => group.isAnySittingSelected() == false).forEach((group) => group.unreserve(StringUtil.EMPTY));
+          groups
+              .where((group) => group.isAnySittingSelected() == false)
+              .forEach((group) => group.unreserve(StringUtil.EMPTY));
         } else {
           bool anySittingSelected =
               groups.any((sittingGroup) => sittingGroup.isAnySittingSelected());
@@ -182,20 +187,20 @@ class PlanTable extends PlanElement with PlanElementsGroup {
   @override
   void validateAgainstReservation(PlaceReservation reservation) {
     Map<String, dynamic>? groupsMap = reservation.tables[id];
-    if(groupsMap!=null){
+    if (groupsMap != null) {
       //whole table was reserved but user not pointed sittings
-      if(groupsMap.isEmpty){
+      if (groupsMap.isEmpty) {
         groups.forEach((group) {
           group.validateAgainstReservation(reservation);
         });
-      }
-      else{
+      } else {
         groupsMap.keys.forEach((groupId) {
-          List<PlanSittingGroup> foundGroups = groups.where((group) => group.id == groupId).toList();
-          if(foundGroups.isNotEmpty){
-            (foundGroups.first as PlanElementsGroup).validateAgainstReservation(reservation);
-          }
-          else{
+          List<PlanSittingGroup> foundGroups =
+              groups.where((group) => group.id == groupId).toList();
+          if (foundGroups.isNotEmpty) {
+            (foundGroups.first as PlanElementsGroup)
+                .validateAgainstReservation(reservation);
+          } else {
             //error
           }
         });

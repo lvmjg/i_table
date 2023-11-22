@@ -49,13 +49,15 @@ class PlaceOrdersFactory {
     Map<String, PlaceOrderItemModel> placeOrderModelsMap = {};
 
     placeOrder.userOrders.forEach((item) {
-      placeOrderModelsMap.putIfAbsent(item.id, () => PlaceOrderItemModel(
-          name: item.name,
-          description: item.description,
-          category: item.category,
-          price: item.price,
-          quantity: item.quantity,
-          status: item.status));
+      placeOrderModelsMap.putIfAbsent(
+          item.id,
+          () => PlaceOrderItemModel(
+              name: item.name,
+              description: item.description,
+              category: item.category,
+              price: item.price,
+              quantity: item.quantity,
+              status: item.status));
     });
 
     return PlaceOrderModel(

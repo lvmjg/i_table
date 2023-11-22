@@ -9,8 +9,8 @@ class ReservationCardBilling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonCard(
-        onPressed: () {  },
-        outerPadding: padding/2,
+        onPressed: () {},
+        outerPadding: padding / 2,
         child: Column(
           children: [
             Text(settlement, style: Theme.of(context).textTheme.headlineMedium),
@@ -41,7 +41,9 @@ class ReservationCardBilling extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold, color: Colors.green))
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green))
                       ],
                       style: Theme.of(context).textTheme.bodyMedium),
                 ),
@@ -54,15 +56,15 @@ class ReservationCardBilling extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold, color: Colors.red))
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red))
                       ],
                       style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ],
             )
-
           ],
-        )
-    );
+        ));
   }
 }

@@ -12,7 +12,8 @@ class ReservationDetailsBody extends StatelessWidget {
   final int index;
 
   const ReservationDetailsBody({
-    super.key, required this.index,
+    super.key,
+    required this.index,
   });
 
   @override
@@ -24,13 +25,15 @@ class ReservationDetailsBody extends StatelessWidget {
             children: [
               Hero(
                   tag: 'item${index}',
-                  child: ReservationCardBasicDetails(placeReservation: state.reservations[index], buttonsEnabled: true, onPressed: (){})
-              ),
-              ReservationCardSittings(placeReservation: state.reservations[index]),
+                  child: ReservationCardBasicDetails(
+                      placeReservation: state.reservations[index],
+                      buttonsEnabled: true,
+                      onPressed: () {})),
+              ReservationCardSittings(
+                  placeReservation: state.reservations[index]),
               ReservationCardBilling()
             ],
           );
-
         }
         return Container();
       },

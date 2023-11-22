@@ -33,20 +33,22 @@ class _ReservationDurationPickerState extends State<ReservationDurationPicker> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: Colors.grey, width: 0.5),
-                        borderRadius: BorderRadius.all(Radius.circular(200)
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(200)),
                       ),
                       height: 50,
                       child: Center(
                         child: DropdownButton(
                           value: state.data.reservationDuration,
-                          icon: Icon(Icons.arrow_drop_down_rounded, size: 30, color: Colors.black38),
+                          icon: Icon(Icons.arrow_drop_down_rounded,
+                              size: 30, color: Colors.black38),
                           underline: Container(),
                           items: createDropDownItems(
                               state.data.acceptableDurations),
                           onChanged: (Object? value) {
                             Duration newDuration = value as Duration;
-                            context.read<ReservationPickerBloc>().add(ReservationPickerDurationSet(reservationDuration: newDuration));
+                            context.read<ReservationPickerBloc>().add(
+                                ReservationPickerDurationSet(
+                                    reservationDuration: newDuration));
                           },
                         ),
                       ),
@@ -56,8 +58,8 @@ class _ReservationDurationPickerState extends State<ReservationDurationPicker> {
           );
         }
         return SizedBox(
-            child: Center(
-                child: CircularProgressIndicator(color: primaryColor)));
+            child:
+                Center(child: CircularProgressIndicator(color: primaryColor)));
       },
     );
   }

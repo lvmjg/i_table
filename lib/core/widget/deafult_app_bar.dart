@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../util/globals.dart';
 
-class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget{
+class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
   const DefaultAppBar({super.key, required this.title});
@@ -16,13 +16,16 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget{
       elevation: elevation,
       toolbarHeight: toolbarHeight,
       flexibleSpace:
-      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
           padding: EdgeInsets.all(padding / 4 * 3),
           child: Text(
             title,
             style: TextStyle(
-                fontSize: 17, color: Colors.white, fontWeight: FontWeight.w600, letterSpacing: 1.6),
+                fontSize: 17,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.6),
           ),
         ),
       ]),

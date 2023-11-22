@@ -35,13 +35,13 @@ class ReservationSummaryBloc
     on<ReservationSummarySubmitted>((event, emit) async {
       emit(ReservationSummarySubmitInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       if (state is ReservationSummarySubmitInProgress) {
-        (await submitReservation(ReservationSummaryParams(
-                reservation: requestedReservation)))
+        (await submitReservation(
+                ReservationSummaryParams(reservation: requestedReservation)))
             .fold(
                 (failure) => emit(ReservationSummarySubmitFailure(
                     params: ErrorParams(errorMessage: errorFetchData))),

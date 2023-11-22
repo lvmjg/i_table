@@ -6,14 +6,15 @@ import '../../../../../../core/util/plan_builder.dart';
 import '../../../../domain/entity/place_configuration_entity.dart';
 import '../../../bloc/place_bloc.dart';
 
-
-
 class PlacePlan extends StatefulWidget {
   final PlaceConfigurationEntity placeConfiguration;
   late PlanBuilder planBuilder;
 
   PlacePlan(
-      {Key? key, required double width, required double height, required this.placeConfiguration})
+      {Key? key,
+      required double width,
+      required double height,
+      required this.placeConfiguration})
       : super(key: key) {
     planBuilder = PlanBuilder(width, height, placeConfiguration);
   }
@@ -23,7 +24,6 @@ class PlacePlan extends StatefulWidget {
 }
 
 class _PlacePlanState extends State<PlacePlan> {
-
   var autoSizeGroup = AutoSizeGroup();
 
   @override
@@ -34,11 +34,13 @@ class _PlacePlanState extends State<PlacePlan> {
         height: widget.planBuilder.desiredHeight.toDouble(),
         child: BlocBuilder<PlaceBloc, PlaceState>(
           builder: (context, state) {
-            PlaceFetchSuccess placePlanFetchSuccess = state as PlaceFetchSuccess;
-            return Center(child: widget.planBuilder.createPlan(this.context, placePlanFetchSuccess.editMode, autoSizeGroup));
+            PlaceFetchSuccess placePlanFetchSuccess =
+                state as PlaceFetchSuccess;
+            return Center(
+                child: widget.planBuilder.createPlan(this.context,
+                    placePlanFetchSuccess.editMode, autoSizeGroup));
           },
-        )
-    );
+        ));
   }
 
   @override

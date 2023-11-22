@@ -10,14 +10,23 @@ class PlaceConfigurationEntity {
   final List<PlanLevel> placePlanLevels;
   final Stream<List<PlaceReservation>>? placeReservationsStream;
 
-  List<PlanElement> getItems(){
+  List<PlanElement> getItems() {
     List<PlanElement> items = [];
-    List<PlanElement> planElements = placePlanLevels.first.placePlanElements.values.map((e) => e.getItems()).expand((element) => element).toList();
-    List<PlanElement> otherElements = placePlanLevels.first.placePlanStaticElements.values.map((e) => e.getItems()).expand((element) => element).toList();
+    List<PlanElement> planElements = placePlanLevels
+        .first.placePlanElements.values
+        .map((e) => e.getItems())
+        .expand((element) => element)
+        .toList();
+    List<PlanElement> otherElements = placePlanLevels
+        .first.placePlanStaticElements.values
+        .map((e) => e.getItems())
+        .expand((element) => element)
+        .toList();
     items.addAll(planElements);
     items.addAll(otherElements);
     return items;
   }
 
-  PlaceConfigurationEntity(this.placeSettings, this.placePlanLevels, this.placeReservationsStream);
+  PlaceConfigurationEntity(
+      this.placeSettings, this.placePlanLevels, this.placeReservationsStream);
 }

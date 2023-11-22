@@ -23,7 +23,8 @@ abstract class FirebaseDataSource {
   Future<List<PlacePlanLevelModel>> fetchPlacePlan(String placeId);
   Future<PlaceSettingsModel?> fetchPlaceSettings(String placeId);
   Future<PlaceMenuModel?> fetchPlaceMenu(String placeId);
-  Future<void> submitOrder(PlaceOrderModel placeOrderModel, String reservationId, ChatMessageModel orderMessageModel);
+  Future<void> submitOrder(PlaceOrderModel placeOrderModel,
+      String reservationId, ChatMessageModel orderMessageModel);
   Future<void> submitReservation(PlaceReservationModel placeReservationModel);
   Future<void> addChatMessage(
       String reservationId, ChatMessageModel chatMessageModel);
@@ -165,13 +166,15 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
   }
 
   @override
-  Future<void> submitOrder(PlaceOrderModel placeOrderModel, String reservationId, ChatMessageModel chatMessageModel) async {
+  Future<void> submitOrder(PlaceOrderModel placeOrderModel,
+      String reservationId, ChatMessageModel chatMessageModel) async {
     DocumentReference orderDocId = ff.collection(pathPlacesOrders).doc();
 
     DocumentReference chatDocId = ff
         .collection(pathPlacesReservations)
         .doc(reservationId)
-        .collection(pathReservationChat).doc();
+        .collection(pathReservationChat)
+        .doc();
 
     WriteBatch batch = ff.batch();
     batch.set(orderDocId, placeOrderModel.toJson());
@@ -179,7 +182,6 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
 
     await batch.commit();
   }
-
 
   @override
   Future<void> submitReservation(

@@ -21,20 +21,24 @@ class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> {
     on<UserOrdersInitiated>((event, emit) async {
       emit(UserOrdersFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       Stream<List<PlaceOrder>>? userOrdersStream;
 
-      fetchUserOrders(ReservationOrdersParams(userId: event.userId, reservationId: event.reservationId)).fold(
-          (failure) =>
-              emit(UserOrdersFetchFailure(params: ErrorParams(errorMessage: errorFetchData))),
-          (newUserOrdersStream) => userOrdersStream = newUserOrdersStream);
+      fetchUserOrders(ReservationOrdersParams(
+              userId: event.userId, reservationId: event.reservationId))
+          .fold(
+              (failure) => emit(UserOrdersFetchFailure(
+                  params: ErrorParams(errorMessage: errorFetchData))),
+              (newUserOrdersStream) => userOrdersStream = newUserOrdersStream);
 
-      if(userOrdersStream!=null){
-        await emit.forEach(userOrdersStream!, onData: (List<PlaceOrder> userOrders){
-          userOrders.sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime) * -1);
+      if (userOrdersStream != null) {
+        await emit.forEach(userOrdersStream!,
+            onData: (List<PlaceOrder> userOrders) {
+          userOrders
+              .sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime) * -1);
           return UserOrdersFetchSuccess(orders: userOrders);
         });
       }

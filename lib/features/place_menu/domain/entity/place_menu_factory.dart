@@ -10,11 +10,10 @@ class PlaceMenuFactory {
       String entryCategory = entry.value.category;
 
       PlaceMenuCategory existingCategory;
-      try{
+      try {
         existingCategory = placeMenuCategories
             .singleWhere((element) => element.name == entryCategory);
-      }
-      on StateError {
+      } on StateError {
         existingCategory = PlaceMenuCategory(name: entryCategory, items: []);
         placeMenuCategories.add(existingCategory);
       }
@@ -25,8 +24,7 @@ class PlaceMenuFactory {
           name: entry.value.name,
           description: entry.value.description,
           price: entry.value.price,
-          url: entry.value.url
-      ));
+          url: entry.value.url));
     });
 
     return PlaceMenu(placeMenuCategories: placeMenuCategories);

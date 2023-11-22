@@ -11,7 +11,13 @@ class PlaceOrderItemModel {
   final int quantity;
   final bool status;
 
-  PlaceOrderItemModel({required this.name, required this.description, required this.category, required this.price, required this.quantity, required this.status});
+  PlaceOrderItemModel(
+      {required this.name,
+      required this.description,
+      required this.category,
+      required this.price,
+      required this.quantity,
+      required this.status});
 
   factory PlaceOrderItemModel.fromJson(Map<String, dynamic> json) =>
       _$PlaceOrderItemModelFromJson(json);

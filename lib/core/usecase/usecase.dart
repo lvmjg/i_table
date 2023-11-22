@@ -37,7 +37,7 @@ class UserIdParams extends Params {
   UserIdParams({required this.userId});
 }
 
-class ReservationParams extends Params implements PlaceIdParams{
+class ReservationParams extends Params implements PlaceIdParams {
   @override
   final String placeId;
   final String reservationId;
@@ -49,7 +49,8 @@ class ReservationChatMessageParams extends Params {
   final String reservationId;
   final ChatMessage chatMessage;
 
-  ReservationChatMessageParams({required this.reservationId, required this.chatMessage});
+  ReservationChatMessageParams(
+      {required this.reservationId, required this.chatMessage});
 }
 
 class ReservationSummaryParams extends Params {
@@ -58,7 +59,7 @@ class ReservationSummaryParams extends Params {
   ReservationSummaryParams({required this.reservation});
 }
 
-class ReservationOrdersParams extends Params implements UserIdParams{
+class ReservationOrdersParams extends Params implements UserIdParams {
   @override
   final String userId;
   final String reservationId;
@@ -66,7 +67,7 @@ class ReservationOrdersParams extends Params implements UserIdParams{
   ReservationOrdersParams({required this.userId, required this.reservationId});
 }
 
-class MenuOrderParams extends Params implements UserIdParams{
+class MenuOrderParams extends Params implements UserIdParams {
   @override
   final String userId;
   final String placeId;
@@ -74,5 +75,10 @@ class MenuOrderParams extends Params implements UserIdParams{
   final String reservationId;
   final List<PlaceMenuItem> placeMenuItems;
 
-  MenuOrderParams({required this.userId, required this.placeId, required this.placeName, required this.reservationId, required this.placeMenuItems});
+  MenuOrderParams(
+      {required this.userId,
+      required this.placeId,
+      required this.placeName,
+      required this.reservationId,
+      required this.placeMenuItems});
 }

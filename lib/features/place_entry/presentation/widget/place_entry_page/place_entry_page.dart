@@ -9,8 +9,7 @@ import 'body/place_entry_body.dart';
 class PlaceEntryPage extends StatefulWidget {
   final String placeId;
 
-  const PlaceEntryPage({Key? key, required this.placeId})
-      : super(key: key);
+  const PlaceEntryPage({Key? key, required this.placeId}) : super(key: key);
 
   @override
   State<PlaceEntryPage> createState() => _PlaceEntryPageState();
@@ -31,7 +30,8 @@ class _PlaceEntryPageState extends State<PlaceEntryPage> {
   @override
   void initState() {
     super.initState();
-    context.read<PlaceEntryBloc>().add(PlaceEntryInitiated(placeId: widget.placeId));
+    context
+        .read<PlaceEntryBloc>()
+        .add(PlaceEntryInitiated(placeId: widget.placeId));
   }
 }
-

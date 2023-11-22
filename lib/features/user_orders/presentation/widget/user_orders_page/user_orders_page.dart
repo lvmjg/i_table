@@ -11,7 +11,9 @@ class UserOrdersPage extends StatefulWidget {
   final String userId;
   final String reservationId;
 
-  const UserOrdersPage({Key? key, required this.userId, required this.reservationId}) : super(key: key);
+  const UserOrdersPage(
+      {Key? key, required this.userId, required this.reservationId})
+      : super(key: key);
 
   @override
   State<UserOrdersPage> createState() => _UserOrdersPageState();
@@ -28,8 +30,7 @@ class _UserOrdersPageState extends State<UserOrdersPage> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<UserOrdersBloc>()
-        .add(UserOrdersInitiated(userId: widget.userId, reservationId: widget.reservationId));
+    context.read<UserOrdersBloc>().add(UserOrdersInitiated(
+        userId: widget.userId, reservationId: widget.reservationId));
   }
 }

@@ -16,13 +16,13 @@ class ReservationSummaryBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ReservationSummaryBloc, ReservationSummaryState>(
       builder: (context, state) {
-        if(state is ReservationSummarySubmitFailure){
-          return CommonFailure(onPressed: (){});
-        }
-        else if(state is ReservationSummaryInitial) {
+        if (state is ReservationSummarySubmitFailure) {
+          return CommonFailure(onPressed: () {});
+        } else if (state is ReservationSummaryInitial) {
           return Column(
             children: [
-              ReservationCardBasicDetails(placeReservation: state.reservation, onPressed: (){}),
+              ReservationCardBasicDetails(
+                  placeReservation: state.reservation, onPressed: () {}),
               ReservationCardSittings(placeReservation: state.reservation),
               Expanded(child: Container()),
               Padding(
@@ -30,12 +30,22 @@ class ReservationSummaryBody extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SimpleFilledTonalButton(title: cancel, iconData: Icons.close_rounded, iconColor: Colors.red, onPressed: (){
-                      Navigator.of(context).pop();
-                    }),
-                    SimpleFilledTonalButton(title: submit, iconData: Icons.done_rounded, iconColor: Colors.green, onPressed: (){
-                      context.read<ReservationSummaryBloc>().add(ReservationSummarySubmitted());
-                    })
+                    SimpleFilledTonalButton(
+                        title: cancel,
+                        iconData: Icons.close_rounded,
+                        iconColor: Colors.red,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }),
+                    SimpleFilledTonalButton(
+                        title: submit,
+                        iconData: Icons.done_rounded,
+                        iconColor: Colors.green,
+                        onPressed: () {
+                          context
+                              .read<ReservationSummaryBloc>()
+                              .add(ReservationSummarySubmitted());
+                        })
                   ],
                 ),
               )

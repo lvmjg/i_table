@@ -11,7 +11,8 @@ abstract class ReservationChatRepository {
   Either<Failure, Stream<List<ChatMessage>>> fetchChatMessages(
       String placeId, String reservationId);
 
-  Future<Either<Failure, void>> addChatMessage(String reservationId, ChatMessage chatMessage);
+  Future<Either<Failure, void>> addChatMessage(
+      String reservationId, ChatMessage chatMessage);
 }
 
 class ReservationChatRepositoryImpl implements ReservationChatRepository {
@@ -24,9 +25,11 @@ class ReservationChatRepositoryImpl implements ReservationChatRepository {
   Either<Failure, Stream<List<ChatMessage>>> fetchChatMessages(
       String placeId, String reservationId) {
     try {
-      Stream<List<ChatMessageModel>> chatMessagesModelStream = remote.fetchChatMessages(placeId, reservationId);
+      Stream<List<ChatMessageModel>> chatMessagesModelStream =
+          remote.fetchChatMessages(placeId, reservationId);
 
-      Stream<List<ChatMessage>> chatMessagesStream = chatMessagesModelStream.map((event) => chatMessagesFactory.getChatMessages(event));
+      Stream<List<ChatMessage>> chatMessagesStream = chatMessagesModelStream
+          .map((event) => chatMessagesFactory.getChatMessages(event));
 
       return Right(chatMessagesStream);
     } on FetchException {
@@ -35,9 +38,11 @@ class ReservationChatRepositoryImpl implements ReservationChatRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addChatMessage(String reservationId, ChatMessage chatMessage) async {
+  Future<Either<Failure, void>> addChatMessage(
+      String reservationId, ChatMessage chatMessage) async {
     try {
-      ChatMessageModel chatMessageModel = chatMessagesFactory.getModelFromChatMessage(chatMessage);
+      ChatMessageModel chatMessageModel =
+          chatMessagesFactory.getModelFromChatMessage(chatMessage);
       await remote.addChatMessage(reservationId, chatMessageModel);
 
       return Right(null);

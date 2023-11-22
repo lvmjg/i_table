@@ -14,7 +14,9 @@ class PanoramaFloatingActionButton extends StatelessWidget {
           Navigator.of(context).pop();
         },
         icon: Text(closePreview, style: TextStyle(color: Colors.white)),
-        label: Icon(Icons.close_rounded, color: Colors.white,)
-    );
+        label: Icon(
+          Icons.close_rounded,
+          color: Colors.white,
+        ));
   }
 }

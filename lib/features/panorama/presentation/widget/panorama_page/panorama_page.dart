@@ -11,8 +11,7 @@ class PanoramaPage extends StatefulWidget {
   final String placeId;
   final String elementId;
 
-  const PanoramaPage(
-      {Key? key, required this.placeId, required this.elementId})
+  const PanoramaPage({Key? key, required this.placeId, required this.elementId})
       : super(key: key);
 
   @override
@@ -29,9 +28,11 @@ class _PanoramaPageState extends State<PanoramaPage> {
         floatingActionButton: PanoramaFloatingActionButton(),
         bottomNavigationBar: Container(
           height: 50,
-          decoration: BoxDecoration(color: primaryColor,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(padding), topRight: Radius.circular(padding))
-          ),
+          decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(padding),
+                  topRight: Radius.circular(padding))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,13 +41,15 @@ class _PanoramaPageState extends State<PanoramaPage> {
                 widget.elementId,
                 style: TextStyle(fontSize: 14, color: Colors.white),
               ),
-              SizedBox(width: padding,),
+              SizedBox(
+                width: padding,
+              ),
               Icon(Icons.location_searching_rounded, color: Colors.redAccent)
             ],
           ),
         ),
-        body: PanoramaBody(
-            placeId: widget.placeId, elementId: widget.elementId));
+        body:
+            PanoramaBody(placeId: widget.placeId, elementId: widget.elementId));
   }
 
   @override

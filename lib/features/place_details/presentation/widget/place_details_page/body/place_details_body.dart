@@ -32,10 +32,10 @@ class _PlaceDetailsBodyState extends State<PlaceDetailsBody> {
       builder: (context, state) {
         if (state is PlaceDetailsFetchFailure) {
           return CommonFailure(
-              onPressed: () => context.read<PlaceDetailsBloc>().add(
-                  PlaceDetailsInitiated(placeId: state.placeId)));
-        }
-        else if (state is PlaceDetailsFetchSuccess) {
+              onPressed: () => context
+                  .read<PlaceDetailsBloc>()
+                  .add(PlaceDetailsInitiated(placeId: state.placeId)));
+        } else if (state is PlaceDetailsFetchSuccess) {
           PlaceDetails placeDetails = state.placeDetails;
 
           return Column(
@@ -72,22 +72,18 @@ class _PlaceDetailsBodyState extends State<PlaceDetailsBody> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Flexible(
-                        flex: 2,
-                        child: PlaceUrl(placeDetails: placeDetails)),
-                    Flexible(
-                      fit: FlexFit.loose,
-                        flex: 5,
-                        child: MenuButton(placeId: placeDetails.placeId)
-                    ),
+                        flex: 2, child: PlaceUrl(placeDetails: placeDetails)),
                     Flexible(
                         fit: FlexFit.loose,
                         flex: 5,
-                        child: ReserveButton(placeId: placeDetails.placeId)
-                    ),
+                        child: MenuButton(placeId: placeDetails.placeId)),
+                    Flexible(
+                        fit: FlexFit.loose,
+                        flex: 5,
+                        child: ReserveButton(placeId: placeDetails.placeId)),
                     Flexible(
                         flex: 2,
-                        child: PlaceLocationUrl(
-                            placeDetails: placeDetails)),
+                        child: PlaceLocationUrl(placeDetails: placeDetails)),
                   ],
                 ),
               )

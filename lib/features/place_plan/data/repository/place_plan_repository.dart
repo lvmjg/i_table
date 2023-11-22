@@ -52,12 +52,4 @@ class PlacePlanRepositoryImpl implements PlacePlanRepository {
       return Left(FetchFailure());
     }
   }
-
-
-
-
-
-
-
-
 }

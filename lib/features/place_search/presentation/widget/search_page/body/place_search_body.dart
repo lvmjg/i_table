@@ -40,7 +40,6 @@ class _PlaceSearchBodyState extends State<PlaceSearchBody> {
             return const CommonLoading();
           }),
         )),
-
         Hero(tag: 'filter', child: SearchFilter()),
       ],
     );

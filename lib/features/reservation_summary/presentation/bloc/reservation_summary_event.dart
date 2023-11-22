@@ -12,5 +12,3 @@ class ReservationSummaryInitiated extends ReservationSummaryEvent {
 class ReservationSummaryCancelled extends ReservationSummaryEvent {}
 
 class ReservationSummarySubmitted extends ReservationSummaryEvent {}
-
-

@@ -83,7 +83,8 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
       planElements = placePlanLevels.first.placePlanElements;
     }
 
-    return Right(PlaceConfigurationEntity(placeSettings, placePlanLevels, placeReservationsStream!));
+    return Right(PlaceConfigurationEntity(
+        placeSettings, placePlanLevels, placeReservationsStream!));
   }
 
   void elementTapped(String planElementId) {

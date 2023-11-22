@@ -10,46 +10,55 @@ class MenuCard extends StatelessWidget {
   final bool buttonsEnabled;
   final VoidCallback? onPressed;
 
-  const MenuCard({Key? key, required this.placeMenuItem, this.buttonsEnabled = true, required this.onPressed}) : super(key: key);
+  const MenuCard(
+      {Key? key,
+      required this.placeMenuItem,
+      this.buttonsEnabled = true,
+      required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CommonCard(
         onPressed: onPressed,
-        outerPadding: padding/2,
+        outerPadding: padding / 2,
         child: Column(
-          children:[
+          children: [
             Visibility(
-              visible: placeMenuItem.url!=null,
+              visible: placeMenuItem.url != null,
               child: Padding(
-                padding: EdgeInsets.all(padding/2),
+                padding: EdgeInsets.all(padding / 2),
                 child: SizedBox(
                   width: double.infinity,
                   height: 150,
-                  child: Image.network( placeMenuItem.url ?? 'https://thekebabshop.com/wp-content/uploads/2023/04/Web-Wrap.png'),
+                  child: Image.network(placeMenuItem.url ??
+                      'https://thekebabshop.com/wp-content/uploads/2023/04/Web-Wrap.png'),
                 ),
               ),
             ),
-
-          Row(
-            mainAxisAlignment: buttonsEnabled ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
-            children: [
-              Text(placeMenuItem.name, style: Theme.of(context).textTheme.bodyMedium),
-              SizedBox(width: padding),
-              Text('${placeMenuItem.price.toString()} zł', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
-              Visibility(
-                  visible: buttonsEnabled,
-                  child:
-                Expanded(child:
-                  MenuCardButtons(placeMenuItem: placeMenuItem)
-                )
-              )
-            ],
-          ),
-          SizedBox(height: padding),
-          Text(placeMenuItem.description, style: Theme.of(context).textTheme.bodySmall),
+            Row(
+              mainAxisAlignment: buttonsEnabled
+                  ? MainAxisAlignment.spaceEvenly
+                  : MainAxisAlignment.center,
+              children: [
+                Text(placeMenuItem.name,
+                    style: Theme.of(context).textTheme.bodyMedium),
+                SizedBox(width: padding),
+                Text('${placeMenuItem.price.toString()} zł',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Visibility(
+                    visible: buttonsEnabled,
+                    child: Expanded(
+                        child: MenuCardButtons(placeMenuItem: placeMenuItem)))
+              ],
+            ),
+            SizedBox(height: padding),
+            Text(placeMenuItem.description,
+                style: Theme.of(context).textTheme.bodySmall),
           ],
-        )
-    );
+        ));
   }
 }

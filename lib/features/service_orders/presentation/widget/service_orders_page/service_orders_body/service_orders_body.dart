@@ -20,10 +20,11 @@ class ServiceOrdersBody extends StatelessWidget {
           return Column(
             children: [
               Expanded(
-                child: GridView.count(crossAxisCount: 2,
-                children: state.orders.map((e) => ServiceOrderCard(order: e)).toList()
-                )
-              ),
+                  child: GridView.count(
+                      crossAxisCount: 2,
+                      children: state.orders
+                          .map((e) => ServiceOrderCard(order: e))
+                          .toList())),
             ],
           );
         }

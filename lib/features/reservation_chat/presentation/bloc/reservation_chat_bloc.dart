@@ -19,7 +19,6 @@ part 'reservation_chat_state.dart';
 
 class ReservationChatBloc
     extends Bloc<ReservationChatEvent, ReservationChatState> {
-
   String? currentPlaceId;
   String? currentReservationId;
 
@@ -35,7 +34,7 @@ class ReservationChatBloc
     on<ReservationChatInitiated>((event, emit) async {
       emit(ReservationChatFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
@@ -43,13 +42,12 @@ class ReservationChatBloc
 
       fetchChatMessages(ReservationParams(
               placeId: event.placeId, reservationId: event.reservationId))
-          .fold(
-              (failure) {
-                currentPlaceId = null;
-                currentReservationId = null;
-                emit(ReservationChatFetchFailure(params: ErrorParams(errorMessage: errorFetchData)));
-              },
-              (newChatMessagesStream) {
+          .fold((failure) {
+        currentPlaceId = null;
+        currentReservationId = null;
+        emit(ReservationChatFetchFailure(
+            params: ErrorParams(errorMessage: errorFetchData)));
+      }, (newChatMessagesStream) {
         currentPlaceId = event.placeId;
         currentReservationId = event.reservationId;
         chatMessagesStream = newChatMessagesStream;
@@ -58,33 +56,27 @@ class ReservationChatBloc
       if (chatMessagesStream != null) {
         await emit.forEach(chatMessagesStream!,
             onData: (List<ChatMessage> chatMessages) {
-              chatMessages.sort((a,b) => a.sendTime.compareTo(b.sendTime));
-              return ReservationChatFetchSuccess(messages: chatMessages);
-            });
-
+          chatMessages.sort((a, b) => a.sendTime.compareTo(b.sendTime));
+          return ReservationChatFetchSuccess(messages: chatMessages);
+        });
       }
     }, transformer: restartable());
 
     on<ReservationChatAddMessageRequested>((event, emit) async {
-      if(currentPlaceId!=null && currentReservationId!=null) {
+      if (currentPlaceId != null && currentReservationId != null) {
         emit(ReservationChatAddMessageInProgress());
 
-        if(debug){
+        if (debug) {
           await Future.delayed(Duration(seconds: TEST_TIMEOUT));
         }
 
         (await addChatMessage(ReservationChatMessageParams(
-            reservationId: currentReservationId!,
-            chatMessage: event.message)))
+                reservationId: currentReservationId!,
+                chatMessage: event.message)))
             .fold(
-                (failure) =>
-                emit(
-                    ReservationChatAddMessageFailure(
-                        params: ErrorParams(errorMessage: errorFetchData))),
-                (emptyVoid) => emit(
-                      ReservationChatAddMessageSuccess())
-
-            );
+                (failure) => emit(ReservationChatAddMessageFailure(
+                    params: ErrorParams(errorMessage: errorFetchData))),
+                (emptyVoid) => emit(ReservationChatAddMessageSuccess()));
       }
     });
   }

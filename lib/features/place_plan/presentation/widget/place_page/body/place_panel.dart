@@ -11,12 +11,10 @@ class PlacePanel extends StatefulWidget {
   PlacePanel({Key? key}) : super(key: key);
 
   @override
-  State<PlacePanel> createState() =>
-      _PlacePanelState();
+  State<PlacePanel> createState() => _PlacePanelState();
 }
 
-class _PlacePanelState
-    extends State<PlacePanel>
+class _PlacePanelState extends State<PlacePanel>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
@@ -29,13 +27,14 @@ class _PlacePanelState
                 topRight: Radius.circular(padding))),
         child: BlocListener<PlaceBloc, PlaceState>(
           listener: (context, state) {
-            if(state is PlaceFetchSuccess) {
-              PlaceFetchSuccess placePlanFetchSuccess = state as PlaceFetchSuccess;
+            if (state is PlaceFetchSuccess) {
+              PlaceFetchSuccess placePlanFetchSuccess =
+                  state as PlaceFetchSuccess;
 
               if (placePlanFetchSuccess.editMode) {
-               _controller.forward();
+                _controller.forward();
               } else {
-               _controller.reverse();
+                _controller.reverse();
               }
             }
           },
@@ -43,17 +42,14 @@ class _PlacePanelState
             ClipRRect(
               child: SlideTransition(
                   position: _offsetAnimation1,
-                  child: Container(
-                      height: 85,
-                      child: PlacePanelDateTime())),
+                  child: Container(height: 85, child: PlacePanelDateTime())),
             ),
             ClipRRect(
               child: SlideTransition(
                 position: _offsetAnimation2,
                 child: Container(
                   height: 85,
-                  child: PlacePanelReservation(
-                      controller: _controller),
+                  child: PlacePanelReservation(controller: _controller),
                 ),
               ),
             )

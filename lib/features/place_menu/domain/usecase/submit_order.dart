@@ -20,7 +20,6 @@ class SubmitOrder implements UseCase<void, MenuOrderParams> {
 
   @override
   Future<Either<Failure, void>> call(MenuOrderParams params) async {
-
     List<PlaceOrderItem> placeOrderItems = [];
 
     params.placeMenuItems.forEach((item) {
@@ -43,9 +42,12 @@ class SubmitOrder implements UseCase<void, MenuOrderParams> {
         orderDateTime: DateTime.now(),
         userOrders: placeOrderItems);
 
-    ChatMessage orderMessage = ChatMessage(sender: loggedUserId, sendTime: DateTime.now(), message: placeOrder.summary);
+    ChatMessage orderMessage = ChatMessage(
+        sender: loggedUserId,
+        sendTime: DateTime.now(),
+        message: placeOrder.summary);
 
-    return await placeMenuRepository.submitOrder(placeOrder, params.reservationId, orderMessage);
-
+    return await placeMenuRepository.submitOrder(
+        placeOrder, params.reservationId, orderMessage);
   }
 }

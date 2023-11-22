@@ -22,36 +22,34 @@ class PlaceReservation {
 
   bool analyzed = false;
 
-  PlaceReservation(
-      {
-        this.id = StringUtil.EMPTY,
-        required this.no,
-        required this.placeId,
-        required this.placeName,
-        required this.placeAddress,
-        required this.userId,
-        required this.startDate,
-        required this.endDate,
-        required this.duration,
-        required this.people,
-        required this.status,
-        required this.tables,
-        required this.groups,
-        required this.sittings,
-      });
+  PlaceReservation({
+    this.id = StringUtil.EMPTY,
+    required this.no,
+    required this.placeId,
+    required this.placeName,
+    required this.placeAddress,
+    required this.userId,
+    required this.startDate,
+    required this.endDate,
+    required this.duration,
+    required this.people,
+    required this.status,
+    required this.tables,
+    required this.groups,
+    required this.sittings,
+  });
 
   String get timeRange {
     StringBuffer hoursBuffer = StringBuffer();
 
-    if(duration==0){
+    if (duration == 0) {
       hoursBuffer.write('%0.2d:%0.2d'.format([
         startDate.onlyTime().hour,
         startDate.onlyTime().minute,
       ]));
 
       return '$from ${hoursBuffer.toString()}';
-    }
-    else{
+    } else {
       hoursBuffer.write('%0.2d:%0.2d $dash %0.2d:%0.2d'.format([
         startDate.onlyTime().hour,
         startDate.onlyTime().minute,
@@ -66,13 +64,13 @@ class PlaceReservation {
   String get sittingsSummary {
     StringBuffer buffer = StringBuffer();
 
-    if(tables.isNotEmpty){
+    if (tables.isNotEmpty) {
       buffer.write('$table$colon$nl');
 
       tables.forEach((key, value) {
         buffer.write('$tab$key$colon ');
         bool isWholeTableReserved = value.isEmpty;
-        if(isWholeTableReserved == false) {
+        if (isWholeTableReserved == false) {
           buffer.write(nl);
         }
 
@@ -80,14 +78,14 @@ class PlaceReservation {
       });
     }
 
-    if(groups.isNotEmpty){
+    if (groups.isNotEmpty) {
       buffer.write(nl);
       buffer.write('$sittingGroup$colon$nl');
 
-     _writeSittingGroup(buffer, StringUtil.EMPTY, groups);
+      _writeSittingGroup(buffer, StringUtil.EMPTY, groups);
     }
 
-    if(sittings.isNotEmpty) {
+    if (sittings.isNotEmpty) {
       buffer.write(nl);
       buffer.write('$aloneSittings$colon$nl$tab$tab');
 
@@ -97,11 +95,11 @@ class PlaceReservation {
     return buffer.toString();
   }
 
-  _writeSittingGroup(StringBuffer buffer, String table, Map<String, List<String>> groups){
-    if(groups.entries.isEmpty){
+  _writeSittingGroup(
+      StringBuffer buffer, String table, Map<String, List<String>> groups) {
+    if (groups.entries.isEmpty) {
       buffer.write('$allSittings $nl');
-    }
-    else {
+    } else {
       groups.forEach((key, value) {
         if (key != 'default') {
           buffer.write('$tab$tab $key $arrow ');
@@ -118,11 +116,11 @@ class PlaceReservation {
     }
   }
 
-  _writeSittings(StringBuffer buffer, List<String> sittings){
+  _writeSittings(StringBuffer buffer, List<String> sittings) {
     sittings.forEach((element) {
       buffer.write(element);
 
-      if(sittings.last != element){
+      if (sittings.last != element) {
         buffer.write('$comma ');
       }
     });

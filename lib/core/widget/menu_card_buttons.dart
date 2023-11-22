@@ -9,7 +9,8 @@ import '../../../../core/util/globals.dart';
 class MenuCardButtons extends StatelessWidget {
   final PlaceMenuItem placeMenuItem;
 
-  const MenuCardButtons({Key? key, required this.placeMenuItem}) : super(key: key);
+  const MenuCardButtons({Key? key, required this.placeMenuItem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,27 @@ class MenuCardButtons extends StatelessWidget {
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          SimpleFilledTonalButton(title: '-', onPressed: (){
-            context.read<PlaceMenuBloc>().add(PlaceMenuItemSubtracted(menuItemCategory: placeMenuItem.category, menuItemId: placeMenuItem.id));
-          }),
+          SimpleFilledTonalButton(
+              title: '-',
+              onPressed: () {
+                context.read<PlaceMenuBloc>().add(PlaceMenuItemSubtracted(
+                    menuItemCategory: placeMenuItem.category,
+                    menuItemId: placeMenuItem.id));
+              }),
           SizedBox(width: padding),
-          Text(placeMenuItem.quantity.toString(), style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
+          Text(
+            placeMenuItem.quantity.toString(),
+            style: Theme.of(context).textTheme.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
           SizedBox(width: padding),
-          SimpleFilledTonalButton(title: '+', onPressed: (){
-            context.read<PlaceMenuBloc>().add(PlaceMenuItemAdded(menuItemCategory: placeMenuItem.category, menuItemId: placeMenuItem.id));
-          }),
+          SimpleFilledTonalButton(
+              title: '+',
+              onPressed: () {
+                context.read<PlaceMenuBloc>().add(PlaceMenuItemAdded(
+                    menuItemCategory: placeMenuItem.category,
+                    menuItemId: placeMenuItem.id));
+              }),
         ],
       ),
     );

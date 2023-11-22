@@ -9,28 +9,35 @@ class PlaceMenuInitiated extends PlaceMenuEvent {
   final String placeName;
   final String? reservationId;
 
-  PlaceMenuInitiated({this.userId, required this.placeId, required this.placeName, this.reservationId});
+  PlaceMenuInitiated(
+      {this.userId,
+      required this.placeId,
+      required this.placeName,
+      this.reservationId});
 }
 
 class PlaceMenuItemSubtracted extends PlaceMenuEvent {
   final String menuItemCategory;
   final String menuItemId;
 
-  PlaceMenuItemSubtracted({required this.menuItemCategory, required this.menuItemId});
+  PlaceMenuItemSubtracted(
+      {required this.menuItemCategory, required this.menuItemId});
 }
 
 class PlaceMenuItemAdded extends PlaceMenuEvent {
   final String menuItemCategory;
   final String menuItemId;
 
-  PlaceMenuItemAdded({required this.menuItemCategory, required this.menuItemId});
+  PlaceMenuItemAdded(
+      {required this.menuItemCategory, required this.menuItemId});
 }
 
 class PlaceMenuItemRemoved extends PlaceMenuEvent {
   final String menuItemCategory;
   final String menuItemId;
 
-  PlaceMenuItemRemoved({required this.menuItemCategory, required this.menuItemId});
+  PlaceMenuItemRemoved(
+      {required this.menuItemCategory, required this.menuItemId});
 }
 
 class PlaceMenuPayLaterChosen extends PlaceMenuEvent {

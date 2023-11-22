@@ -14,23 +14,24 @@ part 'panorama_state.dart';
 
 class PanoramaBloc extends Bloc<PanoramaEvent, PanoramaState> {
   PanoramaBloc() : super(PanoramaFetchInProgress()) {
-    FetchPanorama fetchPanorama = FetchPanorama(PanoramaRepositoryImpl(PanoramaRemoteDataSourceImpl()));
+    FetchPanorama fetchPanorama =
+        FetchPanorama(PanoramaRepositoryImpl(PanoramaRemoteDataSourceImpl()));
 
     on<PanoramaInitiated>((event, emit) async {
       emit(PanoramaFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       if (state is PanoramaFetchInProgress) {
-        (await fetchPanorama(
-            PanoramaParams(placeId: event.placeId, elementId: event.elementId)))
+        (await fetchPanorama(PanoramaParams(
+                placeId: event.placeId, elementId: event.elementId)))
             .fold(
                 (failure) => emit(PanoramaFetchFailure(
-                params: ErrorParams(errorMessage: errorShowPreview))),
-                (panoramaImage) => emit(PanoramaFetchSuccess(panoramaImage: panoramaImage))
-        );
+                    params: ErrorParams(errorMessage: errorShowPreview))),
+                (panoramaImage) =>
+                    emit(PanoramaFetchSuccess(panoramaImage: panoramaImage)));
       }
     });
   }

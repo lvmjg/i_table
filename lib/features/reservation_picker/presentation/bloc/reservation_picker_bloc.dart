@@ -11,11 +11,13 @@ import '../../domain/usecase/reservation_picker_data_manager.dart';
 part 'reservation_picker_event.dart';
 part 'reservation_picker_state.dart';
 
-class ReservationPickerBloc extends Bloc<ReservationPickerEvent, ReservationPickerState> {
+class ReservationPickerBloc
+    extends Bloc<ReservationPickerEvent, ReservationPickerState> {
   late StreamSubscription<PlaceEntryState> subscription;
   late ReservationPickerDataManager manager;
 
-  ReservationPickerBloc({required PlaceEntryBloc placeEntryBloc}) : super(ReservationPickerInitial()) {
+  ReservationPickerBloc({required PlaceEntryBloc placeEntryBloc})
+      : super(ReservationPickerInitial()) {
     monitorEntryBlock(placeEntryBloc);
 
     on<ReservationPickerDateDecreased>((event, emit) {
@@ -52,7 +54,7 @@ class ReservationPickerBloc extends Bloc<ReservationPickerEvent, ReservationPick
 
   void monitorEntryBlock(PlaceEntryBloc placeEntryBloc) {
     subscription = placeEntryBloc.stream.listen((state) {
-      if(state is PlaceEntryFetchSuccess){
+      if (state is PlaceEntryFetchSuccess) {
         manager = ReservationPickerDataManager(state.placeSettings);
         emit(ReservationPickerChange(data: manager.data));
       }

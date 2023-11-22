@@ -24,22 +24,23 @@ class UserReservationsBloc
     on<UserReservationsInitiated>((event, emit) async {
       emit(UserReservationsFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       Stream<List<PlaceReservation>>? userReservationsStream;
 
       fetchUserReservations(UserIdParams(userId: event.userId)).fold(
-          (failure) => emit(UserReservationsFetchFailure(params:
-              ErrorParams(errorMessage: errorFetchUserReservations))),
+          (failure) => emit(UserReservationsFetchFailure(
+              params: ErrorParams(errorMessage: errorFetchUserReservations))),
           (newUserReservationsStream) =>
               userReservationsStream = newUserReservationsStream);
 
       if (userReservationsStream != null) {
         await emit.forEach(userReservationsStream!,
             onData: (List<PlaceReservation> userReservations) {
-          userReservations.sort((a, b) => a.startDate.compareTo(b.startDate) * -1);
+          userReservations
+              .sort((a, b) => a.startDate.compareTo(b.startDate) * -1);
           return UserReservationsFetchSuccess(reservations: userReservations);
         });
       }

@@ -8,14 +8,11 @@ import '../data_source/place_settings_remote_data_source.dart';
 import '../model/place_settings/place_settings_model.dart';
 
 abstract class PlaceSettingsRepository {
-  Future<Either<Failure, PlaceSettings>>
-      fetchPlaceSettings(String placeId);
+  Future<Either<Failure, PlaceSettings>> fetchPlaceSettings(String placeId);
 }
 
-class PlaceSettingsRepositoryImpl
-    implements PlaceSettingsRepository {
-  final PlaceSettingsRemoteDataSource
-      placeSettingsRemoteDataSource;
+class PlaceSettingsRepositoryImpl implements PlaceSettingsRepository {
+  final PlaceSettingsRemoteDataSource placeSettingsRemoteDataSource;
 
   final PlaceSettingsFactory placeSettingsFactory;
 
@@ -23,15 +20,15 @@ class PlaceSettingsRepositoryImpl
       this.placeSettingsRemoteDataSource, this.placeSettingsFactory);
 
   @override
-  Future<Either<Failure, PlaceSettings>>
-      fetchPlaceSettings(String placeId) async {
+  Future<Either<Failure, PlaceSettings>> fetchPlaceSettings(
+      String placeId) async {
     try {
       PlaceSettingsModel? placeSettingsModel =
-          await placeSettingsRemoteDataSource
-              .fetchPlaceSettings(placeId);
+          await placeSettingsRemoteDataSource.fetchPlaceSettings(placeId);
 
       if (placeSettingsModel != null) {
-        return Right(placeSettingsFactory.getPlaceSettingsFromModel(placeSettingsModel));
+        return Right(
+            placeSettingsFactory.getPlaceSettingsFromModel(placeSettingsModel));
       } else {
         return Left(FetchFailure());
       }

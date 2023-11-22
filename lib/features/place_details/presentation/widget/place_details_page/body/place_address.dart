@@ -14,12 +14,7 @@ class PlaceAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       placeDetails.placeAddress.toString(),
-      style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w200),
+      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200),
     );
-
   }
 }
-
-

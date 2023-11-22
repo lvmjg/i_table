@@ -1,9 +1,8 @@
 import 'package:i_table/core/util/string_util.dart';
 
-class SittingsFormatter{
-
+class SittingsFormatter {
   String formatTracked() {
-  /*   StringBuffer stringBuffer = StringBuffer();
+    /*   StringBuffer stringBuffer = StringBuffer();
 
     List<PlacePlanElementEntity> tables = trackedElements.where((element) => element.type=='T').toList();
     tables.forEach((element) {
@@ -32,6 +31,6 @@ class SittingsFormatter{
     });
 
     return stringBuffer.toString();*/
-  return StringUtil.EMPTY;
-}
+    return StringUtil.EMPTY;
+  }
 }

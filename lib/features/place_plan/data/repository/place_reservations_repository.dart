@@ -9,8 +9,8 @@ import '../data_source/place_reservations_remote_data_source.dart';
 import '../model/place_reservation/place_reservation_model.dart';
 
 abstract class PlaceReservationsRepository {
-  Either<Failure, Stream<List<PlaceReservation>>>
-      fetchPlaceReservations(String placeId, DateTime start);
+  Either<Failure, Stream<List<PlaceReservation>>> fetchPlaceReservations(
+      String placeId, DateTime start);
 }
 
 class PlaceReservationsRepositoryImpl implements PlaceReservationsRepository {
@@ -22,8 +22,8 @@ class PlaceReservationsRepositoryImpl implements PlaceReservationsRepository {
       this.placeReservationsRemoteDataSource, this.reservationFactory);
 
   @override
-  Either<Failure, Stream<List<PlaceReservation>>>
-      fetchPlaceReservations(String placeId, DateTime start) {
+  Either<Failure, Stream<List<PlaceReservation>>> fetchPlaceReservations(
+      String placeId, DateTime start) {
     try {
       Stream<List<PlaceReservationModel>> placeReservationsModelsStream =
           placeReservationsRemoteDataSource.fetchPlaceReservations(

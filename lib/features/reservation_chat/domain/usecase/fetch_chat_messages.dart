@@ -12,6 +12,7 @@ class FetchChatMessages
 
   @override
   Either<Failure, Stream<List<ChatMessage>>> call(ReservationParams params) {
-    return reservationChatRepository.fetchChatMessages(params.placeId, params.reservationId);
+    return reservationChatRepository.fetchChatMessages(
+        params.placeId, params.reservationId);
   }
 }

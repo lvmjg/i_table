@@ -11,8 +11,9 @@ class PlaceDetails {
   final String placeUrl;
   final PlaceDetailsLocation placeLocation;
 
-  String get placeLocationUrl => 'google.navigation:q=${placeLocation.latitude},${placeLocation.longitude}';
- // String get placeLocationUrl => 'https://maps.google.com/maps?q=${placeLocation.latitude},${placeLocation.longitude}';
+  String get placeLocationUrl =>
+      'google.navigation:q=${placeLocation.latitude},${placeLocation.longitude}';
+  // String get placeLocationUrl => 'https://maps.google.com/maps?q=${placeLocation.latitude},${placeLocation.longitude}';
 
   PlaceDetails({
     required this.placeId,

@@ -7,7 +7,8 @@ import '../model/place_menu_model.dart';
 
 abstract class PlaceMenuRemoteDataSource {
   Future<PlaceMenuModel?> fetchPlaceMenu(String placeId);
-  Future<void> submitOrder(PlaceOrderModel placeOrderModel, String reservationId, ChatMessageModel orderMessageModel);
+  Future<void> submitOrder(PlaceOrderModel placeOrderModel,
+      String reservationId, ChatMessageModel orderMessageModel);
 }
 
 class PlaceMenuRemoteDataSourceImpl implements PlaceMenuRemoteDataSource {
@@ -23,7 +24,8 @@ class PlaceMenuRemoteDataSourceImpl implements PlaceMenuRemoteDataSource {
   }
 
   @override
-  Future<void> submitOrder(PlaceOrderModel placeOrderModel, String reservationId, ChatMessageModel orderMessageModel) async {
+  Future<void> submitOrder(PlaceOrderModel placeOrderModel,
+      String reservationId, ChatMessageModel orderMessageModel) async {
     try {
       await fds.submitOrder(placeOrderModel, reservationId, orderMessageModel);
     } catch (e, s) {

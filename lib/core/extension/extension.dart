@@ -26,15 +26,15 @@ extension DateTimeExtension on DateTime {
     return !isAtSameMomentAs(other);
   }
 
-  DateTime withTime(TimeOfDay time){
+  DateTime withTime(TimeOfDay time) {
     return DateTime(year, month, day, time.hour, time.minute);
   }
 
-  TimeOfDay onlyTime(){
+  TimeOfDay onlyTime() {
     return TimeOfDay(hour: hour, minute: minute);
   }
 
-  DateTime onlyDate(){
+  DateTime onlyDate() {
     return DateTime(year, month, day);
   }
 }
@@ -84,24 +84,23 @@ extension TimeOfDayExtension on TimeOfDay {
 }
 
 extension DateTimeRangeExtension on DateTimeRange {
-  bool contains(DateTime other){
+  bool contains(DateTime other) {
     return other.isBetween(from: start, to: end);
   }
 
-  bool containsExclusive(DateTime other){
+  bool containsExclusive(DateTime other) {
     return other.isBetweenExclusive(from: start, to: end);
   }
 
-  bool overlapWith(DateTimeRange other){
-    if(other.end.isBeforeOrEqual(start) || other.start.isAfterOrEqual(end)){
+  bool overlapWith(DateTimeRange other) {
+    if (other.end.isBeforeOrEqual(start) || other.start.isAfterOrEqual(end)) {
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
 
-  bool containsExclusiveEnd(DateTime other){
+  bool containsExclusiveEnd(DateTime other) {
     return other.isAfterOrEqual(start) && other.isBefore(end);
   }
 }

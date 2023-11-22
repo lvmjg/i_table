@@ -5,32 +5,31 @@ import 'package:i_table/features/place_plan/domain/entity/place_plan/plan_state.
 import '../place_reservation/place_reservation.dart';
 
 class PlanSitting extends PlanElement with PlanElementsGroup {
-
   final bool isAlone;
 
   PlanState lastState = PlanState.notReserved;
 
   //final PlanSittingGroup? group;
- //final PlanTable? table;
+  //final PlanTable? table;
 
   PlanSitting(
       {required this.id,
-        required this.isAlone,
+      required this.isAlone,
       //  required this.group,
       //  required this.table,
-        required super.type,
-        required super.name,
-        required super.columnStart,
-        required super.columnSpan,
-        required super.rowStart,
-        required super.rowSpan,
-        required super.color});
+      required super.type,
+      required super.name,
+      required super.columnStart,
+      required super.columnSpan,
+      required super.rowStart,
+      required super.rowSpan,
+      required super.color});
 
   @override
   PlanState get state => localState;
 
-  set state(PlanState newState){
-    if(newState == PlanState.potentiallyReserved){
+  set state(PlanState newState) {
+    if (newState == PlanState.potentiallyReserved) {
       lastState = localState;
     }
 
@@ -50,8 +49,8 @@ class PlanSitting extends PlanElement with PlanElementsGroup {
 
   @override
   Map<String, dynamic> getInReservationFormat() {
-    if(localState == PlanState.potentiallyReserved){
-      return {'id':id};
+    if (localState == PlanState.potentiallyReserved) {
+      return {'id': id};
     }
 
     return {};
@@ -68,28 +67,23 @@ class PlanSitting extends PlanElement with PlanElementsGroup {
     if (isAlone) {
       if (state == PlanState.notReserved) {
         state = PlanState.potentiallyReserved;
-      }
-      else{
+      } else {
         state = PlanState.notReserved;
       }
     } else {
-      if(state == PlanState.potentiallyReserved){
-        if(lastState == PlanState.selected) {
+      if (state == PlanState.potentiallyReserved) {
+        if (lastState == PlanState.selected) {
           lastState = PlanState.highlighted;
         }
 
         state = lastState;
-      }
-      else if (state == PlanState.selected) {
+      } else if (state == PlanState.selected) {
         state = PlanState.highlighted;
-      }
-      else if (state == PlanState.highlighted) {
+      } else if (state == PlanState.highlighted) {
         state = PlanState.selected;
-      }
-      else if (state == PlanState.notReserved) {
+      } else if (state == PlanState.notReserved) {
         state = PlanState.selected;
-      }
-      else{
+      } else {
         state = PlanState.notReserved;
       }
     }
@@ -123,9 +117,7 @@ class PlanSitting extends PlanElement with PlanElementsGroup {
   @override
   bool get isReserved => state == PlanState.reserved;
 
-  void recallPreviousState(){
+  void recallPreviousState() {
     localState = lastState;
   }
-
-
 }

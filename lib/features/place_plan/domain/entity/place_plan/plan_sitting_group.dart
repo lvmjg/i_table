@@ -7,12 +7,9 @@ import '../../../../../core/util/string_util.dart';
 import '../place_reservation/place_reservation.dart';
 
 class PlanSittingGroup extends PlanElementsGroup {
-
   final Map<String, PlanSitting> sittings;
 
   PlanSittingGroup({required this.id, required this.sittings});
-
-
 
   @override
   final String id;
@@ -27,10 +24,13 @@ class PlanSittingGroup extends PlanElementsGroup {
 
   @override
   Map<String, List<String>> getInReservationFormat() {
-    List<String> selectedSittingsToReserve = sittings.values.where((sitting) =>
-    sitting.lastState == PlanState.selected).map((sitting) => sitting.id).toList();
+    List<String> selectedSittingsToReserve = sittings.values
+        .where((sitting) => sitting.lastState == PlanState.selected)
+        .map((sitting) => sitting.id)
+        .toList();
 
-    if(groupState == PlanState.potentiallyReserved && selectedSittingsToReserve.isNotEmpty) {
+    if (groupState == PlanState.potentiallyReserved &&
+        selectedSittingsToReserve.isNotEmpty) {
       //groupId : [S1, S2]
       Map<String, List<String>> formattedGroup = {
         id: selectedSittingsToReserve
@@ -70,8 +70,7 @@ class PlanSittingGroup extends PlanElementsGroup {
 
       if (allSittingsSelected) {
         potentiallyReserve(StringUtil.EMPTY);
-      }
-      else if(numberOfSelectedSittings == 0){
+      } else if (numberOfSelectedSittings == 0) {
         unreserve(StringUtil.EMPTY);
       }
     } else if (groupState == PlanState.potentiallyReserved) {
@@ -123,17 +122,14 @@ class PlanSittingGroup extends PlanElementsGroup {
         .toList();
   }
 
-
   void highlightOtherSittings(String elementId) {
     List<PlanSitting> otherSittings = getOtherSittings(elementId);
-    otherSittings
-        .forEach((sitting) => sitting.state = PlanState.highlighted);
+    otherSittings.forEach((sitting) => sitting.state = PlanState.highlighted);
   }
 
   void selectOtherSittings(String elementId) {
     List<PlanSitting> otherSittings = getOtherSittings(elementId);
-    otherSittings
-        .forEach((sitting) => sitting.state = PlanState.selected);
+    otherSittings.forEach((sitting) => sitting.state = PlanState.selected);
   }
 
   void recallOtherSittingsState(String elementId) {
@@ -141,15 +137,12 @@ class PlanSittingGroup extends PlanElementsGroup {
         .forEach((sitting) => sitting.recallPreviousState());
   }
 
-
   void unreserveAllSittings() {
-    sittings.values
-        .forEach((sitting) => sitting.state = PlanState.notReserved);
+    sittings.values.forEach((sitting) => sitting.state = PlanState.notReserved);
   }
 
   void highlightAllSittings() {
-    sittings.values
-        .forEach((sitting) => sitting.state = PlanState.highlighted);
+    sittings.values.forEach((sitting) => sitting.state = PlanState.highlighted);
   }
 
   void potentiallyReserveAllSittings() {
@@ -158,20 +151,23 @@ class PlanSittingGroup extends PlanElementsGroup {
   }
 
   void reserveAllSittings() {
-    sittings.values
-        .forEach((sitting) => sitting.state = PlanState.reserved);
+    sittings.values.forEach((sitting) => sitting.state = PlanState.reserved);
   }
 
-
   bool areAllSittingsSelected() {
-    return sittings.values.every((sitting) => sitting.state == PlanState.selected || sitting.state == PlanState.potentiallyReserved);
+    return sittings.values.every((sitting) =>
+        sitting.state == PlanState.selected ||
+        sitting.state == PlanState.potentiallyReserved);
   }
 
   bool isAnySittingSelected() {
-    return sittings.values.any((sitting) => sitting.state == PlanState.selected || sitting.state == PlanState.potentiallyReserved);
+    return sittings.values.any((sitting) =>
+        sitting.state == PlanState.selected ||
+        sitting.state == PlanState.potentiallyReserved);
   }
 
   bool areAllSittingsReserved() {
-    return sittings.values.every((sitting) => sitting.state == PlanState.reserved);
+    return sittings.values
+        .every((sitting) => sitting.state == PlanState.reserved);
   }
 }

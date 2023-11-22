@@ -9,7 +9,11 @@ class PlaceFetchFailure extends PlaceState {
   final Duration reservationDuration;
   final String errorMessage;
 
-  PlaceFetchFailure({required this.placeId, required this.reservationDateTime, required this.reservationDuration, required this.errorMessage});
+  PlaceFetchFailure(
+      {required this.placeId,
+      required this.reservationDateTime,
+      required this.reservationDuration,
+      required this.errorMessage});
 }
 
 class PlaceFetchInProgress extends PlaceState {}
@@ -20,7 +24,10 @@ class PlaceFetchSuccess extends PlaceState {
   final bool readyToReserve;
   late final DateTime trigger;
 
-  PlaceFetchSuccess({required this.placeConfiguration, required this.editMode, required this.readyToReserve}){
+  PlaceFetchSuccess(
+      {required this.placeConfiguration,
+      required this.editMode,
+      required this.readyToReserve}) {
     trigger = DateTime.now();
   }
 }

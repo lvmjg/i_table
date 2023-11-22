@@ -9,7 +9,8 @@ class PlaceDetailsPage extends StatefulWidget {
   final String placeId;
   final String placeName;
 
-  const PlaceDetailsPage({Key? key, required this.placeId, required this.placeName})
+  const PlaceDetailsPage(
+      {Key? key, required this.placeId, required this.placeName})
       : super(key: key);
 
   @override

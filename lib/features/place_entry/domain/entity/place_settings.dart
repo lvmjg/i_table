@@ -4,7 +4,7 @@ import 'package:i_table/features/place_entry/domain/entity/reservation_logic.dar
 
 import 'place_opening_hours.dart';
 
-class PlaceSettings{
+class PlaceSettings {
   final String placeId;
   final String placeName;
   final ReservationLogic reservationLogic;
@@ -12,5 +12,11 @@ class PlaceSettings{
   final ReservationConfirmation reservationConfirmation;
   final PlaceOpeningHours openingHours;
 
-  PlaceSettings({required this.placeId, required this.placeName, required this.reservationLogic, required this.reservationChat, required this.reservationConfirmation, required this.openingHours});
+  PlaceSettings(
+      {required this.placeId,
+      required this.placeName,
+      required this.reservationLogic,
+      required this.reservationChat,
+      required this.reservationConfirmation,
+      required this.openingHours});
 }

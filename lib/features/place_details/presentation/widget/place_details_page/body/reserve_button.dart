@@ -11,8 +11,13 @@ class ReserveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleFilledTonalButton(title: reserve, iconData: Icons.book_rounded, iconColor: Colors.black87, onPressed: (){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PlaceEntryPage(placeId: placeId)));
-    });
+    return SimpleFilledTonalButton(
+        title: reserve,
+        iconData: Icons.book_rounded,
+        iconColor: Colors.black87,
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => PlaceEntryPage(placeId: placeId)));
+        });
   }
 }

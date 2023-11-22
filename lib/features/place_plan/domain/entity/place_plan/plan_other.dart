@@ -5,7 +5,6 @@ import '../../../../../core/util/string_util.dart';
 import '../place_reservation/place_reservation.dart';
 
 class PlanOther extends PlanElement with PlanElementsGroup {
-
   PlanOther(
       {required this.id,
       required super.type,

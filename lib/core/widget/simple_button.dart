@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:i_table/core/util/globals.dart';
 
 class SimpleButton extends StatelessWidget {
-
   final String title;
   final IconData? iconData;
   final Color? iconColor;
   final VoidCallback? onPressed;
   final double? padding;
 
-  const SimpleButton({Key? key, required this.title, this.iconData, this.iconColor = Colors.black38, this.padding = 4, this.onPressed}) : super(key: key);
+  const SimpleButton(
+      {Key? key,
+      required this.title,
+      this.iconData,
+      this.iconColor = Colors.black38,
+      this.padding = 4,
+      this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class SimpleButton extends StatelessWidget {
           const SizedBox(
             width: 4,
           ),
-          if(iconData!=null) Icon(iconData, color: iconColor)
+          if (iconData != null) Icon(iconData, color: iconColor)
         ],
       ),
     );

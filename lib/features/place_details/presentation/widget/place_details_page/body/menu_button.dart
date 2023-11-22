@@ -11,9 +11,14 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleFilledTonalButton(title: menu, iconData: Icons.menu_book_rounded, iconColor: Colors.indigo, onPressed: (){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PlaceMenuPage(placeId: placeId)));
-    });
+    return SimpleFilledTonalButton(
+        title: menu,
+        iconData: Icons.menu_book_rounded,
+        iconColor: Colors.indigo,
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => PlaceMenuPage(placeId: placeId)));
+        });
   }
 }
 /*  FirebaseFirestore ff = FirebaseFirestore.instance;

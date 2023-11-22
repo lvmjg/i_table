@@ -8,8 +8,9 @@ class HomeFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
         child: Icon(Icons.qr_code_rounded, color: Colors.white),
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => QRScanPage()));
-    });
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => QRScanPage()));
+        });
   }
 }

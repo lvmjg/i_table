@@ -6,8 +6,7 @@ import '../util/globals.dart';
 class CommonFailure extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const CommonFailure({Key? key, required this.onPressed})
-      : super(key: key);
+  const CommonFailure({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

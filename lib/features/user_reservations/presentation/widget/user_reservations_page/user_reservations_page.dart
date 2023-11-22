@@ -23,14 +23,15 @@ class _UserReservationsPageState extends State<UserReservationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UserReservationsAppBar(title: myReservations),
-      body: UserReservationsBody()
-    );
+        appBar: UserReservationsAppBar(title: myReservations),
+        body: UserReservationsBody());
   }
 
   @override
   void initState() {
     super.initState();
-    context.read<UserReservationsBloc>().add(UserReservationsInitiated(userId: loggedUserId));
+    context
+        .read<UserReservationsBloc>()
+        .add(UserReservationsInitiated(userId: loggedUserId));
   }
 }

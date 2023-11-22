@@ -8,13 +8,12 @@ class SnackBarUtil {
     if (content.isEmpty) return;
 
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(
-          content: Text(content),
-
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(content),
         action: SnackBarAction(
           textColor: primaryColor,
-          label: ok, onPressed: () {},
+          label: ok,
+          onPressed: () {},
         ),
       ));
     });

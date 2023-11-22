@@ -1,4 +1,3 @@
-class StringUtil{
+class StringUtil {
   static const String EMPTY = '';
-
 }

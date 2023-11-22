@@ -24,18 +24,16 @@ class SignInPage extends StatelessWidget {
         data: ThemeData(
           colorScheme: ColorScheme.light(primary: Colors.grey),
           scaffoldBackgroundColor: Colors.white,
-          textTheme: GoogleFonts.signikaNegativeTextTheme(
-                  Theme.of(context).textTheme)
-
-              .apply(),
+          textTheme:
+              GoogleFonts.signikaNegativeTextTheme(Theme.of(context).textTheme)
+                  .apply(),
           outlinedButtonTheme: OutlinedButtonThemeData(
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
                 EdgeInsets.all(padding),
               ),
               backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              foregroundColor:
-                  MaterialStateProperty.all<Color>(primaryColor),
+              foregroundColor: MaterialStateProperty.all<Color>(primaryColor),
             ),
           ),
         ),
@@ -62,8 +60,8 @@ class SignInPage extends StatelessWidget {
             },
             actions: [
               AuthStateChangeAction((context, state) {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => HomePage()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => HomePage()));
               })
             ],
             providers: [EmailAuthProvider(), UniversalEmailSignInProvider()],

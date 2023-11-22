@@ -26,51 +26,45 @@ class HomeBody extends StatelessWidget {
               color: primaryColor,
               fontWeight: FontWeight.w900),
         ),
-        SizedBox(height: padding/2,),
+        SizedBox(
+          height: padding / 2,
+        ),
         Container(
           color: Colors.white,
           child: InkWell(
-
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    PlaceSearchPage())),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => PlaceSearchPage())),
             child: AbsorbPointer(
               absorbing: true,
-              child: Hero(
-                  tag: 'filter',
-                  child: SearchFilter()
-              ),
+              child: Hero(tag: 'filter', child: SearchFilter()),
             ),
           ),
         ),
         SizedBox(height: padding),
         SimpleFilledTonalButton(
-          title: myReservations,
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => UserReservationsPage()))
-        ),
+            title: myReservations,
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => UserReservationsPage()))),
         SizedBox(height: padding),
         SimpleFilledTonalButton(
-            title: myProfile,
-            onPressed: (){},
+          title: myProfile,
+          onPressed: () {},
         ),
         SizedBox(height: padding),
         SimpleFilledTonalButton(
           title: settings,
-          onPressed: (){},
+          onPressed: () {},
         ),
         SizedBox(height: padding),
         SimpleFilledTonalButton(
-          title: kitchen,
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ServiceOrdersPage()))
-        ),
+            title: kitchen,
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ServiceOrdersPage()))),
         SizedBox(height: padding),
         SimpleFilledTonalButton(
             title: service,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ServicePlacePage()))
-        ),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ServicePlacePage()))),
       ],
     );
   }

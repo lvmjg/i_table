@@ -10,7 +10,7 @@ int TEST_TIMEOUT = 0;
 const Color primaryColor = Color(0xFF304FFE);
 
 int secondary = 0xFFFFCB00;
-double padding =16.0;
+double padding = 16.0;
 
 double elevation = 1;
 double toolbarHeight = 70;
@@ -92,9 +92,10 @@ String pathStartDate = 'startDate';
 String pathPanoramas = 'panoramas';
 String pathPlaceMenu = 'placeMenu';
 
-
-String errorPickedDateAfter = "Rezerwację można złożyć na maksymalnie %d dni wcześniej";
-String errorPickedDateBefore = "Nie można złożyć rezerwacji z terminem w przeszłości";
+String errorPickedDateAfter =
+    "Rezerwację można złożyć na maksymalnie %d dni wcześniej";
+String errorPickedDateBefore =
+    "Nie można złożyć rezerwacji z terminem w przeszłości";
 String placeNotWorkingHours = "Punkt nie pracuje w wybranej godzinie";
 String placeClosed = 'Nieczynne';
 
@@ -106,10 +107,8 @@ String serviceChat = 'Chat z obsługą';
 String payLater = 'Zapłać później';
 String payNow = 'Zapłać teraz';
 
-const RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
-
-    borderRadius: BorderRadius.all(Radius.circular(16))
-);
+const RoundedRectangleBorder roundedRectangleBorder =
+    RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)));
 
 String totalCost = "Koszt";
 String kitchen = "Kuchnia";

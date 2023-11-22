@@ -5,7 +5,7 @@ import 'place_menu_item_model.dart';
 part 'place_menu_model.g.dart';
 
 @JsonSerializable()
-class PlaceMenuModel{
+class PlaceMenuModel {
   final Map<String, PlaceMenuItemModel> placeMenu;
 
   PlaceMenuModel(this.placeMenu);

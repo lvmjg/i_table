@@ -127,7 +127,7 @@ class ReservationPickerDataManager {
   void _setReservationTimeToStartWorkingHours() {
     PlaceWorkDay workDay = getPlaceWorkDay(reservationDateTime.weekday);
     TimeOfDay reservationTime =
-    TimeOfDay(hour: workDay.open.hour, minute: workDay.open.minute);
+        TimeOfDay(hour: workDay.open.hour, minute: workDay.open.minute);
 
     reservationDateTime = reservationDateTime.withTime(reservationTime);
   }
@@ -141,15 +141,16 @@ class ReservationPickerDataManager {
   }*/
 
   void _formatWorkingHours() {
-    todaysWorkingHours = _formatWorkingHoursForWeekday(reservationDateTime.weekday);
-    tomorrowsWorkingHours = _formatWorkingHoursForWeekday(reservationDateTime.weekday+1);
+    todaysWorkingHours =
+        _formatWorkingHoursForWeekday(reservationDateTime.weekday);
+    tomorrowsWorkingHours =
+        _formatWorkingHoursForWeekday(reservationDateTime.weekday + 1);
   }
 
-  String _formatWorkingHoursForWeekday(int weekday){
+  String _formatWorkingHoursForWeekday(int weekday) {
     StringBuffer hoursBuffer = StringBuffer();
 
-    DateTimeRange samePartHours =
-    _getRealWorkingHours(weekday);
+    DateTimeRange samePartHours = _getRealWorkingHours(weekday);
 
     hoursBuffer.write("%0.2d:%0.2d-%0.2d:%0.2d".format([
       samePartHours.start.hour,
@@ -158,7 +159,7 @@ class ReservationPickerDataManager {
       samePartHours.end.minute
     ]));
 
-    if(hoursBuffer.isEmpty){
+    if (hoursBuffer.isEmpty) {
       hoursBuffer.write(placeClosed);
     }
 
@@ -204,50 +205,51 @@ class ReservationPickerDataManager {
   void decreaseTime() {
     clearError();
 
-    if(_isPlaceWorking(reservationDateTime.weekday)) {
-      DateTime desiredDateTime =
-      reservationDateTime.subtract(
-          Duration(minutes: reservationIntervalMinutes));
+    if (_isPlaceWorking(reservationDateTime.weekday)) {
+      DateTime desiredDateTime = reservationDateTime
+          .subtract(Duration(minutes: reservationIntervalMinutes));
 
-      bool isReservationDateToday = reservationDateTime.onlyDate()
+      bool isReservationDateToday = reservationDateTime
+          .onlyDate()
           .isAtSameMomentAs(DateTime.now().onlyDate());
       if (isReservationDateToday) {
-        bool isChosenTimeBeforeCurrentTime = desiredDateTime.onlyTime()
-            .isBefore(DateTime.now().onlyTime());
+        bool isChosenTimeBeforeCurrentTime =
+            desiredDateTime.onlyTime().isBefore(DateTime.now().onlyTime());
         if (isChosenTimeBeforeCurrentTime) {
           error = errorPickedDateBefore;
-        }
-        else {
+        } else {
           _adjustTimeToWorkingHoursAndReservationDuration(
               desiredDateTime, reservationDuration);
         }
-      }
-      else {
+      } else {
         _adjustTimeToWorkingHoursAndReservationDuration(
             desiredDateTime, reservationDuration);
       }
     }
   }
 
-  bool _adjustTimeToWorkingHoursAndReservationDuration(DateTime desiredDateTime, Duration desiredDuration) {
-    DateTimeRange croppedWorkingHours = _getRealWorkingHours(desiredDateTime.weekday);
+  bool _adjustTimeToWorkingHoursAndReservationDuration(
+      DateTime desiredDateTime, Duration desiredDuration) {
+    DateTimeRange croppedWorkingHours =
+        _getRealWorkingHours(desiredDateTime.weekday);
     if (croppedWorkingHours.contains(desiredDateTime)) {
       DateTime reservationEnd = desiredDateTime.add(reservationDuration);
-      DateTimeRange workingHours = _getRealWorkingHours(desiredDateTime.weekday);
+      DateTimeRange workingHours =
+          _getRealWorkingHours(desiredDateTime.weekday);
 
       if (workingHours.contains(reservationEnd)) {
         reservationDuration = desiredDuration;
-        reservationDateTime = reservationDateTime.withTime(desiredDateTime.onlyTime());
+        reservationDateTime =
+            reservationDateTime.withTime(desiredDateTime.onlyTime());
         return true;
       } else {
         error =
-        "Koniec rezerwacji wypada poza godzinami pracy punktu.\nWybierz inną godzinę lub zmniejsz czas trwania rezerwacji.";
+            "Koniec rezerwacji wypada poza godzinami pracy punktu.\nWybierz inną godzinę lub zmniejsz czas trwania rezerwacji.";
         return false;
       }
-
     } else {
       error =
-      "Godzina rozpoczęcia rezerwacji wypada poza godzinami pracy punktu: $todaysWorkingHours.\n\nWybierz inną godzinę";
+          "Godzina rozpoczęcia rezerwacji wypada poza godzinami pracy punktu: $todaysWorkingHours.\n\nWybierz inną godzinę";
       return false;
     }
   }
@@ -255,9 +257,9 @@ class ReservationPickerDataManager {
   void increaseTime() {
     clearError();
 
-    if(_isPlaceWorking(reservationDateTime.weekday)) {
-      DateTime desiredDateTime =
-      reservationDateTime.add(Duration(minutes: reservationIntervalMinutes));
+    if (_isPlaceWorking(reservationDateTime.weekday)) {
+      DateTime desiredDateTime = reservationDateTime
+          .add(Duration(minutes: reservationIntervalMinutes));
       _adjustTimeToWorkingHoursAndReservationDuration(
           desiredDateTime, reservationDuration);
     }
@@ -278,10 +280,11 @@ class ReservationPickerDataManager {
   }
 
   void setDuration(Duration newDuration) {
-    if (_isPlaceWorking(reservationDateTime.weekday) && newDuration.inMinutes >= minDuration.inMinutes &&
+    if (_isPlaceWorking(reservationDateTime.weekday) &&
+        newDuration.inMinutes >= minDuration.inMinutes &&
         newDuration.inMinutes <= maxDuration.inMinutes) {
-
-      _adjustTimeToWorkingHoursAndReservationDuration(reservationDateTime, newDuration);
+      _adjustTimeToWorkingHoursAndReservationDuration(
+          reservationDateTime, newDuration);
     }
   }
 
@@ -289,23 +292,29 @@ class ReservationPickerDataManager {
     int adjustedWeekday = _correctWeekday(weekday);
 
     PlaceWorkDay workingDay = getPlaceWorkDay(adjustedWeekday);
-    DateTime openTime = DateTime(reservationDateTime.year, reservationDateTime.month,
-        reservationDateTime.day, workingDay.open.hour, workingDay.open.minute);
+    DateTime openTime = DateTime(
+        reservationDateTime.year,
+        reservationDateTime.month,
+        reservationDateTime.day,
+        workingDay.open.hour,
+        workingDay.open.minute);
 
-    DateTime closeTime = DateTime(reservationDateTime.year, reservationDateTime.month,
-        reservationDateTime.day, workingDay.close.hour, workingDay.close.minute);
+    DateTime closeTime = DateTime(
+        reservationDateTime.year,
+        reservationDateTime.month,
+        reservationDateTime.day,
+        workingDay.close.hour,
+        workingDay.close.minute);
 
     return DateTimeRange(start: openTime, end: closeTime);
   }
 
   int _correctWeekday(int weekday) {
-    if(weekday == 0){
+    if (weekday == 0) {
       return 7;
-    }
-    else if(weekday == 8){
+    } else if (weekday == 8) {
       return 1;
-    }
-    else {
+    } else {
       return weekday;
     }
   }
@@ -330,7 +339,7 @@ class ReservationPickerDataManager {
     }
   }
 
-  void clearError(){
+  void clearError() {
     error = StringUtil.EMPTY;
   }
 }

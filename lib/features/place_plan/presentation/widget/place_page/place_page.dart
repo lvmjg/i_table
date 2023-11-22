@@ -24,20 +24,19 @@ class _PlacePageState extends State<PlacePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: PlaceAppBar(title: placePlan),
-        body: PlaceBody()
-      );
+        body: PlaceBody());
   }
 
   @override
   void initState() {
     super.initState();
-    DateTime chosenDateAndTime = context.read<ReservationPickerBloc>().manager.reservationDateTime;
-    Duration chosenDuration = context.read<ReservationPickerBloc>().manager.reservationDuration;
-    context.read<PlaceBloc>().add(PlaceInitiated(placeId: widget.placeId, reservationDateTime: chosenDateAndTime, reservationDuration: chosenDuration));
+    DateTime chosenDateAndTime =
+        context.read<ReservationPickerBloc>().manager.reservationDateTime;
+    Duration chosenDuration =
+        context.read<ReservationPickerBloc>().manager.reservationDuration;
+    context.read<PlaceBloc>().add(PlaceInitiated(
+        placeId: widget.placeId,
+        reservationDateTime: chosenDateAndTime,
+        reservationDuration: chosenDuration));
   }
 }
-
-
-
-
-

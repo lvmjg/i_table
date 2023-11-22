@@ -5,8 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'place_search_model.g.dart';
 
 @JsonSerializable()
-class PlaceSearchModel{
-
+class PlaceSearchModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   late String placeId;
 
@@ -17,13 +16,13 @@ class PlaceSearchModel{
 
   PlaceSearchModel({required this.placeName, required this.placeAddress});
 
-  factory PlaceSearchModel.fromJson(String placeId, Map<String, dynamic> json){
+  factory PlaceSearchModel.fromJson(String placeId, Map<String, dynamic> json) {
     PlaceSearchModel searchEntity = _$PlaceSearchModelFromJson(json);
     searchEntity.placeId = placeId;
     return searchEntity;
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     Map<String, dynamic> jsonMap = _$PlaceSearchModelToJson(this);
     jsonMap['placeId'] = placeId;
     return jsonMap;

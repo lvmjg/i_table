@@ -14,10 +14,7 @@ part 'place_entry_event.dart';
 part 'place_entry_state.dart';
 
 class PlaceEntryBloc extends Bloc<PlaceEntryEvent, PlaceEntryState> {
-
-  PlaceEntryBloc()
-      : super(PlaceEntryFetchInProgress()) {
-
+  PlaceEntryBloc() : super(PlaceEntryFetchInProgress()) {
     FetchPlaceSettings fetchPlaceSettings = FetchPlaceSettings(
         PlaceSettingsRepositoryImpl(
             PlaceSettingsRemoteDataSourceImpl(), PlaceSettingsFactory()));
@@ -25,17 +22,17 @@ class PlaceEntryBloc extends Bloc<PlaceEntryEvent, PlaceEntryState> {
     on<PlaceEntryInitiated>((event, emit) async {
       emit(PlaceEntryFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       (await fetchPlaceSettings(PlaceIdParams(placeId: event.placeId))).fold(
-              (failure) => emit(
-              PlaceEntryFetchFailure(
-                  placeId: event.placeId,
-                  errorMessage: errorFetchPlaceSettings)),
-              (placeSettings) =>
-              emit(PlaceEntryFetchSuccess(placeId: event.placeId, placeName: '147 Break', placeSettings: placeSettings)));
+          (failure) => emit(PlaceEntryFetchFailure(
+              placeId: event.placeId, errorMessage: errorFetchPlaceSettings)),
+          (placeSettings) => emit(PlaceEntryFetchSuccess(
+              placeId: event.placeId,
+              placeName: '147 Break',
+              placeSettings: placeSettings)));
     });
   }
 }

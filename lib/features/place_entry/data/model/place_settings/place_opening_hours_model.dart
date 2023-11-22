@@ -22,12 +22,12 @@ class PlaceOpeningHoursModel {
 
   PlaceOpeningHoursModel(
       {required this.monday,
-        required this.tuesday,
-        required this.wednesday,
-        required this.thursday,
-        required this.friday,
-        required this.saturday,
-        required this.sunday});
+      required this.tuesday,
+      required this.wednesday,
+      required this.thursday,
+      required this.friday,
+      required this.saturday,
+      required this.sunday});
 
   factory PlaceOpeningHoursModel.fromJson(Map<String, dynamic> json) =>
       _$PlaceOpeningHoursModelFromJson(json);

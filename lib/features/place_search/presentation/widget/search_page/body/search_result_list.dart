@@ -19,41 +19,48 @@ class SearchResultList extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(places[index].placeName, style: Theme.of(context).textTheme.bodyMedium),
-          subtitle:
-              Text(places[index].placeAddress.toString(), style: Theme.of(context).textTheme.bodySmall),
+          title: Text(places[index].placeName,
+              style: Theme.of(context).textTheme.bodyMedium),
+          subtitle: Text(places[index].placeAddress.toString(),
+              style: Theme.of(context).textTheme.bodySmall),
           trailing: Wrap(
-            children:[ FittedBox(
-              fit: BoxFit.fitHeight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.menu_book_outlined,
-                  color: primaryColor,
+            children: [
+              FittedBox(
+                fit: BoxFit.fitHeight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.menu_book_outlined,
+                    color: primaryColor,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            PlaceMenuPage(placeId: places[index].placeId)));
+                  },
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PlaceMenuPage(placeId: places[index].placeId)));
-                },
               ),
-            ),
-            SizedBox(width: padding/4),
-            FittedBox(
-              fit: BoxFit.fitHeight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.info_outline_rounded,
-                  color: primaryColor,
+              SizedBox(width: padding / 4),
+              FittedBox(
+                fit: BoxFit.fitHeight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.info_outline_rounded,
+                    color: primaryColor,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PlaceDetailsPage(
+                            placeId: places[index].placeId,
+                            placeName: places[index].placeName)));
+                  },
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PlaceDetailsPage(placeId: places[index].placeId, placeName: places[index].placeName)));
-                },
-              ),
-            )],
+              )
+            ],
           ),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PlaceEntryPage(placeId: places[index].placeId)));
+                builder: (context) =>
+                    PlaceEntryPage(placeId: places[index].placeId)));
           },
         );
       },

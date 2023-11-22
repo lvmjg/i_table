@@ -24,10 +24,16 @@ part 'place_menu_state.dart';
 class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
   PlaceMenuBloc() : super(PlaceMenuFetchInProgress()) {
     FetchPlaceMenu fetchPlaceMenu = FetchPlaceMenu(PlaceMenuRepositoryImpl(
-        PlaceMenuRemoteDataSourceImpl(), PlaceMenuFactory(), PlaceOrdersFactory(), ChatMessagesFactory()));
+        PlaceMenuRemoteDataSourceImpl(),
+        PlaceMenuFactory(),
+        PlaceOrdersFactory(),
+        ChatMessagesFactory()));
 
     SubmitOrder submitOrder = SubmitOrder(PlaceMenuRepositoryImpl(
-        PlaceMenuRemoteDataSourceImpl(), PlaceMenuFactory(), PlaceOrdersFactory(), ChatMessagesFactory()));
+        PlaceMenuRemoteDataSourceImpl(),
+        PlaceMenuFactory(),
+        PlaceOrdersFactory(),
+        ChatMessagesFactory()));
 
     late String placeId;
     late String placeName;
@@ -39,23 +45,27 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
     on<PlaceMenuInitiated>((event, emit) async {
       emit(PlaceMenuFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       (await fetchPlaceMenu(PlaceIdParams(placeId: event.placeId))).fold(
-              (failure) =>
+          (failure) =>
               emit(PlaceMenuFetchFailure(errorMessage: errorFetchPlaceMenu)),
-              (newPlaceMenu) {
-            placeId = event.placeId;
-            placeName = event.placeName;
-            placeMenu = newPlaceMenu;
+          (newPlaceMenu) {
+        placeId = event.placeId;
+        placeName = event.placeName;
+        placeMenu = newPlaceMenu;
 
-            userId = event.userId;
-            reservationId = event.reservationId;
+        userId = event.userId;
+        reservationId = event.reservationId;
 
-            emit(PlaceMenuFetchSuccess(placeId: event.placeId, placeMenu: newPlaceMenu, basket: [], basketTotal: StringUtil.EMPTY));
-          });
+        emit(PlaceMenuFetchSuccess(
+            placeId: event.placeId,
+            placeMenu: newPlaceMenu,
+            basket: [],
+            basketTotal: StringUtil.EMPTY));
+      });
     });
 
     on<PlaceMenuItemAdded>((event, emit) async {
@@ -70,7 +80,11 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
 
       item.quantity++;
 
-      emit(PlaceMenuFetchSuccess(placeId: placeId, placeMenu: placeMenu, basket: _createBasket(placeMenu), basketTotal: _basketTotal(placeMenu)));
+      emit(PlaceMenuFetchSuccess(
+          placeId: placeId,
+          placeMenu: placeMenu,
+          basket: _createBasket(placeMenu),
+          basketTotal: _basketTotal(placeMenu)));
     });
 
     on<PlaceMenuItemSubtracted>((event, emit) async {
@@ -85,7 +99,11 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
 
       item.quantity--;
 
-      emit(PlaceMenuFetchSuccess(placeId: placeId, placeMenu: placeMenu, basket: _createBasket(placeMenu), basketTotal: _basketTotal(placeMenu)));
+      emit(PlaceMenuFetchSuccess(
+          placeId: placeId,
+          placeMenu: placeMenu,
+          basket: _createBasket(placeMenu),
+          basketTotal: _basketTotal(placeMenu)));
     });
 
     on<PlaceMenuItemRemoved>((event, emit) async {
@@ -100,54 +118,62 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
 
       item.quantity = 0;
 
-      emit(PlaceMenuFetchSuccess(placeId: placeId, placeMenu: placeMenu, basket: _createBasket(placeMenu), basketTotal: _basketTotal(placeMenu)));
+      emit(PlaceMenuFetchSuccess(
+          placeId: placeId,
+          placeMenu: placeMenu,
+          basket: _createBasket(placeMenu),
+          basketTotal: _basketTotal(placeMenu)));
     });
 
     on<PlaceMenuPayLaterChosen>((event, emit) async {
       emit(PlaceMenuSubmitOrderInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      (await submitOrder(MenuOrderParams(userId: userId!, placeId: placeId, placeName: placeName, reservationId: reservationId!, placeMenuItems: _createBasket(placeMenu))))
+      (await submitOrder(MenuOrderParams(
+              userId: userId!,
+              placeId: placeId,
+              placeName: placeName,
+              reservationId: reservationId!,
+              placeMenuItems: _createBasket(placeMenu))))
           .fold(
-              (failure) => emit(PlaceMenuSubmitOrderFailure(
-              errorMessage: errorFetchData)),
+              (failure) => emit(
+                  PlaceMenuSubmitOrderFailure(errorMessage: errorFetchData)),
               (nothing) => emit(PlaceMenuSubmitOrderSuccess()));
     });
   }
-  
-  List<PlaceMenuItem> _createBasket(PlaceMenu placeMenu){
+
+  List<PlaceMenuItem> _createBasket(PlaceMenu placeMenu) {
     List<PlaceMenuItem> basket = [];
-    
+
     for (var category in placeMenu.placeMenuCategories) {
       for (var item in category.items) {
-        if(item.quantity!=0){
+        if (item.quantity != 0) {
           basket.add(item);
         }
       }
     }
-    
+
     return basket;
   }
 
-  String _basketTotal(PlaceMenu placeMenu){
+  String _basketTotal(PlaceMenu placeMenu) {
     double total = 0;
 
     for (var category in placeMenu.placeMenuCategories) {
       for (var item in category.items) {
-        if(item.quantity!=0){
+        if (item.quantity != 0) {
           total += item.quantity * item.price;
         }
       }
     }
 
-    if(total!=0){
+    if (total != 0) {
       NumberFormat nf = NumberFormat("####.00", "en_US");
       return nf.format(total);
-    }
-    else {
+    } else {
       return StringUtil.EMPTY;
     }
   }

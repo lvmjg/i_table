@@ -1,6 +1,6 @@
 import 'package:i_table/features/place_plan/domain/entity/place_plan/plan_elements_group.dart';
 
-class PlanLevel{
+class PlanLevel {
   final String placePlanLevelId;
   final String placePlanLevelName;
   final int placePlanLevelOrder;
@@ -8,5 +8,10 @@ class PlanLevel{
   final Map<String, PlanElementsGroup> placePlanStaticElements;
   final Map<String, PlanElementsGroup> placePlanElements;
 
-  PlanLevel(this.placePlanLevelId, this.placePlanLevelName, this.placePlanLevelOrder, this.placePlanElements, this.placePlanStaticElements);
+  PlanLevel(
+      this.placePlanLevelId,
+      this.placePlanLevelName,
+      this.placePlanLevelOrder,
+      this.placePlanElements,
+      this.placePlanStaticElements);
 }

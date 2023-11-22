@@ -9,7 +9,8 @@ class ReservationChatPage extends StatefulWidget {
   final String placeId;
   final String reservationId;
 
-  const ReservationChatPage({Key? key, required this.placeId, required this.reservationId})
+  const ReservationChatPage(
+      {Key? key, required this.placeId, required this.reservationId})
       : super(key: key);
 
   @override
@@ -28,8 +29,7 @@ class _ReservationChatPageState extends State<ReservationChatPage> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<ReservationChatBloc>()
-        .add(ReservationChatInitiated(placeId: widget.placeId, reservationId: widget.reservationId));
+    context.read<ReservationChatBloc>().add(ReservationChatInitiated(
+        placeId: widget.placeId, reservationId: widget.reservationId));
   }
 }

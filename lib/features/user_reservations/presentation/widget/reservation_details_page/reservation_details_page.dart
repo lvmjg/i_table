@@ -8,7 +8,9 @@ class ReservationDetailsPage extends StatelessWidget {
   final String placeName;
   final int index;
 
-  const ReservationDetailsPage({Key? key, required this.placeName, required this.index}) : super(key: key);
+  const ReservationDetailsPage(
+      {Key? key, required this.placeName, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,5 +20,3 @@ class ReservationDetailsPage extends StatelessWidget {
     );
   }
 }
-
-

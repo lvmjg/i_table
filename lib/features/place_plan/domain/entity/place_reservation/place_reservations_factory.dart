@@ -3,7 +3,8 @@ import 'package:i_table/features/place_plan/domain/entity/place_reservation/plac
 import '../../../data/model/place_reservation/place_reservation_model.dart';
 
 class PlaceReservationsFactory {
-  List<PlaceReservation> getReservations(List<PlaceReservationModel> reservations) {
+  List<PlaceReservation> getReservations(
+      List<PlaceReservationModel> reservations) {
     List<PlaceReservation> newReservations = [];
 
     reservations.forEach((element) {
@@ -30,7 +31,8 @@ class PlaceReservationsFactory {
     return newReservations;
   }
 
-  PlaceReservationModel getModelFromPlaceReservation(PlaceReservation placeReservation) {
+  PlaceReservationModel getModelFromPlaceReservation(
+      PlaceReservation placeReservation) {
     return PlaceReservationModel(
         no: placeReservation.no,
         placeId: placeReservation.placeId,

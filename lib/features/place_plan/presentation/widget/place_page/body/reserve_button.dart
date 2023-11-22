@@ -12,7 +12,7 @@ class ReserveButton extends StatelessWidget {
     return BlocBuilder<PlaceBloc, PlaceState>(
       builder: (context, state) {
         bool readyToReserve = false;
-        if(state is PlaceFetchSuccess){
+        if (state is PlaceFetchSuccess) {
           readyToReserve = (state as PlaceFetchSuccess).readyToReserve;
         }
 
@@ -29,20 +29,19 @@ class ReserveButton extends StatelessWidget {
     );
   }
 
-  VoidCallback? _enableButton(bool readyToReserve, BuildContext buildContext){
-    if(readyToReserve){
-      return () => Navigator.of(buildContext).push(MaterialPageRoute(builder: (context) => ReservationSummaryPage()));
-    }
-    else{
+  VoidCallback? _enableButton(bool readyToReserve, BuildContext buildContext) {
+    if (readyToReserve) {
+      return () => Navigator.of(buildContext).push(
+          MaterialPageRoute(builder: (context) => ReservationSummaryPage()));
+    } else {
       return null;
     }
   }
 
   double _setButtonAlpha(bool readyToReserve) {
-    if(readyToReserve){
+    if (readyToReserve) {
       return 1;
-    }
-    else{
+    } else {
       return 0.5;
     }
   }

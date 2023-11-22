@@ -13,29 +13,30 @@ class UserReservationsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocBuilder<UserReservationsBloc, UserReservationsState>(
+    return BlocBuilder<UserReservationsBloc, UserReservationsState>(
       builder: (context, state) {
         if (state is UserReservationsFetchFailure) {
-          return CommonFailure(
-              onPressed: () {}
-          );
-        }
-        else if (state is UserReservationsFetchSuccess) {
+          return CommonFailure(onPressed: () {});
+        } else if (state is UserReservationsFetchSuccess) {
           return Column(
             children: [
               Expanded(
                 child: ListView.builder(
                     itemCount: state.reservations.length,
                     itemBuilder: (context, index) {
-
                       return Hero(
                           tag: 'item$index',
-                          child: ReservationCardBasicDetails(placeReservation: state.reservations[index], buttonsEnabled: true, onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReservationDetailsPage(placeName: state.reservations[index].placeName, index: index),
-                            ));
-                          })
-                      );
+                          child: ReservationCardBasicDetails(
+                              placeReservation: state.reservations[index],
+                              buttonsEnabled: true,
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ReservationDetailsPage(
+                                      placeName:
+                                          state.reservations[index].placeName,
+                                      index: index),
+                                ));
+                              }));
                     }),
               ),
             ],

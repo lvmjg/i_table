@@ -18,7 +18,11 @@ class PlaceMenuFetchSuccess extends PlaceMenuState {
   final String basketTotal;
   late final DateTime trigger;
 
-  PlaceMenuFetchSuccess({required this.placeId, required this.placeMenu, required this.basket, required this.basketTotal}){
+  PlaceMenuFetchSuccess(
+      {required this.placeId,
+      required this.placeMenu,
+      required this.basket,
+      required this.basketTotal}) {
     trigger = DateTime.now();
   }
 }
@@ -34,4 +38,3 @@ class PlaceMenuSubmitOrderInProgress extends PlaceMenuState {
 }
 
 class PlaceMenuSubmitOrderSuccess extends PlaceMenuState {}
-

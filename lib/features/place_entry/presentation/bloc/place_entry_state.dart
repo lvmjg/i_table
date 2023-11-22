@@ -17,5 +17,8 @@ class PlaceEntryFetchSuccess extends PlaceEntryState {
   final String placeName;
   final PlaceSettings placeSettings;
 
-  PlaceEntryFetchSuccess({required this.placeId, required this.placeName, required this.placeSettings});
+  PlaceEntryFetchSuccess(
+      {required this.placeId,
+      required this.placeName,
+      required this.placeSettings});
 }

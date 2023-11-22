@@ -6,7 +6,6 @@ import 'package:i_table/features/place_plan/domain/entity/place_plan/plan_table.
 
 import '../../../data/model/place_plan/place_plan_level_model.dart';
 
-
 class PlanElementsFactory {
   Map<String, PlanElementsGroup> getStaticElements(
       List<PlacePlanLevelModel> placePlanLevelModels) {
@@ -75,18 +74,18 @@ class PlanElementsFactory {
       (group as PlanSittingGroup).sittings.putIfAbsent(
           entry.key,
           () => PlanSitting(
-              id: entry.key,
-              isAlone: entry.value.isAlone,
-              type: entry.value.type,
-              name: entry.value.name,
-              columnStart: entry.value.columnStart,
-              columnSpan: entry.value.columnSpan,
-              rowStart: entry.value.rowStart,
-              rowSpan: entry.value.rowSpan,
-              color: entry.value.color,
-              //group: groupId,
-              //table: entry.value.table
-          ));
+                id: entry.key,
+                isAlone: entry.value.isAlone,
+                type: entry.value.type,
+                name: entry.value.name,
+                columnStart: entry.value.columnStart,
+                columnSpan: entry.value.columnSpan,
+                rowStart: entry.value.rowStart,
+                rowSpan: entry.value.rowSpan,
+                color: entry.value.color,
+                //group: groupId,
+                //table: entry.value.table
+              ));
     });
 
     return aloneSittingGroups;
@@ -144,18 +143,18 @@ class PlanElementsFactory {
       group.sittings.putIfAbsent(
           entry.key,
           () => PlanSitting(
-              id: entry.key,
-              isAlone: entry.value.isAlone,
-              type: entry.value.type,
-              name: entry.value.name,
-              columnStart: entry.value.columnStart,
-              columnSpan: entry.value.columnSpan,
-              rowStart: entry.value.rowStart,
-              rowSpan: entry.value.rowSpan,
-              color: entry.value.color,
-              //group: groupId,
-              //table: entry.value.table
-          ));
+                id: entry.key,
+                isAlone: entry.value.isAlone,
+                type: entry.value.type,
+                name: entry.value.name,
+                columnStart: entry.value.columnStart,
+                columnSpan: entry.value.columnSpan,
+                rowStart: entry.value.rowStart,
+                rowSpan: entry.value.rowSpan,
+                color: entry.value.color,
+                //group: groupId,
+                //table: entry.value.table
+              ));
     });
 
     return tableSittingGroups;

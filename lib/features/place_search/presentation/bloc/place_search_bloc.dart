@@ -15,13 +15,13 @@ part 'place_search_state.dart';
 
 class PlaceSearchBloc extends Bloc<PlaceSearchEvent, PlaceSearchState> {
   PlaceSearchBloc() : super(PlaceSearchFetchSuccess(places: const [])) {
-    FetchPlaces fetchPlaces = FetchPlaces(
-        PlaceSearchRepositoryImpl(PlaceSearchRemoteDataSourceImpl(), PlaceSearchFactory()));
+    FetchPlaces fetchPlaces = FetchPlaces(PlaceSearchRepositoryImpl(
+        PlaceSearchRemoteDataSourceImpl(), PlaceSearchFactory()));
 
     on<PlaceSearchInitiated>((event, emit) async {
       emit(PlaceSearchFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 

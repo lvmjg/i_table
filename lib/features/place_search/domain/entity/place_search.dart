@@ -1,4 +1,4 @@
-class PlaceSearch{
+class PlaceSearch {
   final String placeId;
   final String placeName;
   final String placeAddress;

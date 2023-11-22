@@ -42,8 +42,7 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: Colors.grey, width: 0.5),
-                        borderRadius: BorderRadius.all(Radius.circular(200)
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(200)),
                       ),
                       height: 50,
                       child: Row(
@@ -61,7 +60,8 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              _formatTime(state.data.reservationDateTime.onlyTime()),
+                              _formatTime(
+                                  state.data.reservationDateTime.onlyTime()),
                               style: TextStyle(fontSize: 13),
                               textAlign: TextAlign.center,
                             ),
@@ -74,9 +74,8 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
                                         .read<ReservationPickerBloc>()
                                         .add(ReservationPickerTimeIncreased());
                                   },
-                                  icon: Icon(
-                                    Icons.arrow_right_rounded,
-                                    size: 30, color: Colors.black38))),
+                                  icon: Icon(Icons.arrow_right_rounded,
+                                      size: 30, color: Colors.black38))),
                         ],
                       ),
                     ),
@@ -85,8 +84,8 @@ class _ReservationTimePickerState extends State<ReservationTimePicker> {
           );
         }
         return SizedBox(
-            child: Center(
-                child: CircularProgressIndicator(color: primaryColor)));
+            child:
+                Center(child: CircularProgressIndicator(color: primaryColor)));
       },
     );
   }

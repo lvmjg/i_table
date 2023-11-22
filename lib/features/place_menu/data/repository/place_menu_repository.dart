@@ -15,7 +15,8 @@ import '../model/place_menu_model.dart';
 
 abstract class PlaceMenuRepository {
   Future<Either<Failure, PlaceMenu>> fetchPlaceMenu(String placeId);
-  Future<Either<Failure, void>> submitOrder(PlaceOrder placeOrder, String reservationId, ChatMessage orderMessage);
+  Future<Either<Failure, void>> submitOrder(
+      PlaceOrder placeOrder, String reservationId, ChatMessage orderMessage);
 }
 
 class PlaceMenuRepositoryImpl implements PlaceMenuRepository {
@@ -24,7 +25,8 @@ class PlaceMenuRepositoryImpl implements PlaceMenuRepository {
   final PlaceOrdersFactory placeOrdersFactory;
   final ChatMessagesFactory messagesFactory;
 
-  PlaceMenuRepositoryImpl(this.remote, this.placeMenuFactory, this.placeOrdersFactory, this.messagesFactory);
+  PlaceMenuRepositoryImpl(this.remote, this.placeMenuFactory,
+      this.placeOrdersFactory, this.messagesFactory);
 
   @override
   Future<Either<Failure, PlaceMenu>> fetchPlaceMenu(String placeId) async {
@@ -42,18 +44,21 @@ class PlaceMenuRepositoryImpl implements PlaceMenuRepository {
   }
 
   @override
-  Future<Either<Failure, void>> submitOrder(PlaceOrder placeOrder, String reservationId, ChatMessage orderMessage) async {
-    try{
-      ChatMessageModel orderMessageModel = messagesFactory.getModelFromChatMessage(orderMessage);
+  Future<Either<Failure, void>> submitOrder(PlaceOrder placeOrder,
+      String reservationId, ChatMessage orderMessage) async {
+    try {
+      ChatMessageModel orderMessageModel =
+          messagesFactory.getModelFromChatMessage(orderMessage);
 
-      PlaceOrderModel placeOrderModel = placeOrdersFactory.getModelFromPlaceOrder(placeOrder);
+      PlaceOrderModel placeOrderModel =
+          placeOrdersFactory.getModelFromPlaceOrder(placeOrder);
 
-      await remote.submitOrder(placeOrderModel, reservationId, orderMessageModel);
+      await remote.submitOrder(
+          placeOrderModel, reservationId, orderMessageModel);
 
       return Right(null);
     } on FetchException {
       return Left(FetchFailure());
     }
   }
-
 }

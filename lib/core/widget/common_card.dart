@@ -8,7 +8,13 @@ class CommonCard extends StatelessWidget {
   late double outerPadding;
   late Color? backgroundColor;
 
-  CommonCard({Key? key, required this.child, required this.onPressed, this.outerPadding = 0, this.backgroundColor}) : super(key: key);
+  CommonCard(
+      {Key? key,
+      required this.child,
+      required this.onPressed,
+      this.outerPadding = 0,
+      this.backgroundColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class CommonCard extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: Padding(
-            padding: EdgeInsets.all(padding/2),
+            padding: EdgeInsets.all(padding / 2),
             child: child,
           ),
         ),

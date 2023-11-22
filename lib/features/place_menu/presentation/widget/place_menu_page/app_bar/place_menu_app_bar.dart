@@ -49,9 +49,7 @@ class PlaceMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
               unselectedLabelColor: Colors.white70,
               indicatorColor: Colors.white,
               isScrollable: true,
-              tabs: [
-                Tab(text: '...')
-              ],
+              tabs: [Tab(text: '...')],
             );
           })
         ]));

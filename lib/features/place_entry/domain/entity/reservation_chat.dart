@@ -1,6 +1,7 @@
-class ReservationChat{
+class ReservationChat {
   final bool chatEnabled;
   final int maxNumberOfMessages;
 
-  ReservationChat({required this.chatEnabled, required this.maxNumberOfMessages});
+  ReservationChat(
+      {required this.chatEnabled, required this.maxNumberOfMessages});
 }

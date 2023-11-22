@@ -54,7 +54,6 @@ class PlanBuilder {
 
     elements.addAll(placeConfiguration.getItems());
 
-
     //calculate size of plan base on data from server
     PlanElement hLast = elements.reduce(
         (a, b) => (a.rowStart + a.rowSpan) > (b.rowStart + b.rowSpan) ? a : b);
@@ -118,13 +117,8 @@ class PlanBuilder {
 
   GlobalKey globalKey = GlobalKey();
 
-  Widget element(
-      BuildContext context,
-      editMode,
-      PlanElement elementEntity,
-      String type,
-      String name,
-      AutoSizeGroup autoSizeGroup,
+  Widget element(BuildContext context, editMode, PlanElement elementEntity,
+      String type, String name, AutoSizeGroup autoSizeGroup,
       [String color = "#FFFFFF"]) {
     double elevation = (cellWidth < cellHeight ? cellWidth : cellHeight) * 0.02;
 
@@ -151,18 +145,18 @@ class PlanBuilder {
       return AbsorbPointer(
         absorbing: blockTouchBasedOnState(editMode, elementEntity.localState),
         child: Opacity(
-          opacity:
-              setOpacityBasedOnState(editMode, elementEntity.localState),
+          opacity: setOpacityBasedOnState(editMode, elementEntity.localState),
           child: Material(
             clipBehavior: Clip.hardEdge,
-            shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey, width: elevation)),
-           // elevation: elevation,
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.grey, width: elevation)),
+            // elevation: elevation,
             child: InkWell(
               onLongPress: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => PanoramaPage(
                           elementId: name,
-                          placeId: '9wtiLFlRdZ1b8abbPoet' ,
+                          placeId: '9wtiLFlRdZ1b8abbPoet',
                         )));
               },
               onTap: () {
@@ -188,11 +182,11 @@ class PlanBuilder {
       return AbsorbPointer(
         absorbing: blockTouchBasedOnState(editMode, elementEntity.localState),
         child: Opacity(
-          opacity:
-              setOpacityBasedOnState(editMode, elementEntity.localState),
+          opacity: setOpacityBasedOnState(editMode, elementEntity.localState),
           child: Material(
             clipBehavior: Clip.hardEdge,
-            shape: CircleBorder(side: BorderSide(color: Colors.grey, width: elevation)),
+            shape: CircleBorder(
+                side: BorderSide(color: Colors.grey, width: elevation)),
             //elevation: elevation,
             child: InkWell(
               onTap: () {
@@ -217,11 +211,11 @@ class PlanBuilder {
       return AbsorbPointer(
         absorbing: blockTouchBasedOnState(editMode, elementEntity.localState),
         child: Opacity(
-          opacity:
-              setOpacityBasedOnState(editMode, elementEntity.localState),
+          opacity: setOpacityBasedOnState(editMode, elementEntity.localState),
           child: Material(
             clipBehavior: Clip.hardEdge,
-            shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey, width: elevation)),
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.grey, width: elevation)),
             //elevation: elevation,
             child: InkWell(
               onTap: () {},
@@ -284,7 +278,9 @@ class PlanBuilder {
   }
 
   bool blockTouchBasedOnState(editMode, PlanState elementState) {
-    if (editMode && (elementState == PlanState.reserved || elementState == PlanState.notReserved)) {
+    if (editMode &&
+        (elementState == PlanState.reserved ||
+            elementState == PlanState.notReserved)) {
       return true;
     } else {
       return false;

@@ -17,10 +17,7 @@ class PlaceBody extends StatefulWidget {
   State<PlaceBody> createState() => _PlaceBodyState();
 }
 
-class _PlaceBodyState extends State<PlaceBody>{
-
-
-
+class _PlaceBodyState extends State<PlaceBody> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -28,35 +25,40 @@ class _PlaceBodyState extends State<PlaceBody>{
         children: [
           Expanded(
             child: Stack(
-              children: [Padding(
-                padding: EdgeInsets.all(padding / 2),
-                child: InteractiveViewer(
-                  minScale: 1,
-                  scaleFactor: 1.5,
-                  maxScale: 2,
-                  boundaryMargin: EdgeInsets.all(padding * 2),
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return BlocBuilder<PlaceBloc, PlaceState>(
-                        builder: (context, state) {
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(padding / 2),
+                  child: InteractiveViewer(
+                    minScale: 1,
+                    scaleFactor: 1.5,
+                    maxScale: 2,
+                    boundaryMargin: EdgeInsets.all(padding * 2),
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return BlocBuilder<PlaceBloc, PlaceState>(
+                          builder: (context, state) {
+                        if (state is PlaceFetchFailure) {
+                          return CommonFailure(
+                              onPressed: () => context.read<PlaceBloc>().add(
+                                  PlaceInitiated(
+                                      placeId: state.placeId,
+                                      reservationDateTime:
+                                          state.reservationDateTime,
+                                      reservationDuration:
+                                          state.reservationDuration)));
+                        } else if (state is PlaceFetchSuccess) {
+                          return Center(
+                              child: PlacePlan(
+                                  width: constraints.maxWidth,
+                                  height: constraints.maxHeight,
+                                  placeConfiguration:
+                                      state.placeConfiguration!));
+                        }
 
-                          if (state is PlaceFetchFailure) {
-                            return CommonFailure(
-                                onPressed: () => context.read<PlaceBloc>().add(
-                                    PlaceInitiated(placeId: state.placeId, reservationDateTime: state.reservationDateTime, reservationDuration: state.reservationDuration)));
-                          }
-                         else if (state is PlaceFetchSuccess) {
-                        return Center(
-                            child: PlacePlan(
-                                width: constraints.maxWidth,
-                                height: constraints.maxHeight,
-                                placeConfiguration: state.placeConfiguration!));
-                      }
-
-                          return const CommonLoading();
-                    });
-                  }),
+                        return const CommonLoading();
+                      });
+                    }),
+                  ),
                 ),
-              ),
 /*
                 Align(
                   alignment: Alignment.bottomLeft,
@@ -94,22 +96,17 @@ class _PlaceBodyState extends State<PlaceBody>{
 */
 
                 Align(
-                 alignment: Alignment.bottomRight,
-                 child: Padding(
-                   padding: EdgeInsets.all(padding/2),
-                   child: ReserveButton()
-                 ),
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                      padding: EdgeInsets.all(padding / 2),
+                      child: ReserveButton()),
                 )
-
               ],
             ),
           ),
           Center(child: PlacePanel())
         ],
       ),
-
     ]);
   }
-
-
 }

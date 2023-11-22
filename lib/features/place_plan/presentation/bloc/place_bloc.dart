@@ -20,30 +20,34 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
   ManagePlace managePlace = ManagePlace();
   PlaceConfigurationEntity? placeConf;
 
-  PlaceBloc({required ReservationPickerBloc reservationPickerBloc}) : super(PlaceFetchInProgress()) {
+  PlaceBloc({required ReservationPickerBloc reservationPickerBloc})
+      : super(PlaceFetchInProgress()) {
     monitorReservationPickerBloc(reservationPickerBloc);
 
     on<PlaceInitiated>((event, emit) async {
       emit(PlaceFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       managePlace.reservationDateTime = event.reservationDateTime;
       managePlace.reservationDuration = event.reservationDuration;
 
-      (await managePlace(PlaceIdParams(placeId: event.placeId)))
-          .fold((failure) {
-        emit(PlaceFetchFailure(placeId: event.placeId, reservationDateTime: event.reservationDateTime, reservationDuration: event.reservationDuration, errorMessage: errorFetchPlace));
-      },
-              (placeConfiguration) {
-            placeConf = placeConfiguration;
+      (await managePlace(PlaceIdParams(placeId: event.placeId))).fold(
+          (failure) {
+        emit(PlaceFetchFailure(
+            placeId: event.placeId,
+            reservationDateTime: event.reservationDateTime,
+            reservationDuration: event.reservationDuration,
+            errorMessage: errorFetchPlace));
+      }, (placeConfiguration) {
+        placeConf = placeConfiguration;
+      });
 
-          });
-
-      if(placeConf!=null){
-        emit.forEach(placeConf!.placeReservationsStream!, onData: (List<PlaceReservation> placeReservations){
+      if (placeConf != null) {
+        emit.forEach(placeConf!.placeReservationsStream!,
+            onData: (List<PlaceReservation> placeReservations) {
           managePlace.analyzeReservations(placeReservations);
 
           return PlaceFetchSuccess(
@@ -82,9 +86,10 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     });
 
     on<PlaceReservationPickerChanged>((event, emit) async {
-      managePlace.reservationPickerChanged(event.reservationDateTime, event.reservationDuration);
+      managePlace.reservationPickerChanged(
+          event.reservationDateTime, event.reservationDuration);
 
-      if(placeConf!=null) {
+      if (placeConf != null) {
         emit(PlaceFetchSuccess(
             placeConfiguration: placeConf,
             editMode: managePlace.editMode,
@@ -97,10 +102,13 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     });
   }
 
-  void monitorReservationPickerBloc(ReservationPickerBloc reservationPickerBloc) {
+  void monitorReservationPickerBloc(
+      ReservationPickerBloc reservationPickerBloc) {
     subscription = reservationPickerBloc.stream.listen((state) {
-      if(state is ReservationPickerChange){
-        this.add(PlaceReservationPickerChanged(reservationDateTime: state.data.reservationDateTime, reservationDuration: state.data.reservationDuration));
+      if (state is ReservationPickerChange) {
+        this.add(PlaceReservationPickerChanged(
+            reservationDateTime: state.data.reservationDateTime,
+            reservationDuration: state.data.reservationDuration));
       }
     });
   }

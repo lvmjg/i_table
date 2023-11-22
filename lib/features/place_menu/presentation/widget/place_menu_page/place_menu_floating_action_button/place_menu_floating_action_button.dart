@@ -16,27 +16,28 @@ class PlaceMenuFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PlaceMenuBloc, PlaceMenuState>(
       builder: (context, state) {
-        String basketTotal = state is PlaceMenuFetchSuccess ? state.basketTotal : StringUtil.EMPTY;
+        String basketTotal = state is PlaceMenuFetchSuccess
+            ? state.basketTotal
+            : StringUtil.EMPTY;
         return Opacity(
           opacity: basketTotal != StringUtil.EMPTY ? 1.0 : 0.75,
           child: FloatingActionButton.extended(
               onPressed: _controlBasketButton(context, basketTotal),
-              icon: Text('Koszyk ${basketTotal}', style: TextStyle(color: Colors.white)),
+              icon: Text('Koszyk ${basketTotal}',
+                  style: TextStyle(color: Colors.white)),
               label: Icon(
                 Icons.shopping_basket_rounded,
                 color: Colors.white,
-              )
-          ),
+              )),
         );
       },
     );
   }
 
-  VoidCallback? _controlBasketButton(BuildContext context, String basketTotal){
-    if(basketTotal == StringUtil.EMPTY){
+  VoidCallback? _controlBasketButton(BuildContext context, String basketTotal) {
+    if (basketTotal == StringUtil.EMPTY) {
       return null;
-    }
-    else {
+    } else {
       return () {
         showModalBottomSheet(
             context: context,

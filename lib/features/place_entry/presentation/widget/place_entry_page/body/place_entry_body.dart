@@ -85,17 +85,18 @@ class PlaceEntryBody extends StatelessWidget {
                           Text('Godziny pracy',
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                  fontSize: 10,
-                                  fontStyle: FontStyle.italic)),
-                          SizedBox(width: padding,),
+                                  fontSize: 10, fontStyle: FontStyle.italic)),
+                          SizedBox(
+                            width: padding,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                          Text(
-                              'Dzisiaj: ${state.data.todaysWorkingHours}',
-                              style: TextStyle(fontSize: 10)),
-                          Text('Jutro: ${state.data.tomorrowsWorkingHours}',
-                              style: TextStyle(fontSize: 10, color: Colors.black38))
+                              Text('Dzisiaj: ${state.data.todaysWorkingHours}',
+                                  style: TextStyle(fontSize: 10)),
+                              Text('Jutro: ${state.data.tomorrowsWorkingHours}',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.black38))
                             ],
                           )
                         ],

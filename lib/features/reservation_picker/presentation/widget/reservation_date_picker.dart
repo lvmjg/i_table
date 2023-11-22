@@ -44,8 +44,7 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: Colors.grey, width: 0.5),
-                        borderRadius: BorderRadius.all(Radius.circular(200)
-                       ),
+                        borderRadius: BorderRadius.all(Radius.circular(200)),
                       ),
                       height: 50,
                       child: Row(
@@ -76,9 +75,8 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
                                         .read<ReservationPickerBloc>()
                                         .add(ReservationPickerDateIncreased());
                                   },
-                                  icon: Icon(
-                                    Icons.arrow_right_rounded,
-                                    size: 30, color: Colors.black38))),
+                                  icon: Icon(Icons.arrow_right_rounded,
+                                      size: 30, color: Colors.black38))),
                         ],
                       ),
                     ),
@@ -87,8 +85,8 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
           );
         }
         return SizedBox(
-            child: Center(
-                child: CircularProgressIndicator(color: primaryColor)));
+            child:
+                Center(child: CircularProgressIndicator(color: primaryColor)));
       },
     );
   }
@@ -97,33 +95,27 @@ class _ReservationDatePickerState extends State<ReservationDatePicker> {
     StringBuffer stringBuffer = StringBuffer();
     stringBuffer.write(DateFormat.Md().format(reservationDate));
     stringBuffer.write('\n');
-    stringBuffer.write("${_getWeekdayShortName(reservationDate.weekday)} ${DateFormat.y().format(reservationDate)}");
+    stringBuffer.write(
+        "${_getWeekdayShortName(reservationDate.weekday)} ${DateFormat.y().format(reservationDate)}");
     return stringBuffer.toString();
   }
 
-  String _getWeekdayShortName(int weekday){
-    if(weekday==1){
+  String _getWeekdayShortName(int weekday) {
+    if (weekday == 1) {
       return "Pn";
-    }
-    else if(weekday==2){
+    } else if (weekday == 2) {
       return "Wt";
-    }
-    else if(weekday==3){
+    } else if (weekday == 3) {
       return "Śr";
-    }
-    else if(weekday==4){
+    } else if (weekday == 4) {
       return "Czw";
-    }
-    else if(weekday==5){
+    } else if (weekday == 5) {
       return "Pt";
-    }
-    else if(weekday==6){
+    } else if (weekday == 6) {
       return "Sb";
-    }
-    else if(weekday==7){
+    } else if (weekday == 7) {
       return "Nd";
-    }
-    else{
+    } else {
       return "Pn";
     }
   }

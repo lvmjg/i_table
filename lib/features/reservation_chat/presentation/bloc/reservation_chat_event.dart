@@ -7,7 +7,8 @@ class ReservationChatInitiated extends ReservationChatEvent {
   final String placeId;
   final String reservationId;
 
-  ReservationChatInitiated({required this.placeId, required this.reservationId});
+  ReservationChatInitiated(
+      {required this.placeId, required this.reservationId});
 }
 
 class ReservationChatAddMessageRequested extends ReservationChatEvent {

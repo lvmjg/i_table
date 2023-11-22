@@ -22,7 +22,7 @@ class PlaceDetailsBloc extends Bloc<PlaceDetailsEvent, PlaceDetailsState> {
     on<PlaceDetailsInitiated>((event, emit) async {
       emit(PlaceDetailsFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 

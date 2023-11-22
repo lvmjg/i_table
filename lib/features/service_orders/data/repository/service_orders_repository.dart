@@ -8,8 +8,7 @@ import '../../../user_orders/domain/entity/place_orders_factory.dart';
 import '../data_source/service_orders_remote_data_source.dart';
 
 abstract class ServiceOrdersRepository {
-  Either<Failure, Stream<List<PlaceOrder>>> fetchServiceOrders(
-      String placeId);
+  Either<Failure, Stream<List<PlaceOrder>>> fetchServiceOrders(String placeId);
 }
 
 class ServiceOrdersRepositoryImpl implements ServiceOrdersRepository {
@@ -19,8 +18,7 @@ class ServiceOrdersRepositoryImpl implements ServiceOrdersRepository {
   ServiceOrdersRepositoryImpl(this.remote, this.placeOrdersFactory);
 
   @override
-  Either<Failure, Stream<List<PlaceOrder>>> fetchServiceOrders(
-      String placeId) {
+  Either<Failure, Stream<List<PlaceOrder>>> fetchServiceOrders(String placeId) {
     try {
       Stream<List<PlaceOrderModel>> serviceOrdersModelsStream =
           remote.fetchServiceOrders(placeId);

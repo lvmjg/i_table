@@ -10,11 +10,6 @@ class CommonLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        child: Center(
-            child: CircularProgressIndicator(
-                color: color
-            )
-        )
-    );
+        child: Center(child: CircularProgressIndicator(color: color)));
   }
 }

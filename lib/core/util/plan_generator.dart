@@ -9,11 +9,8 @@ class PlanGenerator {
   Map<String, PlacePlanElementModel> mapElements = {};
 
   PlanGenerator() {
-
-
-
     sittings
-    //left four
+      //left four
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S1',
@@ -21,8 +18,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 0,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S2',
@@ -30,9 +28,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 1,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S3',
@@ -40,8 +38,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 0,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S4',
@@ -49,9 +48,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 1,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S5',
@@ -59,8 +58,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 3,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S6',
@@ -68,9 +68,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 4,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S7',
@@ -78,8 +78,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 3,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S8',
@@ -87,9 +88,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 4,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S9',
@@ -97,8 +98,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 6,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S10',
@@ -106,9 +108,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 7,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S11',
@@ -116,8 +118,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 6,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S12',
@@ -125,9 +128,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 7,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S13',
@@ -135,8 +138,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 9,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S14',
@@ -144,9 +148,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 10,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S15',
@@ -154,8 +158,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 9,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S16',
@@ -163,10 +168,11 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 10,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
 
-    //right four
+      //right four
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S17',
@@ -174,8 +180,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 0,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S18',
@@ -183,9 +190,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 1,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S19',
@@ -193,8 +200,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 0,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S20',
@@ -202,9 +210,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 1,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S21',
@@ -212,8 +220,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 3,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S22',
@@ -221,9 +230,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 4,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S23',
@@ -231,8 +240,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 3,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S24',
@@ -240,9 +250,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 4,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S25',
@@ -250,8 +260,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 6,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S26',
@@ -259,9 +270,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 7,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S27',
@@ -269,8 +280,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 6,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S28',
@@ -278,9 +290,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 7,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S29',
@@ -288,8 +300,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 9,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S30',
@@ -297,9 +310,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 10,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S31',
@@ -307,8 +320,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 9,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S32',
@@ -316,10 +330,11 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 10,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
 
-    //left two
+      //left two
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S33',
@@ -327,9 +342,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 12,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S34',
@@ -337,9 +352,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 12,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S35',
@@ -347,9 +362,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 14,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S36',
@@ -357,10 +372,11 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 14,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
 
-    //right two
+      //right two
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S37',
@@ -368,9 +384,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 12,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S38',
@@ -378,9 +394,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 12,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S39',
@@ -388,9 +404,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 14,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
-
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S40',
@@ -398,12 +414,11 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 14,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
 
-
-
-    //free sittings
+      //free sittings
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S41',
@@ -411,8 +426,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 17,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S42',
@@ -420,8 +436,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 17,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S43',
@@ -429,8 +446,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 17,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S44',
@@ -438,8 +456,9 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 17,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ))
+          color: '#FFFFFF',
+          group: '',
+          table: ''))
       ..add(PlacePlanSittingModel(
           type: 'S',
           name: 'S45',
@@ -447,11 +466,12 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 17,
           rowSpan: 1,
-          color: '#FFFFFF', group: '', table: ''
-      ));
+          color: '#FFFFFF',
+          group: '',
+          table: ''));
 
     tables
-    //free tables
+      //free tables
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T13',
@@ -459,8 +479,7 @@ class PlanGenerator {
           columnSpan: 2,
           rowStart: 19,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ))
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T14',
@@ -468,9 +487,7 @@ class PlanGenerator {
           columnSpan: 2,
           rowStart: 19,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T15',
@@ -478,8 +495,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 21,
           rowSpan: 3,
-          color: '#FFFFFF'
-      ))
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T16',
@@ -487,8 +503,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 21,
           rowSpan: 3,
-          color: '#FFFFFF'
-      ))
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T17',
@@ -496,20 +511,15 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 21,
           rowSpan: 3,
-          color: '#FFFFFF'
-      ))
-
-
-
-    ..add(PlacePlanElementModel(
-    type: 'T',
-    name: 'T1',
-    columnStart: 1,
-    columnSpan: 1,
-    rowStart: 0,
-    rowSpan: 2,
-    color: '#FFFFFF'
-    ))
+          color: '#FFFFFF'))
+      ..add(PlacePlanElementModel(
+          type: 'T',
+          name: 'T1',
+          columnStart: 1,
+          columnSpan: 1,
+          rowStart: 0,
+          rowSpan: 2,
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T2',
@@ -517,9 +527,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 3,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T3',
@@ -527,9 +535,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 6,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T4',
@@ -537,8 +543,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 9,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T5',
@@ -546,9 +551,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 0,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T6',
@@ -556,9 +559,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 3,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T7',
@@ -566,9 +567,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 6,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T8',
@@ -576,9 +575,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 9,
           rowSpan: 2,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T9',
@@ -586,9 +583,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 12,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T10',
@@ -596,9 +591,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 14,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T11',
@@ -606,9 +599,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 12,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ))
-
+          color: '#FFFFFF'))
       ..add(PlacePlanElementModel(
           type: 'T',
           name: 'T12',
@@ -616,11 +607,10 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 14,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ));
+          color: '#FFFFFF'));
 
     others
-    //aqua
+      //aqua
       ..add(PlacePlanElementModel(
           type: 'O',
           name: 'Akwarium',
@@ -628,10 +618,9 @@ class PlanGenerator {
           columnSpan: 5,
           rowStart: 16,
           rowSpan: 1,
-          color: '#3440eb'
-      ))
+          color: '#3440eb'))
 
-    //bar
+      //bar
       ..add(PlacePlanElementModel(
           type: 'O',
           name: 'Bar',
@@ -639,10 +628,9 @@ class PlanGenerator {
           columnSpan: 3,
           rowStart: 25,
           rowSpan: 1,
-          color: '#FFFFFF'
-      ))
+          color: '#FFFFFF'))
 
-    //entrance
+      //entrance
 
       ..add(PlacePlanElementModel(
           type: 'O',
@@ -651,10 +639,9 @@ class PlanGenerator {
           columnSpan: 9,
           rowStart: 27,
           rowSpan: 1,
-          color: '#3b3b3b'
-      ))
+          color: '#3b3b3b'))
 
-    //Plants
+      //Plants
       ..add(PlacePlanElementModel(
           type: 'O',
           name: 'X',
@@ -662,8 +649,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 1,
           rowSpan: 3,
-          color: '#00b01e'
-      ))
+          color: '#00b01e'))
       ..add(PlacePlanElementModel(
           type: 'O',
           name: 'X',
@@ -671,10 +657,7 @@ class PlanGenerator {
           columnSpan: 1,
           rowStart: 7,
           rowSpan: 3,
-          color: '#00b01e'
-      ));
-
-
+          color: '#00b01e'));
 
     /* //two groups
     elements[0].table = 'T1';
@@ -765,7 +748,7 @@ class PlanGenerator {
       'placePlanLevelOrder': 0,
       'placePlanTables': tablesJson,
       'placePlanSittings': sittingsJson,
-      'placePlanOthers':  othersJson,
+      'placePlanOthers': othersJson,
     };
   }
 

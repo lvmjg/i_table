@@ -34,9 +34,12 @@ class _QRScanPageState extends State<QRScanPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Opacity(
-          opacity: flash ? 0.5 : 1,
-            child: Icon(flash ? Icons.flashlight_off_rounded : Icons.flashlight_on_rounded, color: Colors.white)
-        ),
+            opacity: flash ? 0.5 : 1,
+            child: Icon(
+                flash
+                    ? Icons.flashlight_off_rounded
+                    : Icons.flashlight_on_rounded,
+                color: Colors.white)),
         onPressed: () async {
           flash = await controller?.getFlashStatus() ?? false;
           await controller?.toggleFlash();
@@ -46,7 +49,7 @@ class _QRScanPageState extends State<QRScanPage> {
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
-         /* Expanded(
+          /* Expanded(
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
@@ -135,7 +138,7 @@ class _QRScanPageState extends State<QRScanPage> {
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
-        MediaQuery.of(context).size.height < 400)
+            MediaQuery.of(context).size.height < 400)
         ? 150.0
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation

@@ -23,15 +23,15 @@ class ServiceOrdersBloc extends Bloc<ServiceOrdersEvent, ServiceOrdersState> {
     on<ServiceOrdersInitiated>((event, emit) async {
       emit(ServiceOrdersFetchInProgress());
 
-      if(debug){
+      if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
       Stream<List<PlaceOrder>>? serviceOrdersStream;
 
       fetchServiceOrders(PlaceIdParams(placeId: event.placeId)).fold(
-          (failure) =>
-              emit(ServiceOrdersFetchFailure(params: ErrorParams(errorMessage: errorFetchData))),
+          (failure) => emit(ServiceOrdersFetchFailure(
+              params: ErrorParams(errorMessage: errorFetchData))),
           (newServiceOrdersStream) =>
               serviceOrdersStream = newServiceOrdersStream);
 

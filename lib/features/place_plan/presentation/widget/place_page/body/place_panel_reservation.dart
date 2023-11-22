@@ -34,35 +34,37 @@ class PlacePanelReservation extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(200)))),
               onPressed: () {
-                context.read<PlaceBloc>().add(
-                    PlaceReservationElementsRemoved());
+                context
+                    .read<PlaceBloc>()
+                    .add(PlaceReservationElementsRemoved());
               }),
           Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BlocBuilder<PlaceBloc, PlaceState>(
-                    builder: (context, state) {
-                      if(state is PlaceFetchSuccess) {
-                        return Expanded(child: Padding(
-                          padding: EdgeInsets.all(padding/2),
-                          child: Center(
-                            child: AutoSizeText(
-                              chooseSittingsFriendlyRequest,
-                              minFontSize: 1,
-                              maxFontSize:  30,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ));
-                      }
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlocBuilder<PlaceBloc, PlaceState>(
+                builder: (context, state) {
+                  if (state is PlaceFetchSuccess) {
+                    return Expanded(
+                        child: Padding(
+                      padding: EdgeInsets.all(padding / 2),
+                      child: Center(
+                        child: AutoSizeText(
+                          chooseSittingsFriendlyRequest,
+                          minFontSize: 1,
+                          maxFontSize: 30,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ));
+                  }
 
-                      return Container();
-                    },
-                  ),
-                ],
-              )),
+                  return Container();
+                },
+              ),
+            ],
+          )),
           ElevatedButton.icon(
               icon: Icon(
                 Icons.add_rounded,
@@ -103,17 +105,13 @@ class PlacePanelReservation extends StatelessWidget {
           /* await restaurantPlanUseCase
                   .fetchRestaurantSetting('abtkqzD6ogVAx594wf6B');*/
 
-
 /*
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => RestaurantPlanPage()));*/
-
 
           // }),
         ],
       ),
     );
   }
-
-
 }

@@ -55,14 +55,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     OutlineInputBorder defaultInputBorder = const OutlineInputBorder(
         gapPadding: 10,
-        borderSide: BorderSide(
-            color: Colors.grey, width: 0.5
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(200))
-    );
+        borderSide: BorderSide(color: Colors.grey, width: 0.5),
+        borderRadius: BorderRadius.all(Radius.circular(200)));
 
     return MultiBlocProvider(
       providers: [
@@ -80,11 +76,13 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           lazy: false,
-          create: (context) => ReservationPickerBloc(placeEntryBloc: context.read<PlaceEntryBloc>()),
+          create: (context) => ReservationPickerBloc(
+              placeEntryBloc: context.read<PlaceEntryBloc>()),
         ),
         BlocProvider(
           lazy: false,
-          create: (context) => PlaceBloc(reservationPickerBloc: context.read<ReservationPickerBloc>()),
+          create: (context) => PlaceBloc(
+              reservationPickerBloc: context.read<ReservationPickerBloc>()),
         ),
         BlocProvider(
           create: (context) => UserReservationsBloc(),
@@ -107,56 +105,70 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: appName,
-        //default blue app bar and white background
-        theme: ThemeData(
-          useMaterial3: true,
-          //colorSchemeSeed: Color(primary),
-          colorSchemeSeed: primaryColor,
-          scaffoldBackgroundColor: Colors.white,
-          //primaryColor: Color(primary),
-         // primaryColor: Colors.amber,
-            //colorScheme: ,
-          floatingActionButtonTheme:
-              FloatingActionButtonThemeData(backgroundColor: primaryColor),
-          appBarTheme: AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor:  primaryColor,
-              statusBarIconBrightness: Brightness.light,
-              systemNavigationBarColor: primaryColor,
-              systemNavigationBarIconBrightness: Brightness.light,
-            ),
-            foregroundColor: Colors.white,
-            backgroundColor:  primaryColor,
-            elevation: elevation,
-            shape: roundedRectangleBorder,
+          title: appName,
+          //default blue app bar and white background
+          theme: ThemeData(
+              useMaterial3: true,
+              //colorSchemeSeed: Color(primary),
+              colorSchemeSeed: primaryColor,
+              scaffoldBackgroundColor: Colors.white,
+              //primaryColor: Color(primary),
+              // primaryColor: Colors.amber,
+              //colorScheme: ,
+              floatingActionButtonTheme:
+                  FloatingActionButtonThemeData(backgroundColor: primaryColor),
+              appBarTheme: AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: primaryColor,
+                  statusBarIconBrightness: Brightness.light,
+                  systemNavigationBarColor: primaryColor,
+                  systemNavigationBarIconBrightness: Brightness.light,
+                ),
+                foregroundColor: Colors.white,
+                backgroundColor: primaryColor,
+                elevation: elevation,
+                shape: roundedRectangleBorder,
+              ),
+              inputDecorationTheme: InputDecorationTheme(
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: defaultInputBorder,
+                  enabledBorder: defaultInputBorder,
+                  focusedBorder: defaultInputBorder,
+                  disabledBorder: defaultInputBorder),
+              //signika
+              //alata
+              //lunasima
+              textTheme: GoogleFonts.senTextTheme(Theme.of(context).textTheme)
+                  ?.copyWith(
+                displayLarge: GoogleFonts.josefinSansTextTheme(
+                        Theme.of(context).textTheme)
+                    .bodySmall
+                    ?.copyWith(fontSize: 24),
+                headlineMedium:
+                    GoogleFonts.senTextTheme(Theme.of(context).textTheme)
+                        .headlineMedium
+                        ?.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 2,
+                            color: Colors.black),
+                bodyMedium: GoogleFonts.josefinSansTextTheme(
+                        Theme.of(context).textTheme)
+                    .bodyMedium
+                    ?.copyWith(fontSize: 16),
+                bodySmall: GoogleFonts.josefinSansTextTheme(
+                        Theme.of(context).textTheme)
+                    .bodySmall
+                    ?.copyWith(fontSize: 14),
+              )
+
+              // GoogleFonts.signikaNegativeTextTheme(Theme.of(context).textTheme),
+
+              ),
+          home: debug == false ? SignInPage() : HomePage() //PlaceSearchPage(),
           ),
-          inputDecorationTheme: InputDecorationTheme(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              fillColor: Colors.white,
-              filled: true,
-            border: defaultInputBorder,
-            enabledBorder: defaultInputBorder,
-            focusedBorder: defaultInputBorder,
-            disabledBorder: defaultInputBorder
-          ),
-          //signika
-            //alata
-            //lunasima
-          textTheme: GoogleFonts.senTextTheme(Theme.of(context).textTheme)?.copyWith(
-            displayLarge: GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme).bodySmall?.copyWith(fontSize: 24),
-            headlineMedium: GoogleFonts.senTextTheme(Theme.of(context).textTheme).headlineMedium?.copyWith(fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 2, color: Colors.black),
-            bodyMedium: GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme).bodyMedium?.copyWith(fontSize: 16),
-            bodySmall: GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme).bodySmall?.copyWith(fontSize: 14),
-          )
-
-
-             // GoogleFonts.signikaNegativeTextTheme(Theme.of(context).textTheme),
-
-
-        ),
-        home: debug == false ? SignInPage() : HomePage()//PlaceSearchPage(),
-      ),
     );
   }
 }

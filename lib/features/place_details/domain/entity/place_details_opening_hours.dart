@@ -9,10 +9,10 @@ class PlaceDetailsOpeningHours {
 
   PlaceDetailsOpeningHours(
       {required this.monday,
-        required this.tuesday,
-        required this.wednesday,
-        required this.thursday,
-        required this.friday,
-        required this.saturday,
-        required this.sunday});
+      required this.tuesday,
+      required this.wednesday,
+      required this.thursday,
+      required this.friday,
+      required this.saturday,
+      required this.sunday});
 }

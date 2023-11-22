@@ -10,24 +10,20 @@ class ServicePlacePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          child: Navigator(
-            onGenerateRoute: (settings) {
-              return new MaterialPageRoute(builder: (context) {
-                return UserReservationsPage();
-              });
-            },
-          )
-        ),
-        Expanded(
-            child: Navigator(
-              onGenerateRoute: (settings) {
-                return new MaterialPageRoute(builder: (context) {
-                  return PlaceEntryPage(placeId: '9wtiLFlRdZ1b8abbPoet');
-                });
-              },
-            )
-        )
+        Expanded(child: Navigator(
+          onGenerateRoute: (settings) {
+            return new MaterialPageRoute(builder: (context) {
+              return UserReservationsPage();
+            });
+          },
+        )),
+        Expanded(child: Navigator(
+          onGenerateRoute: (settings) {
+            return new MaterialPageRoute(builder: (context) {
+              return PlaceEntryPage(placeId: '9wtiLFlRdZ1b8abbPoet');
+            });
+          },
+        ))
       ],
     );
   }

@@ -12,11 +12,11 @@ class ChoosePlacesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleFilledTonalButton(
-        title: choosePlaces,
+      title: choosePlaces,
       iconData: Icons.subdirectory_arrow_right_rounded,
       iconColor: Colors.green,
-      padding: padding/4*3,
-      onPressed:  () {
+      padding: padding / 4 * 3,
+      onPressed: () {
         /*  FirebaseFirestore ff = FirebaseFirestore.instance;
 
           PlanGenerator planGenerator = PlanGenerator();
@@ -26,7 +26,9 @@ class ChoosePlacesButton extends StatelessWidget {
           await ff.collection(pathPlacesPlans).doc('KsbEGvhvEGl27bcG3q7J').collection(pathPlacePlanLevels).doc('zUst63YXBwBhi9lFPSn0').update(planGenerator.getJson());*/
 
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => PlacePage(placeId: placeId,)));
+            builder: (context) => PlacePage(
+                  placeId: placeId,
+                )));
       },
     );
   }
