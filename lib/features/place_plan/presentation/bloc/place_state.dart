@@ -1,10 +1,7 @@
 part of 'place_bloc.dart';
 
 @immutable
-abstract class PlaceState {
-  @override
-  List<Object> get props => [];
-}
+abstract class PlaceState {}
 
 class PlaceFetchFailure extends PlaceState {
   final String placeId;
@@ -13,14 +10,9 @@ class PlaceFetchFailure extends PlaceState {
   final String errorMessage;
 
   PlaceFetchFailure({required this.placeId, required this.reservationDateTime, required this.reservationDuration, required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
 }
 
-class PlaceFetchInProgress extends PlaceState {
-  PlaceFetchInProgress();
-}
+class PlaceFetchInProgress extends PlaceState {}
 
 class PlaceFetchSuccess extends PlaceState {
   final PlaceConfigurationEntity? placeConfiguration;
@@ -31,7 +23,4 @@ class PlaceFetchSuccess extends PlaceState {
   PlaceFetchSuccess({required this.placeConfiguration, required this.editMode, required this.readyToReserve}){
     trigger = DateTime.now();
   }
-
-  @override
-  List<Object> get props => [trigger];
 }

@@ -4,7 +4,7 @@ part of 'service_orders_bloc.dart';
 abstract class ServiceOrdersEvent {}
 
 class ServiceOrdersInitiated extends ServiceOrdersEvent {
-  final PlaceIdParams params;
+  final String placeId;
 
-  ServiceOrdersInitiated({required this.params});
+  ServiceOrdersInitiated({required this.placeId});
 }

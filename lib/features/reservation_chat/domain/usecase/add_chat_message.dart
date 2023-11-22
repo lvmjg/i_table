@@ -5,13 +5,13 @@ import 'package:i_table/features/reservation_chat/data/repository/reservation_ch
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_message.dart';
 
 class AddChatMessage
-    implements UseCase<void, ReservationChatAddMessageRequestedParams> {
+    implements UseCase<void, ReservationChatMessageParams> {
   final ReservationChatRepository reservationChatRepository;
 
   AddChatMessage(this.reservationChatRepository);
 
   @override
-  Future<Either<Failure, void>> call(ReservationChatAddMessageRequestedParams params) async {
+  Future<Either<Failure, void>> call(ReservationChatMessageParams params) async {
     return await reservationChatRepository.addChatMessage(params.reservationId, params.chatMessage);
   }
 }

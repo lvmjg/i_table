@@ -4,17 +4,15 @@ part of 'user_reservations_bloc.dart';
 abstract class UserReservationsState {}
 
 class UserReservationsFetchFailure extends UserReservationsState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  UserReservationsFetchFailure({required this.errorMessage});
+  UserReservationsFetchFailure({required this.params});
 }
 
-class UserReservationsFetchInProgress extends UserReservationsState {
-  UserReservationsFetchInProgress();
-}
+class UserReservationsFetchInProgress extends UserReservationsState {}
 
 class UserReservationsFetchSuccess extends UserReservationsState {
-  final List<PlaceReservation> userReservations;
+  final List<PlaceReservation> reservations;
 
-  UserReservationsFetchSuccess({required this.userReservations});
+  UserReservationsFetchSuccess({required this.reservations});
 }

@@ -24,8 +24,8 @@ class ReservationSummaryBloc
             PlaceReservationsFactory()));
 
     on<ReservationSummaryInitiated>((event, emit) {
-      requestedReservation = event.placeReservation;
-      emit(ReservationSummaryInitial(placeReservation: event.placeReservation));
+      requestedReservation = event.reservation;
+      emit(ReservationSummaryInitial(reservation: event.reservation));
     });
 
     on<ReservationSummaryCancelled>((event, emit) {
@@ -41,10 +41,10 @@ class ReservationSummaryBloc
 
       if (state is ReservationSummarySubmitInProgress) {
         (await submitReservation(ReservationSummaryParams(
-                placeReservation: requestedReservation)))
+                reservation: requestedReservation)))
             .fold(
                 (failure) => emit(ReservationSummarySubmitFailure(
-                    errorMessage: errorFetchData)),
+                    params: ErrorParams(errorMessage: errorFetchData))),
                 (nothing) => emit(ReservationSummarySubmitSuccess()));
       }
     });

@@ -27,6 +27,6 @@ class _ServiceOrdersPageState extends State<ServiceOrdersPage> {
     super.initState();
     context
         .read<ServiceOrdersBloc>()
-        .add(ServiceOrdersInitiated(params: PlaceIdParams(placeId: '9wtiLFlRdZ1b8abbPoet')));
+        .add(ServiceOrdersInitiated(placeId: '9wtiLFlRdZ1b8abbPoet'));
   }
 }

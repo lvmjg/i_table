@@ -22,8 +22,8 @@ class ReservationSummaryBody extends StatelessWidget {
         else if(state is ReservationSummaryInitial) {
           return Column(
             children: [
-              ReservationCardBasicDetails(placeReservation: state.placeReservation, onPressed: (){}),
-              ReservationCardSittings(placeReservation: state.placeReservation),
+              ReservationCardBasicDetails(placeReservation: state.reservation, onPressed: (){}),
+              ReservationCardSittings(placeReservation: state.reservation),
               Expanded(child: Container()),
               Padding(
                 padding: EdgeInsets.all(padding),

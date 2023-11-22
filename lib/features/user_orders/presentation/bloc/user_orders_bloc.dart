@@ -27,9 +27,9 @@ class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> {
 
       Stream<List<PlaceOrder>>? userOrdersStream;
 
-      fetchUserOrders(UserOrdersParams(userId: event.params.userId, reservationId: event.params.reservationId)).fold(
+      fetchUserOrders(ReservationOrdersParams(userId: event.userId, reservationId: event.reservationId)).fold(
           (failure) =>
-              emit(UserOrdersFetchFailure(errorMessage: errorFetchData)),
+              emit(UserOrdersFetchFailure(params: ErrorParams(errorMessage: errorFetchData))),
           (newUserOrdersStream) => userOrdersStream = newUserOrdersStream);
 
       if(userOrdersStream!=null){

@@ -5,13 +5,13 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../user_orders/domain/entity/place_order.dart';
 import '../../data/repository/service_orders_repository.dart';
 
-class FetchServiceOrders implements UseCaseSync<Stream<List<PlaceOrder>>, String> {
+class FetchServiceOrders implements UseCaseSync<Stream<List<PlaceOrder>>, PlaceIdParams> {
   final ServiceOrdersRepository serviceOrdersRepository;
 
   FetchServiceOrders(this.serviceOrdersRepository);
 
   @override
-  Either<Failure, Stream<List<PlaceOrder>>> call(String placeId) {
-    return serviceOrdersRepository.fetchServiceOrders(placeId);
+  Either<Failure, Stream<List<PlaceOrder>>> call(PlaceIdParams params) {
+    return serviceOrdersRepository.fetchServiceOrders(params.placeId);
   }
 }

@@ -4,26 +4,18 @@ part of 'service_orders_bloc.dart';
 abstract class ServiceOrdersState {}
 
 class ServiceOrdersFetchFailure extends ServiceOrdersState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  ServiceOrdersFetchFailure({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
+  ServiceOrdersFetchFailure({required this.params});
 }
 
-class ServiceOrdersFetchInProgress extends ServiceOrdersState {
-  ServiceOrdersFetchInProgress();
-}
+class ServiceOrdersFetchInProgress extends ServiceOrdersState {}
 
 class ServiceOrdersFetchSuccess extends ServiceOrdersState {
   final List<PlaceOrder> orders;
   late final DateTime trigger;
 
-  ServiceOrdersFetchSuccess({required this.orders}){
+  ServiceOrdersFetchSuccess({required this.orders}) {
     trigger = DateTime.now();
   }
-
-  @override
-  List<Object> get props => [trigger, orders];
 }

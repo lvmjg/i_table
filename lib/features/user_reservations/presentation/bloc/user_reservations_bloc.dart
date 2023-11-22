@@ -31,8 +31,8 @@ class UserReservationsBloc
       Stream<List<PlaceReservation>>? userReservationsStream;
 
       fetchUserReservations(UserIdParams(userId: event.userId)).fold(
-          (failure) => emit(UserReservationsFetchFailure(
-              errorMessage: errorFetchUserReservations)),
+          (failure) => emit(UserReservationsFetchFailure(params:
+              ErrorParams(errorMessage: errorFetchUserReservations))),
           (newUserReservationsStream) =>
               userReservationsStream = newUserReservationsStream);
 
@@ -40,8 +40,7 @@ class UserReservationsBloc
         await emit.forEach(userReservationsStream!,
             onData: (List<PlaceReservation> userReservations) {
           userReservations.sort((a, b) => a.startDate.compareTo(b.startDate) * -1);
-          return UserReservationsFetchSuccess(
-              userReservations: userReservations);
+          return UserReservationsFetchSuccess(reservations: userReservations);
         });
       }
     }, transformer: restartable());

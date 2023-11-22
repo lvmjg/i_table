@@ -49,7 +49,7 @@ class MenuBasketSheet extends StatelessWidget {
                             ),
                             onPressed: () {
                               context.read<PlaceMenuBloc>().add(
-                                  PlaceMenuItemSubstracted(
+                                  PlaceMenuItemSubtracted(
                                       menuItemCategory:
                                           activeBasket[index].category,
                                       menuItemId: activeBasket[index].id));

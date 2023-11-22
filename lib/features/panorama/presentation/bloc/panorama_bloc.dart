@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:i_table/core/usecase/usecase.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/util/globals.dart';
@@ -27,7 +28,7 @@ class PanoramaBloc extends Bloc<PanoramaEvent, PanoramaState> {
             PanoramaParams(placeId: event.placeId, elementId: event.elementId)))
             .fold(
                 (failure) => emit(PanoramaFetchFailure(
-                errorMessage: errorShowPreview)),
+                params: ErrorParams(errorMessage: errorShowPreview))),
                 (panoramaImage) => emit(PanoramaFetchSuccess(panoramaImage: panoramaImage))
         );
       }

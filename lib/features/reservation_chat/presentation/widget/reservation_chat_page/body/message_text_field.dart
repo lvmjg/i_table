@@ -23,7 +23,7 @@ class MessageTextField extends StatelessWidget {
           if (controller.text.isNotEmpty) {
             context.read<ReservationChatBloc>().add(
                 ReservationChatAddMessageRequested(
-                    chatMessage: ChatMessage(
+                    message: ChatMessage(
                         sender: loggedUserId,
                         sendTime: DateTime.now(),
                         message: controller.text)));

@@ -44,7 +44,7 @@ class _ReservationChatBodyState extends State<ReservationChatBody> {
           return const CommonLoading();
         }
         else {
-          chatMessages = state is ReservationChatFetchSuccess ? chatMessages = state.chatMessages : chatMessages;
+          chatMessages = state is ReservationChatFetchSuccess ? chatMessages = state.messages : chatMessages;
 
           return Column(
             children: [

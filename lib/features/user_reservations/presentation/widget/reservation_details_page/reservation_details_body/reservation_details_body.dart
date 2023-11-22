@@ -24,9 +24,9 @@ class ReservationDetailsBody extends StatelessWidget {
             children: [
               Hero(
                   tag: 'item${index}',
-                  child: ReservationCardBasicDetails(placeReservation: state.userReservations[index], buttonsEnabled: true, onPressed: (){})
+                  child: ReservationCardBasicDetails(placeReservation: state.reservations[index], buttonsEnabled: true, onPressed: (){})
               ),
-              ReservationCardSittings(placeReservation: state.userReservations[index]),
+              ReservationCardSittings(placeReservation: state.reservations[index]),
               ReservationCardBilling()
             ],
           );

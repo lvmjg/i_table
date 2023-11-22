@@ -29,9 +29,9 @@ class ServiceOrdersBloc extends Bloc<ServiceOrdersEvent, ServiceOrdersState> {
 
       Stream<List<PlaceOrder>>? serviceOrdersStream;
 
-      fetchServiceOrders(event.params.placeId).fold(
+      fetchServiceOrders(PlaceIdParams(placeId: event.placeId)).fold(
           (failure) =>
-              emit(ServiceOrdersFetchFailure(errorMessage: errorFetchData)),
+              emit(ServiceOrdersFetchFailure(params: ErrorParams(errorMessage: errorFetchData))),
           (newServiceOrdersStream) =>
               serviceOrdersStream = newServiceOrdersStream);
 

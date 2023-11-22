@@ -25,14 +25,14 @@ class UserReservationsBody extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                    itemCount: state.userReservations.length,
+                    itemCount: state.reservations.length,
                     itemBuilder: (context, index) {
 
                       return Hero(
                           tag: 'item$index',
-                          child: ReservationCardBasicDetails(placeReservation: state.userReservations[index], buttonsEnabled: true, onPressed: () {
+                          child: ReservationCardBasicDetails(placeReservation: state.reservations[index], buttonsEnabled: true, onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReservationDetailsPage(placeName: state.userReservations[index].placeName, index: index),
+                              builder: (context) => ReservationDetailsPage(placeName: state.reservations[index].placeName, index: index),
                             ));
                           })
                       );

@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:i_table/features/place_plan/domain/entity/place_configuration_entity.dart';
 
 import '../../features/place_menu/domain/entity/place_menu_item.dart';
 import '../../features/place_plan/domain/entity/place_reservation/place_reservation.dart';
 import '../../features/reservation_chat/domain/entitiy/chat_message.dart';
+import '../../features/user_orders/domain/entity/place_order.dart';
 import '../error/failures.dart';
 
 abstract class UseCase<Type, Params> {
@@ -17,6 +19,12 @@ abstract class Params {}
 
 class NoParams extends Params {}
 
+class ErrorParams extends Params {
+  final String errorMessage;
+
+  ErrorParams({required this.errorMessage});
+}
+
 class PlaceIdParams extends Params {
   final String placeId;
 
@@ -29,39 +37,42 @@ class UserIdParams extends Params {
   UserIdParams({required this.userId});
 }
 
-class ReservationParams extends Params {
+class ReservationParams extends Params implements PlaceIdParams{
+  @override
   final String placeId;
   final String reservationId;
 
   ReservationParams({required this.placeId, required this.reservationId});
 }
 
-class ReservationChatAddMessageRequestedParams extends Params {
+class ReservationChatMessageParams extends Params {
   final String reservationId;
   final ChatMessage chatMessage;
 
-  ReservationChatAddMessageRequestedParams({required this.reservationId, required this.chatMessage});
+  ReservationChatMessageParams({required this.reservationId, required this.chatMessage});
 }
 
 class ReservationSummaryParams extends Params {
-  final PlaceReservation placeReservation;
+  final PlaceReservation reservation;
 
-  ReservationSummaryParams({required this.placeReservation});
+  ReservationSummaryParams({required this.reservation});
 }
 
-class PlaceMenuOrderParams extends Params {
+class ReservationOrdersParams extends Params implements UserIdParams{
+  @override
+  final String userId;
+  final String reservationId;
+
+  ReservationOrdersParams({required this.userId, required this.reservationId});
+}
+
+class MenuOrderParams extends Params implements UserIdParams{
+  @override
   final String userId;
   final String placeId;
   final String placeName;
   final String reservationId;
   final List<PlaceMenuItem> placeMenuItems;
 
-  PlaceMenuOrderParams({required this.userId, required this.placeId, required this.placeName, required this.reservationId, required this.placeMenuItems});
-}
-
-class UserOrdersParams extends Params {
-  final String userId;
-  final String reservationId;
-
-  UserOrdersParams({required this.userId, required this.reservationId});
+  MenuOrderParams({required this.userId, required this.placeId, required this.placeName, required this.reservationId, required this.placeMenuItems});
 }

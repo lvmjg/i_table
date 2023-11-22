@@ -11,7 +11,7 @@ class ReservationChatInitiated extends ReservationChatEvent {
 }
 
 class ReservationChatAddMessageRequested extends ReservationChatEvent {
-  final ChatMessage chatMessage;
+  final ChatMessage message;
 
-  ReservationChatAddMessageRequested({required this.chatMessage});
+  ReservationChatAddMessageRequested({required this.message});
 }

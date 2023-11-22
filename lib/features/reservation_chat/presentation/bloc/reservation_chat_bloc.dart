@@ -47,7 +47,7 @@ class ReservationChatBloc
               (failure) {
                 currentPlaceId = null;
                 currentReservationId = null;
-                emit(ReservationChatFetchFailure(errorMessage: errorFetchData));
+                emit(ReservationChatFetchFailure(params: ErrorParams(errorMessage: errorFetchData)));
               },
               (newChatMessagesStream) {
         currentPlaceId = event.placeId;
@@ -59,7 +59,7 @@ class ReservationChatBloc
         await emit.forEach(chatMessagesStream!,
             onData: (List<ChatMessage> chatMessages) {
               chatMessages.sort((a,b) => a.sendTime.compareTo(b.sendTime));
-              return ReservationChatFetchSuccess(chatMessages: chatMessages);
+              return ReservationChatFetchSuccess(messages: chatMessages);
             });
 
       }
@@ -73,14 +73,14 @@ class ReservationChatBloc
           await Future.delayed(Duration(seconds: TEST_TIMEOUT));
         }
 
-        (await addChatMessage(ReservationChatAddMessageRequestedParams(
+        (await addChatMessage(ReservationChatMessageParams(
             reservationId: currentReservationId!,
-            chatMessage: event.chatMessage)))
+            chatMessage: event.message)))
             .fold(
                 (failure) =>
                 emit(
                     ReservationChatAddMessageFailure(
-                        errorMessage: errorFetchData)),
+                        params: ErrorParams(errorMessage: errorFetchData))),
                 (emptyVoid) => emit(
                       ReservationChatAddMessageSuccess())
 

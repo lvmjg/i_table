@@ -1,31 +1,17 @@
 part of 'panorama_bloc.dart';
 
-abstract class PanoramaState {
-  @override
-  List<Object> get props => [];
-}
+abstract class PanoramaState {}
 
 class PanoramaFetchFailure extends PanoramaState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  PanoramaFetchFailure({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
+  PanoramaFetchFailure({required this.params});
 }
 
-class PanoramaFetchInProgress extends PanoramaState {
-  PanoramaFetchInProgress();
-
-  @override
-  List<Object> get props => [];
-}
+class PanoramaFetchInProgress extends PanoramaState {}
 
 class PanoramaFetchSuccess extends PanoramaState {
   final File panoramaImage;
 
   PanoramaFetchSuccess({required this.panoramaImage});
-
-  @override
-  List<Object> get props => [panoramaImage];
 }

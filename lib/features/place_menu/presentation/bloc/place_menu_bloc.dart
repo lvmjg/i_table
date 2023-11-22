@@ -73,7 +73,7 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
       emit(PlaceMenuFetchSuccess(placeId: placeId, placeMenu: placeMenu, basket: _createBasket(placeMenu), basketTotal: _basketTotal(placeMenu)));
     });
 
-    on<PlaceMenuItemSubstracted>((event, emit) async {
+    on<PlaceMenuItemSubtracted>((event, emit) async {
       PlaceMenuItem item = placeMenu.placeMenuCategories
           .where((category) => category.name == event.menuItemCategory)
           .toList()
@@ -110,7 +110,7 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      (await submitOrder(PlaceMenuOrderParams(userId: userId!, placeId: placeId, placeName: placeName, reservationId: reservationId!, placeMenuItems: _createBasket(placeMenu))))
+      (await submitOrder(MenuOrderParams(userId: userId!, placeId: placeId, placeName: placeName, reservationId: reservationId!, placeMenuItems: _createBasket(placeMenu))))
           .fold(
               (failure) => emit(PlaceMenuSubmitOrderFailure(
               errorMessage: errorFetchData)),

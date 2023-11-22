@@ -19,7 +19,7 @@ class MenuCardButtons extends StatelessWidget {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           SimpleFilledTonalButton(title: '-', onPressed: (){
-            context.read<PlaceMenuBloc>().add(PlaceMenuItemSubstracted(menuItemCategory: placeMenuItem.category, menuItemId: placeMenuItem.id));
+            context.read<PlaceMenuBloc>().add(PlaceMenuItemSubtracted(menuItemCategory: placeMenuItem.category, menuItemId: placeMenuItem.id));
           }),
           SizedBox(width: padding),
           Text(placeMenuItem.quantity.toString(), style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),

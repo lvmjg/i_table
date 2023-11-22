@@ -13,13 +13,13 @@ import '../../data/repository/place_menu_repository.dart';
 import '../entity/place_menu.dart';
 import '../entity/place_menu_item.dart';
 
-class SubmitOrder implements UseCase<void, PlaceMenuOrderParams> {
+class SubmitOrder implements UseCase<void, MenuOrderParams> {
   final PlaceMenuRepository placeMenuRepository;
 
   SubmitOrder(this.placeMenuRepository);
 
   @override
-  Future<Either<Failure, void>> call(PlaceMenuOrderParams params) async {
+  Future<Either<Failure, void>> call(MenuOrderParams params) async {
 
     List<PlaceOrderItem> placeOrderItems = [];
 

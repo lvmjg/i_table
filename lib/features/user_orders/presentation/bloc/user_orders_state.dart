@@ -4,17 +4,12 @@ part of 'user_orders_bloc.dart';
 abstract class UserOrdersState {}
 
 class UserOrdersFetchFailure extends UserOrdersState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  UserOrdersFetchFailure({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
+  UserOrdersFetchFailure({required this.params});
 }
 
-class UserOrdersFetchInProgress extends UserOrdersState {
-  UserOrdersFetchInProgress();
-}
+class UserOrdersFetchInProgress extends UserOrdersState {}
 
 class UserOrdersFetchSuccess extends UserOrdersState {
   final List<PlaceOrder> orders;
@@ -23,7 +18,4 @@ class UserOrdersFetchSuccess extends UserOrdersState {
   UserOrdersFetchSuccess({required this.orders}){
     trigger = DateTime.now();
   }
-
-  @override
-  List<Object> get props => [trigger, orders];
 }

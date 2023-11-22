@@ -44,6 +44,6 @@ class _ReservationSummaryPageState extends State<ReservationSummaryPage> {
   void initState() {
     super.initState();
     PlaceReservation placeReservation = context.read<PlaceBloc>().managePlace.requestedReservation;
-    context.read<ReservationSummaryBloc>().add(ReservationSummaryInitiated(placeReservation: placeReservation));
+    context.read<ReservationSummaryBloc>().add(ReservationSummaryInitiated(reservation: placeReservation));
   }
 }

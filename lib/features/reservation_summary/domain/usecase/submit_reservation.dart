@@ -14,6 +14,6 @@ class SubmitReservation
   Future<Either<Failure, void>> call(
       ReservationSummaryParams params) async {
     return await reservationSummaryRepository
-        .submitReservation(params.placeReservation);
+        .submitReservation(params.reservation);
   }
 }

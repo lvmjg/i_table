@@ -30,6 +30,6 @@ class _UserOrdersPageState extends State<UserOrdersPage> {
     super.initState();
     context
         .read<UserOrdersBloc>()
-        .add(UserOrdersInitiated(params: UserOrdersParams(userId: widget.userId, reservationId: widget.reservationId)));
+        .add(UserOrdersInitiated(userId: widget.userId, reservationId: widget.reservationId));
   }
 }

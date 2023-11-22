@@ -12,11 +12,11 @@ class PlaceMenuInitiated extends PlaceMenuEvent {
   PlaceMenuInitiated({this.userId, required this.placeId, required this.placeName, this.reservationId});
 }
 
-class PlaceMenuItemSubstracted extends PlaceMenuEvent {
+class PlaceMenuItemSubtracted extends PlaceMenuEvent {
   final String menuItemCategory;
   final String menuItemId;
 
-  PlaceMenuItemSubstracted({required this.menuItemCategory, required this.menuItemId});
+  PlaceMenuItemSubtracted({required this.menuItemCategory, required this.menuItemId});
 }
 
 class PlaceMenuItemAdded extends PlaceMenuEvent {

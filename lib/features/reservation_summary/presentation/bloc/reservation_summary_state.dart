@@ -4,17 +4,17 @@ part of 'reservation_summary_bloc.dart';
 abstract class ReservationSummaryState {}
 
 class ReservationSummaryInitial extends ReservationSummaryState {
-  final PlaceReservation placeReservation;
+  final PlaceReservation reservation;
 
-  ReservationSummaryInitial({required this.placeReservation});
+  ReservationSummaryInitial({required this.reservation});
 }
 
 class ReservationSummaryCancel extends ReservationSummaryState {}
 
 class ReservationSummarySubmitFailure extends ReservationSummaryState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  ReservationSummarySubmitFailure({required this.errorMessage});
+  ReservationSummarySubmitFailure({required this.params});
 }
 
 class ReservationSummarySubmitInProgress extends ReservationSummaryState {}

@@ -4,9 +4,9 @@ part of 'reservation_chat_bloc.dart';
 abstract class ReservationChatState {}
 
 class ReservationChatFetchFailure extends ReservationChatState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  ReservationChatFetchFailure({required this.errorMessage});
+  ReservationChatFetchFailure({required this.params});
 }
 
 class ReservationChatFetchInProgress extends ReservationChatState {
@@ -14,19 +14,17 @@ class ReservationChatFetchInProgress extends ReservationChatState {
 }
 
 class ReservationChatFetchSuccess extends ReservationChatState {
-  final List<ChatMessage> chatMessages;
+  final List<ChatMessage> messages;
 
-  ReservationChatFetchSuccess({required this.chatMessages});
+  ReservationChatFetchSuccess({required this.messages});
 }
 
 class ReservationChatAddMessageFailure extends ReservationChatState {
-  final String errorMessage;
+  final ErrorParams params;
 
-  ReservationChatAddMessageFailure({required this.errorMessage});
+  ReservationChatAddMessageFailure({required this.params});
 }
 
-class ReservationChatAddMessageInProgress extends ReservationChatState {
-  ReservationChatAddMessageInProgress();
-}
+class ReservationChatAddMessageInProgress extends ReservationChatState {}
 
 class ReservationChatAddMessageSuccess extends ReservationChatState {}

@@ -9,10 +9,7 @@ class PlaceDetailsFetchFailure extends PlaceDetailsState {
   PlaceDetailsFetchFailure({required this.placeId, required this.errorMessage});
 }
 
-class PlaceDetailsFetchInProgress extends PlaceDetailsState {
-  PlaceDetailsFetchInProgress();
-
-}
+class PlaceDetailsFetchInProgress extends PlaceDetailsState {}
 
 class PlaceDetailsFetchSuccess extends PlaceDetailsState {
   final PlaceDetails placeDetails;
