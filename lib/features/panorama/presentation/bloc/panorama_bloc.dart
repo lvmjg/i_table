@@ -5,6 +5,7 @@ import 'package:i_table/core/usecase/usecase.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/util/globals.dart';
+import '../../../../core/widget/common_page.dart';
 import '../../data/data_source/panorama_remote_data_source.dart';
 import '../../data/repository/panorama_repository.dart';
 import '../../domain/usecase/fetch_panorama.dart';

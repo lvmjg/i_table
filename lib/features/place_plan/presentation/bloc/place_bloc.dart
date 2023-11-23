@@ -7,6 +7,7 @@ import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/reservation_picker/presentation/bloc/reservation_picker_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
+import '../../../../core/widget/common_page.dart';
 import '../../domain/entity/place_configuration_entity.dart';
 import '../../domain/entity/place_reservation/place_reservation.dart';
 import '../../domain/usecase/manage_place.dart';

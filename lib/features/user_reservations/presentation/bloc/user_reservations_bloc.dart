@@ -5,6 +5,7 @@ import 'package:i_table/features/user_reservations/domain/usecase/fetch_user_res
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
+import '../../../../core/widget/common_page.dart';
 import '../../../place_plan/domain/entity/place_reservation/place_reservation.dart';
 import '../../../place_plan/domain/entity/place_reservation/place_reservations_factory.dart';
 import '../../data/data_source/user_reservations_remote_data_source.dart';

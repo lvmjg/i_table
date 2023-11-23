@@ -5,6 +5,7 @@ import 'package:i_table/features/place_plan/presentation/bloc/place_bloc.dart';
 import 'package:i_table/features/reservation_summary/presentation/widget/reservation_summary_page/body/reservation_summary_body.dart';
 
 import '../../../../../core/util/globals.dart';
+import '../../../../../core/widget/common_page.dart';
 import '../../../../home/presentation/widget/home_page/home_page.dart';
 import '../../../../place_plan/domain/entity/place_reservation/place_reservation.dart';
 import '../../bloc/reservation_summary_bloc.dart';
@@ -20,16 +21,16 @@ class ReservationSummaryPage extends StatefulWidget {
 class _ReservationSummaryPageState extends State<ReservationSummaryPage> {
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context),
-      child: BlocListener<ReservationSummaryBloc, ReservationSummaryState>(
-        listener: (context, state) {
-          if (state is ReservationSummarySubmitSuccess) {
-            Navigator.of(this.context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const HomePage()));
-            SnackBarUtil.showSnackBar(this.context, submitReservationSuccess);
-          }
-        },
+    return BlocListener<ReservationSummaryBloc, ReservationSummaryState>(
+      listener: (context, state) {
+        if (state is ReservationSummarySubmitSuccess) {
+          Navigator.of(this.context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const HomePage()));
+          SnackBarUtil.showSnackBar(this.context, submitReservationSuccess);
+        }
+      },
+      child: CommonPage(
+        bloc: context.read<ReservationSummaryBloc>(),
         child: Scaffold(
           appBar: ReservationSummaryAppBar(
             title: reservationSummary,

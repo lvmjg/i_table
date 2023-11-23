@@ -11,7 +11,7 @@ class UserOrdersFetchFailure extends UserOrdersState {
 
 class UserOrdersFetchInProgress extends UserOrdersState {}
 
-class UserOrdersFetchSuccess extends UserOrdersState {
+class UserOrdersFetchSuccess extends UserOrdersState implements SuccessState {
   final List<PlaceOrder> orders;
   late final DateTime trigger;
 

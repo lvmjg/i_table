@@ -4,6 +4,7 @@ import 'package:i_table/features/reservation_picker/presentation/bloc/reservatio
 import 'package:i_table/features/reservation_summary/presentation/widget/reservation_summary_page/reservation_summary_page.dart';
 
 import '../../../../../core/util/globals.dart';
+import '../../../../../core/widget/common_page.dart';
 import '../../../../reservation_summary/presentation/bloc/reservation_summary_bloc.dart';
 import '../../bloc/place_bloc.dart';
 import 'appbar/place_app_bar.dart';
@@ -21,10 +22,13 @@ class PlacePage extends StatefulWidget {
 class _PlacePageState extends State<PlacePage> {
   @override
   Widget build(BuildContext context2) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PlaceAppBar(title: placePlan),
-        body: PlaceBody());
+    return CommonPage(
+      bloc: context.read<PlaceBloc>(),
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PlaceAppBar(title: placePlan),
+          body: PlaceBody()),
+    );
   }
 
   @override

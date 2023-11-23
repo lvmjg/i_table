@@ -4,6 +4,7 @@ import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/place_menu/presentation/widget/place_menu_page/place_menu_floating_action_button/place_menu_floating_action_button.dart';
 
 import '../../../../../core/util/snack_bar_util.dart';
+import '../../../../../core/widget/common_page.dart';
 import '../../../../home/presentation/widget/home_page/home_page.dart';
 import '../../bloc/place_menu_bloc.dart';
 import 'app_bar/place_menu_app_bar.dart';
@@ -25,23 +26,23 @@ class PlaceMenuPage extends StatefulWidget {
 class _PlaceMenuPageState extends State<PlaceMenuPage> {
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context),
-      child: BlocConsumer<PlaceMenuBloc, PlaceMenuState>(
-        listener: (context, state) {
-          if (state is PlaceMenuSubmitOrderSuccess) {
-            Navigator.of(this.context).pop();
-            Navigator.of(this.context).pop();
-            SnackBarUtil.showSnackBar(this.context, submitOrderSuccess);
-          }
-        },
-        builder: (context, state) {
-          bool success = state is PlaceMenuFetchSuccess;
-          int numberOfCategories =
-              success ? state.placeMenu.placeMenuCategories.length : 1;
+    return BlocConsumer<PlaceMenuBloc, PlaceMenuState>(
+      listener: (context, state) {
+        if (state is PlaceMenuSubmitOrderSuccess) {
+          Navigator.of(this.context).pop();
+          Navigator.of(this.context).pop();
+          SnackBarUtil.showSnackBar(this.context, submitOrderSuccess);
+        }
+      },
+      builder: (context, state) {
+        bool success = state is PlaceMenuFetchSuccess;
+        int numberOfCategories =
+            success ? state.placeMenu.placeMenuCategories.length : 1;
 
-          return DefaultTabController(
-            length: numberOfCategories,
+        return DefaultTabController(
+          length: numberOfCategories,
+          child: CommonPage(
+            bloc: context.read<PlaceMenuBloc>(),
             child: Scaffold(
               appBar: PlaceMenuAppBar(
                   placeMenuCategories: success
@@ -55,9 +56,9 @@ class _PlaceMenuPageState extends State<PlaceMenuPage> {
                   ? PlaceMenuFloatingActionButton()
                   : null,
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

@@ -3,7 +3,7 @@ part of 'reservation_summary_bloc.dart';
 @immutable
 abstract class ReservationSummaryState {}
 
-class ReservationSummaryInitial extends ReservationSummaryState {
+class ReservationSummaryInitial extends ReservationSummaryState implements SuccessState {
   final PlaceReservation reservation;
 
   ReservationSummaryInitial({required this.reservation});
@@ -19,4 +19,4 @@ class ReservationSummarySubmitFailure extends ReservationSummaryState {
 
 class ReservationSummarySubmitInProgress extends ReservationSummaryState {}
 
-class ReservationSummarySubmitSuccess extends ReservationSummaryState {}
+class ReservationSummarySubmitSuccess extends ReservationSummaryState implements SuccessState {}

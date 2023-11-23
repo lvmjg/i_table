@@ -10,7 +10,7 @@ class PanoramaFetchFailure extends PanoramaState {
 
 class PanoramaFetchInProgress extends PanoramaState {}
 
-class PanoramaFetchSuccess extends PanoramaState {
+class PanoramaFetchSuccess extends PanoramaState implements SuccessState {
   final File panoramaImage;
 
   PanoramaFetchSuccess({required this.panoramaImage});

@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/util/globals.dart';
+import '../../../../core/widget/common_page.dart';
 import '../../data/data_source/reservation_chat_remote_data_source.dart';
 import '../../data/repository/reservation_chat_repository.dart';
 import '../../domain/usecase/add_chat_message.dart';

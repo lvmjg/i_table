@@ -11,7 +11,7 @@ class ServiceOrdersFetchFailure extends ServiceOrdersState {
 
 class ServiceOrdersFetchInProgress extends ServiceOrdersState {}
 
-class ServiceOrdersFetchSuccess extends ServiceOrdersState {
+class ServiceOrdersFetchSuccess extends ServiceOrdersState implements SuccessState{
   final List<PlaceOrder> orders;
   late final DateTime trigger;
 

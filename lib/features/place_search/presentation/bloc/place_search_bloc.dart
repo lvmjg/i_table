@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/util/globals.dart';
+import '../../../../core/widget/common_page.dart';
 import '../../data/data_source/place_search_remote_data_source.dart';
 import '../../data/repository/place_search_repository.dart';
 import '../../domain/entity/place_search.dart';

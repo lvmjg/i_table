@@ -13,7 +13,7 @@ class ReservationChatFetchInProgress extends ReservationChatState {
   ReservationChatFetchInProgress();
 }
 
-class ReservationChatFetchSuccess extends ReservationChatState {
+class ReservationChatFetchSuccess extends ReservationChatState implements SuccessState {
   final List<ChatMessage> messages;
 
   ReservationChatFetchSuccess({required this.messages});
@@ -27,4 +27,4 @@ class ReservationChatAddMessageFailure extends ReservationChatState {
 
 class ReservationChatAddMessageInProgress extends ReservationChatState {}
 
-class ReservationChatAddMessageSuccess extends ReservationChatState {}
+class ReservationChatAddMessageSuccess extends ReservationChatState implements SuccessState {}

@@ -10,7 +10,7 @@ class PlaceSearchFetchFailure extends PlaceSearchState {
 
 class PlaceSearchFetchInProgress extends PlaceSearchState {}
 
-class PlaceSearchFetchSuccess extends PlaceSearchState {
+class PlaceSearchFetchSuccess extends PlaceSearchState implements SuccessState {
   final List<PlaceSearch> places;
 
   PlaceSearchFetchSuccess({required this.places});

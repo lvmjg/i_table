@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 bool debug = true;
 
-int TEST_TIMEOUT = 0;
+int TEST_TIMEOUT = 1;
 
 //Color primaryColor = Color(0xFF0020F7);
 //Color primaryColor = Color(0xFF1976D2);

@@ -11,7 +11,7 @@ class PlaceMenuFetchFailure extends PlaceMenuState {
 
 class PlaceMenuFetchInProgress extends PlaceMenuState {}
 
-class PlaceMenuFetchSuccess extends PlaceMenuState {
+class PlaceMenuFetchSuccess extends PlaceMenuState implements SuccessState {
   final String placeId;
   final PlaceMenu placeMenu;
   final List<PlaceMenuItem> basket;
@@ -33,8 +33,6 @@ class PlaceMenuSubmitOrderFailure extends PlaceMenuState {
   PlaceMenuSubmitOrderFailure({required this.errorMessage});
 }
 
-class PlaceMenuSubmitOrderInProgress extends PlaceMenuState {
-  PlaceMenuSubmitOrderInProgress();
-}
+class PlaceMenuSubmitOrderInProgress extends PlaceMenuState {}
 
-class PlaceMenuSubmitOrderSuccess extends PlaceMenuState {}
+class PlaceMenuSubmitOrderSuccess extends PlaceMenuState implements SuccessState {}

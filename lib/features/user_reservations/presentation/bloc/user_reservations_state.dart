@@ -11,7 +11,7 @@ class UserReservationsFetchFailure extends UserReservationsState {
 
 class UserReservationsFetchInProgress extends UserReservationsState {}
 
-class UserReservationsFetchSuccess extends UserReservationsState {
+class UserReservationsFetchSuccess extends UserReservationsState implements SuccessState {
   final List<PlaceReservation> reservations;
 
   UserReservationsFetchSuccess({required this.reservations});

@@ -18,7 +18,7 @@ class PlaceFetchFailure extends PlaceState {
 
 class PlaceFetchInProgress extends PlaceState {}
 
-class PlaceFetchSuccess extends PlaceState {
+class PlaceFetchSuccess extends PlaceState implements SuccessState {
   final PlaceConfigurationEntity? placeConfiguration;
   final bool editMode;
   final bool readyToReserve;

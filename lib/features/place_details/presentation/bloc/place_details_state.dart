@@ -11,7 +11,7 @@ class PlaceDetailsFetchFailure extends PlaceDetailsState {
 
 class PlaceDetailsFetchInProgress extends PlaceDetailsState {}
 
-class PlaceDetailsFetchSuccess extends PlaceDetailsState {
+class PlaceDetailsFetchSuccess extends PlaceDetailsState implements SuccessState {
   final PlaceDetails placeDetails;
 
   PlaceDetailsFetchSuccess({required this.placeDetails});

@@ -9,6 +9,7 @@ import 'package:i_table/features/user_reservations/presentation/widget/user_rese
 import 'package:i_table/features/user_reservations/presentation/widget/user_reservations_page/user_reservations_body/user_reservations_body.dart';
 
 import '../../../../../core/util/globals.dart';
+import '../../../../../core/widget/common_page.dart';
 import '../../../../../core/widget/reservation_card_billing.dart';
 import '../../bloc/user_reservations_bloc.dart';
 
@@ -22,9 +23,12 @@ class UserReservationsPage extends StatefulWidget {
 class _UserReservationsPageState extends State<UserReservationsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: UserReservationsAppBar(title: myReservations),
-        body: UserReservationsBody());
+    return CommonPage(
+      bloc: context.read<UserReservationsBloc>(),
+      child: Scaffold(
+          appBar: UserReservationsAppBar(title: myReservations),
+          body: UserReservationsBody()),
+    );
   }
 
   @override

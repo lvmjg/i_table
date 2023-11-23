@@ -12,7 +12,7 @@ class PlaceEntryFetchFailure extends PlaceEntryState {
 
 class PlaceEntryFetchInProgress extends PlaceEntryState {}
 
-class PlaceEntryFetchSuccess extends PlaceEntryState {
+class PlaceEntryFetchSuccess extends PlaceEntryState implements SuccessState {
   final String placeId;
   final String placeName;
   final PlaceSettings placeSettings;

@@ -6,6 +6,7 @@ import 'package:i_table/features/user_orders/domain/usecase/fetch_user_orders.da
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
+import '../../../../core/widget/common_page.dart';
 import '../../../user_orders/domain/entity/place_orders_factory.dart';
 import '../../data/data_source/service_orders_remote_data_source.dart';
 import '../../data/repository/service_orders_repository.dart';

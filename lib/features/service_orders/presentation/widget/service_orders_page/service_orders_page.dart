@@ -5,6 +5,7 @@ import 'package:i_table/features/service_orders/presentation/widget/service_orde
 import 'package:i_table/features/service_orders/presentation/widget/service_orders_page/service_orders_body/service_orders_body.dart';
 
 import '../../../../../core/util/globals.dart';
+import '../../../../../core/widget/common_page.dart';
 import '../../bloc/service_orders_bloc.dart';
 
 class ServiceOrdersPage extends StatefulWidget {
@@ -17,9 +18,12 @@ class ServiceOrdersPage extends StatefulWidget {
 class _ServiceOrdersPageState extends State<ServiceOrdersPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: ServiceOrdersAppBar(title: kitchen),
-        body: const ServiceOrdersBody());
+    return CommonPage(
+      bloc: context.read<ServiceOrdersBloc>(),
+      child: Scaffold(
+          appBar: ServiceOrdersAppBar(title: kitchen),
+          body: const ServiceOrdersBody()),
+    );
   }
 
   @override

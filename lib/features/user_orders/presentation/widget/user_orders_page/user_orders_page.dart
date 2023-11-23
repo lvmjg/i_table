@@ -5,6 +5,7 @@ import 'package:i_table/features/user_orders/presentation/widget/user_orders_pag
 
 import '../../../../../core/usecase/usecase.dart';
 import '../../../../../core/util/globals.dart';
+import '../../../../../core/widget/common_page.dart';
 import '../../bloc/user_orders_bloc.dart';
 
 class UserOrdersPage extends StatefulWidget {
@@ -22,9 +23,12 @@ class UserOrdersPage extends StatefulWidget {
 class _UserOrdersPageState extends State<UserOrdersPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: UserOrdersAppBar(title: myOrders),
-        body: const UserOrdersBody());
+    return CommonPage(
+      bloc: context.read<UserOrdersBloc>(),
+      child: Scaffold(
+          appBar: UserOrdersAppBar(title: myOrders),
+          body: const UserOrdersBody()),
+    );
   }
 
   @override
