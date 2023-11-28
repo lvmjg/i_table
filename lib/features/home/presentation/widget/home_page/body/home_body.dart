@@ -47,16 +47,6 @@ class HomeBody extends StatelessWidget {
                 builder: (context) => UserReservationsPage()))),
         SizedBox(height: padding),
         SimpleFilledTonalButton(
-          title: myProfile,
-          onPressed: () {},
-        ),
-        SizedBox(height: padding),
-        SimpleFilledTonalButton(
-          title: settings,
-          onPressed: () {},
-        ),
-        SizedBox(height: padding),
-        SimpleFilledTonalButton(
             title: kitchen,
             onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => ServiceOrdersPage()))),
