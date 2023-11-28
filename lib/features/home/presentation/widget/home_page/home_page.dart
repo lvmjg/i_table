@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:i_table/features/home/presentation/widget/home_page/bottom_navigation_bar/home_bottom_navigation_bar.dart';
-import 'package:i_table/features/place_search/presentation/widget/search_page/body/place_search_body.dart';
-import 'package:i_table/features/user_actions/presentation/user_actions_page.dart';
-import 'package:i_table/features/user_profile/presentation/user_actions_body/user_actions_body.dart';
-import 'package:i_table/features/user_profile/presentation/user_profile_page.dart';
-import 'package:i_table/features/user_reservations/presentation/widget/user_reservations_page/user_reservations_body/user_reservations_body.dart';
 
 import '../../../../../core/util/globals.dart';
 import '../../../../../core/widget/common_page.dart';
