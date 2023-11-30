@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../util/globals.dart';
 
-class TextFieldExtended extends StatelessWidget {
-  TextFieldExtended(
+class MaterialTextFieldExtended extends StatelessWidget {
+  MaterialTextFieldExtended(
       {super.key,
       required this.hintText,
       this.icon,
@@ -28,21 +28,24 @@ class TextFieldExtended extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(padding),
-      child: TextField(
-        controller: controller,
-        enabled: enabled,
-        textAlign: TextAlign.center,
-        onChanged: onTextChanged,
-        decoration: InputDecoration(
-            suffixIconConstraints:
-                BoxConstraints(maxHeight: 50, maxWidth: 50),
-            hintText: hintText,
-            suffixIcon: _adjustIconBasedOnLoadingState(),
-            hintStyle:
-                TextStyle(color: Colors.grey, fontWeight: FontWeight.w300)),
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+    return Material(
+      color: backgroundColor,
+      child: Padding(
+        padding: EdgeInsets.all(padding),
+        child: TextField(
+          controller: controller,
+          enabled: enabled,
+          textAlign: TextAlign.center,
+          onChanged: onTextChanged,
+          decoration: InputDecoration(
+              suffixIconConstraints:
+                  BoxConstraints(maxHeight: 50, maxWidth: 50),
+              hintText: hintText,
+              suffixIcon: _adjustIconBasedOnLoadingState(),
+              hintStyle:
+                  TextStyle(color: Colors.grey, fontWeight: FontWeight.w300)),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+        ),
       ),
     );
   }

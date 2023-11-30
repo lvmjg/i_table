@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/core/widget/text_field_extended.dart';
+import 'package:i_table/core/widget/material_text_field_extended.dart';
 
 import '../../../../../../core/util/globals.dart';
 import '../../../bloc/place_search_bloc.dart';
@@ -22,7 +22,7 @@ class SearchFilter extends StatelessWidget {
           ? Icons.clear_rounded
           : Icons.search;
 
-      return TextFieldExtended(
+      return MaterialTextFieldExtended(
         hintText: searchBarHint,
         icon: textFieldIcon,
         enabled: searchTextFieldEnabled,

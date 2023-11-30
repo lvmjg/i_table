@@ -9,6 +9,7 @@ class PlaceOrderItemModel {
   final String category;
   final double price;
   final int quantity;
+  final String note;
   final bool status;
 
   PlaceOrderItemModel(
@@ -17,6 +18,7 @@ class PlaceOrderItemModel {
       required this.category,
       required this.price,
       required this.quantity,
+      required this.note,
       required this.status});
 
   factory PlaceOrderItemModel.fromJson(Map<String, dynamic> json) =>

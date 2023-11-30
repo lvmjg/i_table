@@ -1,63 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/core/util/size_helper.dart';
+import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/core/widget/common_card.dart';
+import 'package:i_table/core/widget/common_text_field.dart';
+import 'package:i_table/core/widget/material_text_field_extended.dart';
+import 'package:i_table/core/widget/text_field_extended.dart';
 
 import '../../features/place_menu/domain/entity/place_menu_item.dart';
+import '../../features/place_menu/presentation/bloc/place_menu_bloc.dart';
 import '../util/globals.dart';
 import 'menu_card_buttons.dart';
 
 class MenuCard extends StatelessWidget {
   final PlaceMenuItem placeMenuItem;
   final bool buttonsEnabled;
+  final bool modeExtended;
   final VoidCallback? onPressed;
+  final double imageSize;
 
-  const MenuCard(
+  MenuCard(
       {Key? key,
       required this.placeMenuItem,
       this.buttonsEnabled = true,
-      required this.onPressed})
+      this.modeExtended = false,
+      this.onPressed,
+      required this.imageSize})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CommonCard(
         onPressed: onPressed,
-        outerPadding: padding / 2,
+        outerPadding: padding / 8,
+        innerPadding: padding / 3,
         child: Column(
           children: [
-            Visibility(
-              visible: placeMenuItem.url != null,
-              child: Padding(
-                padding: EdgeInsets.all(padding / 2),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 150,
-                  child: Image.network(placeMenuItem.url ??
-                      'https://thekebabshop.com/wp-content/uploads/2023/04/Web-Wrap.png'),
-                ),
-              ),
-            ),
             Row(
-              mainAxisAlignment: buttonsEnabled
-                  ? MainAxisAlignment.spaceEvenly
-                  : MainAxisAlignment.center,
+
               children: [
-                Text(placeMenuItem.name,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                SizedBox(width: padding),
-                Text('${placeMenuItem.price.toString()} zł',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
-                Visibility(
-                    visible: buttonsEnabled,
-                    child: Expanded(
-                        child: MenuCardButtons(placeMenuItem: placeMenuItem)))
+                Expanded(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                      Text(placeMenuItem.name,
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      SizedBox(height: padding / 2),
+                      Text(placeMenuItem.description,
+                          style: Theme.of(context).textTheme.bodySmall),
+                      SizedBox(height: padding / 2),
+                      Text('${placeMenuItem.formattedPrice} zł',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: primaryColor)),
+                          SizedBox(height: modeExtended ? padding / 2 : 0),
+                          Visibility(
+                              visible: buttonsEnabled && modeExtended == true,
+                              child: SizedBox(
+                                  width: imageSize,
+                                  height: imageSize / 3,
+                                  child: BlocBuilder<PlaceMenuBloc, PlaceMenuState>(
+  builder: (context, state) {
+    return MenuCardButtons(
+                                      modeExtended: modeExtended,
+                                      placeMenuItem: placeMenuItem);
+  },
+)))
+                    ])),
+                Column(children: [
+                  CommonCard(
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Visibility(
+                          //  visible: placeMenuItem.url != null,
+                          child: SizedBox(
+                            width: imageSize,
+                            height: imageSize,
+                            child: Padding(
+                              padding: EdgeInsets.all(padding / 4),
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Image.network(placeMenuItem.url ??
+                                    'https://thekebabshop.com/wp-content/uploads/2023/04/Web-Wrap.png'),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                            visible: buttonsEnabled && modeExtended == false,
+                            child: SizedBox(
+                                width: imageSize,
+                                height: imageSize / 3,
+                                child: MenuCardButtons(
+                                    placeMenuItem: placeMenuItem)))
+                      ],
+                    ),
+                  ),
+                ])
               ],
             ),
-            SizedBox(height: padding),
-            Text(placeMenuItem.description,
-                style: Theme.of(context).textTheme.bodySmall),
+
+            if(buttonsEnabled && modeExtended)
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(padding/2),
+                    child: CommonTextField(
+                        text: placeMenuItem.note,
+                        hintText: 'Uwagi do zamówienia',
+                        iconAction: Icons.clear_rounded,
+                        onTextChanged: (value){
+                          placeMenuItem.note = value;
+                        },
+                        onActionIconPressed: (){
+                          placeMenuItem.note = StringUtil.EMPTY;
+                        },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ));
   }

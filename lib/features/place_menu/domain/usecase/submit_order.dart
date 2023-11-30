@@ -29,6 +29,7 @@ class SubmitOrder implements UseCase<void, MenuOrderParams> {
           name: item.name,
           description: item.description,
           price: item.price,
+          note: item.note,
           quantity: item.quantity,
           status: false));
     });

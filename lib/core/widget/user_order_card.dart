@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/core/widget/common_divider.dart';
 import 'package:i_table/core/widget/common_card.dart';
 import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
@@ -16,6 +17,7 @@ class UserOrderCard extends StatelessWidget {
     return CommonCard(
         onPressed: () {},
         outerPadding: padding / 2,
+        innerPadding: padding / 2,
         child: Column(
           children: [
             Text('$orderNo ${order.no!.toUpperCase()}',
@@ -62,14 +64,43 @@ class UserOrderCard extends StatelessWidget {
                       child: Text(order.userOrders[index].name,
                           style: Theme.of(context).textTheme.bodyMedium),
                     ),
-                    subtitle: Text(order.userOrders[index].description,
-                        style: Theme.of(context).textTheme.bodySmall),
+                    subtitle: Wrap(
+                      direction: Axis.vertical,
+                      children: [
+                        Text(order.userOrders[index].description,
+                          style: Theme.of(context).textTheme.bodySmall),
+                        Visibility(
+                          visible: order.userOrders[index].note!=StringUtil.EMPTY,
+                          child: Wrap(
+                              direction: Axis.vertical,
+                              children: [SizedBox(height: padding/4),
+
+                            RichText(
+                              text: TextSpan(
+                                text: '$note ',
+                                children: <InlineSpan>[
+                                  TextSpan(
+                                      text: order.userOrders[index].note,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(color: Colors.red)),
+                                ],
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
+                              ),
+                            )
+
+
+                          ]),
+                        ),
+
+                      ]
+                    ),
                     trailing: Text(
                         '${order.userOrders[index].price} x${order.userOrders[index].quantity} = ${order.userOrders[index].cost}',
                         style: Theme.of(context).textTheme.bodyMedium),
                   );
                 }),
-            SizedBox(height: padding),
           ],
         ));
   }

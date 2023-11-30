@@ -25,7 +25,7 @@ class _ReservationSummaryPageState extends State<ReservationSummaryPage> {
       listener: (context, state) {
         if (state is ReservationSummarySubmitSuccess) {
           Navigator.of(this.context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()));
+              MaterialPageRoute(builder: (context) => HomePage()));
           SnackBarUtil.showSnackBar(this.context, submitReservationSuccess);
         }
       },

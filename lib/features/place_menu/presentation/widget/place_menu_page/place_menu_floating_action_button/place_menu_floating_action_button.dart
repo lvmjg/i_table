@@ -19,16 +19,28 @@ class PlaceMenuFloatingActionButton extends StatelessWidget {
         String basketTotal = state is PlaceMenuFetchSuccess
             ? state.basketTotal
             : StringUtil.EMPTY;
+
+        int basketTotalItems = state is PlaceMenuFetchSuccess ? state.basketTotalItems : 0;
+
         return Opacity(
           opacity: basketTotal != StringUtil.EMPTY ? 1.0 : 0.75,
           child: FloatingActionButton.extended(
+
               onPressed: _controlBasketButton(context, basketTotal),
-              icon: Text('Koszyk ${basketTotal}',
-                  style: TextStyle(color: Colors.white)),
-              label: Icon(
-                Icons.shopping_basket_rounded,
-                color: Colors.white,
-              )),
+              icon:   Icon(
+                  Icons.shopping_basket_rounded,
+                  color: Colors.white),
+              label: Row(
+                children: [
+                  Text('$showBasket ',
+                      style: TextStyle(color: Colors.white)),
+                  Text(_displayBasketTotal(basketTotal),
+                      style: TextStyle(color: Colors.white)),
+                  Text(_displayBasketItems(basketTotalItems),
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+          ),
         );
       },
     );
@@ -47,5 +59,21 @@ class PlaceMenuFloatingActionButton extends StatelessWidget {
             });
       };
     }
+  }
+
+  String _displayBasketItems(int basketTotalItems){
+    if(basketTotalItems==0){
+      return StringUtil.EMPTY;
+    }
+
+    return '($basketTotalItems)';
+  }
+
+  String _displayBasketTotal(String basketTotal){
+    if(basketTotal!=StringUtil.EMPTY){
+      return '$basketTotal zł ';
+    }
+
+    return StringUtil.EMPTY;
   }
 }

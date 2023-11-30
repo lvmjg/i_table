@@ -6,13 +6,17 @@ class CommonCard extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
   late double outerPadding;
+  late double innerPadding;
+  late double elevation;
   late Color? backgroundColor;
 
   CommonCard(
       {Key? key,
       required this.child,
-      required this.onPressed,
+      this.onPressed,
       this.outerPadding = 0,
+        this.innerPadding = 0,
+        this.elevation = 1,
       this.backgroundColor})
       : super(key: key);
 
@@ -27,11 +31,11 @@ class CommonCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
 //side: BorderSide(color: Colors.grey, width: 0.5)
         ),
-        elevation: 1,
+        elevation: elevation,
         child: InkWell(
           onTap: onPressed,
           child: Padding(
-            padding: EdgeInsets.all(padding / 2),
+            padding: EdgeInsets.all(innerPadding),
             child: child,
           ),
         ),

@@ -10,6 +10,8 @@ class PlaceMenuItemModel {
   final double price;
   @JsonKey(includeFromJson: false, includeToJson: false)
   String? url;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? note;
 
   PlaceMenuItemModel(
       {required this.name,

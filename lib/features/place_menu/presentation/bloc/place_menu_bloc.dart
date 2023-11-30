@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:i_table/core/extension/extension.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/place_menu/domain/usecase/submit_order.dart';
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_messages_factory.dart';
@@ -9,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
+import '../../../../core/util/format_helper.dart';
 import '../../../../core/util/globals.dart';
 import '../../../../core/widget/common_page.dart';
 import '../../data/data_source/place_menu_remote_data_source.dart';
@@ -65,7 +67,9 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
             placeId: event.placeId,
             placeMenu: newPlaceMenu,
             basket: [],
-            basketTotal: StringUtil.EMPTY));
+            basketTotal: StringUtil.EMPTY,
+            basketTotalItems: _basketTotalItems(placeMenu)
+        ));
       });
     });
 
@@ -85,7 +89,9 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
           placeId: placeId,
           placeMenu: placeMenu,
           basket: _createBasket(placeMenu),
-          basketTotal: _basketTotal(placeMenu)));
+          basketTotal: _basketTotal(placeMenu),
+          basketTotalItems: _basketTotalItems(placeMenu)
+      ));
     });
 
     on<PlaceMenuItemSubtracted>((event, emit) async {
@@ -104,7 +110,9 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
           placeId: placeId,
           placeMenu: placeMenu,
           basket: _createBasket(placeMenu),
-          basketTotal: _basketTotal(placeMenu)));
+          basketTotal: _basketTotal(placeMenu),
+          basketTotalItems: _basketTotalItems(placeMenu)
+      ));
     });
 
     on<PlaceMenuItemRemoved>((event, emit) async {
@@ -123,7 +131,9 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
           placeId: placeId,
           placeMenu: placeMenu,
           basket: _createBasket(placeMenu),
-          basketTotal: _basketTotal(placeMenu)));
+          basketTotal: _basketTotal(placeMenu),
+          basketTotalItems: _basketTotalItems(placeMenu)
+      ));
     });
 
     on<PlaceMenuPayLaterChosen>((event, emit) async {
@@ -172,10 +182,21 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
     }
 
     if (total != 0) {
-      NumberFormat nf = NumberFormat("####.00", "en_US");
-      return nf.format(total);
+      return FormatHelper.formatPrice(total);
     } else {
       return StringUtil.EMPTY;
     }
+  }
+
+  int _basketTotalItems(PlaceMenu placeMenu) {
+    int totalItems = 0;
+
+    for (var category in placeMenu.placeMenuCategories) {
+      for (var item in category.items) {
+        totalItems += item.quantity;
+      }
+    }
+
+    return totalItems;
   }
 }

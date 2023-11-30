@@ -15,6 +15,7 @@ class ReservationCardSittings extends StatelessWidget {
     return CommonCard(
         onPressed: () {},
         outerPadding: padding / 2,
+        innerPadding: padding / 2,
         child: Column(
           children: [
             Text(chosenSittings,

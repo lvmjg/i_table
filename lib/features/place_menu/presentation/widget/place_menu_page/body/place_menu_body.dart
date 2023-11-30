@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/core/widget/common_loading.dart';
 import 'package:i_table/core/widget/menu_card.dart';
+import 'package:i_table/core/widget/text_field_extended.dart';
 
+import '../../../../../../core/util/size_helper.dart';
 import '../../../bloc/place_menu_bloc.dart';
+import '../place_menu_floating_action_button/menu_item_details_sheet.dart';
 
 class PlaceMenuBody extends StatefulWidget {
   final bool menuInReservationMode;
@@ -35,7 +39,23 @@ class _PlaceMenuBodyState extends State<PlaceMenuBody> {
                             return MenuCard(
                                 placeMenuItem: c.items[index],
                                 buttonsEnabled: widget.menuInReservationMode,
-                                onPressed: () {});
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    isScrollControlled: true,
+                                      context: context,
+                                      backgroundColor: primaryColor,
+                                      builder: (context) {
+                                        return Container(
+                                          child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context).viewInsets.bottom),
+                                              child: MenuItemDetailsSheet(
+                                                  placeMenuItem: c.items[index],
+                                                  buttonsEnabled: widget.menuInReservationMode,
+                                              )),
+                                        );
+                                      });
+                                }, imageSize: SizeHelper.getHighestSize(context)/8);
                           }),
                     ),
                   ],

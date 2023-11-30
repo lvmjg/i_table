@@ -137,3 +137,17 @@ String nl = '\n';
 String tab = '\t';
 
 String service = "Obsługa";
+String showBasket = "Wyświetl koszyk";
+String pay = 'Zapłać';
+String total = 'Razem';
+
+String homeResOrd = 'Rez./Zam.';
+String homeSearch = 'Szukaj';
+String homeProfile = 'Profil';
+
+String reservations = 'Rezerwacje';
+String orders = 'Zamówienia';
+String newOrder = 'Nowe zamówienie';
+String chat = 'Chat';
+String history = 'Historia';
+String note = "Uwagi";

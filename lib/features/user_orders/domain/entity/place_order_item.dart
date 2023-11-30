@@ -5,6 +5,7 @@ class PlaceOrderItem {
   final String description;
   final double price;
   final int quantity;
+  final String note;
   final bool status;
   late final double cost;
 
@@ -15,6 +16,7 @@ class PlaceOrderItem {
       required this.description,
       required this.price,
       required this.quantity,
+      required this.note,
       required this.status,
       this.cost = 0});
 

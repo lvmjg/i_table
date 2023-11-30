@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_table/core/widget/text_field_extended.dart';
+import 'package:i_table/core/widget/material_text_field_extended.dart';
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_message.dart';
 
 import '../../../../../../core/util/globals.dart';
@@ -15,7 +15,7 @@ class MessageTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ReservationChatBloc, ReservationChatState>(
         builder: (context, state) {
-      return TextFieldExtended(
+      return MaterialTextFieldExtended(
         hintText: messageBarHint,
         icon: Icons.send_rounded,
         isLoading: state is ReservationChatAddMessageInProgress,

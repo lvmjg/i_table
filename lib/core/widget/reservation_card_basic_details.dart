@@ -25,6 +25,7 @@ class ReservationCardBasicDetails extends StatelessWidget {
     return CommonCard(
         onPressed: onPressed,
         outerPadding: padding / 2,
+        innerPadding: padding / 2,
         child: Column(
           children: [
             Text('$reservation ${placeReservation.no.toUpperCase()}',

@@ -11,6 +11,7 @@ class ReservationCardBilling extends StatelessWidget {
     return CommonCard(
         onPressed: () {},
         outerPadding: padding / 2,
+        innerPadding: padding / 2,
         child: Column(
           children: [
             Text(settlement, style: Theme.of(context).textTheme.headlineMedium),

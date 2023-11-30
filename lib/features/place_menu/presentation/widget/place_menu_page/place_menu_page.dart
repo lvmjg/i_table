@@ -44,6 +44,7 @@ class _PlaceMenuPageState extends State<PlaceMenuPage> {
           child: CommonPage(
             bloc: context.read<PlaceMenuBloc>(),
             child: Scaffold(
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               appBar: PlaceMenuAppBar(
                   placeMenuCategories: success
                       ? (state as PlaceMenuFetchSuccess)
@@ -52,6 +53,7 @@ class _PlaceMenuPageState extends State<PlaceMenuPage> {
                       : []),
               body: PlaceMenuBody(
                   menuInReservationMode: widget.menuInReservationMode),
+
               floatingActionButton: widget.menuInReservationMode
                   ? PlaceMenuFloatingActionButton()
                   : null,

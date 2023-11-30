@@ -16,13 +16,15 @@ class PlaceMenuFetchSuccess extends PlaceMenuState implements SuccessState {
   final PlaceMenu placeMenu;
   final List<PlaceMenuItem> basket;
   final String basketTotal;
+  final int basketTotalItems;
   late final DateTime trigger;
 
   PlaceMenuFetchSuccess(
       {required this.placeId,
       required this.placeMenu,
       required this.basket,
-      required this.basketTotal}) {
+      required this.basketTotal,
+      required this.basketTotalItems}) {
     trigger = DateTime.now();
   }
 }

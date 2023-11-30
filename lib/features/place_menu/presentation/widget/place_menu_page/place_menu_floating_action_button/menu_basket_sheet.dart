@@ -15,8 +15,11 @@ class MenuBasketSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PlaceMenuBloc, PlaceMenuState>(
         builder: (context, setState) {
+
       activeBasket =
           setState is PlaceMenuFetchSuccess ? setState.basket : activeBasket;
+
+      String basketTotal =  setState is PlaceMenuFetchSuccess ? setState.basketTotal : '0.00';
 
       return Wrap(
         children: [
@@ -111,26 +114,40 @@ class MenuBasketSheet extends StatelessWidget {
                   );
                 }),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SimpleFilledTonalButton(
-                  title: payLater,
-                  iconData: Icons.watch_later_rounded,
-                  iconColor: Colors.red,
-                  onPressed: () {
-                    context
-                        .read<PlaceMenuBloc>()
-                        .add(PlaceMenuPayLaterChosen());
-                  }),
-              SimpleFilledTonalButton(
-                  title: payNow,
-                  iconData: Icons.payments_rounded,
-                  iconColor: Colors.green,
-                  onPressed: () {
-                    //context.read<ReservationSummaryBloc>().add(ReservationSummarySubmitted());
-                  })
-            ],
+          Padding(
+            padding: EdgeInsets.all(padding),
+            child: Row(
+              children: [
+                Expanded(child: Wrap(
+                  children: [
+                    Text('$total ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.white)),
+
+                    Text('$basketTotal zł',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.white70)),
+                  ],
+                )
+                ),
+
+
+                SimpleFilledTonalButton(
+                    title: pay,
+                    iconData: Icons.payments_rounded,
+                    iconColor: Colors.green,
+                    onPressed: () {
+                      context
+                          .read<PlaceMenuBloc>()
+                          .add(PlaceMenuPayLaterChosen());
+
+                    })
+              ],
+            ),
           ),
         ],
       );

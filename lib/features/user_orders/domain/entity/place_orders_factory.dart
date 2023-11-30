@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:i_table/features/user_orders/data/model/place_order_item_model.dart';
 import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
 import 'package:i_table/features/user_orders/domain/entity/place_order_item.dart';
@@ -21,6 +19,7 @@ class PlaceOrdersFactory {
             description: entry.value.description,
             price: entry.value.price,
             quantity: entry.value.quantity,
+            note: entry.value.note,
             status: entry.value.status,
             cost: entry.value.price * entry.value.quantity));
       });
@@ -57,6 +56,7 @@ class PlaceOrdersFactory {
               category: item.category,
               price: item.price,
               quantity: item.quantity,
+              note: item.note,
               status: item.status));
     });
 

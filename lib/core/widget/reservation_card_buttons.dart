@@ -28,19 +28,9 @@ class ReservationCardButtons extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(padding / 8),
                 child: SimpleFilledTonalButton(
-                    title: 'Anuluj',
+                    title: cancel,
                     iconData: Icons.close_rounded,
                     iconColor: Colors.red,
-                    onPressed: () {}),
-              )),
-          Visibility(
-              visible: placeReservation.status == 'new',
-              child: Padding(
-                padding: EdgeInsets.all(padding / 8),
-                child: SimpleFilledTonalButton(
-                    title: 'Potwiedź',
-                    iconData: Icons.done_rounded,
-                    iconColor: Colors.green,
                     onPressed: () {}),
               )),
           Visibility(
@@ -48,7 +38,7 @@ class ReservationCardButtons extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(padding / 8),
                 child: SimpleFilledTonalButton(
-                    title: 'Menu',
+                    title: newOrder,
                     iconData: Icons.menu_book_rounded,
                     iconColor: Colors.indigo,
                     onPressed: () {
@@ -63,22 +53,7 @@ class ReservationCardButtons extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(padding / 8),
                 child: SimpleFilledTonalButton(
-                    title: 'Zamówienia',
-                    iconData: Icons.restaurant_menu_rounded,
-                    iconColor: Colors.blueGrey,
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => UserOrdersPage(
-                              userId: placeReservation.userId,
-                              reservationId: placeReservation.id)));
-                    }),
-              )),
-          Visibility(
-              visible: placeReservation.status == 'active',
-              child: Padding(
-                padding: EdgeInsets.all(padding / 8),
-                child: SimpleFilledTonalButton(
-                    title: 'Chat',
+                    title: chat,
                     iconData: Icons.question_answer_rounded,
                     iconColor: Colors.green,
                     onPressed: () {
@@ -88,18 +63,21 @@ class ReservationCardButtons extends StatelessWidget {
                               reservationId: placeReservation.id)));
                     }),
               )),
+
           Visibility(
               visible: placeReservation.status == 'active',
               child: Padding(
                 padding: EdgeInsets.all(padding / 8),
                 child: SimpleFilledTonalButton(
-                    title: 'Wezwij kelnera i zapłać',
-                    iconData: Icons.attach_money_rounded,
-                    iconColor: Colors.amber,
+                    title: history,
+                    iconData: Icons.restaurant_menu_rounded,
+                    iconColor: Colors.blueGrey,
                     onPressed: () {
-                      //context.read<UserReservationsBloc>().add(event)
-                    },
-                    padding: 2),
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => UserOrdersPage(
+                              userId: placeReservation.userId,
+                              reservationId: placeReservation.id)));
+                    }),
               )),
         ],
       ),

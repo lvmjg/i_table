@@ -13,6 +13,7 @@ PlaceOrderItemModel _$PlaceOrderItemModelFromJson(Map<String, dynamic> json) =>
       category: json['category'] as String,
       price: (json['price'] as num).toDouble(),
       quantity: json['quantity'] as int,
+      note: json['note'] as String,
       status: json['status'] as bool,
     );
 
@@ -24,5 +25,6 @@ Map<String, dynamic> _$PlaceOrderItemModelToJson(
       'category': instance.category,
       'price': instance.price,
       'quantity': instance.quantity,
+      'note': instance.note,
       'status': instance.status,
     };
