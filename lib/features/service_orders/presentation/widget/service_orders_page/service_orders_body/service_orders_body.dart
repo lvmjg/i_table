@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../../../../core/widget/common_failure.dart';
 import '../../../../../../core/util/globals.dart';
@@ -17,15 +18,19 @@ class ServiceOrdersBody extends StatelessWidget {
         if (state is ServiceOrdersFetchFailure) {
           return CommonFailure(onPressed: () {});
         } else if (state is ServiceOrdersFetchSuccess) {
-          return Column(
-            children: [
-              Expanded(
-                  child: GridView.count(
-                      crossAxisCount: 2,
-                      children: state.orders
-                          .map((e) => ServiceOrderCard(order: e))
-                          .toList())),
-            ],
+          return LayoutBuilder(
+            builder: (context, constraints) {
+
+              int numberOfColumns = constraints.maxWidth <= 600 ? 1 : 3;
+                     return Container(
+                       child: MasonryGridView.count(
+                         itemCount: state.orders.length,
+                            crossAxisCount: numberOfColumns,
+                            itemBuilder: (context, index) {
+                              return ServiceOrderCard(order: state.orders[index]);
+                            },
+                     ));
+            },
           );
         }
 

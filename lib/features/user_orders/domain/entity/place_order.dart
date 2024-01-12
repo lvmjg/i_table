@@ -6,7 +6,7 @@ class PlaceOrder {
   final String? id;
   final String? no;
   final String userId;
-  final String reservationId;
+  final String? reservationId;
   final String placeId;
   final String placeName;
   final bool status;

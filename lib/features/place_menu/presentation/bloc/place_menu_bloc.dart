@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:i_table/core/extension/extension.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/place_menu/domain/usecase/submit_order.dart';
@@ -13,6 +14,7 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../../core/util/format_helper.dart';
 import '../../../../core/util/globals.dart';
 import '../../../../core/widget/common_page.dart';
+import '../../../../main.dart';
 import '../../data/data_source/place_menu_remote_data_source.dart';
 import '../../data/repository/place_menu_repository.dart';
 import '../../domain/entity/place_menu.dart';
@@ -143,17 +145,34 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      (await submitOrder(MenuOrderParams(
-              userId: userId!,
-              placeId: placeId,
-              placeName: placeName,
-              reservationId: reservationId!,
-              placeMenuItems: _createBasket(placeMenu))))
-          .fold(
-              (failure) => emit(
-                  PlaceMenuSubmitOrderFailure(errorMessage: errorFetchData)),
-              (nothing) => emit(PlaceMenuSubmitOrderSuccess()));
+      double totalCost = double.parse(_basketTotal(placeMenu));
+      bool paid = await _pay(totalCost);
+
+      if(paid) {
+        (await submitOrder(MenuOrderParams(
+            userId: userId!,
+            placeId: placeId,
+            placeName: placeName,
+            reservationId: reservationId,
+            placeMenuItems: _createBasket(placeMenu))))
+            .fold(
+                (failure) =>
+                emit(
+                    PlaceMenuSubmitOrderFailure(errorMessage: errorFetchData)),
+                (nothing) async {
+              emit(PlaceMenuSubmitOrderSuccess());
+            }
+        );
+      }
     });
+  }
+
+  Future<bool> _pay(double totalBasketCost) async {
+    try {
+      return await ScaffoldWithNavBar.platform.invokeMethod('getRandomNumber', {"price": totalBasketCost});
+    } on PlatformException catch (e) {
+    }
+    return false;
   }
 
   List<PlaceMenuItem> _createBasket(PlaceMenu placeMenu) {

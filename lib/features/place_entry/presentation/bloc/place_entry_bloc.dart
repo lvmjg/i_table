@@ -32,7 +32,7 @@ class PlaceEntryBloc extends Bloc<PlaceEntryEvent, PlaceEntryState> {
               placeId: event.placeId, errorMessage: errorFetchPlaceSettings)),
           (placeSettings) => emit(PlaceEntryFetchSuccess(
               placeId: event.placeId,
-              placeName: '147 Break',
+              placeName: 'PizzaNow',
               placeSettings: placeSettings)));
     });
   }

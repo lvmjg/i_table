@@ -62,9 +62,9 @@ class ReservationSummaryParams extends Params {
 class ReservationOrdersParams extends Params implements UserIdParams {
   @override
   final String userId;
-  final String reservationId;
+  final String? reservationId;
 
-  ReservationOrdersParams({required this.userId, required this.reservationId});
+  ReservationOrdersParams({required this.userId, this.reservationId});
 }
 
 class MenuOrderParams extends Params implements UserIdParams {
@@ -72,7 +72,7 @@ class MenuOrderParams extends Params implements UserIdParams {
   final String userId;
   final String placeId;
   final String placeName;
-  final String reservationId;
+  final String? reservationId;
   final List<PlaceMenuItem> placeMenuItems;
 
   MenuOrderParams(

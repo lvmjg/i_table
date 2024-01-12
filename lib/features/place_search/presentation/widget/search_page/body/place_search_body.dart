@@ -40,8 +40,14 @@ class _PlaceSearchBodyState extends State<PlaceSearchBody> {
             return const CommonLoading();
           }),
         )),
-        Hero(tag: 'filter', child: SearchFilter()),
+        //Hero(tag: 'filter', child: SearchFilter()),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<PlaceSearchBloc>().add(PlaceSearchInitiated());
   }
 }

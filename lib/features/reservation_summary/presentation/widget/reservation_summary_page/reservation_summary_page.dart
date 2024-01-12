@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:i_table/core/util/snack_bar_util.dart';
 import 'package:i_table/features/place_plan/presentation/bloc/place_bloc.dart';
 import 'package:i_table/features/reservation_summary/presentation/widget/reservation_summary_page/body/reservation_summary_body.dart';
@@ -24,8 +25,8 @@ class _ReservationSummaryPageState extends State<ReservationSummaryPage> {
     return BlocListener<ReservationSummaryBloc, ReservationSummaryState>(
       listener: (context, state) {
         if (state is ReservationSummarySubmitSuccess) {
-          Navigator.of(this.context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
+          GoRouter.of(context).go('/userDashboard');
+
           SnackBarUtil.showSnackBar(this.context, submitReservationSuccess);
         }
       },

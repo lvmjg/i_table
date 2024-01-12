@@ -8,6 +8,7 @@ class SimpleFilledTonalButton extends SimpleButton {
       required String title,
       IconData? iconData,
       Color? iconColor,
+        double? iconSize,
       double? padding,
       VoidCallback? onPressed})
       : super(
@@ -15,6 +16,7 @@ class SimpleFilledTonalButton extends SimpleButton {
             title: title,
             iconData: iconData,
             iconColor: iconColor,
+            iconSize: iconSize,
             padding: padding,
             onPressed: onPressed);
 

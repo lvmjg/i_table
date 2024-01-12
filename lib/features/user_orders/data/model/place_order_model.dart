@@ -11,7 +11,8 @@ class PlaceOrderModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   late String id;
   final String userId;
-  final String reservationId;
+  @JsonKey(required: false, disallowNullValue: true)
+  final String? reservationId;
   final String placeId;
   final String placeName;
   final bool status;

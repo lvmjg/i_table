@@ -78,6 +78,7 @@ class _ReservationChatBodyState extends State<ReservationChatBody> {
                                           .sendTime
                                           .toString(),
                                       child: CommonCard(
+                                        innerPadding: padding / 2,
                                         backgroundColor:
                                             chatMessages[index].sender ==
                                                     loggedUserId
@@ -86,7 +87,7 @@ class _ReservationChatBodyState extends State<ReservationChatBody> {
                                         child: Text(chatMessages[index].message,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyLarge),
+                                                .bodyMedium),
                                         onPressed: () {},
                                       )),
                                 ]),

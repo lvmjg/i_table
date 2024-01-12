@@ -30,12 +30,4 @@ class _UserReservationsPageState extends State<UserReservationsPage> {
           body: UserReservationsBody()),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<UserReservationsBloc>()
-        .add(UserReservationsInitiated(userId: loggedUserId));
-  }
 }

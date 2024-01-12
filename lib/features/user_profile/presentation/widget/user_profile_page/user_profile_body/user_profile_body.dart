@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:i_table/core/widget/simple_filled_tonal_button.dart';
 import 'package:i_table/features/user_orders/presentation/widget/user_orders_page/user_orders_body/user_orders_body.dart';
 import 'package:i_table/features/user_reservations/presentation/widget/user_reservations_page/user_reservations_body/user_reservations_body.dart';
@@ -31,9 +32,17 @@ class UserProfileBody extends StatelessWidget {
             SimpleFilledTonalButton(
                 title: 'Więcej informacji',
                 onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetailsPage()));
+                  GoRouter.of(context).go('/userProfile/userDetails');
                 },
-            )
+            ),
+            SizedBox(height: padding),
+            SimpleFilledTonalButton(
+                title: kitchen,
+                onPressed:  () => GoRouter.of(context).go('/userProfile/serviceOrders')),
+            SizedBox(height: padding),
+            SimpleFilledTonalButton(
+                title: service,
+                onPressed: () => GoRouter.of(context).go('/userProfile/servicePlace')),
           ],
       ),
     );

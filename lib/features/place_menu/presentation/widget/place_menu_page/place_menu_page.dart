@@ -12,15 +12,14 @@ import 'body/place_menu_body.dart';
 
 class PlaceMenuPage extends StatefulWidget {
   final String placeId;
+  final String placeName;
   final String? reservationId;
 
-  const PlaceMenuPage({Key? key, required this.placeId, this.reservationId})
+  const PlaceMenuPage({Key? key, required this.placeId, required this.placeName, this.reservationId})
       : super(key: key);
 
   @override
   State<PlaceMenuPage> createState() => _PlaceMenuPageState();
-
-  bool get menuInReservationMode => reservationId != null;
 }
 
 class _PlaceMenuPageState extends State<PlaceMenuPage> {
@@ -46,22 +45,28 @@ class _PlaceMenuPageState extends State<PlaceMenuPage> {
             child: Scaffold(
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               appBar: PlaceMenuAppBar(
+                  title: _setAppBarTitle(),
                   placeMenuCategories: success
                       ? (state as PlaceMenuFetchSuccess)
                           .placeMenu
                           .placeMenuCategories
                       : []),
-              body: PlaceMenuBody(
-                  menuInReservationMode: widget.menuInReservationMode),
-
-              floatingActionButton: widget.menuInReservationMode
-                  ? PlaceMenuFloatingActionButton()
-                  : null,
+              body: PlaceMenuBody(),
+              floatingActionButton: PlaceMenuFloatingActionButton()
             ),
           ),
         );
       },
     );
+  }
+
+  String _setAppBarTitle(){
+    bool orderConnectedWithReservation = widget.reservationId!=null;
+    if(orderConnectedWithReservation){
+      return '${widget.placeName} $lp$menuOnsiteLowerCase$rp';
+    }
+
+    return '${widget.placeName} $lp$menuTakeawayLowerCase$rp';
   }
 
   @override
@@ -70,7 +75,7 @@ class _PlaceMenuPageState extends State<PlaceMenuPage> {
     context.read<PlaceMenuBloc>().add(PlaceMenuInitiated(
         userId: loggedUserId,
         placeId: widget.placeId,
-        placeName: '147 Break',
+        placeName: widget.placeName,
         reservationId: widget.reservationId));
   }
 }

@@ -25,6 +25,8 @@ class PlaceMenuFactory {
           description: entry.value.description,
           price: entry.value.price,
           url: entry.value.url));
+
+      existingCategory.items.sort((a, b) => a.name.compareTo(b.name));
     });
 
     return PlaceMenu(placeMenuCategories: placeMenuCategories);

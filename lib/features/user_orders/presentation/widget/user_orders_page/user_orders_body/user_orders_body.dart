@@ -7,9 +7,17 @@ import '../../../../../../core/widget/common_loading.dart';
 import '../../../../../../core/widget/user_order_card.dart';
 import '../../../bloc/user_orders_bloc.dart';
 
-class UserOrdersBody extends StatelessWidget {
-  const UserOrdersBody({super.key});
+class UserOrdersBody extends StatefulWidget {
+  final String userId;
+  final String? reservationId;
 
+  UserOrdersBody({super.key, required this.userId, this.reservationId});
+
+  @override
+  State<UserOrdersBody> createState() => _UserOrdersBodyState();
+}
+
+class _UserOrdersBodyState extends State<UserOrdersBody> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserOrdersBloc, UserOrdersState>(
@@ -33,5 +41,12 @@ class UserOrdersBody extends StatelessWidget {
         return const CommonLoading();
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserOrdersBloc>().add(UserOrdersInitiated(
+        userId: widget.userId, reservationId: widget.reservationId));
   }
 }

@@ -88,13 +88,13 @@ class ReservationCardBasicDetails extends StatelessWidget {
 
   _translateStatus(String status) {
     if (status == 'new') {
-      return 'Nowa';
-    } else if (status == 'confirmed') {
-      return 'Potwierdzona';
-    } else if (status == 'active') {
-      return 'Aktywna' '';
+      return orderStatusNew;
+    }  else if (status == 'active') {
+      return orderStatusActive;
+    } else if (status == 'closed') {
+      return orderStatusClosed;
     } else if (status == 'cancelled') {
-      return 'Anulowana';
+      return orderStatusCancelled;
     }
   }
 }

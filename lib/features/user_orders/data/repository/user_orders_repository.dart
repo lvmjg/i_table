@@ -9,7 +9,7 @@ import '../data_source/user_orders_remote_data_source.dart';
 
 abstract class UserOrdersRepository {
   Either<Failure, Stream<List<PlaceOrder>>> fetchUserOrders(
-      String userId, String reservationId);
+      String userId, String? reservationId);
 }
 
 class UserOrdersRepositoryImpl implements UserOrdersRepository {
@@ -20,7 +20,7 @@ class UserOrdersRepositoryImpl implements UserOrdersRepository {
 
   @override
   Either<Failure, Stream<List<PlaceOrder>>> fetchUserOrders(
-      String userId, String reservationId) {
+      String userId, String? reservationId) {
     try {
       Stream<List<PlaceOrderModel>> userOrderModelsStream =
           remote.fetchUserOrders(userId, reservationId);

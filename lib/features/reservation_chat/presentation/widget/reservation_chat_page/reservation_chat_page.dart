@@ -21,11 +21,19 @@ class ReservationChatPage extends StatefulWidget {
 class _ReservationChatPageState extends State<ReservationChatPage> {
   @override
   Widget build(BuildContext context) {
-    return CommonPage(
-      bloc: context.read<ReservationChatBloc>(),
-      child: Scaffold(
-        appBar: ReservationChatAppBar(title: serviceChat),
-        body: ReservationChatBody(),
+    return BlocProvider<ReservationChatBloc>(
+      create: (context) => ReservationChatBloc(placeId: widget.placeId, reservationId: widget.reservationId),
+      child: BlocBuilder<ReservationChatBloc, ReservationChatState>(
+      
+        builder: (context, state) {
+          return CommonPage(
+            bloc: context.read<ReservationChatBloc>(),
+            child: Scaffold(
+              appBar: ReservationChatAppBar(title: serviceChat),
+              body: ReservationChatBody(),
+            ),
+          );
+        },
       ),
     );
   }
@@ -33,7 +41,6 @@ class _ReservationChatPageState extends State<ReservationChatPage> {
   @override
   void initState() {
     super.initState();
-    context.read<ReservationChatBloc>().add(ReservationChatInitiated(
-        placeId: widget.placeId, reservationId: widget.reservationId));
+
   }
 }

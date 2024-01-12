@@ -14,7 +14,6 @@ import 'menu_card_buttons.dart';
 
 class MenuCard extends StatelessWidget {
   final PlaceMenuItem placeMenuItem;
-  final bool buttonsEnabled;
   final bool modeExtended;
   final VoidCallback? onPressed;
   final double imageSize;
@@ -22,7 +21,6 @@ class MenuCard extends StatelessWidget {
   MenuCard(
       {Key? key,
       required this.placeMenuItem,
-      this.buttonsEnabled = true,
       this.modeExtended = false,
       this.onPressed,
       required this.imageSize})
@@ -57,7 +55,7 @@ class MenuCard extends StatelessWidget {
                               ?.copyWith(color: primaryColor)),
                           SizedBox(height: modeExtended ? padding / 2 : 0),
                           Visibility(
-                              visible: buttonsEnabled && modeExtended == true,
+                              visible: modeExtended == true,
                               child: SizedBox(
                                   width: imageSize,
                                   height: imageSize / 3,
@@ -92,7 +90,7 @@ class MenuCard extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                            visible: buttonsEnabled && modeExtended == false,
+                            visible: modeExtended == false,
                             child: SizedBox(
                                 width: imageSize,
                                 height: imageSize / 3,
@@ -105,27 +103,7 @@ class MenuCard extends StatelessWidget {
               ],
             ),
 
-            if(buttonsEnabled && modeExtended)
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(padding/2),
-                    child: CommonTextField(
-                        text: placeMenuItem.note,
-                        hintText: 'Uwagi do zamówienia',
-                        iconAction: Icons.clear_rounded,
-                        onTextChanged: (value){
-                          placeMenuItem.note = value;
-                        },
-                        onActionIconPressed: (){
-                          placeMenuItem.note = StringUtil.EMPTY;
-                        },
-                    ),
-                  ),
-                ),
-              ],
-            ),
+
           ],
         ));
   }

@@ -26,9 +26,5 @@ class _PlaceSearchPageState extends State<PlaceSearchPage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<PlaceSearchBloc>().add(PlaceSearchInitiated());
-  }
+
 }

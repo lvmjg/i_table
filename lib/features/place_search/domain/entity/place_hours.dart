@@ -1,4 +1,4 @@
-class PlaceDetailsOpeningHours {
+class PlaceHours {
   final String monday;
   final String tuesday;
   final String wednesday;
@@ -7,7 +7,7 @@ class PlaceDetailsOpeningHours {
   final String saturday;
   final String sunday;
 
-  PlaceDetailsOpeningHours(
+  PlaceHours(
       {required this.monday,
       required this.tuesday,
       required this.wednesday,

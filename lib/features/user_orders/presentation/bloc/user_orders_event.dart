@@ -5,7 +5,7 @@ abstract class UserOrdersEvent {}
 
 class UserOrdersInitiated extends UserOrdersEvent {
   final String userId;
-  final String reservationId;
+  final String? reservationId;
 
   UserOrdersInitiated({required this.userId, required this.reservationId});
 }

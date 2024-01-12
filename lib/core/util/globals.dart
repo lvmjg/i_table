@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 bool debug = true;
 
-int TEST_TIMEOUT = 1;
+int TEST_TIMEOUT = 0;
 
 //Color primaryColor = Color(0xFF0020F7);
 //Color primaryColor = Color(0xFF1976D2);
@@ -18,7 +18,7 @@ double toolbarHeight = 70;
 String loggedUserId = 'TestUser';
 String me = "Ja";
 
-String appName = 'TuSiedzę';
+String appName = 'TuJemy';
 String searchBarHint = 'Szukaj punktu...';
 String messageBarHint = 'Wyślij wiadomość do obsługi...';
 String noResults = 'Brak wyników';
@@ -110,7 +110,7 @@ String payNow = 'Zapłać teraz';
 const RoundedRectangleBorder roundedRectangleBorder =
     RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)));
 
-String totalCost = "Koszt";
+String totalCost = "Razem";
 String kitchen = "Kuchnia";
 String titleOrders = "Zamówienia";
 String completed = "Zrealizowane";
@@ -120,6 +120,7 @@ String pleasePrepare = "Proszę o przygotowanie:";
 String thankYou = "Dziekuję";
 
 String pathStorageMenu = 'menu';
+String pathStorageLogo = 'logo';
 String chosenSittings = 'Wybrane miejsca';
 String settlement = 'Rozliczenie';
 
@@ -143,6 +144,7 @@ String total = 'Razem';
 
 String homeResOrd = 'Rez./Zam.';
 String homeSearch = 'Szukaj';
+String homeSearchTitle = 'Nasze punkty';
 String homeProfile = 'Profil';
 
 String reservations = 'Rezerwacje';
@@ -151,3 +153,16 @@ String newOrder = 'Nowe zamówienie';
 String chat = 'Chat';
 String history = 'Historia';
 String note = "Uwagi";
+String order = 'Zamówienie';
+String close = 'Zamknij';
+String menuTakeaway = 'Na wynos';
+String menuOnsite = 'Na miejscu';
+String menuTakeawayLowerCase = 'na wynos';
+String menuOnsiteLowerCase = 'na miejscu';
+
+String orderStatusNew = 'Nowa';
+String orderStatusActive = 'Aktywna';
+String orderStatusClosed = 'Zamknięta';
+String orderStatusCancelled = 'Anulowana';
+String orderNotes = 'Uwagi do zamówienia';
+String basket = 'Koszyk';

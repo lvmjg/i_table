@@ -10,11 +10,8 @@ import '../../../bloc/place_menu_bloc.dart';
 import '../place_menu_floating_action_button/menu_item_details_sheet.dart';
 
 class PlaceMenuBody extends StatefulWidget {
-  final bool menuInReservationMode;
-
-  PlaceMenuBody({
+  const PlaceMenuBody({
     super.key,
-    required this.menuInReservationMode,
   });
 
   @override
@@ -38,7 +35,6 @@ class _PlaceMenuBodyState extends State<PlaceMenuBody> {
                           itemBuilder: (context, index) {
                             return MenuCard(
                                 placeMenuItem: c.items[index],
-                                buttonsEnabled: widget.menuInReservationMode,
                                 onPressed: () {
                                   showModalBottomSheet(
                                     isScrollControlled: true,
@@ -51,7 +47,6 @@ class _PlaceMenuBodyState extends State<PlaceMenuBody> {
                                                   bottom: MediaQuery.of(context).viewInsets.bottom),
                                               child: MenuItemDetailsSheet(
                                                   placeMenuItem: c.items[index],
-                                                  buttonsEnabled: widget.menuInReservationMode,
                                               )),
                                         );
                                       });

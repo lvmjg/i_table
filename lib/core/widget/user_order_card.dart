@@ -16,11 +16,11 @@ class UserOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonCard(
         onPressed: () {},
-        outerPadding: padding / 2,
-        innerPadding: padding / 2,
+        outerPadding: padding / 8,
+        innerPadding: padding / 3,
         child: Column(
           children: [
-            Text('$orderNo ${order.no!.toUpperCase()}',
+            Text(_setCardTitleBasedOnOrderType(order.reservationId),
                 style: Theme.of(context).textTheme.headlineMedium),
             SizedBox(height: padding),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -36,11 +36,10 @@ class UserOrderCard extends StatelessWidget {
                     text: '$totalCost ',
                     children: <InlineSpan>[
                       TextSpan(
-                          text: '${order.totalCost} zł',
+                          text: '${order.totalCost}zł',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.bold)),
+                              .bodyMedium),
                     ],
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
@@ -57,51 +56,52 @@ class UserOrderCard extends StatelessWidget {
                     leading: Text((index + 1).toString(),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyMedium
+                            .bodySmall
                             ?.copyWith(color: primaryColor)),
-                    title: Padding(
-                      padding: EdgeInsets.only(bottom: padding / 4),
-                      child: Text(order.userOrders[index].name,
-                          style: Theme.of(context).textTheme.bodyMedium),
-                    ),
-                    subtitle: Wrap(
-                      direction: Axis.vertical,
-                      children: [
-                        Text(order.userOrders[index].description,
-                          style: Theme.of(context).textTheme.bodySmall),
-                        Visibility(
-                          visible: order.userOrders[index].note!=StringUtil.EMPTY,
-                          child: Wrap(
-                              direction: Axis.vertical,
-                              children: [SizedBox(height: padding/4),
-
-                            RichText(
-                              text: TextSpan(
-                                text: '$note ',
-                                children: <InlineSpan>[
-                                  TextSpan(
-                                      text: order.userOrders[index].note,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(color: Colors.red)),
-                                ],
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
-                              ),
-                            )
-
-
-                          ]),
-                        ),
-
-                      ]
-                    ),
+                    title: Text(order.userOrders[index].name,
+                        style: Theme.of(context).textTheme.bodySmall),
+                    subtitle: _setRemarks(context, order.userOrders[index].note),
                     trailing: Text(
-                        '${order.userOrders[index].price} x${order.userOrders[index].quantity} = ${order.userOrders[index].cost}',
-                        style: Theme.of(context).textTheme.bodyMedium),
+                        '${order.userOrders[index].price} x${order.userOrders[index].quantity} = ${order.userOrders[index].cost}zł',
+                        style: Theme.of(context).textTheme.bodySmall),
                   );
                 }),
           ],
         ));
+  }
+  
+  String _setCardTitleBasedOnOrderType(String? reservationId){
+    String orderNumber = '$orderNo ${order.no!.toUpperCase()}';
+    if(order.reservationId!=null) {
+      return '$orderNumber $lp$menuOnsiteLowerCase$rp';
+    }
+
+    return '$orderNumber $lp$menuTakeawayLowerCase$rp';
+  }
+
+  Widget? _setRemarks(BuildContext context, String remarks){
+    if(remarks!=StringUtil.EMPTY) {
+      return RichText(
+              text: TextSpan(
+                text: '$note ',
+                children: <InlineSpan>[
+                  TextSpan(
+                      text: remarks,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(color: Colors.red)),
+                ],
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
+            );
+    }
+
+    return null;
   }
 }

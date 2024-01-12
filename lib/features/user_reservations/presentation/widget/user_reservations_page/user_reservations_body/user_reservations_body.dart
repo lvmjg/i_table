@@ -8,9 +8,14 @@ import '../../../../../../core/widget/reservation_card_basic_details.dart';
 import '../../../bloc/user_reservations_bloc.dart';
 import '../../reservation_details_page/reservation_details_page.dart';
 
-class UserReservationsBody extends StatelessWidget {
+class UserReservationsBody extends StatefulWidget {
   const UserReservationsBody({super.key});
 
+  @override
+  State<UserReservationsBody> createState() => _UserReservationsBodyState();
+}
+
+class _UserReservationsBodyState extends State<UserReservationsBody> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserReservationsBloc, UserReservationsState>(
@@ -46,5 +51,13 @@ class UserReservationsBody extends StatelessWidget {
         return const CommonLoading();
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<UserReservationsBloc>()
+        .add(UserReservationsInitiated(userId: loggedUserId));
   }
 }

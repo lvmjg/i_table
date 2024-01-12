@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
@@ -20,10 +21,12 @@ part 'reservation_chat_state.dart';
 
 class ReservationChatBloc
     extends Bloc<ReservationChatEvent, ReservationChatState> {
-  String? currentPlaceId;
-  String? currentReservationId;
+  String? placeId;
+  String? reservationId;
+  Stream<List<ChatMessage>>? chatMessagesStream;
 
-  ReservationChatBloc() : super(ReservationChatFetchInProgress()) {
+  ReservationChatBloc({required this.placeId, required this.reservationId}) : super(ReservationChatFetchInProgress()) {
+
     FetchChatMessages fetchChatMessages = FetchChatMessages(
         ReservationChatRepositoryImpl(
             ReservationChatRemoteDataSourceImpl(), ChatMessagesFactory()));
@@ -39,24 +42,19 @@ class ReservationChatBloc
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      Stream<List<ChatMessage>>? chatMessagesStream;
-
       fetchChatMessages(ReservationParams(
-              placeId: event.placeId, reservationId: event.reservationId))
+              placeId: placeId!, reservationId: reservationId!))
           .fold((failure) {
-        currentPlaceId = null;
-        currentReservationId = null;
         emit(ReservationChatFetchFailure(
             params: ErrorParams(errorMessage: errorFetchData)));
       }, (newChatMessagesStream) {
-        currentPlaceId = event.placeId;
-        currentReservationId = event.reservationId;
         chatMessagesStream = newChatMessagesStream;
       });
 
       if (chatMessagesStream != null) {
         await emit.forEach(chatMessagesStream!,
             onData: (List<ChatMessage> chatMessages) {
+              log('Chat new data');
           chatMessages.sort((a, b) => a.sendTime.compareTo(b.sendTime));
           return ReservationChatFetchSuccess(messages: chatMessages);
         });
@@ -64,7 +62,7 @@ class ReservationChatBloc
     }, transformer: restartable());
 
     on<ReservationChatAddMessageRequested>((event, emit) async {
-      if (currentPlaceId != null && currentReservationId != null) {
+      if (placeId != null && reservationId != null) {
         emit(ReservationChatAddMessageInProgress());
 
         if (debug) {
@@ -72,7 +70,7 @@ class ReservationChatBloc
         }
 
         (await addChatMessage(ReservationChatMessageParams(
-                reservationId: currentReservationId!,
+                reservationId: reservationId!,
                 chatMessage: event.message)))
             .fold(
                 (failure) => emit(ReservationChatAddMessageFailure(
@@ -80,5 +78,17 @@ class ReservationChatBloc
                 (emptyVoid) => emit(ReservationChatAddMessageSuccess()));
       }
     });
+
+    _onCreate();
+  }
+
+  void _onCreate(){
+    this.add(ReservationChatInitiated());
+  }
+  @override
+  Future<void> close() async {
+    log('Chat closed');
+
+    super.close();
   }
 }

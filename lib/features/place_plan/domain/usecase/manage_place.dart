@@ -249,8 +249,8 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
     return PlaceReservation(
         no: StringUtil.EMPTY,
         placeId: '9wtiLFlRdZ1b8abbPoet',
-        placeName: '147 Break',
-        placeAddress: 'Nowogrodzka 84/86, Warszawa',
+        placeName: 'PizzaNow',
+        placeAddress: 'Marszałkowska 84/86, Warszawa',
         userId: loggedUserId,
         startDate: reservationDateTime,
         endDate: reservationDateTime

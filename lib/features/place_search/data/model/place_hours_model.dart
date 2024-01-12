@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'place_details_opening_hours_model.g.dart';
+part 'place_hours_model.g.dart';
 
 @JsonSerializable()
-class PlaceDetailsOpeningHoursModel {
+class PlaceHoursModel {
   @JsonKey(required: true)
   final String monday;
   @JsonKey(required: true)
@@ -19,7 +19,7 @@ class PlaceDetailsOpeningHoursModel {
   @JsonKey(required: true)
   final String sunday;
 
-  PlaceDetailsOpeningHoursModel(
+  PlaceHoursModel(
       {required this.monday,
       required this.tuesday,
       required this.wednesday,
@@ -28,8 +28,8 @@ class PlaceDetailsOpeningHoursModel {
       required this.saturday,
       required this.sunday});
 
-  factory PlaceDetailsOpeningHoursModel.fromJson(Map<String, dynamic> json) =>
-      _$PlaceDetailsOpeningHoursModelFromJson(json);
+  factory PlaceHoursModel.fromJson(Map<String, dynamic> json) =>
+      _$PlaceHoursModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PlaceDetailsOpeningHoursModelToJson(this);
+  Map<String, dynamic> toJson() => _$PlaceHoursModelToJson(this);
 }

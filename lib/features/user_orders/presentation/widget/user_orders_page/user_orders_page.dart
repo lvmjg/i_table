@@ -27,14 +27,9 @@ class _UserOrdersPageState extends State<UserOrdersPage> {
       bloc: context.read<UserOrdersBloc>(),
       child: Scaffold(
           appBar: UserOrdersAppBar(title: myOrders),
-          body: const UserOrdersBody()),
+          body: UserOrdersBody(userId: widget.userId, reservationId: widget.reservationId)),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<UserOrdersBloc>().add(UserOrdersInitiated(
-        userId: widget.userId, reservationId: widget.reservationId));
-  }
+
 }

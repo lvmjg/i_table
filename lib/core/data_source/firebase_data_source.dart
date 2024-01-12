@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../features/place_details/data/model/place_details_model.dart';
 import '../../features/place_entry/data/model/place_settings/place_settings_model.dart';
 import '../../features/place_menu/data/model/place_menu_item_model.dart';
 import '../../features/place_menu/data/model/place_menu_model.dart';
@@ -19,12 +18,11 @@ import '../util/globals.dart';
 abstract class FirebaseDataSource {
   Future<List<PlaceSearchModel>> fetchPlaces();
   Future<File> fetchPanorama(String placeId, String elementId);
-  Future<PlaceDetailsModel> fetchPlaceDetails(String placeId);
   Future<List<PlacePlanLevelModel>> fetchPlacePlan(String placeId);
   Future<PlaceSettingsModel?> fetchPlaceSettings(String placeId);
   Future<PlaceMenuModel?> fetchPlaceMenu(String placeId);
   Future<void> submitOrder(PlaceOrderModel placeOrderModel,
-      String reservationId, ChatMessageModel orderMessageModel);
+      String? reservationId, ChatMessageModel orderMessageModel);
   Future<void> submitReservation(PlaceReservationModel placeReservationModel);
   Future<void> addChatMessage(
       String reservationId, ChatMessageModel chatMessageModel);
@@ -50,9 +48,22 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
     QuerySnapshot<Map<String, dynamic>> placesSnapshot =
         await ff.collection(pathPlaces).get();
 
-    return placesSnapshot.docs
+
+    List<PlaceSearchModel> models =  placesSnapshot.docs
         .map((value) => PlaceSearchModel.fromJson(value.id, value.data()))
         .toList();
+
+    await Future.forEach(models, (element) async {
+      await _readImagesInFolder(
+          '${element.placeId}/$pathStorageLogo',
+          onImageUrlLoaded: (String imageName, String downloadUrl) {
+
+            element.imageUrl = downloadUrl;
+          }
+      );
+    });
+
+    return models;
   }
 
   @override
@@ -75,7 +86,7 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
     }
   }
 
-  @override
+  /*@override
   Future<PlaceDetailsModel> fetchPlaceDetails(String placeId) async {
     QuerySnapshot<Map<String, dynamic>> placesDetailsSnapshot = await ff
         .collection(pathPlacesDetails)
@@ -86,7 +97,7 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
         .map((value) => PlaceDetailsModel.fromJson(value.data()))
         .toList()
         .first;
-  }
+  }*/
 
   @override
   Future<List<PlacePlanLevelModel>> fetchPlacePlan(String placeId) async {
@@ -146,18 +157,13 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
     if (placeMenuModels.isNotEmpty) {
       placeMenuModel = placeMenuModels.first;
 
-      FirebaseStorage fs = FirebaseStorage.instance;
-      ListResult imageFiles =
-          await fs.ref('$placeId/$pathStorageMenu').listAll();
+      await _readImagesInFolder('$placeId/$pathStorageMenu',
+          onImageUrlLoaded: (String imageName, String downloadUrl) {
 
-      await Future.forEach(imageFiles.items, (element) async {
-        String test = element.name;
         PlaceMenuItemModel? itemModel =
-            placeMenuModel!.placeMenu[element.name.split('.')[0]];
+            placeMenuModel!.placeMenu[imageName.split('.')[0]];
         if (itemModel != null) {
-          String idDownloadUrl =
-              await fs.ref(element.fullPath).getDownloadURL();
-          itemModel.url = idDownloadUrl;
+          itemModel.url = downloadUrl;
         }
       });
     }
@@ -165,9 +171,22 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
     return placeMenuModel;
   }
 
+  _readImagesInFolder(String folderPath,
+      {required void Function(String imageName, String downloadUrl)
+          onImageUrlLoaded}) async {
+    FirebaseStorage fs = FirebaseStorage.instance;
+    ListResult imageFiles = await fs.ref(folderPath).listAll();
+
+    await Future.forEach(imageFiles.items, (element) async {
+      String imageName = element.name;
+      String downloadUrl = await fs.ref(element.fullPath).getDownloadURL();
+      onImageUrlLoaded(imageName, downloadUrl);
+    });
+  }
+
   @override
   Future<void> submitOrder(PlaceOrderModel placeOrderModel,
-      String reservationId, ChatMessageModel chatMessageModel) async {
+      String? reservationId, ChatMessageModel chatMessageModel) async {
     DocumentReference orderDocId = ff.collection(pathPlacesOrders).doc();
 
     DocumentReference chatDocId = ff
@@ -223,10 +242,17 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
           .where(pathPlaceId, isEqualTo: placeId)
           .snapshots();
     } else if (userId != null && reservationId != null) {
+      //list of orders made by user connected with reservation
       ordersSnapshotsStream = ff
           .collection(pathPlacesOrders)
           .where(pathUserId, isEqualTo: userId)
           .where(pathReservationId, isEqualTo: reservationId)
+          .snapshots();
+    } else if (userId != null){
+      //list of all user orders
+      ordersSnapshotsStream = ff
+          .collection(pathPlacesOrders)
+          .where(pathUserId, isEqualTo: userId)
           .snapshots();
     }
 

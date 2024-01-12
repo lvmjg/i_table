@@ -5,6 +5,7 @@ class SimpleButton extends StatelessWidget {
   final String title;
   final IconData? iconData;
   final Color? iconColor;
+  final double? iconSize;
   final VoidCallback? onPressed;
   final double? padding;
 
@@ -13,6 +14,7 @@ class SimpleButton extends StatelessWidget {
       required this.title,
       this.iconData,
       this.iconColor = Colors.black38,
+        this.iconSize = 10,
       this.padding = 4,
       this.onPressed})
       : super(key: key);
@@ -28,7 +30,7 @@ class SimpleButton extends StatelessWidget {
           const SizedBox(
             width: 4,
           ),
-          if (iconData != null) Icon(iconData, color: iconColor)
+          if (iconData != null) Icon(iconData, color: iconColor, size: iconSize)
         ],
       ),
     );

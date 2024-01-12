@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:i_table/features/service_place/presentation/widget/service_place_page/service_place_page.dart';
 
 import '../../../../../../core/util/globals.dart';
@@ -32,8 +33,7 @@ class HomeBody extends StatelessWidget {
         Container(
           color: Colors.white,
           child: InkWell(
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => PlaceSearchPage())),
+            onTap: () => GoRouter.of(context).go('/home/placeSearch'),
             child: AbsorbPointer(
               absorbing: true,
               child: Hero(tag: 'filter', child: SearchFilter()),
@@ -43,18 +43,8 @@ class HomeBody extends StatelessWidget {
         SizedBox(height: padding),
         SimpleFilledTonalButton(
             title: myReservations,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UserReservationsPage()))),
-        SizedBox(height: padding),
-        SimpleFilledTonalButton(
-            title: kitchen,
-            onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ServiceOrdersPage()))),
-        SizedBox(height: padding),
-        SimpleFilledTonalButton(
-            title: service,
-            onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ServicePlacePage()))),
+            onPressed: () => GoRouter.of(context).go('/home/userReservations')),
+
       ],
     );
   }

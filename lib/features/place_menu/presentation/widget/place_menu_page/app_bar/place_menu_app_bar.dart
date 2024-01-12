@@ -8,10 +8,12 @@ import '../../../../../../core/widget/common_loading.dart';
 import '../../../../domain/entity/place_menu_category.dart';
 
 class PlaceMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
   final List<PlaceMenuCategory> placeMenuCategories;
 
   PlaceMenuAppBar({
     super.key,
+    required this.title,
     required this.placeMenuCategories,
   });
 
@@ -24,7 +26,7 @@ class PlaceMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: EdgeInsets.all(padding / 2),
             child: Text(
-              menu,
+              title,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.white,

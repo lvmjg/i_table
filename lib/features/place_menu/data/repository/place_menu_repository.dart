@@ -16,7 +16,7 @@ import '../model/place_menu_model.dart';
 abstract class PlaceMenuRepository {
   Future<Either<Failure, PlaceMenu>> fetchPlaceMenu(String placeId);
   Future<Either<Failure, void>> submitOrder(
-      PlaceOrder placeOrder, String reservationId, ChatMessage orderMessage);
+      PlaceOrder placeOrder, String? reservationId, ChatMessage orderMessage);
 }
 
 class PlaceMenuRepositoryImpl implements PlaceMenuRepository {
@@ -45,7 +45,7 @@ class PlaceMenuRepositoryImpl implements PlaceMenuRepository {
 
   @override
   Future<Either<Failure, void>> submitOrder(PlaceOrder placeOrder,
-      String reservationId, ChatMessage orderMessage) async {
+      String? reservationId, ChatMessage orderMessage) async {
     try {
       ChatMessageModel orderMessageModel =
           messagesFactory.getModelFromChatMessage(orderMessage);
