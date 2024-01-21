@@ -3,11 +3,10 @@ import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/reservation_chat/data/data_source/reservation_chat_remote_data_source.dart';
 import 'package:i_table/features/reservation_chat/data/repository/reservation_chat_repository.dart';
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_message.dart';
-import 'package:i_table/features/reservation_chat/domain/entitiy/chat_messages_factory.dart';
-import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
-import 'package:i_table/features/user_orders/domain/entity/place_order_item.dart';
 
 import '../../../../core/error/failures.dart';
+import '../../../../core/place_order/domain/entity/place_order.dart';
+import '../../../../core/place_order/domain/entity/place_order_item.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../data/repository/place_menu_repository.dart';
 import '../entity/place_menu.dart';

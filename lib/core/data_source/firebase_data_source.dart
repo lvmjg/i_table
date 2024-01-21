@@ -11,8 +11,8 @@ import '../../features/place_plan/data/model/place_plan/place_plan_level_model.d
 import '../../features/place_plan/data/model/place_reservation/place_reservation_model.dart';
 import '../../features/place_search/data/model/place_search_model.dart';
 import '../../features/reservation_chat/data/model/chat_message_model.dart';
-import '../../features/user_orders/data/model/place_order_model.dart';
 import '../error/exceptions.dart';
+import '../place_order/data/model/place_order_model.dart';
 import '../util/globals.dart';
 
 abstract class FirebaseDataSource {
@@ -30,6 +30,7 @@ abstract class FirebaseDataSource {
       {String? placeId, String? userId, String? reservationId});
   Stream<List<PlaceReservationModel>> fetchReservations(
       {String? placeId, DateTime? reservationDate, String? userId});
+  Future<void> changeStatus(String reservationId, String closeStatus, String closedBy);
   Stream<List<ChatMessageModel>> fetchChatMessages(
       String placeId, String reservationId);
 }
@@ -241,11 +242,11 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
           .collection(pathPlacesOrders)
           .where(pathPlaceId, isEqualTo: placeId)
           .snapshots();
-    } else if (userId != null && reservationId != null) {
+    } else if (reservationId != null) {
       //list of orders made by user connected with reservation
       ordersSnapshotsStream = ff
           .collection(pathPlacesOrders)
-          .where(pathUserId, isEqualTo: userId)
+          //.where(pathUserId, isEqualTo: userId)
           .where(pathReservationId, isEqualTo: reservationId)
           .snapshots();
     } else if (userId != null){
@@ -287,6 +288,20 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
         .map((value) => PlaceReservationModel.fromJson(value.id, value.data()))
         .toList());
   }
+
+  @override
+  Future<void> changeStatus(String reservationId, String closeStatus, String closedBy) async {
+
+    await ff
+        .collection(pathPlacesReservations)
+        .doc(reservationId)
+        .update({
+      pathStatus: closeStatus,
+      pathClosedBy: closedBy,
+      pathUpdateDate: Timestamp.fromDate(DateTime.now())
+    });
+  }
+
 
   @override
   Stream<List<ChatMessageModel>> fetchChatMessages(

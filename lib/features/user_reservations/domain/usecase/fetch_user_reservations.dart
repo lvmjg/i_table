@@ -13,6 +13,6 @@ class FetchUserReservations
 
   @override
   Either<Failure, Stream<List<PlaceReservation>>> call(UserIdParams params) {
-    return userReservationsRepository.fetchUserReservations(params.userId);
+    return userReservationsRepository.fetchUserReservations(params);
   }
 }

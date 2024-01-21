@@ -1,4 +1,4 @@
-import 'package:i_table/features/user_orders/domain/entity/place_order_item.dart';
+import 'package:i_table/core/place_order/domain/entity/place_order_item.dart';
 
 import '../../../../core/util/globals.dart';
 

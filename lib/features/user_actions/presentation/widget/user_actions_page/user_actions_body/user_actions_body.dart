@@ -4,6 +4,8 @@ import 'package:i_table/features/user_orders/presentation/widget/user_orders_pag
 import 'package:i_table/features/user_reservations/presentation/widget/user_reservations_page/user_reservations_body/user_reservations_body.dart';
 import 'package:i_table/features/user_reservations/presentation/widget/user_reservations_page/user_reservations_page.dart';
 
+import '../../../../../user_orders/presentation/widget/user_all_orders_page/user_all_orders_body/user_all_orders_body.dart';
+
 class UserActionsBody extends StatelessWidget {
   final List<String> categories;
 
@@ -14,7 +16,7 @@ class UserActionsBody extends StatelessWidget {
     return TabBarView(
         children: [
           UserReservationsBody(),
-          UserOrdersBody(userId: loggedUserId)
+          UserAllOrdersBody(userId: loggedUserId)
         ]
     );
   }

@@ -1,13 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:i_table/core/util/globals.dart';
-import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
-import 'package:i_table/features/user_orders/domain/usecase/fetch_user_orders.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../core/place_order/domain/entity/place_order.dart';
+import '../../../../core/place_order/domain/entity/place_orders_factory.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/widget/common_page.dart';
-import '../../../user_orders/domain/entity/place_orders_factory.dart';
 import '../../data/data_source/service_orders_remote_data_source.dart';
 import '../../data/repository/service_orders_repository.dart';
 import '../../domain/usecase/fetch_service_orders.dart';

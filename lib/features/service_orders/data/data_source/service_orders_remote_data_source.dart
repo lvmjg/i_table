@@ -1,6 +1,7 @@
 import 'package:i_table/core/data_source/firebase_data_source.dart';
 import 'package:i_table/core/error/exceptions.dart';
-import 'package:i_table/features/user_orders/data/model/place_order_model.dart';
+
+import '../../../../core/place_order/data/model/place_order_model.dart';
 
 abstract class ServiceOrdersRemoteDataSource {
   Stream<List<PlaceOrderModel>> fetchServiceOrders(String placeId);

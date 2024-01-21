@@ -4,8 +4,7 @@ part of 'user_orders_bloc.dart';
 abstract class UserOrdersEvent {}
 
 class UserOrdersInitiated extends UserOrdersEvent {
-  final String userId;
-  final String? reservationId;
+  final String userOrReservationId;
 
-  UserOrdersInitiated({required this.userId, required this.reservationId});
+  UserOrdersInitiated({required this.userOrReservationId});
 }

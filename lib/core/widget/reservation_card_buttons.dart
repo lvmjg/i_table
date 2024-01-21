@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:i_table/core/usecase/usecase.dart';
+import 'package:i_table/core/util/dialog_util.dart';
 import 'package:i_table/core/widget/simple_filled_tonal_button.dart';
-import 'package:i_table/features/place_menu/presentation/widget/place_menu_page/place_menu_page.dart';
-import 'package:i_table/features/reservation_chat/presentation/widget/reservation_chat_page/reservation_chat_page.dart';
+import 'package:i_table/features/user_reservations/presentation/bloc/user_reservations_bloc.dart';
 
 import '../../../../core/util/globals.dart';
 import '../../features/place_plan/domain/entity/place_reservation/place_reservation.dart';
-import '../../features/user_orders/presentation/widget/user_orders_page/user_orders_page.dart';
 
 class ReservationCardButtons extends StatelessWidget {
   final PlaceReservation placeReservation;
@@ -21,8 +21,8 @@ class ReservationCardButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Offstage(
-          offstage: !(placeReservation.status == 'new' ||
-              placeReservation.status == 'active'),
+          offstage: placeReservation.status != 'new' &&
+              placeReservation.status != 'active',
           child: SimpleFilledTonalButton(
               title: newOrder,
               iconData: Icons.add_rounded,
@@ -37,46 +37,43 @@ class ReservationCardButtons extends StatelessWidget {
                 });
               }),
         ),
-        Offstage(
-            offstage: !(placeReservation.status == 'new' ||
-                placeReservation.status == 'active' ||
-                placeReservation.status == 'closed' ||
-                placeReservation.status == 'cancelled'),
-            child: IconButton(
-                onPressed: () {
-                  GoRouter.of(context).goNamed('chat', pathParameters: {
-                    'placeId': placeReservation.placeId,
-                    'reservationId': placeReservation.id
-                  });
-                },
-                icon: Icon(
-                  Icons.question_answer_rounded,
-                  color: Colors.green,
-                  size: 25,
-                ))),
-        Offstage(
-          offstage: !(placeReservation.status == 'new' ||
-              placeReservation.status == 'active' ||
-              placeReservation.status == 'closed' ||
-              placeReservation.status == 'cancelled'),
-          child: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => UserOrdersPage(
-                        userId: placeReservation.userId,
-                        reservationId: placeReservation.id)));
-              },
-              icon: Icon(
-                Icons.restaurant_menu_rounded,
-                color: Colors.blueGrey,
-                size: 25,
-              )),
-        ),
+        IconButton(
+            onPressed: () {
+              GoRouter.of(context).goNamed('chat', pathParameters: {
+                'placeId': placeReservation.placeId,
+                'reservationId': placeReservation.id
+              });
+            },
+            icon: Icon(
+              Icons.question_answer_rounded,
+              color: Colors.green,
+              size: 25,
+            )),
+        IconButton(
+            onPressed: () {
+              GoRouter.of(context).goNamed('orders',
+                  pathParameters: {'reservationId': placeReservation.id});
+            },
+            icon: Icon(
+              Icons.restaurant_menu_rounded,
+              color: Colors.blueGrey,
+              size: 25,
+            )),
         Offstage(
           offstage: placeReservation.status != 'new',
           child: IconButton(
-              onPressed: () {
-                //launch(placeSearch.placeLocation);
+              onPressed: () async {
+                if (await DialogUtil.showConfirmationDialog(context,
+                cancelReservationTitle, cancelReservationContent, dialogBack, dialogCancel)) {
+
+                context.read<UserReservationsBloc>().add(UserReservationsStatusChanged(params:
+                ReservationChangeStatusParams(
+                reservationId: placeReservation.id,
+                closeStatus: placeReservation.status,
+                closedBy: loggedUserId,
+                startDate: placeReservation.startDate))
+                );
+                }
               },
               icon: Icon(
                 Icons.close_rounded,
@@ -85,17 +82,26 @@ class ReservationCardButtons extends StatelessWidget {
               )),
         ),
         Offstage(
-          offstage: placeReservation.status != 'active',
-          child: IconButton(
-              onPressed: () {
-                //launch(placeSearch.placeLocation);
-              },
-              icon: Icon(
-                Icons.check_rounded,
-                color: Colors.redAccent,
-                size: 28,
-              )),
-        ),
+            offstage: placeReservation.status != 'active',
+            child: IconButton(
+                onPressed: () async {
+                  if (await DialogUtil.showConfirmationDialog(context,
+                      closeReservationTitle, closeReservationContent, dialogBack, dialogClose)) {
+
+                    context.read<UserReservationsBloc>().add(UserReservationsStatusChanged(params:
+                    ReservationChangeStatusParams(
+                        reservationId: placeReservation.id,
+                        closeStatus: placeReservation.status,
+                        closedBy: loggedUserId,
+                    startDate: placeReservation.startDate))
+                    );
+                  }
+                },
+                icon: Icon(
+                  Icons.check_rounded,
+                  color: Colors.redAccent,
+                  size: 28,
+                ))),
       ],
     );
   }

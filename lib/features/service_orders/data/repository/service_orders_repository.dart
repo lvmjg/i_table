@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:i_table/features/user_orders/data/model/place_order_model.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../user_orders/domain/entity/place_order.dart';
-import '../../../user_orders/domain/entity/place_orders_factory.dart';
+import '../../../../core/place_order/data/model/place_order_model.dart';
+import '../../../../core/place_order/domain/entity/place_order.dart';
+import '../../../../core/place_order/domain/entity/place_orders_factory.dart';
 import '../data_source/service_orders_remote_data_source.dart';
 
 abstract class ServiceOrdersRepository {

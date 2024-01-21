@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:dartz/dartz.dart';
 import 'package:i_table/core/util/globals.dart';
+import 'package:i_table/features/user_reservations/domain/usecase/change_reservation_status.dart';
 import 'package:i_table/features/user_reservations/domain/usecase/fetch_user_reservations.dart';
 import 'package:meta/meta.dart';
 
@@ -17,10 +19,14 @@ part 'user_reservations_state.dart';
 
 class UserReservationsBloc
     extends Bloc<UserReservationsEvent, UserReservationsState> {
+  UserReservationsRepository repository = UserReservationsRepositoryImpl(UserReservationsRemoteDataSourceImpl(),
+      PlaceReservationsFactory());
+
+  Stream<List<PlaceReservation>>? userReservationsStream;
+
   UserReservationsBloc() : super(UserReservationsFetchInProgress()) {
-    FetchUserReservations fetchUserReservations = FetchUserReservations(
-        UserReservationsRepositoryImpl(UserReservationsRemoteDataSourceImpl(),
-            PlaceReservationsFactory()));
+    FetchUserReservations fetchUserReservations = FetchUserReservations(repository);
+    ChangeReservationStatus changeReservationStatus = ChangeReservationStatus(repository);
 
     on<UserReservationsInitiated>((event, emit) async {
       emit(UserReservationsFetchInProgress());
@@ -29,22 +35,43 @@ class UserReservationsBloc
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      Stream<List<PlaceReservation>>? userReservationsStream;
-
       fetchUserReservations(UserIdParams(userId: event.userId)).fold(
           (failure) => emit(UserReservationsFetchFailure(
-              params: ErrorParams(errorMessage: errorFetchUserReservations))),
+              params: ErrorParams(errorMessage: errorFetchData))),
           (newUserReservationsStream) =>
               userReservationsStream = newUserReservationsStream);
 
-      if (userReservationsStream != null) {
-        await emit.forEach(userReservationsStream!,
-            onData: (List<PlaceReservation> userReservations) {
-          userReservations
-              .sort((a, b) => a.startDate.compareTo(b.startDate) * -1);
-          return UserReservationsFetchSuccess(reservations: userReservations);
-        });
+      await _handleStream(emit);
+    }, transformer: restartable());
+
+    on<UserReservationsStatusChanged>((event, emit) async {
+      emit(UserReservationsFetchSuccess(reservations: repository.reservations, inTouchMode: false));
+
+      if (debug) {
+        await Future.delayed(Duration(seconds: TEST_TIMEOUT));
+      }
+
+      Either result = await changeReservationStatus(event.params);
+      if(result.isLeft()){
+        emit(UserReservationsStatusChangeFailure(failure: errorUpdateReservationStatus));
+        emit(UserReservationsFetchSuccess(reservations: repository.reservations, inTouchMode: true));
       }
     }, transformer: restartable());
+  }
+
+  Future<void> _handleStream(Emitter<UserReservationsState> emit) async {
+    if (userReservationsStream != null) {
+      await emit.forEach(userReservationsStream!,
+          onData: (List<PlaceReservation> userReservations) {
+            userReservations
+                .sort((a, b) => a.startDate.compareTo(b.startDate) * -1);
+            return UserReservationsFetchSuccess(reservations: userReservations, inTouchMode: true);
+          },
+          onError: (e, s){
+            return UserReservationsFetchFailure(
+                params: ErrorParams(errorMessage: errorFetchData));
+          }
+      );
+    }
   }
 }

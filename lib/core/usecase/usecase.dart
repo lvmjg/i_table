@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:i_table/features/place_plan/domain/entity/place_configuration_entity.dart';
+import 'package:i_table/core/util/copyable.dart';
 
 import '../../features/place_menu/domain/entity/place_menu_item.dart';
 import '../../features/place_plan/domain/entity/place_reservation/place_reservation.dart';
 import '../../features/reservation_chat/domain/entitiy/chat_message.dart';
-import '../../features/user_orders/domain/entity/place_order.dart';
 import '../error/failures.dart';
 
 abstract class UseCase<Type, Params> {
@@ -35,6 +34,35 @@ class UserIdParams extends Params {
   final String userId;
 
   UserIdParams({required this.userId});
+}
+
+class ReservationIdParams extends Params {
+  final String reservationId;
+
+  ReservationIdParams({required this.reservationId});
+}
+
+class ReservationChangeStatusParams extends Params implements Copyable<ReservationChangeStatusParams> {
+  final String reservationId;
+  final String closeStatus;
+  final String closedBy;
+  final DateTime startDate;
+
+  ReservationChangeStatusParams({required this.reservationId, required this.closeStatus, required this.closedBy, required this.startDate});
+
+  @override
+  ReservationChangeStatusParams copyWith({
+    String? reservationId,
+    String? closeStatus,
+    String? closedBy,
+    DateTime? startDate
+  }) =>
+      ReservationChangeStatusParams(
+          reservationId: reservationId ?? this.reservationId,
+        closeStatus: closeStatus ?? this.closeStatus,
+        closedBy: closedBy ?? this.closedBy,
+        startDate: startDate ?? this.startDate,
+      );
 }
 
 class ReservationParams extends Params implements PlaceIdParams {

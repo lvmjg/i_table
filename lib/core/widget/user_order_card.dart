@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:i_table/core/place_order/domain/entity/place_order.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/core/widget/common_divider.dart';
 import 'package:i_table/core/widget/common_card.dart';
-import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
 import 'package:intl/intl.dart';
 
 import '../util/globals.dart';

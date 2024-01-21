@@ -7,48 +7,42 @@ part of 'place_reservation_model.dart';
 // **************************************************************************
 
 PlaceReservationModel _$PlaceReservationModelFromJson(
-    Map<String, dynamic> json) {
-  $checkKeys(
-    json,
-    requiredKeys: const [
-      'placeId',
-      'placeName',
-      'placeAddress',
-      'people',
-      'status'
-    ],
-  );
-  return PlaceReservationModel(
-    no: json['no'] as String,
-    placeId: json['placeId'] as String,
-    placeName: json['placeName'] as String,
-    placeAddress: json['placeAddress'] as String,
-    userId: json['userId'] as String,
-    startDate:
-        const TimestampConverter().fromJson(json['startDate'] as Timestamp),
-    duration: json['duration'] as int? ?? 0,
-    people: json['people'] as int,
-    status: json['status'] as String,
-    tables: (json['tables'] as Map<String, dynamic>?)?.map(
-          (k, e) => MapEntry(
-              k,
-              (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(
-                    k, (e as List<dynamic>).map((e) => e as String).toList()),
-              )),
-        ) ??
-        {},
-    groups: (json['groups'] as Map<String, dynamic>?)?.map(
-          (k, e) => MapEntry(
-              k, (e as List<dynamic>).map((e) => e as String).toList()),
-        ) ??
-        {},
-    sittings: (json['sittings'] as List<dynamic>?)
-            ?.map((e) => e as String)
-            .toList() ??
-        [],
-  );
-}
+        Map<String, dynamic> json) =>
+    PlaceReservationModel(
+      no: json['no'] as String,
+      placeId: json['placeId'] as String,
+      placeName: json['placeName'] as String,
+      placeAddress: json['placeAddress'] as String,
+      userId: json['userId'] as String,
+      startDate:
+          const TimestampConverter().fromJson(json['startDate'] as Timestamp),
+      duration: json['duration'] as int? ?? 0,
+      people: json['people'] as int,
+      status: json['status'] as String,
+      tables: (json['tables'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                k,
+                (e as Map<String, dynamic>).map(
+                  (k, e) => MapEntry(
+                      k, (e as List<dynamic>).map((e) => e as String).toList()),
+                )),
+          ) ??
+          {},
+      groups: (json['groups'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                k, (e as List<dynamic>).map((e) => e as String).toList()),
+          ) ??
+          {},
+      sittings: (json['sittings'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      createDate:
+          const TimestampConverter().fromJson(json['createDate'] as Timestamp),
+      updateDate:
+          const TimestampConverter().fromJson(json['updateDate'] as Timestamp),
+      closedBy: json['closedBy'] as String,
+    );
 
 Map<String, dynamic> _$PlaceReservationModelToJson(
         PlaceReservationModel instance) =>
@@ -65,4 +59,7 @@ Map<String, dynamic> _$PlaceReservationModelToJson(
       'tables': instance.tables,
       'groups': instance.groups,
       'sittings': instance.sittings,
+      'createDate': const TimestampConverter().toJson(instance.createDate),
+      'updateDate': const TimestampConverter().toJson(instance.updateDate),
+      'closedBy': instance.closedBy,
     };

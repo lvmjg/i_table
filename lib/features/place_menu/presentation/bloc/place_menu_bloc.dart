@@ -2,14 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
-import 'package:i_table/core/extension/extension.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/place_menu/domain/usecase/submit_order.dart';
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_messages_factory.dart';
-import 'package:i_table/features/user_orders/domain/entity/place_orders_factory.dart';
-import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../core/place_order/domain/entity/place_orders_factory.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/util/format_helper.dart';
 import '../../../../core/util/globals.dart';

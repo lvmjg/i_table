@@ -6,24 +6,25 @@ class UserActionsAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<String> categories;
 
-  const UserActionsAppBar({super.key, required this.title, required this.categories});
+  const UserActionsAppBar(
+      {super.key, required this.title, required this.categories});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
         toolbarHeight: toolbarHeight,
-        flexibleSpace:  Align(
+        flexibleSpace: Align(
           alignment: Alignment.bottomCenter,
           child: TabBar(
+            tabAlignment: TabAlignment.center,
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white70,
               indicatorColor: Colors.white,
-              isScrollable: true,
+              isScrollable: false,
               tabs: [
                 for (final c in categories) Tab(text: c),
               ]),
-        )
-    );
+        ));
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:i_table/core/util/globals.dart';
 import 'package:i_table/features/place_plan/domain/entity/place_reservation/place_reservation.dart';
 
 import '../../../data/model/place_reservation/place_reservation_model.dart';
@@ -25,7 +26,11 @@ class PlaceReservationsFactory {
           people: element.people,
           tables: element.tables,
           groups: element.groups,
-          sittings: element.sittings));
+          sittings: element.sittings,
+          createDate: element.createDate,
+          updateDate: element.updateDate ?? minDateTime,
+          closedBy: element.closedBy
+      ));
     });
 
     return newReservations;
@@ -45,6 +50,10 @@ class PlaceReservationsFactory {
         status: placeReservation.status,
         tables: placeReservation.tables,
         groups: placeReservation.groups,
-        sittings: placeReservation.sittings);
+        sittings: placeReservation.sittings,
+        createDate: placeReservation.createDate,
+        updateDate: placeReservation.updateDate,
+        closedBy: placeReservation.closedBy
+    );
   }
 }

@@ -13,6 +13,13 @@ class UserReservationsFetchInProgress extends UserReservationsState {}
 
 class UserReservationsFetchSuccess extends UserReservationsState implements SuccessState {
   final List<PlaceReservation> reservations;
+  final bool inTouchMode;
 
-  UserReservationsFetchSuccess({required this.reservations});
+  UserReservationsFetchSuccess({required this.reservations, required this.inTouchMode});
+}
+
+class UserReservationsStatusChangeFailure extends UserReservationsState {
+  final String failure;
+
+  UserReservationsStatusChangeFailure({required this.failure});
 }

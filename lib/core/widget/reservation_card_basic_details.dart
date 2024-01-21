@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:i_table/core/extension/extension.dart';
 import 'package:i_table/core/widget/reservation_card_buttons.dart';
 import 'package:i_table/core/widget/common_card.dart';
 import 'package:intl/intl.dart';
@@ -49,12 +50,7 @@ class ReservationCardBasicDetails extends StatelessWidget {
                 text: TextSpan(
                     text: '$status ',
                     children: <InlineSpan>[
-                      TextSpan(
-                          text: _translateStatus(placeReservation.status),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.bold)),
+                      _customizeStatus(context, placeReservation.status, placeReservation.startDate)
                     ],
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
@@ -66,8 +62,7 @@ class ReservationCardBasicDetails extends StatelessWidget {
                           text: placeReservation.people.toString(),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.bold)),
+                              .bodyMedium),
                     ],
                     style: Theme.of(context).textTheme.bodyMedium),
               )
@@ -96,5 +91,36 @@ class ReservationCardBasicDetails extends StatelessWidget {
     } else if (status == 'cancelled') {
       return orderStatusCancelled;
     }
+  }
+
+  _setColorBasedOnStatus(String status) {
+    if (status == 'new') {
+      return Colors.black;
+    }  else if (status == 'active') {
+      return Colors.green;
+    } else if (status == 'closed') {
+      return Colors.red;
+    } else if (status == 'cancelled') {
+      return Colors.red;
+    }
+  }
+
+  TextSpan _customizeStatus(BuildContext context, String status, DateTime startDate) {
+    String adjustedStatus = status;
+
+    if(status=='new' && startDate.isAfterOrEqual(DateTime.now())){
+      adjustedStatus = 'active';
+    }
+
+    return TextSpan(
+        text: _translateStatus(adjustedStatus),
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium
+            ?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: _setColorBasedOnStatus(adjustedStatus)
+            )
+    );
   }
 }

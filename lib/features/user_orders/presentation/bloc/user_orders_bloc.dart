@@ -1,24 +1,27 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:i_table/core/util/globals.dart';
-import 'package:i_table/features/user_orders/domain/entity/place_order.dart';
-import 'package:i_table/features/user_orders/domain/usecase/fetch_user_orders.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../core/place_order/domain/entity/place_order.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/widget/common_page.dart';
-import '../../data/data_source/user_orders_remote_data_source.dart';
-import '../../data/repository/user_orders_repository.dart';
-import '../../domain/entity/place_orders_factory.dart';
+import '../../domain/usecase/fetch_user_orders.dart';
 
 part 'user_orders_event.dart';
 part 'user_orders_state.dart';
 
-class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> {
-  UserOrdersBloc() : super(UserOrdersFetchInProgress()) {
-    FetchUserOrders fetchUserOrders = FetchUserOrders(UserOrdersRepositoryImpl(
-        UserOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()));
+mixin UserReservationOrdersBloc on Bloc<UserOrdersEvent, UserOrdersState> {}
 
+mixin UserAllOrdersBloc on Bloc<UserOrdersEvent, UserOrdersState> {}
+
+class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> with UserAllOrdersBloc, UserReservationOrdersBloc{
+  final FetchUserOrders fetchUserOrders;
+  Stream<List<PlaceOrder>>? userOrdersStream;
+
+  UserOrdersBloc({required this.fetchUserOrders}) : super(UserOrdersFetchInProgress()) {
     on<UserOrdersInitiated>((event, emit) async {
       emit(UserOrdersFetchInProgress());
 
@@ -26,23 +29,53 @@ class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      Stream<List<PlaceOrder>>? userOrdersStream;
-
-      fetchUserOrders(ReservationOrdersParams(
-              userId: event.userId, reservationId: event.reservationId))
+      fetchUserOrders(event.userOrReservationId)
           .fold(
               (failure) => emit(UserOrdersFetchFailure(
                   params: ErrorParams(errorMessage: errorFetchData))),
               (newUserOrdersStream) => userOrdersStream = newUserOrdersStream);
 
-      if (userOrdersStream != null) {
-        await emit.forEach(userOrdersStream!,
-            onData: (List<PlaceOrder> userOrders) {
-          userOrders
-              .sort((a, b) => a.orderDateTime.compareTo(b.orderDateTime) * -1);
-          return UserOrdersFetchSuccess(orders: userOrders);
-        });
-      }
+      await _handleStream(emit);
     }, transformer: restartable());
   }
+
+  Future<void> _handleStream(Emitter<UserOrdersState> emit) async {
+    if (userOrdersStream != null) {
+      await emit.forEach(userOrdersStream!,
+          onData: (List<PlaceOrder> userOrders) {
+            log('Orders new data: ${userOrders.length}');
+
+            userOrders
+                .sort((a, b) =>
+            a.orderDateTime.compareTo(b.orderDateTime) * -1);
+            return UserOrdersFetchSuccess(orders: userOrders);
+          },
+          onError: (e, s) {
+            return UserOrdersFetchFailure(
+                params: ErrorParams(errorMessage: errorFetchData));
+          }
+      );
+    }
+  }
+
+  Future<bool> _checkStreamForData() async{
+    return await Future.delayed(
+        Duration(seconds: STREAM_CHECK_TIMEOUT),
+        () async {
+          bool isStreamEmpty = false;
+          if(userOrdersStream==null){
+            isStreamEmpty = true;
+          }
+          else{
+            isStreamEmpty = await userOrdersStream!.isEmpty;
+          }
+
+          return isStreamEmpty;
+        }
+    );
+  }
 }
+
+
+
+

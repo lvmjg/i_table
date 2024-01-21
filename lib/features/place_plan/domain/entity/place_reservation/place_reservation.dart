@@ -19,6 +19,9 @@ class PlaceReservation {
   final Map<String, Map<String, List<String>>> tables;
   final Map<String, List<String>> groups;
   final List<String> sittings;
+  final DateTime createDate;
+  final DateTime updateDate;
+  final String closedBy;
 
   bool analyzed = false;
 
@@ -37,6 +40,9 @@ class PlaceReservation {
     required this.tables,
     required this.groups,
     required this.sittings,
+    required this.createDate,
+    required this.updateDate,
+    required this.closedBy
   });
 
   String get timeRange {

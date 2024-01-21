@@ -260,7 +260,11 @@ class ManagePlace implements UseCase<PlaceConfigurationEntity, PlaceIdParams> {
         status: 'new',
         tables: tables,
         groups: sittingGroups,
-        sittings: sittings);
+        sittings: sittings,
+        createDate: DateTime.now(),
+        updateDate: DateTime.now(),
+        closedBy: loggedUserId
+    );
   }
 
   void dispose() {}

@@ -1,8 +1,8 @@
 import 'package:i_table/core/data_source/firebase_data_source.dart';
 import 'package:i_table/features/reservation_chat/data/model/chat_message_model.dart';
-import 'package:i_table/features/user_orders/data/model/place_order_model.dart';
 
 import '../../../../core/error/exceptions.dart';
+import '../../../../core/place_order/data/model/place_order_model.dart';
 import '../model/place_menu_model.dart';
 
 abstract class PlaceMenuRemoteDataSource {

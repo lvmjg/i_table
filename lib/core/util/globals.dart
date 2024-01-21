@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 
 bool debug = true;
 
+bool testbloc = false;
+
 int TEST_TIMEOUT = 0;
+int STREAM_CHECK_TIMEOUT = 3;
+
+DateTime minDateTime = DateTime(1900, 1, 1, 0, 0, 0);
 
 //Color primaryColor = Color(0xFF0020F7);
 //Color primaryColor = Color(0xFF1976D2);
@@ -91,6 +96,9 @@ String pathReservationChat = 'reservationChat';
 String pathStartDate = 'startDate';
 String pathPanoramas = 'panoramas';
 String pathPlaceMenu = 'placeMenu';
+String pathClosedBy = 'closedBy';
+String pathStatus = 'status';
+String pathUpdateDate = 'updateDate';
 
 String errorPickedDateAfter =
     "Rezerwację można złożyć na maksymalnie %d dni wcześniej";
@@ -166,3 +174,16 @@ String orderStatusClosed = 'Zamknięta';
 String orderStatusCancelled = 'Anulowana';
 String orderNotes = 'Uwagi do zamówienia';
 String basket = 'Koszyk';
+
+String cancelReservationTitle = 'Czy na pewno chcesz anulować rezerwację?';
+String cancelReservationContent = 'Zobaczymy się następnym razem :)';
+String closeReservationTitle = 'Czy na pewno chcesz zamknąć rezerwację?';
+String closeReservationContent = 'Jeżeli TAK - dziękujemy za skorzystanie z naszych usług!';
+String dialogBack = 'Powrót';
+String dialogCancel= 'Anuluj';
+String dialogClose= 'Zamknij';
+
+String noOrders = 'Brak zamówień';
+String noReservations = 'Brak rezerwacji';
+
+String errorUpdateReservationStatus = 'Nie udało się zmienić statusu rezerwacji. Spróbuj ponownie';

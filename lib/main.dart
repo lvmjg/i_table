@@ -21,17 +21,21 @@ import 'package:i_table/features/service_orders/presentation/widget/service_orde
 import 'package:i_table/features/service_place/presentation/widget/service_place_page/service_place_page.dart';
 import 'package:i_table/features/user_actions/presentation/widget/user_actions_page/user_actions_app_bar/user_actions_app_bar.dart';
 import 'package:i_table/features/user_actions/presentation/widget/user_actions_page/user_actions_body/user_actions_body.dart';
+import 'package:i_table/features/user_orders/presentation/widget/user_reservation_orders_page/user_reservation_orders_page.dart';
 import 'package:i_table/features/user_profile/presentation/widget/user_details_page/user_details_page.dart';
 import 'package:i_table/features/user_profile/presentation/widget/user_profile_page/user_profile_body/user_profile_body.dart';
+import 'core/place_order/domain/entity/place_orders_factory.dart';
 import 'features/panorama/presentation/bloc/panorama_bloc.dart';
 import 'features/place_entry/presentation/widget/place_entry_page/place_entry_page.dart';
 import 'features/place_menu/presentation/bloc/place_menu_bloc.dart';
 import 'features/place_plan/presentation/bloc/place_bloc.dart';
 import 'features/place_search/presentation/bloc/place_search_bloc.dart';
 import 'features/qr_scan/presentation/widget/qr_scan_page.dart';
-import 'features/reservation_chat/presentation/bloc/reservation_chat_bloc.dart';
 import 'features/reservation_summary/presentation/bloc/reservation_summary_bloc.dart';
 import 'features/service_orders/presentation/bloc/service_orders_bloc.dart';
+import 'features/user_orders/data/data_source/user_orders_remote_data_source.dart';
+import 'features/user_orders/data/repository/user_orders_repository.dart';
+import 'features/user_orders/domain/usecase/fetch_user_orders.dart';
 import 'features/user_orders/presentation/bloc/user_orders_bloc.dart';
 import 'features/user_reservations/presentation/bloc/user_reservations_bloc.dart';
 import 'features/user_reservations/presentation/widget/user_reservations_page/user_reservations_page.dart';
@@ -250,6 +254,14 @@ class MyApp extends StatelessWidget {
                   },
                 ),*/
                 GoRoute(
+                  path: 'orders/:reservationId',
+                  name: 'orders',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (BuildContext context, GoRouterState state) {
+                    return UserReservationOrdersPage(reservationId: state.pathParameters['reservationId'] ?? StringUtil.EMPTY);
+                  },
+                ),
+                GoRoute(
                   path: 'chat/:placeId/:reservationId',
                   name: 'chat',
                   parentNavigatorKey: _rootNavigatorKey,
@@ -404,13 +416,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => PlaceSearchBloc(),
         ),
-        BlocProvider(
-          create: (context) => UserOrdersBloc(),
+        BlocProvider<UserAllOrdersBloc>(
+          create: (context) => UserOrdersBloc(
+            fetchUserOrders: FetchUserOrders(
+              UserAllOrdersRepository(
+                UserAllOrdersRemoteDataSource(), PlaceOrdersFactory()
+              )
+            )
+          ),
         ),
         BlocProvider(
           create: (context) => UserReservationsBloc(),
         ),
-        
         BlocProvider(
           create: (context) => PanoramaBloc(),
         ),
@@ -427,7 +444,6 @@ class MyApp extends StatelessWidget {
           create: (context) => PlaceBloc(
               reservationPickerBloc: context.read<ReservationPickerBloc>()),
         ),
-
         BlocProvider(
           create: (context) => PlaceMenuBloc(),
         ),

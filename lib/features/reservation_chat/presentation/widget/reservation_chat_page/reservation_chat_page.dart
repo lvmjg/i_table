@@ -6,7 +6,7 @@ import '../../bloc/reservation_chat_bloc.dart';
 import 'app_bar/reservation_chat_app_bar.dart';
 import 'body/reservation_chat_body.dart';
 
-class ReservationChatPage extends StatefulWidget {
+class ReservationChatPage extends StatelessWidget {
   final String placeId;
   final String reservationId;
 
@@ -15,16 +15,11 @@ class ReservationChatPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ReservationChatPage> createState() => _ReservationChatPageState();
-}
-
-class _ReservationChatPageState extends State<ReservationChatPage> {
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<ReservationChatBloc>(
-      create: (context) => ReservationChatBloc(placeId: widget.placeId, reservationId: widget.reservationId),
+      create: (context) => ReservationChatBloc(
+          placeId: placeId, reservationId: reservationId),
       child: BlocBuilder<ReservationChatBloc, ReservationChatState>(
-      
         builder: (context, state) {
           return CommonPage(
             bloc: context.read<ReservationChatBloc>(),
@@ -36,11 +31,5 @@ class _ReservationChatPageState extends State<ReservationChatPage> {
         },
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
   }
 }
