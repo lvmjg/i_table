@@ -18,8 +18,8 @@ class UserReservationsFetchSuccess extends UserReservationsState implements Succ
   UserReservationsFetchSuccess({required this.reservations, required this.inTouchMode});
 }
 
-class UserReservationsStatusChangeFailure extends UserReservationsState {
+class UserReservationsUpdateStatusFailure extends UserReservationsState {
   final String failure;
 
-  UserReservationsStatusChangeFailure({required this.failure});
+  UserReservationsUpdateStatusFailure({required this.failure});
 }

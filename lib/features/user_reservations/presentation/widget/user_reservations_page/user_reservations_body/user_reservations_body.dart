@@ -29,9 +29,9 @@ class _UserReservationsBodyState extends State<UserReservationsBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserReservationsBloc, UserReservationsState>(
-      buildWhen: (previous, current) => current is! UserReservationsStatusChangeFailure,
+      buildWhen: (previous, current) => current is! UserReservationsUpdateStatusFailure,
       listener: (context, state) {
-        if (state is UserReservationsStatusChangeFailure) {
+        if (state is UserReservationsUpdateStatusFailure) {
           SnackBarUtil.showSnackBar(context, state.failure);
         }
       },

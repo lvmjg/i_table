@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 bool debug = true;
 
 bool testbloc = false;
+bool testbloc21 = false;
+bool testbloc22 = false;
+bool testbloc23 = false;
 
 int TEST_TIMEOUT = 0;
 int STREAM_CHECK_TIMEOUT = 3;
@@ -94,6 +97,7 @@ String pathPlacesReservations = 'placesReservations';
 String pathPlacesOrders = "placesOrders";
 String pathReservationChat = 'reservationChat';
 String pathStartDate = 'startDate';
+String pathMealDate = 'mealDate';
 String pathPanoramas = 'panoramas';
 String pathPlaceMenu = 'placeMenu';
 String pathClosedBy = 'closedBy';
@@ -172,6 +176,9 @@ String orderStatusNew = 'Nowa';
 String orderStatusActive = 'Aktywna';
 String orderStatusClosed = 'Zamknięta';
 String orderStatusCancelled = 'Anulowana';
+String orderStatusConfirmed = 'Zatwiedzone';
+String orderStatusPending = 'Oczekuje';
+String orderStatusReady = 'Gotowe';
 String orderNotes = 'Uwagi do zamówienia';
 String basket = 'Koszyk';
 
@@ -187,3 +194,14 @@ String noOrders = 'Brak zamówień';
 String noReservations = 'Brak rezerwacji';
 
 String errorUpdateReservationStatus = 'Nie udało się zmienić statusu rezerwacji. Spróbuj ponownie';
+String errorUpdateOrderStatus = 'Nie udało się zmienić statusu zamówienia. Spróbuj ponownie';
+
+String discard = 'Odrzuć';
+String confirm = 'Potwierdź';
+
+String todaysOrders = 'Dzisiaj (Otw.)';
+String completedOrders = 'Dzisiaj (Zam.)';
+String tomorrowsOrders = 'Jutro (Otw.)';
+
+String preparedTill = 'Przygotowanie do';
+

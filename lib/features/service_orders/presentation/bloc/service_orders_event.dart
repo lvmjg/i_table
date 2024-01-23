@@ -8,3 +8,9 @@ class ServiceOrdersInitiated extends ServiceOrdersEvent {
 
   ServiceOrdersInitiated({required this.placeId});
 }
+
+class ServiceOrderUpdateStatus extends ServiceOrdersEvent {
+  OrderUpdateStatusParams params;
+
+  ServiceOrderUpdateStatus({required this.params});
+}

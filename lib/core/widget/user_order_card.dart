@@ -5,6 +5,7 @@ import 'package:i_table/core/widget/common_divider.dart';
 import 'package:i_table/core/widget/common_card.dart';
 import 'package:intl/intl.dart';
 
+import '../place_order/data/model/order_status.dart';
 import '../util/globals.dart';
 
 class UserOrderCard extends StatelessWidget {
@@ -26,11 +27,6 @@ class UserOrderCard extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Text(order.placeName,
                   style: Theme.of(context).textTheme.bodyMedium),
-              Text(DateFormat('dd.MM.yyyy').format(order.orderDateTime),
-                  style: Theme.of(context).textTheme.bodyMedium),
-            ]),
-            SizedBox(height: padding),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               RichText(
                 text: TextSpan(
                     text: '$totalCost ',
@@ -42,11 +38,46 @@ class UserOrderCard extends StatelessWidget {
                               .bodyMedium),
                     ],
                     style: Theme.of(context).textTheme.bodyMedium),
-              ),
-              Text(DateFormat('HH:mm').format(order.orderDateTime),
-                  style: Theme.of(context).textTheme.bodyMedium),
+              )
             ]),
             SizedBox(height: padding),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: RichText(
+                text: TextSpan(
+                    text: '$preparedTill ',
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: DateFormat('dd.MM.yyyy HH:mm').format(order.mealDate),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium),
+                    ],
+                    style: Theme.of(context).textTheme.bodyMedium),
+              ),
+            ),
+            SizedBox(height: padding),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                        text: '$status ',
+                        children: <InlineSpan>[
+                          TextSpan(
+                              text: _translateStatus(order.status),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                  color: _setColorBasedOnStatus(order.status)
+                              ))
+                        ],
+                        style: Theme.of(context).textTheme.bodyMedium),
+                  ),
+                  Text(DateFormat('dd.MM.yyyy HH:mm').format(order.mealDate),
+                      style: Theme.of(context).textTheme.bodySmall),
+            ]),
             CommonDivider(),
             ListView.builder(
                 shrinkWrap: true,
@@ -103,5 +134,29 @@ class UserOrderCard extends StatelessWidget {
     }
 
     return null;
+  }
+
+  _translateStatus(String status) {
+    if (status == OrderStatus.pending.name) {
+      return orderStatusPending;
+    }  else if (status == OrderStatus.cancelled.name) {
+      return orderStatusCancelled;
+    } else if (status == OrderStatus.confirmed.name) {
+      return orderStatusConfirmed;
+    } else if (status == OrderStatus.ready.name) {
+      return orderStatusReady;
+    }
+  }
+
+  _setColorBasedOnStatus(String status) {
+    if (status == OrderStatus.pending.name) {
+      return Colors.black;
+    }  else if (status == OrderStatus.cancelled.name) {
+      return Colors.red;
+    } else if (status == OrderStatus.confirmed.name) {
+      return Colors.black;
+    } else if (status == OrderStatus.ready.name) {
+      return Colors.green;
+    }
   }
 }

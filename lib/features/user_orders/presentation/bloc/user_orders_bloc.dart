@@ -47,7 +47,7 @@ class UserOrdersBloc extends Bloc<UserOrdersEvent, UserOrdersState> with UserAll
 
             userOrders
                 .sort((a, b) =>
-            a.orderDateTime.compareTo(b.orderDateTime) * -1);
+            a.createDate.compareTo(b.createDate) * -1);
             return UserOrdersFetchSuccess(orders: userOrders);
           },
           onError: (e, s) {

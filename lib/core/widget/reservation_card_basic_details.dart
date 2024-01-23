@@ -118,7 +118,6 @@ class ReservationCardBasicDetails extends StatelessWidget {
             .textTheme
             .bodyMedium
             ?.copyWith(
-              fontWeight: FontWeight.bold,
               color: _setColorBasedOnStatus(adjustedStatus)
             )
     );

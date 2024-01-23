@@ -12,7 +12,7 @@ abstract class UserReservationsRepository {
   List<PlaceReservation> reservations = [];
   Either<Failure, Stream<List<PlaceReservation>>> fetchUserReservations(
       UserIdParams params);
-  Future<Either<Failure, void>> changeStatus(ReservationChangeStatusParams params);
+  Future<Either<Failure, void>> updateStatus(ReservationUpdateStatusParams params);
 }
 
 class UserReservationsRepositoryImpl implements UserReservationsRepository {
@@ -45,9 +45,9 @@ class UserReservationsRepositoryImpl implements UserReservationsRepository {
   }
 
   @override
-  Future<Either<Failure, void>> changeStatus(ReservationChangeStatusParams params) async {
+  Future<Either<Failure, void>> updateStatus(ReservationUpdateStatusParams params) async {
     try {
-      await remote.updateReservationStatus(params);
+      await remote.updateStatus(params);
       return Right(null);
     } on FetchException {
       return Left(FetchFailure());

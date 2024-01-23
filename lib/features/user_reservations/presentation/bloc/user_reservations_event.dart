@@ -9,8 +9,8 @@ class UserReservationsInitiated extends UserReservationsEvent {
   UserReservationsInitiated({required this.userId});
 }
 
-class UserReservationsStatusChanged extends UserReservationsEvent {
-  ReservationChangeStatusParams params;
+class UserReservationsUpdateStatus extends UserReservationsEvent {
+  ReservationUpdateStatusParams params;
 
-  UserReservationsStatusChanged({required this.params});
+  UserReservationsUpdateStatus({required this.params});
 }

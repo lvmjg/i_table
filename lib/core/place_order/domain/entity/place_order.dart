@@ -9,8 +9,10 @@ class PlaceOrder {
   final String? reservationId;
   final String placeId;
   final String placeName;
-  final bool status;
-  final DateTime orderDateTime;
+  final String status;
+  final DateTime createDate;
+  final DateTime updateDate;
+  final DateTime mealDate;
   final List<PlaceOrderItem> userOrders;
   late final double totalCost;
 
@@ -22,7 +24,9 @@ class PlaceOrder {
       required this.placeId,
       required this.placeName,
       required this.status,
-      required this.orderDateTime,
+      required this.createDate,
+        required this.updateDate,
+        required this.mealDate,
       required this.userOrders,
       this.totalCost = 0});
 

@@ -17,6 +17,7 @@ import 'package:i_table/features/place_search/presentation/widget/search_page/bo
 import 'package:i_table/features/place_search/presentation/widget/search_page/place_search_page.dart';
 import 'package:i_table/features/reservation_chat/presentation/widget/reservation_chat_page/reservation_chat_page.dart';
 import 'package:i_table/features/reservation_picker/presentation/bloc/reservation_picker_bloc.dart';
+import 'package:i_table/features/service_orders/domain/usecase/fetch_tomorrows_service_orders.dart';
 import 'package:i_table/features/service_orders/presentation/widget/service_orders_page/service_orders_page.dart';
 import 'package:i_table/features/service_place/presentation/widget/service_place_page/service_place_page.dart';
 import 'package:i_table/features/user_actions/presentation/widget/user_actions_page/user_actions_app_bar/user_actions_app_bar.dart';
@@ -32,6 +33,9 @@ import 'features/place_plan/presentation/bloc/place_bloc.dart';
 import 'features/place_search/presentation/bloc/place_search_bloc.dart';
 import 'features/qr_scan/presentation/widget/qr_scan_page.dart';
 import 'features/reservation_summary/presentation/bloc/reservation_summary_bloc.dart';
+import 'features/service_orders/data/data_source/service_orders_remote_data_source.dart';
+import 'features/service_orders/data/repository/service_orders_repository.dart';
+import 'features/service_orders/domain/usecase/fetch_todays_service_orders.dart';
 import 'features/service_orders/presentation/bloc/service_orders_bloc.dart';
 import 'features/user_orders/data/data_source/user_orders_remote_data_source.dart';
 import 'features/user_orders/data/repository/user_orders_repository.dart';
@@ -451,9 +455,32 @@ class MyApp extends StatelessWidget {
           lazy: false,
           create: (context) => ReservationSummaryBloc(),
         ),
-
-        BlocProvider(
-          create: (context) => ServiceOrdersBloc(),
+        BlocProvider<ServiceTodaysUncompletedOrdersBloc>(
+          create: (context) => ServiceOrdersBloc(fetchUseCase:
+          FetchTodaysServiceOrders(
+              ServiceOrdersRepositoryImpl(
+                  ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()
+              ), filterCompleted: false
+          )
+          ),
+        ),
+        BlocProvider<ServiceTodaysCompletedOrdersBloc>(
+          create: (context) => ServiceOrdersBloc(fetchUseCase:
+          FetchTodaysServiceOrders(
+              ServiceOrdersRepositoryImpl(
+                  ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()
+              ), filterCompleted: true
+          )
+          ),
+        ),
+        BlocProvider<ServiceTomorrowsUncompletedOrdersBloc>(
+          create: (context) => ServiceOrdersBloc(fetchUseCase:
+          FetchTomorrowsServiceOrders(
+              ServiceOrdersRepositoryImpl(
+                  ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()
+              ), filterCompleted: false
+          )
+          ),
         ),
       ],
       child: MaterialApp.router(

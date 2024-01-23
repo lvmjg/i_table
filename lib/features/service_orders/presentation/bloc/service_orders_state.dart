@@ -14,8 +14,15 @@ class ServiceOrdersFetchInProgress extends ServiceOrdersState {}
 class ServiceOrdersFetchSuccess extends ServiceOrdersState implements SuccessState{
   final List<PlaceOrder> orders;
   late final DateTime trigger;
+  final bool inTouchMode;
 
-  ServiceOrdersFetchSuccess({required this.orders}) {
+  ServiceOrdersFetchSuccess({required this.orders, required this.inTouchMode}) {
     trigger = DateTime.now();
   }
+}
+
+class ServiceOrderUpdateStatusFailure extends ServiceOrdersState {
+  final String failure;
+
+  ServiceOrderUpdateStatusFailure({required this.failure});
 }

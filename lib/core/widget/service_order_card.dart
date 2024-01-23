@@ -1,7 +1,15 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_table/core/place_order/data/model/order_status.dart';
+import 'package:i_table/core/usecase/usecase.dart';
 import 'package:i_table/core/util/string_util.dart';
+import 'package:i_table/core/widget/common_checkbox.dart';
 import 'package:i_table/core/widget/common_divider.dart';
 import 'package:i_table/core/widget/common_card.dart';
+import 'package:i_table/core/widget/simple_filled_tonal_button.dart';
+import 'package:i_table/features/service_orders/presentation/bloc/service_orders_bloc.dart';
+import 'package:i_table/features/service_orders/presentation/widget/service_orders_page/service_orders_body/service_orders_body.dart';
 import 'package:intl/intl.dart';
 
 import '../place_order/domain/entity/place_order.dart';
@@ -9,8 +17,9 @@ import '../util/globals.dart';
 
 class ServiceOrderCard extends StatelessWidget {
   final PlaceOrder order;
+  final ServiceOrderFetchType type;
 
-  const ServiceOrderCard({Key? key, required this.order}) : super(key: key);
+  const ServiceOrderCard({Key? key, required this.order, required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +49,6 @@ class ServiceOrderCard extends StatelessWidget {
                     ],
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
-              Text(DateFormat('dd.MM.yyyy').format(order.orderDateTime),
-                  style: Theme.of(context).textTheme.bodyMedium),
-            ]),
-            SizedBox(height: padding),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               RichText(
                 text: TextSpan(
                     text: '$username ',
@@ -57,10 +61,45 @@ class ServiceOrderCard extends StatelessWidget {
                     ],
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
-              Text(DateFormat('HH:mm').format(order.orderDateTime),
-                  style: Theme.of(context).textTheme.bodyMedium),
             ]),
             SizedBox(height: padding),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: RichText(
+                text: TextSpan(
+                    text: '$preparedTill ',
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: DateFormat('dd.MM.yyyy HH:mm').format(order.mealDate),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium),
+                    ],
+                    style: Theme.of(context).textTheme.bodyMedium),
+              ),
+            ),
+            SizedBox(height: padding),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                        text: '$status ',
+                        children: <InlineSpan>[
+                          TextSpan(
+                              text: _translateStatus(order.status),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                  color: _setColorBasedOnStatus(order.status)
+                              ))
+                        ],
+                        style: Theme.of(context).textTheme.bodyMedium),
+                  ),
+                  Text(DateFormat('dd.MM.yyyy HH:mm').format(order.mealDate),
+                      style: Theme.of(context).textTheme.bodySmall),
+                ]),
             CommonDivider(),
             ListView.builder(
                 shrinkWrap: true,
@@ -110,24 +149,136 @@ class ServiceOrderCard extends StatelessWidget {
                       children: [
                         Text('x${order.userOrders[index].quantity}',
                             style: Theme.of(context).textTheme.bodyMedium),
-                        Checkbox(value: false, onChanged: (value) {})
+                        Visibility(
+                            visible: _showOrderCheckboxes(order.status),
+                            child: CommonCheckbox(
+                        initialValue: order.userOrders[index].status,
+                          onValueFalse: () => order.userOrders[index].status = false,
+                          onValueTrue: () => order.userOrders[index].status = true,
+                        )
+                        )
                       ],
                     ),
                   );
                 }),
-            CommonDivider(),
-            Align(
+            Offstage(
+                offstage: _hideBottomDivider(order.status),
+                child: CommonDivider()
+            ),
+    Offstage(
+    offstage: _hideOrderCheckboxes(order.status),
+           child: Align(
               alignment: Alignment.center,
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   Text(completed,
                       style: Theme.of(context).textTheme.bodyMedium),
-                  Checkbox(value: false, onChanged: (value) {})
+                  Checkbox(value: order.status==OrderStatus.ready.name, onChanged: (value) {
+                    value = value ?? false;
+                    if(value){
+                      _readyOrder(context, type, order.id ?? StringUtil.EMPTY);
+                    }
+                    else{
+                      _confirmOrder(context, type, order.id ?? StringUtil.EMPTY);
+                    }
+                  })
                 ],
               ),
+
             ),
+    ),
+            Offstage(
+              offstage: _hideConfirmationButtons(order.status),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SimpleFilledTonalButton(
+                      title: discard,
+                      iconData: Icons.close_rounded,
+                      iconColor: Colors.red,
+                      onPressed: () => _discardOrder(context, type, order.id ?? StringUtil.EMPTY)
+                  ),
+                  SimpleFilledTonalButton(
+                      title: confirm,
+                      iconData: Icons.done_rounded,
+                      iconColor: Colors.green,
+                      onPressed: () => _confirmOrder(context, type, order.id ?? StringUtil.EMPTY)
+                  )
+                ],
+              ),
+            )
           ],
         ));
+  }
+
+  void _discardOrder(BuildContext context, ServiceOrderFetchType type, String orderId){
+    _updateOrderStatus(context, type, orderId, 'cancelled');
+  }
+
+  void _confirmOrder(BuildContext context, ServiceOrderFetchType type, String orderId){
+    _updateOrderStatus(context, type, orderId, 'confirmed');
+  }
+
+  void _readyOrder(BuildContext context, ServiceOrderFetchType type, String orderId){
+    _updateOrderStatus(context, type, orderId, 'ready');
+  }
+
+  void _updateOrderStatus(BuildContext context, ServiceOrderFetchType type, String orderId, String newStatus){
+    if(type==ServiceOrderFetchType.todaysUncompleted){
+      context
+          .read<ServiceTodaysUncompletedOrdersBloc>()
+          .add(ServiceOrderUpdateStatus(params: OrderUpdateStatusParams(orderId: orderId, newStatus: newStatus)));
+    }
+    else if(type==ServiceOrderFetchType.todaysCompleted){
+      context
+          .read<ServiceTodaysCompletedOrdersBloc>()
+          .add(ServiceOrderUpdateStatus(params: OrderUpdateStatusParams(orderId: orderId, newStatus: newStatus)));
+    }
+    else if(type==ServiceOrderFetchType.tomorrowsUncompleted){
+      context
+          .read<ServiceTomorrowsUncompletedOrdersBloc>()
+          .add(ServiceOrderUpdateStatus(params: OrderUpdateStatusParams(orderId: orderId, newStatus: newStatus)));
+    }
+  }
+
+  bool _hideBottomDivider(String status){
+    return status==OrderStatus.cancelled.name;
+  }
+
+  bool _hideConfirmationButtons(String status){
+    return status!=OrderStatus.pending.name;
+  }
+
+  bool _showOrderCheckboxes(String status){
+    return status==OrderStatus.confirmed.name || status==OrderStatus.ready.name;
+  }
+
+  bool _hideOrderCheckboxes(String status){
+    return !_showOrderCheckboxes(status);
+  }
+
+  _translateStatus(String status) {
+    if (status == OrderStatus.pending.name) {
+      return orderStatusPending;
+    }  else if (status == OrderStatus.cancelled.name) {
+      return orderStatusCancelled;
+    } else if (status == OrderStatus.confirmed.name) {
+      return orderStatusConfirmed;
+    } else if (status == OrderStatus.ready.name) {
+      return orderStatusReady;
+    }
+  }
+
+  _setColorBasedOnStatus(String status) {
+    if (status == OrderStatus.pending.name) {
+      return Colors.black;
+    }  else if (status == OrderStatus.cancelled.name) {
+      return Colors.red;
+    } else if (status == OrderStatus.confirmed.name) {
+      return Colors.black;
+    } else if (status == OrderStatus.ready.name) {
+      return Colors.green;
+    }
   }
 }

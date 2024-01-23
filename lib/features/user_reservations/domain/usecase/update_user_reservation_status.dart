@@ -5,14 +5,14 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../data/repository/user_reservations_repository.dart';
 
-class ChangeReservationStatus
-    implements UseCase<void, ReservationChangeStatusParams> {
+class UpdateUserReservationStatus
+    implements UseCase<void, ReservationUpdateStatusParams> {
   final UserReservationsRepository userReservationsRepository;
 
-  ChangeReservationStatus(this.userReservationsRepository);
+  UpdateUserReservationStatus(this.userReservationsRepository);
 
   @override
-  Future<Either<Failure, void>> call(ReservationChangeStatusParams params) async {
+  Future<Either<Failure, void>> call(ReservationUpdateStatusParams params) async {
     String newStatus;
     if(DateTime.now().isBefore(params.startDate)){
       newStatus = 'cancelled';
@@ -21,7 +21,7 @@ class ChangeReservationStatus
       newStatus = 'closed';
     }
 
-    return await userReservationsRepository.changeStatus(params.copyWith(closeStatus: newStatus));
+    return await userReservationsRepository.updateStatus(params.copyWith(closeStatus: newStatus));
   }
 
 }

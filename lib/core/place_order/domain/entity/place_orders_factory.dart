@@ -36,7 +36,9 @@ class PlaceOrdersFactory {
           placeId: placeOrderModel.placeId,
           placeName: placeOrderModel.placeName,
           status: placeOrderModel.status,
-          orderDateTime: placeOrderModel.orderDT,
+          createDate: placeOrderModel.createDate,
+          updateDate: placeOrderModel.updateDate,
+          mealDate: placeOrderModel.mealDate,
           userOrders: placeOrderItems,
           totalCost: totalCost));
     });
@@ -66,7 +68,9 @@ class PlaceOrdersFactory {
         placeId: placeOrder.placeId,
         placeName: placeOrder.placeName,
         status: placeOrder.status,
-        orderDT: placeOrder.orderDateTime,
+        createDate: placeOrder.createDate,
+        updateDate: placeOrder.updateDate,
+        mealDate: placeOrder.mealDate,
         userOrder: placeOrderModelsMap);
   }
 }

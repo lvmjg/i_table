@@ -15,9 +15,13 @@ class PlaceOrderModel {
   final String? reservationId;
   final String placeId;
   final String placeName;
-  final bool status;
+  final String status;
   @TimestampConverter()
-  final DateTime orderDT;
+  final DateTime createDate;
+  @TimestampConverter()
+  final DateTime updateDate;
+  @TimestampConverter()
+  final DateTime mealDate;
   @ModelConverter()
   final Map<String, PlaceOrderItemModel> userOrder;
 
@@ -27,7 +31,9 @@ class PlaceOrderModel {
       required this.placeId,
       required this.placeName,
       required this.status,
-      required this.orderDT,
+      required this.createDate,
+        required this.updateDate,
+        required this.mealDate,
       required this.userOrder});
 
   factory PlaceOrderModel.fromJson(String orderId, Map<String, dynamic> json) {

@@ -6,7 +6,7 @@ class PlaceOrderItem {
   final double price;
   final int quantity;
   final String note;
-  final bool status;
+  late bool status;
   late final double cost;
 
   PlaceOrderItem(

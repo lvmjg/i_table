@@ -42,28 +42,46 @@ class ReservationIdParams extends Params {
   ReservationIdParams({required this.reservationId});
 }
 
-class ReservationChangeStatusParams extends Params implements Copyable<ReservationChangeStatusParams> {
+class ReservationUpdateStatusParams extends Params implements Copyable<ReservationUpdateStatusParams> {
   final String reservationId;
   final String closeStatus;
   final String closedBy;
   final DateTime startDate;
 
-  ReservationChangeStatusParams({required this.reservationId, required this.closeStatus, required this.closedBy, required this.startDate});
+  ReservationUpdateStatusParams({required this.reservationId, required this.closeStatus, required this.closedBy, required this.startDate});
 
   @override
-  ReservationChangeStatusParams copyWith({
+  ReservationUpdateStatusParams copyWith({
     String? reservationId,
     String? closeStatus,
     String? closedBy,
     DateTime? startDate
   }) =>
-      ReservationChangeStatusParams(
+      ReservationUpdateStatusParams(
           reservationId: reservationId ?? this.reservationId,
         closeStatus: closeStatus ?? this.closeStatus,
         closedBy: closedBy ?? this.closedBy,
         startDate: startDate ?? this.startDate,
       );
 }
+
+class OrderUpdateStatusParams extends Params implements Copyable<OrderUpdateStatusParams> {
+  final String orderId;
+  final String newStatus;
+
+  OrderUpdateStatusParams({required this.orderId, required this.newStatus});
+
+  @override
+  OrderUpdateStatusParams copyWith({
+    String? orderId,
+    String? newStatus,
+  }) =>
+      OrderUpdateStatusParams(
+        orderId: orderId ?? this.orderId,
+        newStatus: newStatus ?? this.newStatus,
+      );
+}
+
 
 class ReservationParams extends Params implements PlaceIdParams {
   @override

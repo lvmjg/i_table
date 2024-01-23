@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dartz/dartz.dart';
 import 'package:i_table/core/util/globals.dart';
-import 'package:i_table/features/user_reservations/domain/usecase/change_reservation_status.dart';
+import 'package:i_table/features/user_reservations/domain/usecase/update_user_reservation_status.dart';
 import 'package:i_table/features/user_reservations/domain/usecase/fetch_user_reservations.dart';
 import 'package:meta/meta.dart';
 
@@ -26,7 +26,7 @@ class UserReservationsBloc
 
   UserReservationsBloc() : super(UserReservationsFetchInProgress()) {
     FetchUserReservations fetchUserReservations = FetchUserReservations(repository);
-    ChangeReservationStatus changeReservationStatus = ChangeReservationStatus(repository);
+    UpdateUserReservationStatus updateReservationStatus = UpdateUserReservationStatus(repository);
 
     on<UserReservationsInitiated>((event, emit) async {
       emit(UserReservationsFetchInProgress());
@@ -44,16 +44,16 @@ class UserReservationsBloc
       await _handleStream(emit);
     }, transformer: restartable());
 
-    on<UserReservationsStatusChanged>((event, emit) async {
+    on<UserReservationsUpdateStatus>((event, emit) async {
       emit(UserReservationsFetchSuccess(reservations: repository.reservations, inTouchMode: false));
 
       if (debug) {
         await Future.delayed(Duration(seconds: TEST_TIMEOUT));
       }
 
-      Either result = await changeReservationStatus(event.params);
+      Either result = await updateReservationStatus(event.params);
       if(result.isLeft()){
-        emit(UserReservationsStatusChangeFailure(failure: errorUpdateReservationStatus));
+        emit(UserReservationsUpdateStatusFailure(failure: errorUpdateReservationStatus));
         emit(UserReservationsFetchSuccess(reservations: repository.reservations, inTouchMode: true));
       }
     }, transformer: restartable());

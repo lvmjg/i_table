@@ -6,7 +6,7 @@ import '../../../place_plan/data/model/place_reservation/place_reservation_model
 
 abstract class UserReservationsRemoteDataSource {
   Stream<List<PlaceReservationModel>> fetchUserReservations(UserIdParams params);
-  Future<void> updateReservationStatus(ReservationChangeStatusParams params);
+  Future<void> updateStatus(ReservationUpdateStatusParams params);
 }
 
 class UserReservationsRemoteDataSourceImpl
@@ -23,9 +23,9 @@ class UserReservationsRemoteDataSourceImpl
   }
 
   @override
-  Future<void> updateReservationStatus(ReservationChangeStatusParams params) async {
+  Future<void> updateStatus(ReservationUpdateStatusParams params) async {
     try {
-      return await fds.changeStatus(params.reservationId, params.closeStatus, params.closedBy);
+      return await fds.updateReservationStatus(params.reservationId, params.closeStatus, params.closedBy);
     } catch (e, s) {
       throw FetchException();
     }

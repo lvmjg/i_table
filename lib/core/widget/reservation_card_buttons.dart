@@ -66,8 +66,8 @@ class ReservationCardButtons extends StatelessWidget {
                 if (await DialogUtil.showConfirmationDialog(context,
                 cancelReservationTitle, cancelReservationContent, dialogBack, dialogCancel)) {
 
-                context.read<UserReservationsBloc>().add(UserReservationsStatusChanged(params:
-                ReservationChangeStatusParams(
+                context.read<UserReservationsBloc>().add(UserReservationsUpdateStatus(params:
+                ReservationUpdateStatusParams(
                 reservationId: placeReservation.id,
                 closeStatus: placeReservation.status,
                 closedBy: loggedUserId,
@@ -88,8 +88,8 @@ class ReservationCardButtons extends StatelessWidget {
                   if (await DialogUtil.showConfirmationDialog(context,
                       closeReservationTitle, closeReservationContent, dialogBack, dialogClose)) {
 
-                    context.read<UserReservationsBloc>().add(UserReservationsStatusChanged(params:
-                    ReservationChangeStatusParams(
+                    context.read<UserReservationsBloc>().add(UserReservationsUpdateStatus(params:
+                    ReservationUpdateStatusParams(
                         reservationId: placeReservation.id,
                         closeStatus: placeReservation.status,
                         closedBy: loggedUserId,

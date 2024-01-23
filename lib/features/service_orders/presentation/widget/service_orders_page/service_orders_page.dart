@@ -18,19 +18,14 @@ class ServiceOrdersPage extends StatefulWidget {
 class _ServiceOrdersPageState extends State<ServiceOrdersPage> {
   @override
   Widget build(BuildContext context) {
-    return CommonPage(
-      bloc: context.read<ServiceOrdersBloc>(),
-      child: Scaffold(
-          appBar: ServiceOrdersAppBar(title: kitchen),
-          body: const ServiceOrdersBody()),
+    return DefaultTabController(
+      length: 3,
+      child: CommonPage(
+        //bloc: context.read<ServiceOrdersBloc>(),
+        child: Scaffold(
+            appBar: ServiceOrdersAppBar(categories: [todaysOrders, completedOrders, tomorrowsOrders], title: kitchen),
+            body: const ServiceOrdersBody()),
+      ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<ServiceOrdersBloc>()
-        .add(ServiceOrdersInitiated(placeId: '9wtiLFlRdZ1b8abbPoet'));
   }
 }

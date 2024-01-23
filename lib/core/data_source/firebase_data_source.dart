@@ -28,9 +28,12 @@ abstract class FirebaseDataSource {
       String reservationId, ChatMessageModel chatMessageModel);
   Stream<List<PlaceOrderModel>> fetchOrders(
       {String? placeId, String? userId, String? reservationId});
+  Stream<List<PlaceOrderModel>> fetchServiceOrders(
+      {String? placeId, DateTime? mealDate});
+  Future<void> updateServiceOrderStatus(String orderId, String newStatus);
   Stream<List<PlaceReservationModel>> fetchReservations(
       {String? placeId, DateTime? reservationDate, String? userId});
-  Future<void> changeStatus(String reservationId, String closeStatus, String closedBy);
+  Future<void> updateReservationStatus(String reservationId, String closeStatus, String closedBy);
   Stream<List<ChatMessageModel>> fetchChatMessages(
       String placeId, String reservationId);
 }
@@ -263,6 +266,40 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
   }
 
   @override
+  Stream<List<PlaceOrderModel>> fetchServiceOrders(
+      {String? placeId, DateTime? mealDate}) {
+    Stream<QuerySnapshot<Map<String, dynamic>>> ordersSnapshotsStream =
+    const Stream.empty();
+
+    if (placeId!=null && mealDate!=null) {
+      //list of orders for place service
+      ordersSnapshotsStream = ff
+          .collection(pathPlacesOrders)
+          .where(pathPlaceId, isEqualTo: placeId)
+          .where(pathMealDate, isGreaterThanOrEqualTo: mealDate)
+          .where(pathMealDate,
+          isLessThan: mealDate.add(const Duration(days: 1)))
+          .snapshots();
+    }
+
+    return ordersSnapshotsStream.map((event) => event.docs
+        .map((value) => PlaceOrderModel.fromJson(value.id, value.data()))
+        .toList());
+  }
+
+  @override
+  Future<void> updateServiceOrderStatus(String orderId, String newStatus) async {
+
+    await ff
+        .collection(pathPlacesOrders)
+        .doc(orderId)
+        .update({
+      pathStatus: newStatus,
+      pathUpdateDate: Timestamp.fromDate(DateTime.now())
+    });
+  }
+
+  @override
   Stream<List<PlaceReservationModel>> fetchReservations(
       {String? placeId, DateTime? reservationDate, String? userId}) {
     Stream<QuerySnapshot<Map<String, dynamic>>> reservationsSnapshotStream =
@@ -290,7 +327,7 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
   }
 
   @override
-  Future<void> changeStatus(String reservationId, String closeStatus, String closedBy) async {
+  Future<void> updateReservationStatus(String reservationId, String closeStatus, String closedBy) async {
 
     await ff
         .collection(pathPlacesReservations)
@@ -301,7 +338,6 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
       pathUpdateDate: Timestamp.fromDate(DateTime.now())
     });
   }
-
 
   @override
   Stream<List<ChatMessageModel>> fetchChatMessages(
