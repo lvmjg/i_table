@@ -5,8 +5,8 @@ import '../util/globals.dart';
 class CommonCard extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
-  late double outerPadding;
-  late double innerPadding;
+  late EdgeInsets outerPadding;
+  late EdgeInsets innerPadding;
   late double elevation;
   late Color? backgroundColor;
 
@@ -14,8 +14,8 @@ class CommonCard extends StatelessWidget {
       {Key? key,
       required this.child,
       this.onPressed,
-      this.outerPadding = 0,
-        this.innerPadding = 0,
+      this.outerPadding = EdgeInsets.zero,
+        this.innerPadding = EdgeInsets.zero,
         this.elevation = 1,
       this.backgroundColor})
       : super(key: key);
@@ -23,7 +23,7 @@ class CommonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(outerPadding),
+      padding: outerPadding,
       child: Card(
         color: backgroundColor,
         clipBehavior: Clip.hardEdge,
@@ -35,7 +35,7 @@ class CommonCard extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: Padding(
-            padding: EdgeInsets.all(innerPadding),
+            padding: innerPadding,
             child: child,
           ),
         ),

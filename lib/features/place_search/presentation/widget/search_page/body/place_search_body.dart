@@ -24,22 +24,19 @@ class _PlaceSearchBodyState extends State<PlaceSearchBody> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Expanded(
-            child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: padding / 2),
-          child: BlocBuilder<PlaceSearchBloc, PlaceSearchState>(
-              builder: (context, state) {
-            if (state is PlaceSearchFetchFailure) {
-              return CommonFailure(
-                  onPressed: () => context
-                      .read<PlaceSearchBloc>()
-                      .add(PlaceSearchInitiated()));
-            } else if (state is PlaceSearchFetchSuccess) {
-              return SearchResultList(places: state.places);
-            }
+            child: BlocBuilder<PlaceSearchBloc, PlaceSearchState>(
+                builder: (context, state) {
+              if (state is PlaceSearchFetchFailure) {
+                return CommonFailure(
+                    onPressed: () => context
+                        .read<PlaceSearchBloc>()
+                        .add(PlaceSearchInitiated()));
+              } else if (state is PlaceSearchFetchSuccess) {
+                return SearchResultList(places: state.places);
+              }
 
-            return const CommonLoading();
-          }),
-        )),
+              return const CommonLoading();
+            })),
         //Hero(tag: 'filter', child: SearchFilter()),
       ],
     );

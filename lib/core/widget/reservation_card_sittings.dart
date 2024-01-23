@@ -14,8 +14,8 @@ class ReservationCardSittings extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonCard(
         onPressed: () {},
-        outerPadding: padding / 2,
-        innerPadding: padding / 2,
+        outerPadding: EdgeInsets.all(padding / 2),
+        innerPadding: EdgeInsets.all(padding / 2),
         child: Column(
           children: [
             Text(chosenSittings,

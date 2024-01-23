@@ -25,8 +25,8 @@ class ServiceOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonCard(
         onPressed: () {},
-        outerPadding: padding / 8,
-        innerPadding: padding / 3,
+        outerPadding: EdgeInsets.all(padding / 8),
+        innerPadding: EdgeInsets.all(padding / 3),
         child: Column(
           children: [
             Text('$orderNo ${order.no!.toUpperCase()}',

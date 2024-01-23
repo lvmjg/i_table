@@ -15,8 +15,8 @@ class PlaceDetailsSheet extends StatelessWidget {
     return Wrap(
       children: [
         CommonCard(
-            outerPadding: 1,
-            innerPadding: padding,
+            outerPadding: EdgeInsets.all(1),
+            innerPadding: EdgeInsets.all(padding),
             backgroundColor: Colors.white,
             child: Column(
               children: [

@@ -10,8 +10,8 @@ class ReservationCardBilling extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonCard(
         onPressed: () {},
-        outerPadding: padding / 2,
-        innerPadding: padding / 2,
+        outerPadding: EdgeInsets.all(padding / 2),
+        innerPadding: EdgeInsets.all(padding / 2),
         child: Column(
           children: [
             Text(settlement, style: Theme.of(context).textTheme.headlineMedium),

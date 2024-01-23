@@ -28,8 +28,8 @@ class MenuBasketSheet extends StatelessWidget {
       return Wrap(
         children: [
           CommonCard(
-              outerPadding: 1,
-              innerPadding: padding,
+              outerPadding: EdgeInsets.all(1),
+              innerPadding: EdgeInsets.all(padding),
               child: Column(children: [
                 Text(basket, style: Theme.of(context).textTheme.headlineMedium),
                 SizedBox(height: padding),

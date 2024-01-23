@@ -24,8 +24,8 @@ class MenuItemDetailsSheet extends StatelessWidget {
     return Wrap(
       children: [
         CommonCard(
-            outerPadding: 1,
-            innerPadding: padding,
+            outerPadding: EdgeInsets.all(1),
+            innerPadding: EdgeInsets.all(padding),
             child: Column(
               children: [
                 FittedBox(
