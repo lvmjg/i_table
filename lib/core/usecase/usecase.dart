@@ -120,11 +120,14 @@ class MenuOrderParams extends Params implements UserIdParams {
   final String placeName;
   final String? reservationId;
   final List<PlaceMenuItem> placeMenuItems;
+  final DateTime mealDate;
 
   MenuOrderParams(
       {required this.userId,
       required this.placeId,
       required this.placeName,
       required this.reservationId,
-      required this.placeMenuItems});
+      required this.placeMenuItems,
+        required this.mealDate
+      });
 }

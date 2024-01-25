@@ -22,6 +22,7 @@ class _PlaceMenuBodyState extends State<PlaceMenuBody> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlaceMenuBloc, PlaceMenuState>(
+      buildWhen: (previous, current) => current is! PlaceMenuSubmitOrderFailure && current is! PlaceMenuSubmitOrderInProgress && current is! PlaceMenuSubmitOrderSuccess,
       builder: (context, state) {
         if (state is PlaceMenuFetchSuccess) {
           return TabBarView(

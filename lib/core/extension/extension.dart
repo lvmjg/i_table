@@ -81,6 +81,20 @@ extension TimeOfDayExtension on TimeOfDay {
   bool isNotAtTheSameMomentAs(DateTime other) {
     return !isAtTheSameMomentAs(other);
   }
+
+  DateTime toDate(){
+    return DateTime.now().copyWith(hour: this.hour, minute: this.minute);
+  }
+
+  TimeOfDay add(Duration time){
+    int newMinutes = this.minute + time.inMinutes;
+    int newHour = this.hour;
+    if(newMinutes % 60 == 0){
+      newHour+=1;
+      newMinutes = 0;
+    }
+    return TimeOfDay(hour: newHour, minute: newMinutes);
+  }
 }
 
 extension DateTimeRangeExtension on DateTimeRange {

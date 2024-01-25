@@ -23,7 +23,12 @@ class _ServiceOrdersPageState extends State<ServiceOrdersPage> {
       child: CommonPage(
         //bloc: context.read<ServiceOrdersBloc>(),
         child: Scaffold(
-            appBar: ServiceOrdersAppBar(categories: [todaysOrders, completedOrders, tomorrowsOrders], title: kitchen),
+            appBar: ServiceOrdersAppBar(categories: [
+              todaysUncompletedOrders,
+              todaysCompletedOrders,
+              tomorrowsUncompletedOrders,
+              tomorrowsCompletedOrders
+            ], title: kitchen),
             body: const ServiceOrdersBody()),
       ),
     );

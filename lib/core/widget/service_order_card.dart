@@ -97,7 +97,7 @@ class ServiceOrderCard extends StatelessWidget {
                         ],
                         style: Theme.of(context).textTheme.bodyMedium),
                   ),
-                  Text(DateFormat('dd.MM.yyyy HH:mm').format(order.mealDate),
+                  Text(DateFormat('dd.MM.yyyy HH:mm').format(order.createDate),
                       style: Theme.of(context).textTheme.bodySmall),
                 ]),
             CommonDivider(),
@@ -272,13 +272,13 @@ class ServiceOrderCard extends StatelessWidget {
 
   _setColorBasedOnStatus(String status) {
     if (status == OrderStatus.pending.name) {
-      return Colors.black;
+      return Colors.blueGrey;
     }  else if (status == OrderStatus.cancelled.name) {
       return Colors.red;
     } else if (status == OrderStatus.confirmed.name) {
-      return Colors.black;
-    } else if (status == OrderStatus.ready.name) {
       return Colors.green;
+    } else if (status == OrderStatus.ready.name) {
+      return primaryColor;
     }
   }
 }

@@ -14,7 +14,8 @@ import '../../../bloc/service_orders_bloc.dart';
 enum ServiceOrderFetchType {
   todaysUncompleted,
   todaysCompleted,
-  tomorrowsUncompleted
+  tomorrowsUncompleted,
+  tomorrowsCompleted
 }
 
 class ServiceOrdersBody extends StatelessWidget {
@@ -28,7 +29,9 @@ class ServiceOrdersBody extends StatelessWidget {
       _createList<ServiceTodaysCompletedOrdersBloc>(
           ServiceOrderFetchType.todaysCompleted),
       _createList<ServiceTomorrowsUncompletedOrdersBloc>(
-          ServiceOrderFetchType.tomorrowsUncompleted)
+          ServiceOrderFetchType.tomorrowsUncompleted),
+      _createList<ServiceTomorrowsCompletedOrdersBloc>(
+          ServiceOrderFetchType.tomorrowsCompleted)
     ]);
   }
 

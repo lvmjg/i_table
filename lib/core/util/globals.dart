@@ -199,9 +199,17 @@ String errorUpdateOrderStatus = 'Nie udało się zmienić statusu zamówienia. S
 String discard = 'Odrzuć';
 String confirm = 'Potwierdź';
 
-String todaysOrders = 'Dzisiaj (Otw.)';
-String completedOrders = 'Dzisiaj (Zam.)';
-String tomorrowsOrders = 'Jutro (Otw.)';
+String todaysUncompletedOrders = 'Dzisiaj (Otw.)';
+String todaysCompletedOrders = 'Dzisiaj (Zam.)';
+String tomorrowsUncompletedOrders = 'Jutro (Otw.)';
+String tomorrowsCompletedOrders = 'Jutro (Zam.)';
 
 String preparedTill = 'Przygotowanie do';
+String prepareFoodTill = 'Proszę o przygotowanie jedzenia na';
+
+String orderToday = 'Dzisiaj';
+String orderTomorrow = 'Jutro';
+String labelDay = 'Dzień';
+String labelHour = 'Godzina';
+String orderTimeNow = ' (teraz)';
 

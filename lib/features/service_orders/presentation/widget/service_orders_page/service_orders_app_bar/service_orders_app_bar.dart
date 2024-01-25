@@ -15,16 +15,19 @@ class ServiceOrdersAppBar extends StatelessWidget implements PreferredSizeWidget
         toolbarHeight: toolbarHeight,
         flexibleSpace: Align(
           alignment: Alignment.bottomCenter,
-          child: TabBar(
-              tabAlignment: TabAlignment.center,
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.white70,
-              indicatorColor: Colors.white,
-              labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12),
-              isScrollable: true,
-              tabs: [
-                for (final c in categories) Tab(text: c),
-              ]),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding*2),
+            child: TabBar(
+                tabAlignment: TabAlignment.center,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white70,
+                indicatorColor: Colors.white,
+                labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12),
+                isScrollable: true,
+                tabs: [
+                  for (final c in categories) Tab(text: c),
+                ]),
+          ),
         ));
   }
 

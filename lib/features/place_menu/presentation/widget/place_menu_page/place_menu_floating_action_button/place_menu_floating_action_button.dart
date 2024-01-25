@@ -15,6 +15,7 @@ class PlaceMenuFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlaceMenuBloc, PlaceMenuState>(
+      buildWhen: (previous, current) => current is! PlaceMenuSubmitOrderFailure && current is! PlaceMenuSubmitOrderInProgress && current is! PlaceMenuSubmitOrderSuccess,
       builder: (context, state) {
         String basketTotal = state is PlaceMenuFetchSuccess
             ? state.basketTotal

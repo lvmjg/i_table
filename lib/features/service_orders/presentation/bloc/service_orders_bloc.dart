@@ -22,7 +22,9 @@ mixin ServiceTodaysCompletedOrdersBloc on Bloc<ServiceOrdersEvent, ServiceOrders
 
 mixin ServiceTomorrowsUncompletedOrdersBloc on Bloc<ServiceOrdersEvent, ServiceOrdersState> {}
 
-class ServiceOrdersBloc extends Bloc<ServiceOrdersEvent, ServiceOrdersState> with ServiceTodaysUncompletedOrdersBloc, ServiceTodaysCompletedOrdersBloc, ServiceTomorrowsUncompletedOrdersBloc {
+mixin ServiceTomorrowsCompletedOrdersBloc on Bloc<ServiceOrdersEvent, ServiceOrdersState> {}
+
+class ServiceOrdersBloc extends Bloc<ServiceOrdersEvent, ServiceOrdersState> with ServiceTodaysUncompletedOrdersBloc, ServiceTodaysCompletedOrdersBloc, ServiceTomorrowsUncompletedOrdersBloc, ServiceTomorrowsCompletedOrdersBloc {
   ServiceOrdersRepository repository = ServiceOrdersRepositoryImpl(ServiceOrdersRemoteDataSourceImpl(),
       PlaceOrdersFactory());
 

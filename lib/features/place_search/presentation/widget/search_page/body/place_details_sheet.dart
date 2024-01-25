@@ -16,21 +16,20 @@ class PlaceDetailsSheet extends StatelessWidget {
       children: [
         CommonCard(
             outerPadding: EdgeInsets.all(1),
-            innerPadding: EdgeInsets.all(padding),
+            innerPadding: EdgeInsets.all(padding/2),
             backgroundColor: Colors.white,
             child: Column(
               children: [
                 Text(placeSearch.placeName,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.headlineMedium),
-                SizedBox(height: padding),
+                SizedBox(height: padding/2),
                 Text(placeSearch.placeDescription,
                     textAlign: TextAlign.justify,
                     style: Theme.of(context).textTheme.bodyMedium),
-                SizedBox(height: padding),
+                SizedBox(height: padding/2),
                 Text(openingHours,
                     style: Theme.of(context).textTheme.headlineSmall),
-                SizedBox(height: padding),
                 Wrap(
                     alignment: WrapAlignment.center,
                     children:

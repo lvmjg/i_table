@@ -41,7 +41,7 @@ class SubmitOrder implements UseCase<void, MenuOrderParams> {
         status: 'pending',
         createDate: DateTime.now(),
         updateDate: DateTime.now(),
-        mealDate: DateTime.now(),
+        mealDate: params.mealDate,
         userOrders: placeOrderItems);
 
     ChatMessage orderMessage = ChatMessage(

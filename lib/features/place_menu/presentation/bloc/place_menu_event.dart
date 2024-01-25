@@ -40,6 +40,18 @@ class PlaceMenuItemRemoved extends PlaceMenuEvent {
       {required this.menuItemCategory, required this.menuItemId});
 }
 
-class PlaceMenuPayLaterChosen extends PlaceMenuEvent {
-  PlaceMenuPayLaterChosen();
+class PlaceMenuMealDateSet extends PlaceMenuEvent {
+  final DateTime mealDate;
+
+  PlaceMenuMealDateSet({required this.mealDate});
+}
+
+class PlaceMenuMealTimeSet extends PlaceMenuEvent {
+  final TimeOfDay mealTime;
+
+  PlaceMenuMealTimeSet({required this.mealTime});
+}
+
+class PlaceMenuPayChosen extends PlaceMenuEvent {
+  PlaceMenuPayChosen();
 }

@@ -418,6 +418,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+
           create: (context) => PlaceSearchBloc(),
         ),
         BlocProvider<UserAllOrdersBloc>(
@@ -479,6 +480,15 @@ class MyApp extends StatelessWidget {
               ServiceOrdersRepositoryImpl(
                   ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()
               ), filterCompleted: false
+          )
+          ),
+        ),
+        BlocProvider<ServiceTomorrowsCompletedOrdersBloc>(
+          create: (context) => ServiceOrdersBloc(fetchUseCase:
+          FetchTomorrowsServiceOrders(
+              ServiceOrdersRepositoryImpl(
+                  ServiceOrdersRemoteDataSourceImpl(), PlaceOrdersFactory()
+              ), filterCompleted: true
           )
           ),
         ),

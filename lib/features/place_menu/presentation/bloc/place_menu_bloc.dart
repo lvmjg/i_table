@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:i_table/core/extension/extension.dart';
 import 'package:i_table/core/util/string_util.dart';
 import 'package:i_table/features/place_menu/domain/usecase/submit_order.dart';
 import 'package:i_table/features/reservation_chat/domain/entitiy/chat_messages_factory.dart';
@@ -44,6 +46,9 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
 
     String? userId;
     String? reservationId;
+
+    TimeOfDay? mealTime;
+    DateTime? mealDate;
 
     on<PlaceMenuInitiated>((event, emit) async {
       emit(PlaceMenuFetchInProgress());
@@ -136,7 +141,15 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
       ));
     });
 
-    on<PlaceMenuPayLaterChosen>((event, emit) async {
+    on<PlaceMenuMealDateSet>((event, emit) async {
+      mealDate = event.mealDate;
+    });
+
+    on<PlaceMenuMealTimeSet>((event, emit) async {
+      mealTime = event.mealTime;
+    });
+
+    on<PlaceMenuPayChosen>((event, emit) async {
       emit(PlaceMenuSubmitOrderInProgress());
 
       if (debug) {
@@ -152,14 +165,17 @@ class PlaceMenuBloc extends Bloc<PlaceMenuEvent, PlaceMenuState> {
             placeId: placeId,
             placeName: placeName,
             reservationId: reservationId,
-            placeMenuItems: _createBasket(placeMenu))))
+            placeMenuItems: _createBasket(placeMenu),
+            mealDate: (mealDate ?? DateTime.now()).withTime(mealTime ?? TimeOfDay.now())
+        )))
             .fold(
                 (failure) =>
                 emit(
                     PlaceMenuSubmitOrderFailure(errorMessage: errorFetchData)),
                 (nothing) async {
               emit(PlaceMenuSubmitOrderSuccess());
-            }
+            },
+
         );
       }
     });
