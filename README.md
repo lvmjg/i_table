@@ -1,16 +1,15 @@
-# i_table
+# TuJemy
 
-Table reservation app.
+TuJemy is an innovative application through which customers
+can order food on the spot or to take away
+(even before coming to the restaurant) and also
+book a table.
 
-## Getting Started
+## Showcase
 
-This project is a starting point for a Flutter application.
+Feel free to checkout product presentation (currently only in polish).
 
-A few resources to get you started if this is your first Flutter project:
+[Click to preview](https://drive.google.com/file/d/1cjTyVjM3Dhso90WYjWtEf4UJymO1QzS2/view?usp=sharing)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![11-portrait](https://github.com/user-attachments/assets/cd1b1953-3024-4908-8ba4-73ee0e06b15a)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
